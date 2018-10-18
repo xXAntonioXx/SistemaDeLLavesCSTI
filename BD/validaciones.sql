@@ -18,9 +18,9 @@ IN rol CHAR(1)
 )
 BEGIN
 SET @caracter= ASCII(rol);
-IF @caracter<49 OR @caracter>51 THEN
+IF @caracter<49 OR @caracter>50 THEN
 SIGNAL SQLSTATE '45000'
-SET MESSAGE_TEXT='Ingresa un rol valido. roles:1,2,3';
+SET MESSAGE_TEXT='Ingresa un rol valido. roles:1,2';
 END IF;
 END//
 DELIMITER ;
