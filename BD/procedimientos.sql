@@ -8,8 +8,9 @@ almacenados que realizara la base de datos.
 
 
 /*Registro de un objeto en la base de datos*/
-CREATE DEFINER = CURRENT_USER 
-PROCEDURE bd_sistema_llaves.sp_registrar_objeto (p_nombre VARCHAR(50),p_marca VARCHAR(50),p_inventario INT(11)) 
+
+/*CREATE DEFINER = CURRENT_USER PROCEDURE....*/
+CREATE PROCEDURE bd_sistema_llaves.sp_registrar_objeto (p_nombre VARCHAR(50),p_marca VARCHAR(50),p_inventario INT(11)) 
 INSERT INTO bd_sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,p_nombre,p_marca,p_inventario);
 
 
@@ -19,8 +20,7 @@ INSERT INTO bd_sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,
 /*AUN FALTA*/
 
 /*Registro un prestamo en la base de datos*/
-CREATE DEFINER = CURRENT_USER
-PROCEDURE bd_sistema_llaves.sp_registrar_prestamo(p_)
+CREATE PROCEDURE bd_sistema_llaves.sp_registrar_prestamo(p_)
 
 
 
@@ -29,15 +29,13 @@ PROCEDURE bd_sistema_llaves.sp_registrar_prestamo(p_)
 
 
 /*Registro de un maestro en la base de datos*/
-CREATE DEFINER = CURRENT_USER
-PROCEDURE bd_sistema_llaves.sp_registrar_maestro (p_num_emp INT, p_nombre VARCHAR(70),p_imagen TEXT)
+CREATE PROCEDURE bd_sistema_llaves.sp_registrar_maestro (p_num_emp INT, p_nombre VARCHAR(70),p_imagen TEXT)
 INSERT INTO bd_sistema_llaves.tmaestros(id,num_emp,nombre,imagen) VALUES (null,p_num_emp,p_nombre,p_imagen);
 
 
 /*Registro de un posible horario en la tabla "tdias_horas"*/
 DELIMITER //
-CREATE DEFINER = CURRENT_USER
-PROCEDURE bd_sistema_llaves.sp_registrar_dias_horas(
+CREATE PROCEDURE bd_sistema_llaves.sp_registrar_dias_horas(
 	in p_dias VARCHAR(50),
 	in p_hora_inicio TIME,
 	in p_hora_fin TIME
@@ -61,15 +59,13 @@ END;
 //
 
 /*Registro de una materia en la base de datos*/
-CREATE DEFINER = CURRENT_USER
-PROCEDURE bd_sistema_llaves.sp_registrar_materia (p_nombre VARCHAR(50),p_programa VARCHAR(10))
+CREATE PROCEDURE bd_sistema_llaves.sp_registrar_materia (p_nombre VARCHAR(50),p_programa VARCHAR(10))
 INSERT INTO bd_sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, p_nombre, p_programa);
 
 
 /*Registro de una llave en la base de datos*/
 DELIMITER //
-CREATE DEFINER = CURRENT_USER
-PROCEDURE bd_sistema_llaves.sp_registrar_llave (
+CREATE PROCEDURE bd_sistema_llaves.sp_registrar_llave (
 	in p_codigo BIGINT(20),
 	in p_numero INT(11),
 	in p_area VARCHAR(8),
