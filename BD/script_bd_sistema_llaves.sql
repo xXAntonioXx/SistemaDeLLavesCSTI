@@ -208,7 +208,7 @@ nombre VARCHAR(150) UNIQUE,
 password VARCHAR(100),
 rol CHAR(1) NOT NULL,
 estado BOOLEAN DEFAULT 1,
-PRIMARY KEY(id),
+PRIMARY KEY(id)
 );
 /*-----------------------------------------------*/
 
