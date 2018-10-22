@@ -115,7 +115,7 @@ PRIMARY KEY(id)
 
 
 /*------------------------------------*/
-/*En la "thorarios se almacenara
+/*En la "thorarios" se almacenara
 los horarios de cada maestro*/
 /*----------------------------------*/
 
@@ -193,7 +193,7 @@ num_emp INT NOT NULL,
 PRIMARY KEY(id),
 
 CONSTRAINT FK_texcepciones_tllaves
-FOREIGN KEY(codigo_llave) REFERENCES tllaves(codigo)
+FOREIGN KEY(codigo_llave) REFERENCES tllaves(codigo) ON UPDATE CASCADE
 );
 
 /*--------------------------------------------------------*/
@@ -205,10 +205,10 @@ FOREIGN KEY(codigo_llave) REFERENCES tllaves(codigo)
 CREATE TABLE tusuarios(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(150) UNIQUE,
-password VARCHAR(100),
+contrasena VARCHAR(255),
 rol CHAR(1) NOT NULL,
 estado BOOLEAN DEFAULT 1,
-PRIMARY KEY(id),
+PRIMARY KEY(id)
 );
 /*-----------------------------------------------*/
 
