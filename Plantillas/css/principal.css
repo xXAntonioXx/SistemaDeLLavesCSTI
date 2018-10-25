@@ -1,32 +1,141 @@
 html {
   height: 100%;
-  font-family: 'Montserrat', sans-serif;
-  /* display: flex; */
+  font-family: 'Hind', sans-serif;
   margin: 0;
+  width: 100%;
 }
 
 body{
-  margin: inherit;
+  margin: 0;
 }
 
 .header {
-  /* border: 1px solid red; */
+  width: 100%;
+  height: 170px;
   display: flex;
-  height: fit-content;
+  justify-content: center;
+  
+  background-color: #004990;
 }
 
-.container {
-  /* border: 1px solid green; */
-  width: 100%;
+.logo {
+  margin: 0 10px 0 30px;
+  align-self: flex-end;
+  padding-bottom: 10px;
+}
+
+.header h1 {
+  font-size: 35px;
+  margin: 0;
   display: flex;
+  align-items: flex-end;
+  padding-bottom: 50px;
+  width: 500px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.header .container {
+  display: flex;
+  height: 170px;
 }
 
 .menu {
-  border: 1px solid red;
   width: 500px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .menu ol {
-  border: 1px solid green;
+  width: 100%;
+  list-style: none;
+  text-align: end;
+  margin: 0 0 8px 0;
+}
+
+.menu li {
   display: inline-block;
+}
+
+.menu a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+}
+
+.menu a:hover {
+  box-shadow: 0 8px 0 0 #F7A11A;
+}
+
+.imagen-perfil {
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 40px 10px 10px;
+}
+
+.container-sections, div.llaves-prestadas, div.formulario-prestamo {
+  /* border: 1px solid rebeccapurple; */
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+}
+
+
+.container-sections h2 {
+  text-align: center;
+  margin: 10px 10px;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.footer {
+  height: 35px;
+  background-color: #F7A11A;
+}
+
+.division {
+  height: 2px;
+  background-color: lightgray;
+  margin: 0;
+  width: 90%;
+}
+
+.llaves-prestadas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.llaves-titles{
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+}
+
+.llaves-titles h3 {
+  font-size: 16px;
+  align-content: space-between;
+  margin: 10px 0;
+}
+
+.formulario-prestamo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.llaves-cards {
+  /* height: max-content; */
+  width: 90%;
+  border: 1px solid royalblue;
+}
+
+.llaves-paginador {
+  border: 1px solid rebeccapurple;
+  height: 30px;
+  /* display: flex;
+  align-items: flex-end; */
+  width: 90%;
 }
