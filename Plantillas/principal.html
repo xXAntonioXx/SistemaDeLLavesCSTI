@@ -10,52 +10,115 @@
 </head>
 <body>
   <header class="header">
-    <div class="container">
-      <figure class="logo">
-        <img src="images/log-unison.png" alt="logo-unison" height="200px">
-      </figure>
-      <h1>PRESTAMO DE LLAVES</h1>
-      <nav class="menu">
-        <ol>
-          <li>
-            <a href="index.html" class="link">Inicio</a>
-          </li>
-          <li>
-            <a href="busqueda.html" class="link">Busqueda</a>
-          </li>
-          <li>
-            <a href="inventario.html" class="link">Inventario</a>
-          </li>
-          <li>
-            <a href="soporte.html" class="link">Soporte</a>
-          </li>
-        </ol>
-      </nav>
-      <figure class="imagen-perfil">
-        <img src="" alt="imagen-de-perfil">
-      </figure>
-    </div>
+    <figure class="logo">
+      <img src="images/log-unison.png" alt="logo-unison" width="60%">
+    </figure>
+    <h1>PRESTAMO DE LLAVES</h1>
+    <nav class="menu">
+      <ol>
+        <li>
+          <a href="index.html" class="link">Inicio</a>
+        </li>
+        <li>
+          <a href="busqueda.html" class="link">Busqueda</a>
+        </li>
+        <li>
+          <a href="inventario.html" class="link">Inventario</a>
+        </li>
+        <li>
+          <a href="soporte.html" class="link">Soporte</a>
+        </li>
+      </ol>
+    </nav>
+    <figure class="imagen-perfil">
+      <img src="images/log-unison.png" alt="imagen-de-perfil" width="50px">
+    </figure>
   </header>
-  <section class="container">
-    <div class="llaves-prestadas">
+  <div class="container-sections">
+    <section class="llaves-prestadas">
       <h2>Llaves prestadas</h2>
       <div class="division"></div>
-      <div class="contenido">
+      <div class="llaves-titles">
         <h3>ID</h3>
         <h3>MAESTRO</h3>
         <h3>MATERIA</h3>
         <h3>SALON</h3>
         <h3>HORA</h3>
-        <div class="card-llaves">
-          
-        </div>
       </div>
-    </div>
-    <div class="formulario-prestamo">
+      <div class="division"></div>
+      <div class="llaves-cards">
+        <div class="card-item">
+          <h3>2</h3>
+          <h3>Ciret</h3>
+          <h3>Estructura</h3>
+          <h3>5j-205</h3>
+          <h3>12:00</h3>
+        </div>
+        <!-- <div class="card-item">
+          <h3>ID</h3>
+          <h3>MAESTRO</h3>
+          <h3>MATERIA</h3>
+          <h3>SALON</h3>
+          <h3>HORA</h3>
+        </div>
+        <div class="card-item">
+          <h3>ID</h3>
+          <h3>MAESTRO</h3>
+          <h3>MATERIA</h3>
+          <h3>SALON</h3>
+          <h3>HORA</h3>
+        </div>
+        <div class="card-item">
+          <h3>ID</h3>
+          <h3>MAESTRO</h3>
+          <h3>MATERIA</h3>
+          <h3>SALON</h3>
+          <h3>HORA</h3>
+        </div>
+        <div class="card-item">
+          <h3>ID</h3>
+          <h3>MAESTRO</h3>
+          <h3>MATERIA</h3>
+          <h3>SALON</h3>
+          <h3>HORA</h3>
+        </div>
+        <div class="card-item">
+            <h3>ID</h3>
+            <h3>MAESTRO</h3>
+            <h3>MATERIA</h3>
+            <h3>SALON</h3>
+            <h3>HORA</h3>
+        </div>
+        <div class="card-item">
+            <h3>ID</h3>
+            <h3>MAESTRO</h3>
+            <h3>MATERIA</h3>
+            <h3>SALON</h3>
+            <h3>HORA</h3>
+        </div>
+        <div class="card-item">
+            <h3>ID</h3>
+            <h3>MAESTRO</h3>
+            <h3>MATERIA</h3>
+            <h3>SALON</h3>
+            <h3>HORA</h3>
+        </div> -->
+      </div>
+      <div class="llaves-paginador">
+      </div>
+    </section>
+    <section class="formulario-prestamo">
       <h2>Formulario de prestamo</h2>
       <div class="division"></div>
       <form action="">
-        <input type="">
+        <div class="row-container lista-llaves">
+          <input list="salones" name="salones" placeholder="Llaves únicas y diferentes">
+          <datalist id="salones">
+            <option value="Rivera Samudio">Rivera Samudio</option>
+            <option value="Lab-IQ">Lab-IQ</option>
+            <option value="Lab-Mecatronica">Lab-Mecatronica</option>
+          </datalist>
+        </div>
         <div class="row-container">
           <a href="">No. Llave</a>
           <input type="text">
@@ -68,16 +131,18 @@
             <a href="">Materia</a>
             <input type="text">
         </div>
-        <div class="row-container">
+        <div class="row-container pequeños">
             <a href="">Aula</a>
             <input type="text">
             <a href="">Hora</a>
           <input type="text">
         </div>
-        <a href="">Registrar</a>
       </form>
-    </div>
-  </section>
+      <div class="button-registro">
+        <a href="">Registrar</a>
+      </div>
+    </section>
+  </div>
   <footer class="footer">
     <a href="">Derechos Reservados</a>
     <a href="">Acerca de Nosotros</a>

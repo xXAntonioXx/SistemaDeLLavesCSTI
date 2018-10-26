@@ -1,34 +1,255 @@
 html {
-  height: 100%;
-  font-family: 'Montserrat', sans-serif;
-  /* display: flex; */
+  font-family: 'Hind', sans-serif;
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 body{
-  margin: inherit;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .header {
-  /* border: 1px solid red; */
+  width: 100%;
+  height: 25%;
   display: flex;
-  height: fit-content;
+  justify-content: center; 
+  background-color: #004990;
+  font-size: 20px;
 }
 
-.container {
-  /* border: 1px solid green; */
-  width: 100%;
+.logo {
+  width: 15%;
+  margin: 0 10px 0 30px;
+  align-self: flex-end;
+  padding-bottom: 10px;
+  text-align: end;
+}
+
+.header h1 {
+  font-size: 1.5em;
+  margin: 0;
   display: flex;
+  align-items: flex-end;
+  padding-bottom: 3%;
+  width: 40%;
+  color: #fff;
+  font-weight: 500;
 }
 
 .menu {
-  border: 1px solid red;
-  width: 500px;
+  width: 40%;
+  display: flex;
+  align-items: flex-end;
 }
 
 .menu ol {
-  border: 1px solid green;
+  width: 100%;
+  list-style: none;
+  text-align: end;
+  margin: 0 0 8px 0;
+}
+
+.menu li {
   display: inline-block;
+  margin: 0 5px;
+  font-size: 17px;
+}
+
+.menu a {
+  text-decoration: none;
+  font-size: 1em;
+  color: #fff;
+}
+
+.menu a:hover {
+  box-shadow: 0 8px 0 0 #F7A11A;
+}
+
+.imagen-perfil {
+  width: 5%;
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 40px 10px 10px;
+}
+
+.container-sections {
+  display: inline-flex;
+  width: 100%;
+  height: 70%;
+}
+
+
+.container-sections h2 {
+  text-align: center;
+  margin: 10px 10px;
+  font-size: 30px;
+  font-weight: 300;
+  max-height: 54px;
+}
+
+.division {
+  height: 1%;
+  background-color: lightgray;
+  margin: 0;
+  width: 90%;
+}
+
+.llaves-prestadas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+/* 
+.llaves-prestadas h2 {
+  height: 10%;
+} */
+
+.llaves-prestadas .division {
+  background: #004990;
+  height: 2px;
+  padding-top: 1px;
+}
+
+.llaves-titles{
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+}
+
+.llaves-titles h3 {
+  font-size: 16px;
+  margin: 10px 0;
+  align-self: center;
+  height: 10%;
+}
+
+.llaves-cards {
+  width: 90%;
+  height: 91%;
+  overflow: hidden;
+  padding: 3px;
+}
+
+.card-item {
+  border: .5px solid lightgray;
+  display: inline-flex;
+  margin: 3px 0;
+  height: 10%;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 15px;
+  /* box-shadow: 0 4px 0 0 lightgrey; */
+}
+
+.card-item h3 {
+  font-size: .8em;
+  font-weight: 500;
+}
+/* 
+.card-item:hover {
+  background-color: #FA6435;
+  color: white;
+color: orange;
+}*/
+
+.llaves-paginador {
+  height: 9%;
+  width: 90%;
+  border: 1px solid green;
+}
+
+.formulario-prestamo {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 
+.formulario-prestamo h2 {
+  height: 10%;
+} */
+
+.formulario-prestamo form {
+  height: 69%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 22px;
+  box-sizing: content-box;
+  width: 75%;
+}
+
+.formulario-prestamo .division {
+  background: #004990;
+  height: 2px;
+  padding-top: 1px;
+}
+
+.row-container {
+  border: 1px solid red;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.row-container input {
+  font-size: 18px;
+  border-radius: 20px;
+  padding-left: 10px;
+  border-style: none;
+  border: 1px solid lightgray;
+  width: 70%;
+}
+
+.row-container a {
+  text-decoration: none;
+  color: gray;
+  width: 30%;
+}
+
+.lista-llaves {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+/* 
+.lista-llaves select {
+  width: max-content;
+  border-style: none;
+  border: 1px solid lightgrey;
+  border-radius: 15px;
+  font-size: 18px;
+  color: gray;
+  padding: 0 15px;
+} */
+
+.pequeños input {
+  width: 30%;
+}
+
+.button-registro {
+  display: initial;
+  height: 20%;
+}
+
+.button-registro a {
+  text-decoration: none;
+  background-color: #004990;
+  border-radius: 20px;
+  margin: 0;
+  padding: 5px 40px;
+  font-size: 23px;
+  color: #fff;
 }
 
 .formulario-prestamo {

@@ -16,11 +16,8 @@ INSERT INTO bd_sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,
 
 
 
-
-/*AUN FALTA*/
-
 /*Registro un prestamo en la base de datos*/
-CREATE PROCEDURE bd_sistema_llaves.sp_registrar_prestamo(p_)
+CREATE PROCEDURE bd_sistema_llaves.sp_registrar_prestamo(p_hora_entrada,p_id_horariop_)
 
 
 
