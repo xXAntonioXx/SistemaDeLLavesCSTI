@@ -1,0 +1,79 @@
+html {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    background-image: url('../images/1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+    height: inherit;
+  }
+  
+  .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .inicio-sesion {
+    width: 360px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 40px 100px 2px black;
+  }
+  
+  .inicio-sesion h1 {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 40px 0;
+    font-size: 40px;
+  }
+  
+  .inicio-sesion h2 {
+    font-size: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .inicio-sesion input {
+    /* border-radius: 15px; */
+    margin: 0 30px;
+    font-size: 15px;
+    text-decoration: none;
+    padding: 5px;
+    border: 1px solid #004990;
+  }
+  
+  .inicio-sesion a {
+    text-decoration: none;
+    align-self: center;
+    margin: 20px 0;
+  }
+  
+  .inicio-sesion img {
+    align-self: center;
+    /* border: 1px solid red; */
+  }
+  
+  .ingresar {
+    text-decoration: none;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 23px;
+    /* border: 2px solid lightseagreen; */
+    border-radius: 20px;
+    width: max-content;
+    padding: 5px 30px;
+    align-self: center;
+    color: #fff;
+    background-color: #004990;
+  }
+  
