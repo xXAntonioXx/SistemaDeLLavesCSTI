@@ -41,7 +41,7 @@ INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre,imagen) VALUES (null,p_nu
 END
 //
 
-/*Registro de un posible horario en la tabla "tdias_horas"*/
+/*Registro de un horario "*/
 DELIMITER //
 CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 	in p_codigo_llave BIGINT(20),
@@ -54,9 +54,19 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 BEGIN
 	if not exists (SELECT id FROM sistema_llaves.tmateria WHERE nombre=p_nombre_mat) then
 		SIGNAL SQLSTATE '45001'
+		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
+	end if;
+
+	if not exists (SELECT id FROM sistema_llaves.tmateria WHERE nombre=p_nombre_mat) then
+		SIGNAL SQLSTATE '45002'
 		SET MESSAGE_TEXT='La materia indicada no se encuentra registrada.';
 	end if;
-	
+
+	if not exists (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) then
+		SIGNAL SQLSTATE '45003'
+		SET MESSAGE_TEXT='La maestro indicado no se encuentra registrado.';
+	end if;
+
 	if not exists (SELECT * FROM sistema_llaves.tdias WHERE dias=p_dias) then
 		INSERT INTO sistema_llaves.tdias (id,dias) values(null,p_dias);
 	end if;
@@ -71,6 +81,11 @@ BEGIN
 	if not exists (SELECT dh.id FROM sistema_llaves.tdias_horas as dh  INNER JOIN sistema_llaves.tdias as d on dh.idDias = d.id INNER JOIN  bd_sistema_llaves.thoras as h on dh.idHoras = h.id) then
 		INSERT INTO sistema_llaves.tdias_horas (id,idDias,idHoras) VALUES (null,@var1, @var2);
 	end if;
+
+	SELECT @var3 := id FROM tdias_horas WHERE idDias=@var1 and idHoras=@var2;
+
+	
+
 END
 //
 
