@@ -19,3 +19,8 @@ Route::get('/login', function () {
     return view('login');
     
 });
+
+Route::get('/prueba', function () {
+    return "otra vista";
+    
+});
