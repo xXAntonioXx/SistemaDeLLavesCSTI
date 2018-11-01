@@ -20,7 +20,4 @@ Route::get('/login', function () {
     
 });
 
-Route::get('/prueba', function () {
-    return "otra vista";
-    
-});
+Route::get('/prueba','LoginController@borrame');

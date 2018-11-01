@@ -1,8 +1,5 @@
 <?php
 
-class konect{
-    private $mensaje="simon";
-    function getMensaje(){
-        return $this->$mensaje;
-    }
+function hola(){
+    return "hola";
 }
