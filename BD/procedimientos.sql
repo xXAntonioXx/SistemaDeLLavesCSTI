@@ -3,7 +3,7 @@
 Autor:Murillo Mario
 --------------------
 En este archivo se encuentran todos los procedimientos
-almacenados que realizara la base de datos.
+almacenados que realizara la base de datos
 */
 
 /*Registro de una llave en la base de datos*/
@@ -123,15 +123,50 @@ END
 DELIMITER;
 
 
+
+
+/*--------------EN PROCESO-----------*/
 /*Registro de un prestamo*/
 DELIMITER //
 CREATE PROCEDURE sistema_llaves.sp_registrar_prestamo(
-	in p_can_objetos INT
-	in p_id_objeto_arg VARCHAR()
+	/*in p_can_objetos INT*/
+	in p_id_objeto_arg VARCHAR(1000)
 )
 BEGIN
+	/*Almacena el valor de entrada en una variable de usuario*/
+	DECLARE arreglo VARCHAR(1000) DEFAULT ''; 
+	SET arreglo = p_id_objeto_arg;
+
+	SELECT @num := LENGTH(arreglo);
+	IF (@num = 0) THEN 
+		SIGNAL SQLSTATE '46003'
+		SET MESSAGE_TEXT='No se ingreso ningun objeto.';
+	END IF;
+
+	SELECT @num :=(LENGTH(arreglo) - LENGTH(REPLACE(arreglo, ',', '')))+1 AS occurrences;
 	
-	IF NOT EXISTS (SELECT id FROM tobjetos WHERE id=p_id_objeto) THEN 
+	IF NOT EXISTS (Select max(id) FROM tprestamos) THEN
+		SET @id_prest=1;
+	ELSE
+		SELECT @id_prest:= max(id) FROM tprestamos;
+	END IF;
+	
+	if @num = 1 THEN
+		IF NOT EXISTS (SELECT id FROM tobjetos WHERE id=arreglo) THEN
+
+		END IF;
+	ELSE IF >1
+		WHILE @num >0 DO
+
+		END WHILE;
+	ELSE
+
+	END IF
+
+
+	
+
+	/*IF NOT EXISTS (SELECT id FROM tobjetos WHERE id=p_id_objeto) THEN 
 		SIGNAL SQLSTATE '46003'
 		SET MESSAGE_TEXT='El objeto no se encuentra registrado'
 	END IF;
@@ -139,16 +174,16 @@ BEGIN
 	SELECT @VALOR := SUBSTRING(@VALOR,LOCATE(",",@VALOR)+1,LENGTH(@VALOR));
 
 	INSERT INTO tprestamos(id,id_control,id_objeto,estado) VALUES (null,p_id,p_id_objeto,false);
+	*/
 END
 //
 
 
 
+
+/*---------------EN PROCESO----------------*/
 /*Registro un prestamo en la base de datos*/
 CREATE PROCEDURE sistema_llaves.sp_registrar_prestamo(p_hora_entrada,p_id_horariop_)
-
-
-
 
 
 
