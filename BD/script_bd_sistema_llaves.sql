@@ -121,6 +121,8 @@ los horarios de cada maestro*/
 
 CREATE TABLE thorarios(
 id INT AUTO_INCREMENT,
+year YEAR(4) NOT NULL,
+ciclo CHAR(1) NOT NULL,
 codigo_llave BIGINT(20),
 num_emp_maestro INT NOT NULL,
 id_materia INT NOT NULL,
