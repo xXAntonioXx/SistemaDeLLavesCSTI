@@ -11,15 +11,17 @@
 </head>
 <body>
   <div class="container">
-    <form action="/Iniciar-sesion/" class="inicio-sesion">
+    <form action="/validate" method ="post" class="inicio-sesion">
+      {{csrf_field()}}
       <h1>Iniciar Sesion</h1>
       <h2>Usuario</h2>
-      <input type="text" placeholder="Ingresa tu suario">
+      <input type="text" placeholder="Ingresa tu suario" name="nombre">
       <h2>Contraseña</h2>
-      <input type="password" placeholder="Ingresa tu contraseña">
+      <input type="password" placeholder="Ingresa tu contraseña" name="contra">
       <a href="">¿Olvidó su contraseña?</a>
-      <a href="principal.html" class="ingresar">Ingresar</a>
-      <img src="images/logo-76aniversario.png" width="80px" alt="Logo Aniversario Unison">
+      <input type="submit" class="ingresar" value="Ingresar">
+      <a href="/validate" class="ingresar">Ingresar</a>
+      <img src="{{asset('/images/logo-76aniversario.png')}}" width="80px" alt="Logo Aniversario Unison">
     </form>
   </div>
 </body>

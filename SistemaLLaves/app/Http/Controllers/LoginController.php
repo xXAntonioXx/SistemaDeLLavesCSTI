@@ -8,7 +8,14 @@ include 'konect.php';
 class LoginController extends Controller
 {
 
-    function borrame(){
-        return \PDO::getAvailableDrivers();
+    public function borrame(){
+        //return \PDO::getAvailableDrivers();
+        $conexion = hola();
+        $datos = $conexion->query("select * from tusuarios")->fetch();
+        return $datos['contrasena'];
+    }
+
+    public function validar(Request $req){
+        return 
     }
 }

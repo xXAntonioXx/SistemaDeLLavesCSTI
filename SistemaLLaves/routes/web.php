@@ -20,4 +20,6 @@ Route::get('/login', function () {
     
 });
 
+Route::post('/validate','LoginController@validar');
+
 Route::get('/prueba','LoginController@borrame');
