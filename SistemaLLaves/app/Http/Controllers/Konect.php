@@ -1,6 +1,6 @@
 <?php
 
-function hola(){
+function conectar(){
     $servername="localhost";
     $username="keySystem";
     $password="keySystem";
@@ -14,5 +14,5 @@ function hola(){
     }catch(PDOException $e){
         return $e->getMessage();
     }
-    return "hola";
+    //return "hola";
 }

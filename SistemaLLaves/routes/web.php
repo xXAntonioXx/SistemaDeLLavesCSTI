@@ -11,15 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/wc', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
-    
-});
-
+//rutas y metodos para el login de usuario
+Route::get('/','LoginController@principal');
 Route::post('/validate','LoginController@validar');
-
-Route::get('/prueba','LoginController@borrame');
+Route::get('/prueba','LoginController@insertar');
