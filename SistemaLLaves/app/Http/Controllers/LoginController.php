@@ -52,13 +52,14 @@ class LoginController extends Controller
 
         $datos = $this->conexion->query("SELECT * FROM tusuarios WHERE nombre='{$nombreUsuario}'")->fetch();
         //aqui puedes checar si es la primera vez que se logean:
-        if($datos['estado']==false){
+        if(/*$datos['estado']==0 &&*/ !$datos){
             return 'este usuario se logeara por primera vez';
         }else{
             $RESULTADO = password_verify($contra,$datos['contrasena']);
             if($RESULTADO){
                 session_start();
-                return 'as ingresado';
+                $_SESSION['nombre']=true;
+                return redirect('/main');
             }else{
                 $cerror=['cerror'=>'wrong'];
                 return redirect('/')->withErrors($cerror);

@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Middleware\CheckSess;
 
 Route::get('/wc', function () {
     return view('welcome');
@@ -19,3 +20,6 @@ Route::get('/wc', function () {
 Route::get('/','LoginController@principal');
 Route::post('/validate','LoginController@validar');
 Route::get('/prueba','LoginController@insertar');
+
+//rutas para la pagina principal
+Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
