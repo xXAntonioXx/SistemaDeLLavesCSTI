@@ -15,11 +15,10 @@ class CheckSess
      */
     public function handle($request, Closure $next)
     {   
-        session_start();
-        if($_SESSION['nombre']){
+
+        if($request->session()->get('estado')){
             return $next($request);
         }
-        session_destroy();
         return redirect('/');
     }
 }

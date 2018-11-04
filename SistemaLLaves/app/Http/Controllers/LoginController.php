@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
+use Session;
 include 'konect.php';
 
 class LoginController extends Controller
@@ -57,15 +58,15 @@ class LoginController extends Controller
         }else{
             $RESULTADO = password_verify($contra,$datos['contrasena']);
             if($RESULTADO){
-                session_start();
-                $_SESSION['nombre']=true;
+                //session_start();
+                Session::put('estado',true);
+                //$_SESSION['nombre']=true;
                 return redirect('/main');
             }else{
                 $cerror=['cerror'=>'wrong'];
                 return redirect('/')->withErrors($cerror);
             }
         }
-        //return ($RESULTADO?'igual':'diferente');
         return redirect('/');
     }
 }
