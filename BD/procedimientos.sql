@@ -66,13 +66,13 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 )
 BEGIN
 	/*Valida que la llave exista*/
-	if not exists (SELECT id FROM sistema_llaves.tllaves WHERE nombre=p_codigo_llave) then
+	if not exists (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) then
 		SIGNAL SQLSTATE '46000'
 		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
 	end if;
 
 	/*Valida que */
-	if not exists (SELECT id FROM sistema_llaves.tmateria WHERE nombre=p_nombre_mat) then
+	if not exists (SELECT id FROM sistema_llaves.tmaterias WHERE nombre=p_nombre_mat) then
 		SIGNAL SQLSTATE '46001'
 		SET MESSAGE_TEXT='La materia indicada no se encuentra registrada.';
 	end if;
@@ -124,60 +124,97 @@ DELIMITER;
 
 
 
-
-/*--------------EN PROCESO-----------*/
+/*--------------TERMINADO-------------*/
 /*Registro de un prestamo*/
 DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_registrar_prestamo;
 CREATE PROCEDURE sistema_llaves.sp_registrar_prestamo(
-	/*in p_can_objetos INT*/
+	in p_id_prestamo INT,	
 	in p_id_objeto_arg VARCHAR(1000)
 )
 BEGIN
 	/*Almacena el valor de entrada en una variable de usuario*/
-	DECLARE arreglo VARCHAR(1000) DEFAULT ''; 
-	SET arreglo = p_id_objeto_arg;
+	DECLARE p_id_control INT(11) DEFAULT 1;
+	DECLARE p_mensaje VARCHAR(500) DEFAULT ''; 
+	DECLARE p_arreglo VARCHAR(500);
+	SET p_arreglo = p_id_objeto_arg;
 
-	SELECT @num := LENGTH(arreglo);
+	SET @num = LENGTH(p_arreglo);
 	IF (@num = 0) THEN 
 		SIGNAL SQLSTATE '46003'
 		SET MESSAGE_TEXT='No se ingreso ningun objeto.';
 	END IF;
-
-	SELECT @num :=(LENGTH(arreglo) - LENGTH(REPLACE(arreglo, ',', '')))+1 AS occurrences;
 	
-	IF NOT EXISTS (Select max(id) FROM tprestamos) THEN
-		SET @id_prest=1;
+	/*Asignar el ID a la variable "id_prest"*/
+	/*que del registro que se almacenara*/
+
+	IF p_id_prestamo=0 THEN 
+		IF NOT EXISTS (SELECT id FROM sistema_llaves.tprestamos) THEN
+			SET @id_prest = 1;
+			SELECT "EL ID SE AGREGO.";
+		ELSE
+			SELECT @id_prest:= max(id) FROM sistema_llaves.tprestamos;
+			SET @id_prest= @id_prest + 1;
+		END IF;
 	ELSE
-		SELECT @id_prest:= max(id) FROM tprestamos;
+		SELECT  @id_prest := MAX(id_control) FROM sistema_llaves.tprestamos WHERE id=@id_prest;
+		SET p_id_control = @id_prest + 1;
+		SET @id_prest = p_id_prestamo;
 	END IF;
 	
-	if @num = 1 THEN
-		IF NOT EXISTS (SELECT id FROM tobjetos WHERE id=arreglo) THEN
-
+	/*Calcular la cantidad de objetos a registrar*/
+	SET @num =(LENGTH(p_arreglo) - LENGTH(REPLACE(p_arreglo, ',', '')))+1;
+	
+	/*En este bloque de codigo lo que se hace*/
+	/*es ir agregando los prestamos.*/
+	/*En el caso de que solo se detecte un*/
+	/*objeto se realiza la parte dei IF*/
+	/*Si son mas de un objeto se realiza la */
+	/*parte de el ELSE IF*/
+	IF @num = 1 THEN
+		IF NOT EXISTS (SELECT id FROM sistema_llaves.tobjetos WHERE id=p_arreglo) THEN
+			SET p_mensaje = CONCAT("El objeto con id ",p_arreglo, " no se encuentra en la base de datos.");
+			SIGNAL SQLSTATE '46004'
+			SET MESSAGE_TEXT= p_mensaje;
+		ELSE
+			INSERT INTO sistema_llaves.tprestamos(id,id_control,id_objeto,estado) VALUES (@id_prest,p_id_control,p_arreglo,DEFAULT);
 		END IF;
-	ELSE IF >1
-		WHILE @num >0 DO
-
+	ELSEIF @num > 1 THEN
+		SET p_arreglo= CONCAT(p_arreglo,",");
+		WHILE @num > 0 DO
+			SET @argTemp=SUBSTRING(p_arreglo,1,LOCATE(",",p_arreglo)-1);
+			
+			IF NOT EXISTS(SELECT id FROM sistema_llaves.tobjetos WHERE id=CAST(@argTemp AS INT)) THEN
+				SET p_mensaje= CONCAT(p_mensaje,"El producto ", @argTemp," no se encuentra en la base de datos. ");
+			ELSE
+				INSERT INTO sistema_llaves.tprestamos(id,id_control,id_objeto,estado) VALUES (@id_prest,p_id_control,CAST(@argTemp AS INT),DEFAULT);
+				SET p_id_control= p_id_control + 1;
+			END IF;
+			SET @num = @num - 1;
+			
+			IF (@num >0) THEN
+				SET p_arreglo := SUBSTRING(p_arreglo,LOCATE(",",p_arreglo)+1,LENGTH(p_arreglo));
+			END IF;
 		END WHILE;
 	ELSE
-
-	END IF
-
-
-	
-
-	/*IF NOT EXISTS (SELECT id FROM tobjetos WHERE id=p_id_objeto) THEN 
-		SIGNAL SQLSTATE '46003'
-		SET MESSAGE_TEXT='El objeto no se encuentra registrado'
+		SIGNAL SQLSTATE '46005'
+		SET MESSAGE_TEXT='Error: Hay un problema en la cadena introducida.';
 	END IF;
 
-	SELECT @VALOR := SUBSTRING(@VALOR,LOCATE(",",@VALOR)+1,LENGTH(@VALOR));
+
+	SET @num:= LENGTH(p_mensaje);
+	IF (@num>0) THEN
+		SIGNAL SQLSTATE '46006'
+		SET MESSAGE_TEXT= p_mensaje;
+	END IF;
+	
+	/*SELECT @VALOR := SUBSTRING(@VALOR,LOCATE(",",@VALOR)+1,LENGTH(@VALOR));
 
 	INSERT INTO tprestamos(id,id_control,id_objeto,estado) VALUES (null,p_id,p_id_objeto,false);
 	*/
-END
+END;
 //
-
+DELIMITER ;
 
 
 

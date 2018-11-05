@@ -23,4 +23,7 @@ CALL sp_registrar_llave(55555555,11,"5j","204");
 
 
 /*Registrar un horario*/
-CALL sp_registrar_dias_horas();
+call sp_registrar_horario(22222222,'2018','3',1515,"ESTRATEGIAS PARA APRENDER A APRENDER","LUNES,MARTES,MIERCOLES",'16:00:00','17:00:00');
+
+
+call sp_registrar_prestamo(null,"1,3,2");

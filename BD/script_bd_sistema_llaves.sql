@@ -172,7 +172,7 @@ CREATE TABLE tprestamos(
 id INT,
 id_control INT NOT NULL,
 id_objeto INT NOT NULL,
-Estado BOOLEAN DEFAULT 0,
+estado BOOLEAN DEFAULT 0,
 
 PRIMARY KEY(id,id_control),
 
@@ -223,7 +223,7 @@ id INT AUTO_INCREMENT,
 id_horario INT,
 hora_entrada TIMESTAMP NOT NULL,
 hora_salida TIMESTAMP NULL,
-id_excepcion INT,
+id_excepcion INT NULL DEFAULT NULL,
 id_prestamo INT NOT NULL,
 id_usuario INT NOT NULL,
 
