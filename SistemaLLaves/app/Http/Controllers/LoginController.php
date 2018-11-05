@@ -11,22 +11,17 @@ class LoginController extends Controller
 {
     public $conexion;
 
+    //constructor necesario para hacer la conexion con la base de datos
     public function __construct(){
         $this->conexion=conectar();
     }
 
+    //devuelve la vista principal para el login
     public  function principal(){
         return view('login');
     }
 
-    public function borrame(){
-        //return \PDO::getAvailableDrivers();
-        /*$conexion = conectar();
-        $datos = $conexion->query("select * from tusuarios")->fetch();
-        
-        return $datos['contrasena'];*/
-    }
-
+    //borrar metodo de abajo
     public function insertar(){
         try{
             //$conexion = conectar();
@@ -42,6 +37,7 @@ class LoginController extends Controller
         
     }
 
+    //confirmacion de credenciales
     public function validar(Request $req){
         $this->validate($req,[
             'nombre'=>'required',
@@ -68,5 +64,9 @@ class LoginController extends Controller
             }
         }
         return redirect('/');
+    }
+
+    public function salir(){
+        Session::forget('estado');
     }
 }

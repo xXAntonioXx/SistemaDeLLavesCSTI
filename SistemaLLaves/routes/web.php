@@ -23,3 +23,5 @@ Route::get('/prueba','LoginController@insertar');
 
 //rutas para la pagina principal
 Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
+
+Route::get('/salir','LoginController@salir');
