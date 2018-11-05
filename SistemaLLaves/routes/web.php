@@ -25,3 +25,5 @@ Route::get('/prueba','LoginController@insertar');
 Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
 
 Route::get('/salir','LoginController@salir');
+
+Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random

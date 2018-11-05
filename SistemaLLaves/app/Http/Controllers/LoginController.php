@@ -24,12 +24,11 @@ class LoginController extends Controller
     //borrar metodo de abajo
     public function insertar(){
         try{
-            //$conexion = conectar();
-            //dd($conexion);
+            
             $contraseña=password_hash("contra",PASSWORD_DEFAULT);
 
-            $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(2,'antonio2','{$contraseña}','1',0)";
-            //dd($insert);
+            $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'antonio','{$contraseña}','1',0)";
+            
             $this->conexion->query($insert);
         }catch(PDOException $e){
             return "error";
@@ -38,7 +37,8 @@ class LoginController extends Controller
     }
 
     //confirmacion de credenciales
-    public function validar(Request $req){
+    public function validar(Request $req){//validamos si el post no viene vacio
+        
         $this->validate($req,[
             'nombre'=>'required',
             'contra'=>'required'
@@ -48,25 +48,37 @@ class LoginController extends Controller
         $contra=$req['contra'];
 
         $datos = $this->conexion->query("SELECT * FROM tusuarios WHERE nombre='{$nombreUsuario}'")->fetch();
-        //aqui puedes checar si es la primera vez que se logean:
-        if(/*$datos['estado']==0 &&*/ !$datos){
-            return 'este usuario se logeara por primera vez';
-        }else{
-            $RESULTADO = password_verify($contra,$datos['contrasena']);
+        
+        if($datos['estado']==1 && $datos){//para el caso de que el usuario exista y este habil
+            
+            $RESULTADO = password_verify($contra,$datos['contrasena']);//comprobamos si la contraseña esta correcta
+            
             if($RESULTADO){
-                //session_start();
+                
                 Session::put('estado',true);
-                //$_SESSION['nombre']=true;
                 return redirect('/main');
+            
             }else{
-                $cerror=['cerror'=>'wrong'];
+                
+                $cerror=['cerror'=>'usuario/contraseña incorrecta'];
                 return redirect('/')->withErrors($cerror);
             }
+        
+        }else if($datos['estado']==0 && $datos){//en caso de que el usuario este inhabil
+                
+            $cerror=['cerror'=>'usuario inhábil'];
+            return redirect('/')->withErrors($cerror);
+        
+        }else{//en caso de que el usuario este equivocado(por seguridad se muestra el mismo error que el de contraseña incorrecta)
+            
+            $cerror=['cerror'=>'usuario/contraseña incorrecta'];
+            return redirect('/')->withErrors($cerror);
+        
         }
-        return redirect('/');
     }
 
     public function salir(){
         Session::forget('estado');
+        return redirect('/');
     }
 }
