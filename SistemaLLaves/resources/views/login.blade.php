@@ -22,7 +22,7 @@
         <p>nombre y contraseña requeridos</p>
       @endif
       @if($errors->has('cerror'))
-        <p>usuario/contraseña incorrectos</p>
+        <p>{{$errors->first()}}</p>
       @endif
       <a href="">¿Olvidó su contraseña?</a>
       <input type="submit" class="ingresar" style="display:none;">
