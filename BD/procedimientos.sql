@@ -18,12 +18,10 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
 	in p_aula VARCHAR(8)
 )
 BEGIN
-	IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=p_area and aula=p_aula) THEN
-		INSERT INTO sistema_llaves.taulas(id,area,aula) VALUES (null,p_area,p_aula);
+	IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=UPPER(p_area) and aula=p_aula) THEN
+		INSERT INTO sistema_llaves.taulas(id,area,aula) VALUES (null,UPPER(p_area),p_aula);
 	END IF;
-	
 	SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=p_aula AND area=p_area;
-
 	INSERT INTO sistema_llaves.tllaves(id,codigo,numero,id_aula) VALUES (null, p_codigo,p_numero,@var1);
 END
 //
@@ -40,7 +38,7 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_maestro (
 	in p_nombre VARCHAR(70)
 )
 BEGIN
-INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre) VALUES (null,p_num_emp,UPPER(p_nombre));
+	INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre) VALUES (null,p_num_emp,UPPER(p_nombre));
 END
 //
 DELIMITER;
@@ -48,11 +46,12 @@ DELIMITER;
 
 /*Registro de una materia en la base de datos*/
 DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_registrar_materia;
 CREATE PROCEDURE sistema_llaves.sp_registrar_materia (
 	in p_nombre VARCHAR(50),
 	in p_programa VARCHAR(10))
 BEGIN
-INSERT INTO sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, p_nombre, p_programa);
+	INSERT INTO sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, UPPER(p_nombre), UPPER(p_programa));
 END 
 //
 DELIMITER;
@@ -61,6 +60,7 @@ DELIMITER;
 /*--------------TERMINADO--------------*/
 /*Registro de un horario "*/
 DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_registrar_horario;
 CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 	in p_codigo_llave BIGINT(20),
 	in p_year YEAR(4),
@@ -73,38 +73,38 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 )
 BEGIN
 	/*Valida que la llave exista*/
-	if not exists (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) then
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
 		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
 	end if;
 
 	/*Valida que */
-	if not exists (SELECT id FROM sistema_llaves.tmaterias WHERE nombre=p_nombre_mat) then
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaterias WHERE nombre=UPPER(p_nombre_mat)) THEN
 		SIGNAL SQLSTATE '46001'
 		SET MESSAGE_TEXT='La materia indicada no se encuentra registrada.';
 	end if;
 
-	if not exists (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) then
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
 		SIGNAL SQLSTATE '46002'
 		SET MESSAGE_TEXT='La maestro indicado no se encuentra registrado.';
 	end if;
 
-	if not exists (SELECT id FROM sistema_llaves.tdias WHERE dias=p_dias) then
-		INSERT INTO sistema_llaves.tdias (id,dias) values(null,p_dias);
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias)) THEN
+		INSERT INTO sistema_llaves.tdias (id,dias) values(null,UPPER(p_dias));
 	end if;
 
-	if not exists (SELECT id FROM sistema_llaves.thoras WHERE hora_inicio=p_hora_inicio and hora_fin=p_hora_fin) then
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.thoras WHERE hora_inicio=p_hora_inicio and hora_fin=p_hora_fin) THEN
 		INSERT INTO sistema_llaves.thoras(id,hora_inicio,hora_fin) VALUES (null,p_hora_inicio,p_hora_fin);
 	end if;
 
-	SELECT @var1 := id FROM sistema_llaves.tdias WHERE dias=p_dias;
+	SELECT @var1 := id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias);
 	SELECT @var2 := id FROM sistema_llaves.thoras WHERE hora_inicio=p_hora_inicio and hora_fin=p_hora_fin;
 
-	if not exists (SELECT dh.id FROM sistema_llaves.tdias_horas as dh  INNER JOIN sistema_llaves.tdias as d on dh.idDias = d.id INNER JOIN  bd_sistema_llaves.thoras as h on dh.idHoras = h.id) then
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias_horas WHERE idDias=@var1 AND idHoras=@var2) THEN
 		INSERT INTO sistema_llaves.tdias_horas (id,idDias,idHoras) VALUES (null,@var1, @var2);
 	end if;
 
-	SELECT @var3 := id FROM sistema_llaves.tmateria WHERE nombre=p_nombre_mat;
+	SELECT @var3 := id FROM sistema_llaves.tmaterias WHERE nombre=p_nombre_mat;
 	SELECT @var4 := id FROM tdias_horas WHERE idDias=@var1 and idHoras=@var2;
 
 	INSERT INTO sistema_llaves.thorarios(id,year,ciclo,codigo_llave,num_emp_maestro,id_materia,id_dias_horas)

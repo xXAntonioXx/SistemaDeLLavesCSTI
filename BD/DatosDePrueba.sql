@@ -13,20 +13,45 @@ INSERT INTO tllaves(id,codigo,numero,id_aula) VALUES
 (null,44444444,9,2);
 */
 
-/*Registra llave (y el aula en caso de no existir)*/
+/*Registra llaves (y el aula en caso de no existir)*/
+CALL sp_registrar_llave(22222222,8,"5J","201");
+CALL sp_registrar_llave(33333333,9,"5J","202");
+CALL sp_registrar_llave(44444444,24,"5J","203");
+CALL sp_registrar_llave(55555555,10,"5J","204");
+CALL sp_registrar_llave(66666666,7,"5K","204");
+CALL sp_registrar_llave(77777777,23,"5K","102");
+CALL sp_registrar_llave(88888888,22,"5K","203");
+CALL sp_registrar_llave(99999999,21,"5G","204");
+CALL sp_registrar_llave(10101010,18,"5G","101");
+CALL sp_registrar_llave(11111111,15,"5G","103");
+CALL sp_registrar_llave(12121212,14,"5G","204");
 
-CALL sp_registrar_llave(22222222,8,"5j","201");
-CALL sp_registrar_llave(33333333,9,"5j","202");
-CALL sp_registrar_llave(44444444,10,"5j","203");
-CALL sp_registrar_llave(55555555,11,"5j","204");
 
-/*Registrar maestro*/
-CALL sp_registrar_maestro(65654,"Jorge Romerin");
-CALL sp_registrar_maestro(65655,"bad navarro");
-CALL sp_registrar_maestro(65656,"alvaro suavecito");
+/*Registrar maestros*/
+CALL sp_registrar_maestro(65654,"Jorge RomerO");
+CALL sp_registrar_maestro(65655,"francisco Navarro");
+CALL sp_registrar_maestro(65656,"ALVARO valuenzuela");
+CALL sp_registrar_maestro(65657,"Raquel torres");
+CALL sp_registrar_maestro(65658,"Francisco cirett");
 
-/*Registrar un horario*/
-call sp_registrar_horario(22222222,'2018','3',1515,"ESTRATEGIAS PARA APRENDER A APRENDER","LUNES,MARTES,MIERCOLES",'16:00:00','17:00:00');
+
+/*Rgistrar materias*/
+call sp_registrar_materia("SERVIDORES","ISI");
+call sp_registrar_materia("base de datos1","ISI");
+call sp_registrar_materia("Aplicaciones moviles","ISI");
+call sp_registrar_materia("Mineria de datos","ISI");
+call sp_registrar_materia("Introduccion al software de base","ISI");
+
+
+/*Registrar horarios*/
+call sp_registrar_horario(99999999,'2018','3',65654,"SERVIDORES","LUNES,MARTES,MIERCOLES,jueves",'07:00:00',"08:00:00");
+call sp_registrar_horario(99999999,'2018','3',65655,"base de datos1","LUNES,MARTES,MIERCOLES,jueves,viernes",'09:00:00','10:00:00');
+call sp_registrar_horario(44444444,'2018','3',65656,"Aplicaciones moviles","LUNES,MARTES,MIERCOLES,jueves",'16:00:00','17:00:00');
+call sp_registrar_horario(33333333,'2018','3',65657,"Mineria de datos","LUNES,MARTES,MIERCOLES,jueves",'12:00:00',"13:00:00");
+call sp_registrar_horario(33333333,'2018','3',65658,"Introduccion al software de base","LUNES,MARTES,MIERCOLES,jueves,viernes",'07:00:00','08:00:00');
+
+
+
 
 
 call sp_registrar_prestamo(null,"1,3,2");
