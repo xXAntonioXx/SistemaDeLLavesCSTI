@@ -6,8 +6,11 @@ En este archivo se encuentran todos los procedimientos
 almacenados que realizara la base de datos
 */
 
+
+/*--------------TERMINADO--------------*/
 /*Registro de una llave en la base de datos*/
 DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_registrar_llave;
 CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
 	in p_codigo BIGINT(20),
 	in p_numero INT(11),
@@ -15,9 +18,9 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
 	in p_aula VARCHAR(8)
 )
 BEGIN
-	if not exists(SELECT * FROM sistema_llaves.taulas WHERE area=p_area and aula=p_aula)then
+	IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=p_area and aula=p_aula) THEN
 		INSERT INTO sistema_llaves.taulas(id,area,aula) VALUES (null,p_area,p_aula);
-	end if;
+	END IF;
 	
 	SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=p_aula AND area=p_area;
 
@@ -28,14 +31,16 @@ DELIMITER;
 
 
 
+/*--------------TERMINADO--------------*/
 /*Registro de un maestro en la base de datos*/
 DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_registrar_maestro;
 CREATE PROCEDURE sistema_llaves.sp_registrar_maestro (
 	in p_num_emp INT, 
-	in p_nombre VARCHAR(70),
-	in p_imagen TEXT)
+	in p_nombre VARCHAR(70)
+)
 BEGIN
-INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre,imagen) VALUES (null,p_num_emp,p_nombre,p_imagen);
+INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre) VALUES (null,p_num_emp,UPPER(p_nombre));
 END
 //
 DELIMITER;
@@ -52,6 +57,8 @@ END
 //
 DELIMITER;
 
+
+/*--------------TERMINADO--------------*/
 /*Registro de un horario "*/
 DELIMITER //
 CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
@@ -124,7 +131,7 @@ DELIMITER;
 
 
 
-/*--------------TERMINADO-------------*/
+/*--------------TERMINADO--------------*/
 /*Registro de un prestamo*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_prestamo;
@@ -151,7 +158,6 @@ BEGIN
 	IF p_id_prestamo=0 THEN 
 		IF NOT EXISTS (SELECT id FROM sistema_llaves.tprestamos) THEN
 			SET @id_prest = 1;
-			SELECT "EL ID SE AGREGO.";
 		ELSE
 			SELECT @id_prest:= max(id) FROM sistema_llaves.tprestamos;
 			SET @id_prest= @id_prest + 1;
