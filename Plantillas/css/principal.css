@@ -61,7 +61,7 @@ nav {
   align-items: flex-end;
 }
 
-.menu ol {
+.menu {
   width: 100%;
   list-style: none;
   text-align: end;
@@ -226,7 +226,7 @@ nav {
   justify-content: center;
 }
 
-.button-registro a {
+.button-registro .registrar {
   text-decoration: none;
   background-color: #004990;
   border-radius: 20px;
@@ -234,6 +234,7 @@ nav {
   padding: 5px 40px;
   font-size: 1em;
   color: #fff;
+  border: none;
 }
 
 .footer {

@@ -15,11 +15,14 @@
       <form action="/Iniciar-sesion/" class="inicio-sesion">
         <h1>Iniciar Sesion</h1>
         <h2>Usuario</h2>
-        <input type="text" placeholder="Ingresa tu suario">
+        <input type="text" placeholder="Ingresa tu suario" required>
         <h2>Contraseña</h2>
-        <input type="password" placeholder="Ingresa tu contraseña">
+        <input type="password" placeholder="Ingresa tu contraseña" required>
+        <div class="tooltip-container">
+          <span class="tooltip-text">Usuario y/o Contraseña Incorrectas</span>
+        </div>
         <a href="">¿Olvidó su contraseña?</a>
-        <a href="principal.html" class="ingresar">Ingresar</a>
+        <input type="submit" value="Ingresar" class="ingresar"/>
         <img src="images/logo-76aniversario.png" width="80px" alt="Logo Aniversario Unison">
       </form>
     </div>

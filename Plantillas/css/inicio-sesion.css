@@ -67,7 +67,7 @@ body {
 .inicio-sesion a {
   text-decoration: none;
   align-self: center;
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
 }
 
 .inicio-sesion img {
@@ -75,10 +75,10 @@ body {
   /* border: 1px solid red; */
 }
 
-.ingresar {
+form .ingresar {
   text-decoration: none;
   text-align: center;
-  margin-top: 30px;
+  margin: 10px 0;
   font-size: 23px;
   /* border: 2px solid lightseagreen; */
   border-radius: 20px;
@@ -87,5 +87,40 @@ body {
   align-self: center;
   color: #fff;
   background-color: #004990;
+  border: none;
 }
 
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-top: 15px;
+}
+/* 
+.tooltip-container .tooltip-text {
+  visibility: hidden;
+  background-color: rgba(193, 66,  66, 1);
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+} */
+
+.tooltip-container .tooltip-text {
+  visibility: hidden;
+  color: red;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+}
+
+@media screen and (max-width: 425px){
+  body {
+    background-image: none;
+    background-color: #004990;
+  }
+}
