@@ -19,14 +19,19 @@
       <h2>Contraseña</h2>
       <input type="password" placeholder="Ingresa tu contraseña" name="contra">
       @if($errors->has('nombre') || $errors->has('contra'))
-        <p>nombre y contraseña requeridos</p>
+        <div class="tooltip-container">
+          <span class="tooltip-text">Usuario y/o Contraseña Requeridas</span>
+        </div>
       @endif
       @if($errors->has('cerror'))
-        <p>{{$errors->first()}}</p>
+        <div class="tooltip-container">
+          <span class="tooltip-text">Usuario y/o Contraseña Incorrectas</span>
+        </div>
+        <!--p>{{$errors->first()}}</p-->
       @endif
       <a href="">¿Olvidó su contraseña?</a>
       <input type="submit" class="ingresar" style="display:none;">
-      <a href="/validate" class="ingresar" method="post">Ingresar</a>
+      <input type="submit" value="Ingresar" class="ingresar"/>
       <img src="{{asset('/images/logo-76aniversario.png')}}" width="80px" alt="Logo Aniversario Unison">
     </form>
     
