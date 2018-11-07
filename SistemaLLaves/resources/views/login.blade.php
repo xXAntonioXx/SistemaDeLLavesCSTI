@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Portal de Llaves</title>
-  <link rel="icon" type="image/png" href="images/key.png">
+  <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
   <link rel="stylesheet" href="{{asset('/css/inicio-sesion.css')}}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
