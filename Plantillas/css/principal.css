@@ -156,7 +156,36 @@ nav {
 .llaves-paginador {
   height: 9%;
   width: 90%;
-  border: 1px solid green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.llaves-paginador ul {
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.llaves-paginador a {
+  color: gray;
+  float: left;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  font-size: 1.2em;
+  padding: 0 10px 0 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.llaves-paginador a:hover {
+  color: white;
+  background: lightblue;
 }
 
 .formulario-prestamo {
@@ -207,6 +236,14 @@ nav {
   margin: 0;
   font-weight: normal;
   font-size: 0.9em;
+}
+
+.combo-box {
+  cursor: pointer;
+}
+
+.combo-box:focus {
+  
 }
 
 .lista-llaves input {
