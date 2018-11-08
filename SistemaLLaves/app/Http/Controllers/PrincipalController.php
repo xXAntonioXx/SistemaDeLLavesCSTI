@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class PrincipalController extends Controller
 {
     public function cargarRegistro(){
-        return 'as ingresado';
+        return view('principal');
     }
 }
