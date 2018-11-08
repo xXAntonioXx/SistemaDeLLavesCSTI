@@ -226,7 +226,48 @@ DELIMITER ;
 
 /*---------------EN PROCESO----------------*/
 /*Registro un prestamo en la base de datos*/
-CREATE PROCEDURE sistema_llaves.sp_registrar_prestamo(p_hora_entrada,p_id_horariop_)
+DELIMITER //
+ CREATE PROCEDURE sistema_llaves.sp_registrar_prestamo(
+	in p_hora_entrada,
+	in p_id_horariop
+ )
+ BEGIN
+ 	
+ END
+//
+DELIMITER ;
 
 
 
+/*---------------TERMINADO----------------*/
+/*Consulta para cargar la  seccion de llaves
+ prestadas en la pagina de registro*/
+DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_llavesPrestadas;
+ CREATE PROCEDURE sistema_llaves.sp_getl_lavesPrestadas()
+ BEGIN
+ 	SELECT r.id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(au.area,"-",au.aula) as salon, r.hora_entrada, r.hora_salida
+	FROM sistema_llaves.tregistros AS r 
+	INNER JOIN sistema_llaves.thorarios AS h ON r.id_horario = h.id
+	INNER JOIN sistema_llaves.tmaestros AS mae ON h.num_emp_maestro = mae.num_emp
+	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
+	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
+	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
+	WHERE r.hora_entrada >= CURDATE();
+ END
+//
+DELIMITER ;
+
+
+DELIMITER //
+DROP  PROCEDURE IF EXISTS
+ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
+ 	in p_codigo_llave BIGINT(20)
+ 	in
+ )
+ BEGIN
+ 	SELECT 
+ END
+
+//
+DELIMITER ;
