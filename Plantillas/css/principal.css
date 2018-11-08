@@ -4,7 +4,6 @@ html {
   padding: 0;
   height: 100%;
   width: 100%;
-  box-sizing: border-box;
 }
 
 body{
@@ -96,64 +95,85 @@ nav {
   padding: 0 40px 10px 10px;
 }
 
-.division {
-  height: 1%;
-  background-color: lightgray;
-  margin: 0;
-  width: 90%;
-}
-
+/* **********************************Definiendo las secciones de la vista************************* */
 .llaves-prestadas {
   grid-area: llaves-prestadas;
-  display: flex;
+  display: grid;
+  grid-template-rows: 50px 50px 1fr 30px;
+  grid-template-areas: "llaves-prestadas-tittle"
+                       "llaves-tittle"
+                       "llaves-cards"
+                       "llaves-paginador";
   flex-direction: column;
   align-items: center;
   height: 100%;
 }
-
-.llaves-prestadas .division {
-  background: #004990;
-  height: 2px;
-  padding-top: 1px;
+/* *********************************************************************************************** */
+/* *********************************Llaves prestadas parte izquierda********************************** */
+.llaves-prestadas-tittle {
+  grid-area: llaves-prestadas-tittle;
+  margin: 0;
+  justify-self: center;
 }
 
 .llaves-titles{
   display: flex;
+  grid-area: llaves-tittle;
+  justify-self: center;
   justify-content: space-around;
+  align-items: center;
   width: 90%;
+  height: 100%;
+  border-bottom: 2px solid #004990;
+  border-top: 2px solid #004990;
 }
 
 .llaves-titles h3 {
   font-size: 16px;
-  margin: 10px 0;
-  align-self: center;
-  height: 10%;
+  margin: 0;
+  width: 20%;
+  text-align: center;
 }
 
 .llaves-cards {
+  grid-area: llaves-cards;
   width: 90%;
-  height: 91%;
-  overflow: hidden;
-  padding: 3px;
+  height: 43vh;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: hidden;
 }
 
 .card-item {
   border: .5px solid lightgray;
   display: inline-flex;
   margin: 3px 0;
-  height: 10%;
-  width: 100%;
+  height: 35px;
+  width: 99%;
   justify-content: space-around;
   align-items: center;
   border-radius: 15px;
+  justify-self: center;
 }
 
 .card-item h3 {
   font-size: .8em;
   font-weight: 500;
+  width: 20%;
+  /* max-height: 35px; */
+  max-height: 35px;
+  text-align: center;
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .llaves-paginador {
+  grid-area: llaves-paginador;
   height: 9%;
   width: 90%;
   display: flex;
@@ -188,78 +208,110 @@ nav {
   background: lightblue;
 }
 
+/* *********************************Llaves prestadas parte izquierda********************************** */
+
+/* *********************************Formulairo de prestamo parte derecha******************************* */
+
 .formulario-prestamo {
   grid-area: formulario-prestamo;
+  display: grid;
+  grid-template-rows: 100px 1fr 100px;
+  grid-template-areas: "formulario-tittle"
+                       "formulario-prestamo-content"
+                       "button-registro";
   height: 100%;
-  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.formulario-prestamo form {
-  height: 69%;
+.formulario-tittle {
+  grid-area: formulario-tittle;
+  margin: 0;
+  text-align: center;
+  border-bottom: 2px solid #004990;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.formulario-tittle h2 {
+  height: 50%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ghost-div {
+  width: 100%;
+  height: 50%;
+}
+
+.formulario-prestamo-content {
+  grid-area: formulario-prestamo-content;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.formulario-prestamo-content .formulario-col-izq {
+  width: 20%;
+  height: 100%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 22px;
-  box-sizing: content-box;
-  width: 75%;
 }
 
-.formulario-prestamo .division {
-  background: #004990;
-  height: 2px;
-  padding-top: 1px;
-}
-
-.row-container {
+.formulario-prestamo-content .formulario-col-izq  h3{
+  margin: 0;
+  height: 25px;
   margin: 7px 0;
+}
+
+.formulario-prestamo-content .formulario-col-der{
+  width: 60%;
+  height: 100%;
+  margin: 0;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formulario-col-der input {
+  font-size: 18px;
+  border-radius: 20px;
+  border-style: none;
+  border: 1px solid lightgray;
+  width: 100%;
+  height: 25px;
+  margin: 5px 0;
+}
+
+.formulario-aula-hora {
+  display: flex;
   align-items: center;
 }
 
-.row-container input {
-  font-size: 18px;
-  border-radius: 20px;
-  margin-right: 10px;
-  border-style: none;
-  border: 1px solid lightgray;
-  width: 67%;
-  height: 25px;
-}
-
-.row-container h3 {
-  text-decoration: none;
-  color: gray;
-  width: 30%;
-  margin: 0;
-  font-weight: normal;
-  font-size: 0.9em;
+.formulario-aula-hora h3 {
+  margin: 0 5px;
 }
 
 .combo-box {
   cursor: pointer;
-}
-
-.combo-box:focus {
-  
-}
-
-.lista-llaves input {
-  text-align: center;
-}
-
-.pequeños input {
-  width: 30%;
-}
-
-.pequeños .title-hora {
-  display: flex;
-  justify-content: center;
+  border-radius: 20px;
+  font-size: .8em;
+  border: 1px solid lightgray;
+  padding: 5px;
+  color: darkgray;
 }
 
 .button-registro {
+  grid-area: button-registro;
   display: flex;
   height: 20%;
   align-items: center;
@@ -277,6 +329,103 @@ nav {
   color: #fff;
   border: none;
 }
+/* **************************************************************************************************** */
+
+/****************************************Seccion para ventana modal****************************************/
+
+.modal-container {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5)
+}
+
+#modal-container:target {
+  display: flex;
+}
+
+.modal-content {
+  height: 80vh;
+  width: 500px;
+  box-sizing: border-box;
+  position: relative;
+  margin: auto;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: 80px 1fr 50px;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border: 2px solid gray;
+  border-radius: 5px;
+}
+
+.modal-tittle {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid #004990;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.modal-list {
+  padding:  0 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-checklist {
+  font-size: 1.3em;
+  border: 1px solid red;
+  padding: 5px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.modal-button-aceptar {
+  background: #004990;
+  border-radius: 20px;
+  text-decoration: none;
+  margin: 0;
+  padding: 5px 40px;
+  font-size: 1em;
+  color: #fff;
+  border: none;
+  height: 60%;  
+}
+
+.modal-button-cancelar {
+  background: #fff;
+  border-radius: 20px;
+  text-decoration: none;
+  margin: 0;
+  padding: 5px 40px;
+  font-size: 1em;
+  color: #00001a;
+  border: 2px solid #004990;  
+  height: 60%;
+}
+
+/******************************************************************************************************************/
+
+/* **************************************************Secicon de Footer************************************************** */
 
 .footer {
   grid-area: footer;
@@ -311,10 +460,13 @@ nav {
   display: none;
 }
 
+/* ***************************************************************************************************************************** */
+
+/* *******************************Media Querys*********************************/
 @media screen and (max-width: 1024px){
   .logo img {
     width: 70%;
-  }
+  } 
 }
 
 @media screen and (max-width: 834px){
@@ -467,6 +619,8 @@ nav {
     font-size: 0.7em;
   }
 }
+
+/* *******************************************************************/
 
 /* ************** MENU HAMBURGUESA ****************** */
 @font-face {
