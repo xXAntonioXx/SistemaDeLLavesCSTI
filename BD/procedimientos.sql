@@ -243,8 +243,8 @@ DELIMITER ;
 /*Consulta para cargar la  seccion de llaves
  prestadas en la pagina de registro*/
 DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_llavesPrestadas;
- CREATE PROCEDURE sistema_llaves.sp_getl_lavesPrestadas()
+DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
+ CREATE PROCEDURE sistema_llaves.sp_get_llavesPrestadas()
  BEGIN
  	SELECT r.id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(au.area,"-",au.aula) as salon, r.hora_entrada, r.hora_salida
 	FROM sistema_llaves.tregistros AS r 
@@ -259,14 +259,27 @@ DROP  PROCEDURE IF EXISTS sp_llavesPrestadas;
 DELIMITER ;
 
 
+
+/*FORMATO DE LA HORA yyyy-MM-DD HH:MM:SS*/
 DELIMITER //
-DROP  PROCEDURE IF EXISTS
- CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
- 	in p_codigo_llave BIGINT(20)
- 	in
- )
+DROP  PROCEDURE IF EXISTS sp_get_frmPrestamo;
+CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
+	in p_codigo_llaves BIGINT(20),	
+	in p_hora TIMESTAMP
+)
  BEGIN
- 	SELECT 
+ 	DECLARE min INT(11);
+ 	SET min = CONVERT(MINUTE(p_hora),UNSIGNED);
+ 	IF min > 39 THEN
+ 		SET p_hora = p_hora + INTERVAL (60-min) MINUTE;
+ 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
+ 	ELSE 
+ 		SET p_hora = p_hora - INTERVAL min MINUTE;
+ 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
+ 	END IF;
+
+ 	
+
  END
 
 //
