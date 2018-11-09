@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Prestamo de llaves</title>
   <link rel="icon" type="image/png" href="images/key.png">
-  <link rel="stylesheet" href="css/principal.css">
+  <link rel="stylesheet" href="dist/css/principal.css">
 </head>
 <body>
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
       <figure class="logo">
-        <img src="images/log-unison.png" alt="logo-unison" >
+        <img id="logo-unison" src="images/log-unison.png" alt="logo-unison" >
       </figure>
       <h1>PRESTAMO DE LLAVES</h1>
       <nav >
@@ -32,9 +32,7 @@
           </li>
         </ol>
       </nav>
-      <figure class="imagen-perfil">
-        <img src="images/log-unison.png" alt="imagen-de-perfil" width="50px">
-      </figure>
+      <i class="icon-out log-out" id="log-out"></i>
     </header>
     <section class="llaves-prestadas">
       <h2 class="llaves-prestadas-tittle">Llaves prestadas</h2>
@@ -112,27 +110,21 @@
           <div class="ghost-div"></div>
       </div>
       <form action="" class="formulario-prestamo-content">
-        <div class="formulario-col-izq">
-          <h3 href="">No. Llave</h3>
-          <h3 href="">Maestro</h3>
-          <h3 href="">Materia</h3>
-          <h3 href="">Aula</h3>
-        </div>
-        <div class="formulario-col-der">
-          <select class="combo-box">
-            <option value="Rivera Samudio">Rivera Samudio</option>
-            <option value="Lab-IQ">Lab-IQ</option>
-            <option value="Lab-Mecatronica">Lab-Mecatronica</option>
-          </select>
-          <input type="text">
-          <input type="text">
-          <input type="text">
-          <div class="formulario-aula-hora">
-            <input type="text">
-            <h3 href="" class="title-hora">Hora</h3>
-            <input type="text">
-          </div>
-        </div>
+        <h3 class="llaves">No. Llave</h3>
+        <h3 class="maestros">Maestro</h3>
+        <h3 class="materia">Materia</h3>
+        <h3 class="aula">Aula</h3>
+        <h3 class="hora">Hora</h3>
+        <select class="combo-box inputs">
+          <option value="Rivera Samudio">Rivera Samudio</option>
+          <option value="Lab-IQ">Lab-IQ</option>
+          <option value="Lab-Mecatronica">Lab-Mecatronica</option>
+        </select>
+        <input class="llaves-i inputs" type="text">
+        <input class="maestros-i inputs" type="text">
+        <input class="materia-i inputs" type="text">
+        <input class="aula-i inputs" type="text">
+        <input class="hora-i inputs" type="text">
       </form>
       <div class="button-registro">
           <input type="submit" value="Registrar" class="registrar" onclick="window.location='#modal-container';"/>
@@ -141,36 +133,32 @@
         <div class="modal-content">
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
-            <span class="modal-checklist"><input type="checkbox" value="Ejemplo check">Ejemplo Checklist</span>
-            <span class="modal-checklist"><input type="checkbox" value="Ejemplo check">Ejemplo Checklist</span>
-            <span class="modal-checklist"><input type="checkbox" value="Ejemplo check">Ejemplo Checklist</span>
-            <span class="modal-checklist"><input type="checkbox" value="Ejemplo check">Ejemplo Checklist</span>
-            <span class="modal-checklist"><input type="checkbox" value="Ejemplo check">Ejemplo Checklist</span>
-            <!-- <input type=""> -->
+            <select class="combo-box" name="modal-article-list" id="modal-article-list">
+              <option value="Bocinas">Bocinas</option>
+              <option value="Bocinas">Bocinas</option>
+            </select>
+            <select class="combo-box" name="modal-article-list" id="modal-article-list">
+              <option value="Bocinas">Control</option>
+              <option value="Bocinas">Bocinas</option>
+            </select>
           </div>
           <div class="modal-buttons">
-            <input type="button" value="Registrar" class="modal-button-aceptar">
+            <input type="button" value="Aceptar" class="modal-button-aceptar">
             <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';">
           </div>
         </div>
       </div>
     </section>
     <footer class="footer">
-      <a href="">Derechos Reservados</a>
-      <a href="">Acerca de Nosotros</a>
+      <h3>&copy; Derechos Reservados</h3>
+      <h3>&lsaquo; Acerca de Nosotros &rsaquo;</h3>
     </footer>
   </div>
   <script>
-      // console.log('Hola perroooooos!!!!');
-      const ipad = window.matchMedia('screen and (max-width: 656px)');
+      const ipad = window.matchMedia('screen and (max-width: 744px)');
       const menu = document.querySelector('.menu');
-      const img_perfil = document.querySelector('.imagen-perfil');
-      // console.log(menu);
       const burgerButton = document.querySelector('#burger-menu');
-      // console.log(burgerButton);
-      
       ipad.addListener(validation);
-      
       function validation(event){
         if(event.matches){
           burgerButton.addEventListener('click', hideShow);
@@ -178,16 +166,12 @@
           burgerButton.removeEventListener('click', hideShow);
         }
       }
-
       validation(ipad);
-
       function hideShow(){
-        if(menu.classList.contains('is-active') && img_perfil.classList.contains('is-active')){
+        if(menu.classList.contains('is-active')){
           menu.classList.remove('is-active');
-          img_perfil.classList.remove('is-active');
         }else {
           menu.classList.add('is-active');
-          img_perfil.classList.add('is-active');
         }
       }
     </script>
