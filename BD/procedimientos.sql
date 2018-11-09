@@ -268,19 +268,32 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
 	in p_hora TIMESTAMP
 )
  BEGIN
- 	DECLARE min INT(11);
- 	SET min = CONVERT(MINUTE(p_hora),UNSIGNED);
- 	IF min > 39 THEN
- 		SET p_hora = p_hora + INTERVAL (60-min) MINUTE;
+ 	DECLARE expresion VARCHAR(9) DEFAULT 'null';
+ 	IF CONVERT(MINUTE(p_hora),UNSIGNED) > 39 THEN
+ 		SET p_hora = p_hora + INTERVAL (60 - CONVERT(MINUTE(p_hora),UNSIGNED)) MINUTE;
  		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
  	ELSE 
- 		SET p_hora = p_hora - INTERVAL min MINUTE;
+ 		SET p_hora = p_hora - INTERVAL CONVERT(MINUTE(p_hora),UNSIGNED) MINUTE;
  		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
  	END IF;
 
+ 	/*ELT(WEEKDAY(campo_fecha) + 1, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'))*/
+ 	SET expresion = (ELT(WEEKDAY(p_hora) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'));
+ 	SELECT mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula
+ 	FROM thorarios AS ho
+ 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
+ 	INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.id = llav.id_aula
+ 	INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
+ 	INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
+ 	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
+ 	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
+ 	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
+ 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=3 
+ 	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
+ 	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
  	
-
  END
 
 //
 DELIMITER ;
+
