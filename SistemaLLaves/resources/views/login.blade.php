@@ -25,7 +25,7 @@
       @endif
       @if($errors->has('cerror'))
         <div class="tooltip-container">
-          <span class="tooltip-text">Usuario y/o Contraseña Incorrectas</span>
+          <span class="tooltip-text">{{$errors->first()}}</span>
         </div>
         <!--p>{{$errors->first()}}</p-->
       @endif

@@ -64,8 +64,9 @@ class LoginController extends Controller
             }
         
         }else if($datos['estado']==0 && $datos){//en caso de que el usuario este inhabil
-                
+            
             $cerror=['cerror'=>'usuario inhábil'];
+            //dd($cerror);
             return redirect('/')->withErrors($cerror);
         
         }else{//en caso de que el usuario este equivocado(por seguridad se muestra el mismo error que el de contraseña incorrecta)

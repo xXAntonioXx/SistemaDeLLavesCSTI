@@ -1,6 +1,6 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
-    <section class="llaves-prestadas">
+    <!--section class="llaves-prestadas">
       <h2>Llaves prestadas</h2>
       <div class="division"></div>
       <div class="llaves-titles">
@@ -29,7 +29,7 @@
           <li><a>5</a></li>
         </ul>
       </div>
-    </section>
+    </section-->
     <section class="formulario-prestamo">
       <h2>Formulario de prestamo</h2>
       <div class="division"></div>
