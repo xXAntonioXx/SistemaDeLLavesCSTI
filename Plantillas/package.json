@@ -1,0 +1,16 @@
+{
+  "name": "post-css",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CSTI-DEVs",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "9.3.1",
+    "postcss-cli": "6.0.1",
+    "postcss-cssnext": "3.1.0"
+  }
+}

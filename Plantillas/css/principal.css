@@ -13,6 +13,12 @@ body{
   margin: 0;
 }
 
+/* Declaracion de variables */
+:root{
+  --color_principal: #004990;
+  --color_secundario: #F7A11A;
+}
+
 .container-grid {
   margin: 0;
   padding: 0;
@@ -32,12 +38,11 @@ body{
   height: 100%;
   display: flex;
   justify-content: center; 
-  background-color: #004990;
+  background-color: var(--color_principal);
   font-size: 20px;
 }
 
 .logo {
-  /* width:100%; */
   margin: 0 10px;
   align-self: flex-end;
   text-align: end;
@@ -68,7 +73,7 @@ nav {
 .menu {
   width: 100%;
   list-style: none;
-  text-align: end;
+  text-align: right;
   margin: 0 0 8px 0;
 }
 
@@ -85,7 +90,7 @@ nav {
 }
 
 .menu a:hover {
-  box-shadow: 0 8px 0 0 #F7A11A;
+  box-shadow: 0 8px 0 var(--color_secundario);
 }
 
 .imagen-perfil {
@@ -96,7 +101,6 @@ nav {
   padding: 0 40px 10px 10px;
 }
 
-/* **********************************Definiendo las secciones de la vista************************* */
 .llaves-prestadas {
   grid-area: llaves-prestadas;
   display: grid;
@@ -110,8 +114,7 @@ nav {
   height: 100%;
   width: 100%;
 }
-/* *********************************************************************************************** */
-/* *********************************Llaves prestadas parte izquierda********************************** */
+
 .llaves-prestadas-tittle {
   grid-area: llaves-prestadas-tittle;
   margin: 0;
@@ -127,8 +130,8 @@ nav {
   align-items: center;
   width: 90%;
   height: 100%;
-  border-bottom: 2px solid #004990;
-  border-top: 2px solid #004990;
+  border-bottom: 2px solid var(--color_principal);
+  border-top: 2px solid var(--color_principal);
   color: #585858;
 }
 
@@ -215,12 +218,8 @@ nav {
 
 .llaves-paginador a:hover {
   color: white;
-  background: #004990;
+  background: var(--color_principal);
 }
-
-/* *********************************Llaves prestadas parte izquierda********************************** */
-
-/* *********************************Formulairo de prestamo parte derecha******************************* */
 
 .formulario-prestamo {
   grid-area: formulario-prestamo;
@@ -239,7 +238,7 @@ nav {
   grid-area: formulario-tittle;
   margin: 0;
   text-align: center;
-  border-bottom: 2px solid #004990;
+  border-bottom: 2px solid var(--color_principal);
   height: 100%;
   display: flex;
   align-items: center;
@@ -276,8 +275,6 @@ nav {
   margin: 0;
   width: 95%;
   height: 100%;
-  /* justify-content: center; */
-  /* align-self: center; */
 }
 
 .formulario-prestamo-content h3 {
@@ -360,7 +357,7 @@ nav {
 
 .button-registro .registrar {
   text-decoration: none;
-  background-color: #004990;
+  background-color: var(--color_principal);
   border-radius: 20px;
   margin: 0;
   padding: 5px 40px;
@@ -368,9 +365,6 @@ nav {
   color: #fff;
   border: none;
 }
-/* **************************************************************************************************** */
-
-/****************************************Seccion para ventana modal****************************************/
 
 .modal-container {
   width: 100%;
@@ -381,7 +375,8 @@ nav {
   left: 0;
   margin: 0;
   padding: 0;
-  background: rgba(0, 0, 0, 0.5)
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
 }
 
 #modal-container:target {
@@ -411,7 +406,7 @@ nav {
   width: 100%;
   align-items: center;
   text-align: center;
-  border-bottom: 2px solid #004990;
+  border-bottom: 2px solid var(--color_principal);
   font-size: 1.5em;
   margin: 0;
   font-weight: 500;
@@ -444,7 +439,7 @@ nav {
 }
 
 .modal-button-aceptar {
-  background: #004990;
+  background: var(--color_principal);
   border-radius: 20px;
   text-decoration: none;
   margin: 0;
@@ -463,7 +458,7 @@ nav {
   padding: 5px 40px;
   font-size: 1em;
   color: #00001a;
-  border: 2px solid #004990;  
+  border: 2px solid var(--color_principal);  
   height: 60%;
 }
 
@@ -475,7 +470,7 @@ nav {
   grid-area: footer;
   height: 100%;
   width: 100%;
-  background-color: #F7A11A;
+  background-color: var(--color_secundario);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -492,7 +487,7 @@ nav {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #004990;
+  background: var(--color_principal);
   display: block;
   color: #f4fbff;
   line-height: 40px;
@@ -507,8 +502,15 @@ nav {
 /* ***************************************************************************************************************************** */
 
 /* **********************Media Querys***********************************************************/
+@custom-media --medium (width <= 950px);
+@custom-media --medium-1 (width <= 769px);
+@custom-media --medium-2 (width <= 744px);
+@custom-media --small (width <= 592px);
+@custom-media --extra-small (width <= 425px);
+@custom-media --extra-small-1 (width <= 375px);
+@custom-media --extra-small-2 (width <= 320px);
 
-@media screen and (max-width: 950px){
+@media (--medium){
   #logo-unison {
     height: 100px;
     width: auto;
@@ -524,7 +526,7 @@ nav {
   }
 }
 
-@media screen and (max-width: 769px) {
+@media (--medium-1) {
   .formulario-prestamo-content h3 {
     font-size: .9em;
   }
@@ -539,7 +541,7 @@ nav {
   }
 }
 
-@media screen and (max-width: 744px){
+@media (--medium-2){
   nav {
     width: 0;
   }
@@ -559,8 +561,18 @@ nav {
                          "footer";
   }
   .header {
+    grid-area: header;
     position: fixed;
     height: 60px;
+  }
+  .formulario-prestamo {
+    grid-area: formulario-prestamo;
+  }
+  .llaves-prestadas {
+    grid-area: llaves-prestadas;
+  }
+  .footer {
+    grid-area: footer;
   }
   .menu a{
     font-size: 2em;
@@ -580,7 +592,7 @@ nav {
   }
   .menu {
     position: fixed;
-    background: #004990;
+    background: var(--color_principal);
     z-index: 3;
     top: -10vh;
     left: -130vw;
@@ -630,13 +642,13 @@ nav {
   }
 }
 
-@media screen and (max-width: 592px){
+@media (--small){
   .header h1 {
     font-size: 1em;
   }
 }
 
-@media screen and (max-width: 425px){
+@media (--extra-small){
   .header h1 {
     font-size: .8em;
   }
@@ -651,7 +663,7 @@ nav {
   }
 }
 
-@media screen and (max-width: 375px){
+@media (--extra-small-1){
   .header h1 {
     font-size: .7em;
   }
@@ -660,7 +672,7 @@ nav {
   }
 }
 
-@media screen and (max-width: 320px){
+@media (--extra-small-2){
   .logo {
     margin: 0;
     display: flex;
