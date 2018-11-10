@@ -4,7 +4,6 @@ html {
   padding: 0;
   height: 100%;
   width: 100%;
-  box-sizing: border-box;
 }
 
 body{
@@ -14,6 +13,12 @@ body{
   margin: 0;
 }
 
+/* Declaracion de variables */
+:root{
+  --color_principal: #004990;
+  --color_secundario: #F7A11A;
+}
+
 .container-grid {
   margin: 0;
   padding: 0;
@@ -21,7 +26,7 @@ body{
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 150px 1fr 30px;
+  grid-template-rows: 140px 1fr 30px;
   grid-template-areas: "header header"
                        "llaves-prestadas formulario-prestamo"
                        "footer footer";
@@ -33,15 +38,19 @@ body{
   height: 100%;
   display: flex;
   justify-content: center; 
-  background-color: #004990;
+  background-color: var(--color_principal);
   font-size: 20px;
 }
 
 .logo {
-  width: 15%;
-  margin: 0 10px 0 30px;
+  margin: 0 10px;
   align-self: flex-end;
   text-align: end;
+}
+
+#logo-unison {
+  width: auto;
+  height: 120px;
 }
 
 .header h1 {
@@ -64,7 +73,7 @@ nav {
 .menu {
   width: 100%;
   list-style: none;
-  text-align: end;
+  text-align: right;
   margin: 0 0 8px 0;
 }
 
@@ -81,7 +90,7 @@ nav {
 }
 
 .menu a:hover {
-  box-shadow: 0 8px 0 0 #F7A11A;
+  box-shadow: 0 8px 0 var(--color_secundario);
 }
 
 .imagen-perfil {
@@ -92,66 +101,94 @@ nav {
   padding: 0 40px 10px 10px;
 }
 
-.division {
-  height: 1%;
-  background-color: lightgray;
-  margin: 0;
-  width: 90%;
-}
-
 .llaves-prestadas {
   grid-area: llaves-prestadas;
-  display: flex;
+  display: grid;
+  grid-template-rows: 50px 50px 1fr 40px;
+  grid-template-areas: "llaves-prestadas-tittle"
+                       "llaves-tittle"
+                       "llaves-cards"
+                       "llaves-paginador";
   flex-direction: column;
   align-items: center;
   height: 100%;
+  width: 100%;
 }
 
-.llaves-prestadas .division {
-  background: #004990;
-  height: 2px;
-  padding-top: 1px;
+.llaves-prestadas-tittle {
+  grid-area: llaves-prestadas-tittle;
+  margin: 0;
+  justify-self: center;
+  color: #585858;
 }
 
 .llaves-titles{
   display: flex;
+  grid-area: llaves-tittle;
+  justify-self: center;
   justify-content: space-around;
+  align-items: center;
   width: 90%;
+  height: 100%;
+  border-bottom: 2px solid var(--color_principal);
+  border-top: 2px solid var(--color_principal);
+  color: #585858;
 }
 
 .llaves-titles h3 {
   font-size: 16px;
-  margin: 10px 0;
-  align-self: center;
-  height: 10%;
+  margin: 0;
+  width: 20%;
+  text-align: center;
+  color: #585858;
 }
 
 .llaves-cards {
+  grid-area: llaves-cards;
   width: 90%;
-  height: 91%;
-  overflow: hidden;
-  padding: 3px;
+  /* height: 43vh; */
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: hidden;
 }
 
 .card-item {
   border: .5px solid lightgray;
   display: inline-flex;
   margin: 3px 0;
-  height: 10%;
-  width: 100%;
+  height: 35px;
+  width: 99%;
   justify-content: space-around;
   align-items: center;
   border-radius: 15px;
+  justify-self: center;
 }
 
 .card-item h3 {
   font-size: .8em;
   font-weight: 500;
+  width: 20%;
+  max-height: 35px;
+  text-align: center;
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-item:hover {
+  background: green;
+  background: -webkit-linear-gradient(to right, #58FA58, #f4fbff, #f4fbff, #f4fbff);
+  background: linear-gradient(to right, #58FA58, #f4fbff, #f4fbff, #f4fbff);
 }
 
 .llaves-paginador {
-  height: 9%;
-  width: 90%;
+  grid-area: llaves-paginador;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -181,83 +218,138 @@ nav {
 
 .llaves-paginador a:hover {
   color: white;
-  background: lightblue;
+  background: var(--color_principal);
 }
 
 .formulario-prestamo {
   grid-area: formulario-prestamo;
+  display: grid;
+  grid-template-rows: 100px 1fr 100px;
+  grid-template-areas: "formulario-tittle"
+                       "formulario-prestamo-content"
+                       "button-registro";
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formulario-tittle {
+  grid-area: formulario-tittle;
+  margin: 0;
+  text-align: center;
+  border-bottom: 2px solid var(--color_principal);
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-.formulario-prestamo form {
-  height: 69%;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  font-size: 22px;
-  box-sizing: content-box;
-  width: 75%;
+  flex-direction: column;
 }
 
-.formulario-prestamo .division {
-  background: #004990;
-  height: 2px;
-  padding-top: 1px;
-}
-
-.row-container {
-  margin: 7px 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.row-container input {
-  font-size: 18px;
-  border-radius: 20px;
-  margin-right: 10px;
-  border-style: none;
-  border: 1px solid lightgray;
-  width: 67%;
-  height: 25px;
-}
-
-.row-container h3 {
-  text-decoration: none;
-  color: gray;
-  width: 30%;
+.formulario-tittle h2 {
+  height: 50%;
   margin: 0;
-  font-weight: normal;
-  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #585858;
+}
+
+.ghost-div {
+  width: 100%;
+  height: 50%;
+}
+
+.formulario-prestamo-content {
+  grid-area: formulario-prestamo-content;
+  display: grid;
+  display: -ms-grid;
+  -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 20% 35% 10% 35%;
+  grid-template: repeat( 5, 1fr) / 20% 35% 10% 35%;
+  grid-template-areas: ". combo-box combo-box combo-box"
+                       "llaves llaves-i llaves-i llaves-i"
+                       "maestros maestros-i maestros-i maestros-i"
+                       "materia materia-i materia-i materia-i"
+                       "aula aula-i hora hora-i";
+  margin: 0;
+  width: 95%;
+  height: 100%;
+}
+
+.formulario-prestamo-content h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #585858;
 }
 
 .combo-box {
+  grid-area: combo-box;
   cursor: pointer;
+  border-radius: 20px;
+  font-size: .8em;
+  border: 1px solid lightgray;
+  padding: 5px;
+  color: darkgray;
 }
 
-.combo-box:focus {
-  
+.llaves {
+  grid-area: llaves;
 }
 
-.lista-llaves input {
+.llaves-i {
+  grid-area: llaves-i;
+}
+
+.maestros {
+  grid-area: maestros;
+}
+
+.maestros-i {
+  grid-area: maestros-i;
+}
+
+.materia{
+  grid-area: materia;
+}
+
+.materia-i {
+  grid-area: materia-i;
+}
+
+.aula {
+  grid-area: aula;
+}
+
+.aula-i{
+  grid-area: aula-i;
+}
+
+.hora {
+  grid-area: hora;
   text-align: center;
+  padding-left: 5px;
 }
 
-.pequeños input {
-  width: 30%;
+.hora-i {
+  grid-area: hora-i;
 }
 
-.pequeños .title-hora {
-  display: flex;
-  justify-content: center;
+.inputs {
+  height: 30px;
+  border-radius: 20px;
+  border: 1px solid #585858;
+  align-self: center;
+  /* margin: 0 25px 0 5px; */
+  padding-left: 10px;
 }
 
 .button-registro {
+  grid-area: button-registro;
   display: flex;
-  height: 20%;
+  height: 100%;
   align-items: center;
   width: 100%;
   justify-content: center;
@@ -265,7 +357,7 @@ nav {
 
 .button-registro .registrar {
   text-decoration: none;
-  background-color: #004990;
+  background-color: var(--color_principal);
   border-radius: 20px;
   margin: 0;
   padding: 5px 40px;
@@ -274,28 +366,128 @@ nav {
   border: none;
 }
 
+.modal-container {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+#modal-container:target {
+  display: flex;
+}
+
+.modal-content {
+  height: 80vh;
+  width: 500px;
+  box-sizing: border-box;
+  position: relative;
+  margin: auto;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: 80px 1fr 50px;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border: 2px solid gray;
+  border-radius: 5px;
+}
+
+.modal-tittle {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid var(--color_principal);
+  font-size: 1.5em;
+  margin: 0;
+  font-weight: 500;
+}
+
+.modal-list {
+  padding:  0 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-list select {
+  margin-top: 10px;
+}
+
+.modal-checklist {
+  font-size: 1.3em;
+  border: 1px solid red;
+  padding: 5px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+}
+
+.modal-button-aceptar {
+  background: var(--color_principal);
+  border-radius: 20px;
+  text-decoration: none;
+  margin: 0;
+  padding: 5px 40px;
+  font-size: 1em;
+  color: #fff;
+  border: none;
+  height: 60%;  
+}
+
+.modal-button-cancelar {
+  background: #fff;
+  border-radius: 20px;
+  text-decoration: none;
+  margin: 0;
+  padding: 5px 40px;
+  font-size: 1em;
+  color: #00001a;
+  border: 2px solid var(--color_principal);  
+  height: 60%;
+}
+
+/* ***********************************************************/
+
+/* *****************Secicon de Footer************************ */
+
 .footer {
   grid-area: footer;
-  /* height: 5%; */
+  height: 100%;
   width: 100%;
-  background-color: #F7A11A;
+  background-color: var(--color_secundario);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.footer a {
-  padding: 0 30px;
-  text-decoration: none;
-  color: #fff;
+.footer h3 {
+  margin: 0 10px;
+  color: #f4fbff;
   font-size: 15px;
+  font-weight: 300;
 }
 
 .burger-button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #004990;
+  background: var(--color_principal);
   display: block;
   color: #f4fbff;
   line-height: 40px;
@@ -307,39 +499,49 @@ nav {
   display: none;
 }
 
-@media screen and (max-width: 834px){
-  .container-grid {
-    width: 100%;
-    height: 100%;
+/* ***************************************************************************************************************************** */
+
+/* **********************Media Querys***********************************************************/
+@custom-media --medium (width <= 950px);
+@custom-media --medium-1 (width <= 769px);
+@custom-media --medium-2 (width <= 744px);
+@custom-media --small (width <= 592px);
+@custom-media --extra-small (width <= 425px);
+@custom-media --extra-small-1 (width <= 375px);
+@custom-media --extra-small-2 (width <= 320px);
+
+@media (--medium){
+  #logo-unison {
+    height: 100px;
+    width: auto;
   }
   .header h1 {
     font-size: 1.2em;
   }
-  .logo {
-    width: 15%;
-    margin: 0;
-    justify-content: center;
-    text-align: center;
-    align-self: flex-end;
+  .inputs {
+    width: inherit;
   }
-  .menu ol {
+  .menu {
     padding: 0;
-  }
-  .menu li {
-    font-size: .7em;
-  }
-  .imagen-perfil {
-    padding-right: 10px;
-  }
-  .imagen-perfil img {
-    width: 30px;
-  }
-  .lista-llaves input {
-    font-size: .6em;
   }
 }
 
-@media screen and (max-width: 656px){
+@media (--medium-1) {
+  .formulario-prestamo-content h3 {
+    font-size: .9em;
+  }
+  .inputs {
+    height: 25px;
+  }
+  .aula-i, .hora-i {
+    width: 85%;
+  }
+  .hora {
+    padding: 0;
+  }
+}
+
+@media (--medium-2){
   nav {
     width: 0;
   }
@@ -351,38 +553,46 @@ nav {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 60px 400px 450px 30px;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 60px 400px 450px 30px;
     grid-template-areas: "header"
                          "formulario-prestamo"
                          "llaves-prestadas"
                          "footer";
+  }
+  .header {
+    grid-area: header;
+    position: fixed;
+    height: 60px;
+  }
+  .formulario-prestamo {
+    grid-area: formulario-prestamo;
+  }
+  .llaves-prestadas {
+    grid-area: llaves-prestadas;
+  }
+  .footer {
+    grid-area: footer;
+  }
+  .menu a{
+    font-size: 2em;
   }
   .burger-button {
     display: initial;
     top: 2vh;
   }
   .logo {
-    width: 11%;
+    align-self: auto;
   }
   .header h1 {
-    padding: 0;
-    display: flex;
-    align-items: center;
+    padding: 10px;
   }
-  .imagen-perfil {
-    position: fixed;
-    left: -30vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: .3s;
-  }
-  .imagen-perfil img {
-    width: 100px;
-    height: 100px;
+  #logo-unison {
+    height: 60px;
   }
   .menu {
     position: fixed;
-    background: #004990;
+    background: var(--color_principal);
     z-index: 3;
     top: -10vh;
     left: -130vw;
@@ -396,16 +606,6 @@ nav {
     flex-direction: column;
     font-size: 2em;
   }
-  .imagen-perfil.is-active {
-    position: fixed;
-    display: flex;
-    z-index: 3;
-    left: 40vw;
-    top: 5vh;
-    width: auto;
-    align-items: flex-end;
-    justify-content: center;
-  }
   .menu.is-active {
     padding: 0;
     margin: 0;
@@ -414,48 +614,90 @@ nav {
     flex-direction: column;
     font-size: 2em;
   }
-  .header {
-    height: initial;
-    position: fixed;
+  .formulario-prestamo {
+    grid-template-rows: 60px 1fr 60px;
+  }
+  .formulario-tittle h2 {
+    height: 100%;
+  }
+  .ghost-div {
+    height: 0;
+  }
+  .formulario-prestamo-content {
+    width: 97%;
+    grid-template:repeat(5, 1fr) / 150px 1fr 60px 1fr;
+  }
+  .formulario-prestamo-content h3 {
+    font-size: 1.3em;
+    padding-left: 20px;
+  }
+  .hora {
+    padding: 0 !important;
+  }
+  .aula-i, .hora-i {
+    width: 93% !important;
+  }
+  .inputs {
+    height: 30px;
   }
 }
 
-@media screen and (max-width: 425px){
-  .imagen-perfil.is-active {
-    left: 35vw;
+@media (--small){
+  .header h1 {
+    font-size: 1em;
   }
-  nav{
-    width: 0%;
+}
+
+@media (--extra-small){
+  .header h1 {
+    font-size: .8em;
   }
+  .formulario-prestamo-content {
+    grid-template: repeat(5, 55px) / 120px 1fr 60px 1fr;
+  }
+  .inputs {
+    width: 90%;
+  } 
+  .aula-i, .hora-i {
+    width: 75% !important;
+  }
+}
+
+@media (--extra-small-1){
+  .header h1 {
+    font-size: .7em;
+  }
+  .llaves-titles h3{
+    font-size: .75em;
+  }
+}
+
+@media (--extra-small-2){
   .logo {
-    width: 20%;
+    margin: 0;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
   }
-  .header {
-    height: 60px;
+  #logo-unison {
+    height: 50px;
+    width: auto;
   }
   .header h1 {
+    font-size: .8em;
+    width: 160px;
+  }
+  .formulario-prestamo-content {
+    grid-template: repeat(5, 55px) / 90px 1fr 60px 1fr;
+  }
+  .formulario-prestamo-content h3 {
+    font-size: 1em;
+  }
+  .footer h3 {
     font-size: .8em;
   }
 }
 
-@media screen and (max-width: 320px){
-  .header h1 {
-    font-size: .6em;
-  }
-  .logo {
-    height: 60px;
-    display: flex;
-    align-items: center;
-  }
-  .lista-llaves input {
-    font-size: .5em;
-  }
-  .row-container h3 {
-    font-size: 0.7em;
-  }
-}
+/* *******************************************************************/
 
 /* ************** MENU HAMBURGUESA ****************** */
 @font-face {
@@ -471,7 +713,7 @@ nav {
 
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon' !important;
-  speak: none;
+  /* speak: none; */
   font-style: normal;
   font-weight: normal;
   font-variant: normal;

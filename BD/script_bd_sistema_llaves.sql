@@ -208,7 +208,6 @@ CREATE TABLE tusuarios(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(150) UNIQUE,
 contrasena VARCHAR(255),
-imagen VARCHAR(255),
 rol CHAR(1) NOT NULL,
 estado BOOLEAN DEFAULT 1,
 PRIMARY KEY(id)
@@ -219,13 +218,14 @@ PRIMARY KEY(id)
 /* En la siguiente tabla se llevara el control de
    la hora de entrada y salida de los maestros,
    asi como tambien si tiene algun prestamo*/
+DROP TABLE IF EXISTS tregistros;
 CREATE TABLE tregistros(
 id INT AUTO_INCREMENT,
 id_horario INT,
 hora_entrada TIMESTAMP NOT NULL,
 hora_salida TIMESTAMP NULL,
 id_excepcion INT NULL DEFAULT NULL,
-id_prestamo INT NOT NULL,
+id_prestamo INT NULL DEFAULT NULL,
 id_usuario INT NOT NULL,
 
 PRIMARY KEY(id),
