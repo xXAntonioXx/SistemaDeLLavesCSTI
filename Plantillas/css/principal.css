@@ -1,22 +1,46 @@
-html {
-  font-family: 'Hind', sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
-
-body{
-  height: 100%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
 /* Declaracion de variables */
 :root{
   --color_principal: #004990;
   --color_secundario: #F7A11A;
+  --color_texto: #585858;
+  --color_verde: #58FA58;
+  --color_blanco: #f4fbff;
+  --expander: {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  };
+  --button_principal: {
+    text-decoration: none;
+    background-color: var(--color_principal);
+    border-radius: 20px;
+    margin: 0;
+    padding: 5px 40px;
+    font-size: 1em;
+    color: #fff;
+    border: none;
+  };
+  --button_secundario: {
+    background: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    margin: 0;
+    padding: 5px 40px;
+    font-size: 1em;
+    color: #00001a;
+    border: 2px solid var(--color_principal);  
+    height: 60%;
+  };
+}
+
+html {
+  font-family: 'Hind', sans-serif;
+  @apply --expander;
+}
+
+body{
+  @apply --expander;
 }
 
 .container-grid {
@@ -30,6 +54,21 @@ body{
   grid-template-areas: "header header"
                        "llaves-prestadas formulario-prestamo"
                        "footer footer";
+  @media (--medium-2) {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 400px 450px 30px;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 60px 400px 450px 30px;
+    grid-template-areas: "header"
+                         "formulario-prestamo"
+                         "llaves-prestadas"
+                         "footer";
+  }
 }
 
 .header {
@@ -40,34 +79,79 @@ body{
   justify-content: center; 
   background-color: var(--color_principal);
   font-size: 20px;
+  & h1 {
+    font-size: 1.5em;
+    margin: 0;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 3%;
+    width: 40%;
+    color: #fff;
+    font-weight: 500;
+    @media (--medium) {
+      font-size: 1.2em;
+    }
+    @media (--medium-2) {
+      padding: 10px;
+    }
+    @media (--small) {
+      font-size: 1em;
+    }
+    @media (--extra-small) {
+      font-size: .8em;
+    }
+    @media (--extra-small-1) {
+      font-size: .7em;
+    }
+    @media (--extra-small-2) {
+      font-size: .8em;
+      width: 160px;
+    }
+  }
+  @media (--medium-2) {
+    grid-area: header;
+    position: fixed;
+    height: 60px;
+  }
 }
 
 .logo {
   margin: 0 10px;
   align-self: flex-end;
   text-align: end;
+  @media (--medium-2) {
+    align-self: auto;
+  }
+  @media (--extra-small-2) {
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
 }
 
 #logo-unison {
   width: auto;
   height: 120px;
-}
-
-.header h1 {
-  font-size: 1.5em;
-  margin: 0;
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: 3%;
-  width: 40%;
-  color: #fff;
-  font-weight: 500;
+  @media (--medium) {
+    height: 100px;
+    width: auto;
+  }
+  @media (--medium-2) {
+    height: 60px;
+  }
+  @media (--extra-small-2) {
+    height: 50px;
+    width: auto;
+  }
 }
 
 nav {
   width: 40%;
   display: flex;
   align-items: flex-end;
+  @media (--medium-2) {
+    width: 0;
+  }
 }
 
 .menu {
@@ -75,22 +159,41 @@ nav {
   list-style: none;
   text-align: right;
   margin: 0 0 8px 0;
-}
-
-.menu li {
-  display: inline-block;
-  margin: 0 5px;
-  font-size: 17px;
-}
-
-.menu a {
-  text-decoration: none;
-  font-size: 1em;
-  color: #fff;
-}
-
-.menu a:hover {
-  box-shadow: 0 8px 0 var(--color_secundario);
+  & li {
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 17px;
+  }
+  & a {
+    text-decoration: none;
+    font-size: 1em;
+    color: #fff;
+    &:hover {
+      box-shadow: 0 8px 0 var(--color_secundario);
+    }
+    @media (--medium-2) {
+      font-size: 2em;
+    }
+  }
+  @media (--medium) {
+    padding: 0;
+  }
+  @media (--medium-2) {
+    position: fixed;
+    background: var(--color_principal);
+    z-index: 3;
+    top: -10vh;
+    left: -130vw;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: -10vh;
+    transition: .3s;
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+  }
 }
 
 .imagen-perfil {
@@ -113,13 +216,16 @@ nav {
   align-items: center;
   height: 100%;
   width: 100%;
+  @media (--medium-2) {
+    grid-area: llaves-prestadas;
+  }
 }
 
 .llaves-prestadas-tittle {
   grid-area: llaves-prestadas-tittle;
   margin: 0;
   justify-self: center;
-  color: #585858;
+  color: var(--color_texto);
 }
 
 .llaves-titles{
@@ -132,21 +238,22 @@ nav {
   height: 100%;
   border-bottom: 2px solid var(--color_principal);
   border-top: 2px solid var(--color_principal);
-  color: #585858;
-}
-
-.llaves-titles h3 {
-  font-size: 16px;
-  margin: 0;
-  width: 20%;
-  text-align: center;
-  color: #585858;
+  color: var(--color_texto);
+  & h3 {
+    font-size: 16px;
+    margin: 0;
+    width: 20%;
+    text-align: center;
+    color: var(--color_texto);
+    @media (--extra-small-1) {
+      font-size: .75em;
+    }
+  }
 }
 
 .llaves-cards {
   grid-area: llaves-cards;
   width: 90%;
-  /* height: 43vh; */
   justify-self: center;
   display: flex;
   align-items: center;
@@ -164,25 +271,23 @@ nav {
   align-items: center;
   border-radius: 15px;
   justify-self: center;
-}
-
-.card-item h3 {
-  font-size: .8em;
-  font-weight: 500;
-  width: 20%;
-  max-height: 35px;
-  text-align: center;
-  overflow: hidden;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-item:hover {
-  background: green;
-  background: -webkit-linear-gradient(to right, #58FA58, #f4fbff, #f4fbff, #f4fbff);
-  background: linear-gradient(to right, #58FA58, #f4fbff, #f4fbff, #f4fbff);
+  & h3 {
+    font-size: .8em;
+    font-weight: 500;
+    width: 20%;
+    max-height: 35px;
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &:hover {
+    background: green;
+    background: -webkit-linear-gradient(to right, var(--color_verde), var(--color_blanco), var(--color_blanco), var(--color_blanco));
+    background: linear-gradient(to right, var(--color_verde), var(--color_blanco), var(--color_blanco), var(--color_blanco));
+  }
 }
 
 .llaves-paginador {
@@ -192,33 +297,30 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.llaves-paginador ul {
-  list-style: none;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.llaves-paginador a {
-  color: gray;
-  float: left;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  font-size: 1.2em;
-  padding: 0 10px 0 10px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.llaves-paginador a:hover {
-  color: white;
-  background: var(--color_principal);
+  & ul {
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & a {
+    color: gray;
+    float: left;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    font-size: 1.2em;
+    padding: 0 10px 0 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      background: var(--color_principal);
+    }
+  }
 }
 
 .formulario-prestamo {
@@ -232,6 +334,10 @@ nav {
   width: 100%;
   flex-direction: column;
   align-items: center;
+  @media (--medium-2) {
+    grid-area: formulario-prestamo;
+    grid-template-rows: 60px 1fr 60px;
+  }
 }
 
 .formulario-tittle {
@@ -244,26 +350,32 @@ nav {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.formulario-tittle h2 {
-  height: 50%;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #585858;
+  & h2 {
+    height: 50%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color_texto);
+    @media (--medium-2) {
+      height: 100%;
+    }
+  }
 }
 
 .ghost-div {
   width: 100%;
   height: 50%;
+  @media (--medium-2) {
+    height: 0;
+  }
 }
 
 .formulario-prestamo-content {
   grid-area: formulario-prestamo-content;
   display: grid;
   display: -ms-grid;
+  display: -moz-grid;
   -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;
   -ms-grid-columns: 20% 35% 10% 35%;
   grid-template: repeat( 5, 1fr) / 20% 35% 10% 35%;
@@ -275,14 +387,31 @@ nav {
   margin: 0;
   width: 95%;
   height: 100%;
-}
-
-.formulario-prestamo-content h3 {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  color: #585858;
+  & h3 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--color_texto);
+    @media (--medium-1) {
+      font-size: 1em;
+      padding-left: 10px;
+    }
+     @media (--medium-2) {
+      font-size: .9em;
+      padding-left: 8px;
+    }
+    @media (--extra-small-2) {
+      font-size: .8em;
+      padding-left: 8px;
+    }
+  }
+  @media (--medium-2) {
+    width: 95%;
+  }
+  @media (--small) {
+    width: 100%;
+  }
 }
 
 .combo-box {
@@ -325,25 +454,60 @@ nav {
 
 .aula-i{
   grid-area: aula-i;
+  @media (--medium-1){
+    width: 85%;
+  }
+  @media (--medium-2) {
+    width: 93% !important;
+  }
+  @media (--extra-small) {
+    width: 75% !important;
+  }
 }
 
 .hora {
   grid-area: hora;
   text-align: center;
   padding-left: 5px;
+  @media (--medium) {
+    padding: 0;
+  }
+  @media (--medium-2) {
+    padding: 0 !important;
+  }
 }
 
 .hora-i {
   grid-area: hora-i;
+  @media (--medium-1) {
+    width: 85%;
+  }
+  @media (--medium-2) {
+    width: 93% !important;
+  }
+  @media (--extra-small) {
+    width: 75% !important;
+  }
 }
 
 .inputs {
   height: 30px;
   border-radius: 20px;
-  border: 1px solid #585858;
+  border: 1px solid var(--color_texto);
   align-self: center;
-  /* margin: 0 25px 0 5px; */
   padding-left: 10px;
+  @media (--medium) {
+    width: inherit;
+  }
+  @media (--medium-1) {
+    height: 25px;
+  }
+  @media (--medium-2) {
+    height: 30px;
+  }
+  @media (--extra-small) {
+    width: 90%;
+  }
 }
 
 .button-registro {
@@ -356,14 +520,7 @@ nav {
 }
 
 .button-registro .registrar {
-  text-decoration: none;
-  background-color: var(--color_principal);
-  border-radius: 20px;
-  margin: 0;
-  padding: 5px 40px;
-  font-size: 1em;
-  color: #fff;
-  border: none;
+  @apply --button_principal;
 }
 
 .modal-container {
@@ -418,10 +575,9 @@ nav {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-.modal-list select {
-  margin-top: 10px;
+  & select {
+    margin-top: 10px;
+  }
 }
 
 .modal-checklist {
@@ -439,32 +595,12 @@ nav {
 }
 
 .modal-button-aceptar {
-  background: var(--color_principal);
-  border-radius: 20px;
-  text-decoration: none;
-  margin: 0;
-  padding: 5px 40px;
-  font-size: 1em;
-  color: #fff;
-  border: none;
-  height: 60%;  
+  @apply --button_principal;
 }
 
 .modal-button-cancelar {
-  background: #fff;
-  border-radius: 20px;
-  text-decoration: none;
-  margin: 0;
-  padding: 5px 40px;
-  font-size: 1em;
-  color: #00001a;
-  border: 2px solid var(--color_principal);  
-  height: 60%;
+  @apply --button_secundario;
 }
-
-/* ***********************************************************/
-
-/* *****************Secicon de Footer************************ */
 
 .footer {
   grid-area: footer;
@@ -474,13 +610,18 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.footer h3 {
-  margin: 0 10px;
-  color: #f4fbff;
-  font-size: 15px;
-  font-weight: 300;
+  & h3 {
+    margin: 0 10px;
+    color: var(--color_blanco);
+    font-size: 15px;
+    font-weight: 300;
+    @media (--extra-small-2) {
+      font-size: .8em;
+    }
+  }
+  @media (--medium-2) {
+    grid-area: footer;
+  }
 }
 
 .burger-button {
@@ -489,7 +630,7 @@ nav {
   border-radius: 50%;
   background: var(--color_principal);
   display: block;
-  color: #f4fbff;
+  color: var(--color_blanco);
   line-height: 40px;
   text-align: center;
   position: fixed;
@@ -497,116 +638,14 @@ nav {
   left: 5px;
   top: 5px;
   display: none;
-}
-
-/* ***************************************************************************************************************************** */
-
-/* **********************Media Querys***********************************************************/
-@custom-media --medium (width <= 950px);
-@custom-media --medium-1 (width <= 769px);
-@custom-media --medium-2 (width <= 744px);
-@custom-media --small (width <= 592px);
-@custom-media --extra-small (width <= 425px);
-@custom-media --extra-small-1 (width <= 375px);
-@custom-media --extra-small-2 (width <= 320px);
-
-@media (--medium){
-  #logo-unison {
-    height: 100px;
-    width: auto;
-  }
-  .header h1 {
-    font-size: 1.2em;
-  }
-  .inputs {
-    width: inherit;
-  }
-  .menu {
-    padding: 0;
-  }
-}
-
-@media (--medium-1) {
-  .formulario-prestamo-content h3 {
-    font-size: .9em;
-  }
-  .inputs {
-    height: 25px;
-  }
-  .aula-i, .hora-i {
-    width: 85%;
-  }
-  .hora {
-    padding: 0;
-  }
-}
-
-@media (--medium-2){
-  nav {
-    width: 0;
-  }
-  .container-grid {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 400px 450px 30px;
-    -ms-grid-columns: 1fr;
-    -ms-grid-rows: 60px 400px 450px 30px;
-    grid-template-areas: "header"
-                         "formulario-prestamo"
-                         "llaves-prestadas"
-                         "footer";
-  }
-  .header {
-    grid-area: header;
-    position: fixed;
-    height: 60px;
-  }
-  .formulario-prestamo {
-    grid-area: formulario-prestamo;
-  }
-  .llaves-prestadas {
-    grid-area: llaves-prestadas;
-  }
-  .footer {
-    grid-area: footer;
-  }
-  .menu a{
-    font-size: 2em;
-  }
-  .burger-button {
+  @media (--medium-2) {
     display: initial;
     top: 2vh;
   }
-  .logo {
-    align-self: auto;
-  }
-  .header h1 {
-    padding: 10px;
-  }
-  #logo-unison {
-    height: 60px;
-  }
-  .menu {
-    position: fixed;
-    background: var(--color_principal);
-    z-index: 3;
-    top: -10vh;
-    left: -130vw;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    bottom: -10vh;
-    transition: .3s;
-    display: flex;
-    flex-direction: column;
-    font-size: 2em;
-  }
-  .menu.is-active {
+}
+
+.menu.is-active {
+  @media (--medium-2){
     padding: 0;
     margin: 0;
     left: 0;
@@ -614,90 +653,16 @@ nav {
     flex-direction: column;
     font-size: 2em;
   }
-  .formulario-prestamo {
-    grid-template-rows: 60px 1fr 60px;
-  }
-  .formulario-tittle h2 {
-    height: 100%;
-  }
-  .ghost-div {
-    height: 0;
-  }
-  .formulario-prestamo-content {
-    width: 97%;
-    grid-template:repeat(5, 1fr) / 150px 1fr 60px 1fr;
-  }
-  .formulario-prestamo-content h3 {
-    font-size: 1.3em;
-    padding-left: 20px;
-  }
-  .hora {
-    padding: 0 !important;
-  }
-  .aula-i, .hora-i {
-    width: 93% !important;
-  }
-  .inputs {
-    height: 30px;
-  }
 }
 
-@media (--small){
-  .header h1 {
-    font-size: 1em;
-  }
-}
-
-@media (--extra-small){
-  .header h1 {
-    font-size: .8em;
-  }
-  .formulario-prestamo-content {
-    grid-template: repeat(5, 55px) / 120px 1fr 60px 1fr;
-  }
-  .inputs {
-    width: 90%;
-  } 
-  .aula-i, .hora-i {
-    width: 75% !important;
-  }
-}
-
-@media (--extra-small-1){
-  .header h1 {
-    font-size: .7em;
-  }
-  .llaves-titles h3{
-    font-size: .75em;
-  }
-}
-
-@media (--extra-small-2){
-  .logo {
-    margin: 0;
-    display: flex;
-    align-items: center;
-  }
-  #logo-unison {
-    height: 50px;
-    width: auto;
-  }
-  .header h1 {
-    font-size: .8em;
-    width: 160px;
-  }
-  .formulario-prestamo-content {
-    grid-template: repeat(5, 55px) / 90px 1fr 60px 1fr;
-  }
-  .formulario-prestamo-content h3 {
-    font-size: 1em;
-  }
-  .footer h3 {
-    font-size: .8em;
-  }
-}
-
-/* *******************************************************************/
+/* **********************Media Querys***************** */
+@custom-media --medium (width <= 950px);
+@custom-media --medium-1 (width <= 769px);
+@custom-media --medium-2 (width <= 744px);
+@custom-media --small (width <= 592px);
+@custom-media --extra-small (width <= 425px);
+@custom-media --extra-small-1 (width <= 375px);
+@custom-media --extra-small-2 (width <= 320px);
 
 /* ************** MENU HAMBURGUESA ****************** */
 @font-face {
@@ -713,7 +678,6 @@ nav {
 
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon' !important;
-  /* speak: none; */
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
