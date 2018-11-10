@@ -33,6 +33,10 @@
 
 <script>
 export default {
-    
+    data(){
+      return{
+        prueba:[{id:2,maestro:"Ciret"}]
+      }
+    }
 }
 </script>
