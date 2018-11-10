@@ -12,11 +12,11 @@
       <div class="division"></div>
       <div class="llaves-cards">
         <div v-for="registro in pruebas">
-            <h3>2</h3>
-            <h3>Ciret</h3>
-            <h3>Estructura</h3>
-            <h3>5j-205</h3>
-            <h3>12:00</h3>
+            <h3>{{registro['id']}}</h3>
+            <h3>{{registro['maestro']}}</h3>
+            <h3>{{registro['materia']}}</h3>
+            <h3>{{registro['aula']}}</h3>
+            <h3>{{registro['hora']}}</h3>
         </div>
         <!--div class="card-item">
           <h3>2</h3>
@@ -37,6 +37,9 @@
       </div>
     </section>
 </template>
+
+<style scoped src="../../css/principal.css">	
+</style>
 
 <script>
 export default {
