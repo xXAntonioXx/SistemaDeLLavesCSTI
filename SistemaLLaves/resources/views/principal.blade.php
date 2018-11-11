@@ -1,5 +1,9 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
+    <div id="app">
+      <registro></registro>
+    </div>
+    <script src="{{asset('js/app.js')}}"></script>
     <!--section class="llaves-prestadas">
       <h2>Llaves prestadas</h2>
       <div class="division"></div>
