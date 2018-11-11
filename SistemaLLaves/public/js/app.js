@@ -13990,7 +13990,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(52);
+module.exports = __webpack_require__(51);
 
 
 /***/ }),
@@ -47419,13 +47419,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(56)
+  __webpack_require__(44)
 }
 var normalizeComponent = __webpack_require__(11)
 /* script */
-var __vue_script__ = __webpack_require__(50)
+var __vue_script__ = __webpack_require__(49)
 /* template */
-var __vue_template__ = __webpack_require__(51)
+var __vue_template__ = __webpack_require__(50)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47464,31 +47464,47 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */,
-/* 45 */,
-/* 46 */
-/***/ (function(module, exports) {
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = function escape(url) {
-    if (typeof url !== 'string') {
-        return url
-    }
-    // If url is already wrapped in quotes, remove them
-    if (/^['"].*['"]$/.test(url)) {
-        url = url.slice(1, -1);
-    }
-    // Should url be wrapped?
-    // See https://drafts.csswg.org/css-values-3/#urls
-    if (/["'() \t\n]/.test(url)) {
-        return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'
-    }
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
-    return url
+// load the styles
+var content = __webpack_require__(45);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(47)("59054f38", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ec2c004\",\"scoped\":true,\"hasInlineConfig\":true}!./principal.css", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ec2c004\",\"scoped\":true,\"hasInlineConfig\":true}!./principal.css");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(46)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nhtml[data-v-7ec2c004] {\r\n  font-family: 'Hind', sans-serif;\r\n  margin: 0;\r\n  padding: 0;\r\n  height: 100%;\r\n  width: 100%;\r\n  -webkit-box-sizing: border-box;\r\n          box-sizing: border-box;\n}\nbody[data-v-7ec2c004]{\r\n  height: 100%;\r\n  width: 100%;\r\n  padding: 0;\r\n  margin: 0;\n}\n.container-grid[data-v-7ec2c004] {\r\n  margin: 0;\r\n  padding: 0;\r\n  height: 100%;\r\n  width: 100%;\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  grid-template-rows: 150px 1fr 30px;\r\n  grid-template-areas: \"header header\"\r\n                       \"llaves-prestadas formulario-prestamo\"\r\n                       \"footer footer\";\n}\n.header[data-v-7ec2c004] {\r\n  grid-area: header;\r\n  width: 100%;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center; \r\n  background-color: #004990;\r\n  font-size: 20px;\n}\n.logo[data-v-7ec2c004] {\r\n  width: 15%;\r\n  margin: 0 10px 0 30px;\r\n  -ms-flex-item-align: end;\r\n      align-self: flex-end;\r\n  text-align: end;\n}\n.header h1[data-v-7ec2c004] {\r\n  font-size: 1.5em;\r\n  margin: 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: end;\r\n      -ms-flex-align: end;\r\n          align-items: flex-end;\r\n  padding-bottom: 3%;\r\n  width: 40%;\r\n  color: #fff;\r\n  font-weight: 500;\n}\nnav[data-v-7ec2c004] {\r\n  width: 40%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: end;\r\n      -ms-flex-align: end;\r\n          align-items: flex-end;\n}\n.menu[data-v-7ec2c004] {\r\n  width: 100%;\r\n  list-style: none;\r\n  text-align: end;\r\n  margin: 0 0 8px 0;\n}\n.menu li[data-v-7ec2c004] {\r\n  display: inline-block;\r\n  margin: 0 5px;\r\n  font-size: 17px;\n}\n.menu a[data-v-7ec2c004] {\r\n  text-decoration: none;\r\n  font-size: 1em;\r\n  color: #fff;\n}\n.menu a[data-v-7ec2c004]:hover {\r\n  -webkit-box-shadow: 0 8px 0 0 #F7A11A;\r\n          box-shadow: 0 8px 0 0 #F7A11A;\n}\n.imagen-perfil[data-v-7ec2c004] {\r\n  width: 5%;\r\n  margin: 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: end;\r\n      -ms-flex-align: end;\r\n          align-items: flex-end;\r\n  padding: 0 40px 10px 10px;\n}\n.division[data-v-7ec2c004] {\r\n  height: 1%;\r\n  background-color: lightgray;\r\n  margin: 0;\r\n  width: 90%;\n}\n.llaves-prestadas[data-v-7ec2c004] {\r\n  grid-area: llaves-prestadas;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  height: 100%;\n}\n.llaves-prestadas .division[data-v-7ec2c004] {\r\n  background: #004990;\r\n  height: 2px;\r\n  padding-top: 1px;\n}\n.llaves-titles[data-v-7ec2c004]{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -ms-flex-pack: distribute;\r\n      justify-content: space-around;\r\n  width: 90%;\n}\n.llaves-titles h3[data-v-7ec2c004] {\r\n  font-size: 16px;\r\n  margin: 10px 0;\r\n  -ms-flex-item-align: center;\r\n      align-self: center;\r\n  height: 10%;\n}\n.llaves-cards[data-v-7ec2c004] {\r\n  width: 90%;\r\n  height: 91%;\r\n  overflow: hidden;\r\n  padding: 3px;\n}\n.card-item[data-v-7ec2c004] {\r\n  border: .5px solid lightgray;\r\n  display: -webkit-inline-box;\r\n  display: -ms-inline-flexbox;\r\n  display: inline-flex;\r\n  margin: 3px 0;\r\n  height: 10%;\r\n  width: 100%;\r\n  -ms-flex-pack: distribute;\r\n      justify-content: space-around;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-radius: 15px;\n}\n.card-item h3[data-v-7ec2c004] {\r\n  font-size: .8em;\r\n  font-weight: 500;\n}\n.llaves-paginador[data-v-7ec2c004] {\r\n  height: 9%;\r\n  width: 90%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.llaves-paginador ul[data-v-7ec2c004] {\r\n  list-style: none;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.llaves-paginador a[data-v-7ec2c004] {\r\n  color: gray;\r\n  float: left;\r\n  text-decoration: none;\r\n  -webkit-transition: background-color .3s;\r\n  transition: background-color .3s;\r\n  border: 1px solid #ddd;\r\n  font-size: 1.2em;\r\n  padding: 0 10px 0 10px;\r\n  border-radius: 3px;\r\n  cursor: pointer;\n}\n.llaves-paginador a[data-v-7ec2c004]:hover {\r\n  color: white;\r\n  background: lightblue;\n}\n.formulario-prestamo[data-v-7ec2c004] {\r\n  grid-area: formulario-prestamo;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.formulario-prestamo form[data-v-7ec2c004] {\r\n  height: 69%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  font-size: 22px;\r\n  -webkit-box-sizing: content-box;\r\n          box-sizing: content-box;\r\n  width: 75%;\n}\n.formulario-prestamo .division[data-v-7ec2c004] {\r\n  background: #004990;\r\n  height: 2px;\r\n  padding-top: 1px;\n}\n.row-container[data-v-7ec2c004] {\r\n  margin: 7px 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n      -ms-flex-pack: end;\r\n          justify-content: flex-end;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.row-container input[data-v-7ec2c004] {\r\n  font-size: 18px;\r\n  border-radius: 20px;\r\n  margin-right: 10px;\r\n  border-style: none;\r\n  border: 1px solid lightgray;\r\n  width: 67%;\r\n  height: 25px;\n}\n.row-container h3[data-v-7ec2c004] {\r\n  text-decoration: none;\r\n  color: gray;\r\n  width: 30%;\r\n  margin: 0;\r\n  font-weight: normal;\r\n  font-size: 0.9em;\n}\n.combo-box[data-v-7ec2c004] {\r\n  cursor: pointer;\n}\n.combo-box[data-v-7ec2c004]:focus {\n}\n.lista-llaves input[data-v-7ec2c004] {\r\n  text-align: center;\n}\n.pequeños input[data-v-7ec2c004] {\r\n  width: 30%;\n}\n.pequeños .title-hora[data-v-7ec2c004] {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\n}\n.button-registro[data-v-7ec2c004] {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  height: 20%;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  width: 100%;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\n}\n.button-registro .registrar[data-v-7ec2c004] {\r\n  text-decoration: none;\r\n  background-color: #004990;\r\n  border-radius: 20px;\r\n  margin: 0;\r\n  padding: 5px 40px;\r\n  font-size: 1em;\r\n  color: #fff;\r\n  border: none;\n}\n.footer[data-v-7ec2c004] {\r\n  grid-area: footer;\r\n  /* height: 5%; */\r\n  width: 100%;\r\n  background-color: #F7A11A;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: justify;\r\n      -ms-flex-pack: justify;\r\n          justify-content: space-between;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.footer a[data-v-7ec2c004] {\r\n  padding: 0 30px;\r\n  text-decoration: none;\r\n  color: #fff;\r\n  font-size: 15px;\n}\n.burger-button[data-v-7ec2c004] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  background: #004990;\r\n  display: block;\r\n  color: #f4fbff;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  position: fixed;\r\n  z-index: 4;\r\n  left: 5px;\r\n  top: 5px;\r\n  display: none;\n}\n@media screen and (max-width: 834px){\n.container-grid[data-v-7ec2c004] {\r\n    width: 100%;\r\n    height: 100%;\n}\n.header h1[data-v-7ec2c004] {\r\n    font-size: 1.2em;\n}\n.logo[data-v-7ec2c004] {\r\n    width: 15%;\r\n    margin: 0;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    text-align: center;\r\n    -ms-flex-item-align: end;\r\n        align-self: flex-end;\n}\n.menu ol[data-v-7ec2c004] {\r\n    padding: 0;\n}\n.menu li[data-v-7ec2c004] {\r\n    font-size: .7em;\n}\n.imagen-perfil[data-v-7ec2c004] {\r\n    padding-right: 10px;\n}\n.imagen-perfil img[data-v-7ec2c004] {\r\n    width: 30px;\n}\n.lista-llaves input[data-v-7ec2c004] {\r\n    font-size: .6em;\n}\n}\n@media screen and (max-width: 656px){\nnav[data-v-7ec2c004] {\r\n    width: 0;\n}\n.container-grid[data-v-7ec2c004] {\r\n    margin: 0;\r\n    padding: 0;\r\n    height: 100%;\r\n    width: 100%;\r\n    display: grid;\r\n    grid-template-columns: 1fr;\r\n    grid-template-rows: 60px 400px 450px 30px;\r\n    grid-template-areas: \"header\"\r\n                         \"formulario-prestamo\"\r\n                         \"llaves-prestadas\"\r\n                         \"footer\";\n}\n.burger-button[data-v-7ec2c004] {\r\n    display: initial;\r\n    top: 2vh;\n}\n.logo[data-v-7ec2c004] {\r\n    width: 11%;\n}\n.header h1[data-v-7ec2c004] {\r\n    padding: 0;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\n}\n.imagen-perfil[data-v-7ec2c004] {\r\n    position: fixed;\r\n    left: -30vw;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    -webkit-transition: .3s;\r\n    transition: .3s;\n}\n.imagen-perfil img[data-v-7ec2c004] {\r\n    width: 100px;\r\n    height: 100px;\n}\n.menu[data-v-7ec2c004] {\r\n    position: fixed;\r\n    background: #004990;\r\n    z-index: 3;\r\n    top: -10vh;\r\n    left: -130vw;\r\n    width: 100vw;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    bottom: -10vh;\r\n    -webkit-transition: .3s;\r\n    transition: .3s;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    font-size: 2em;\n}\n.imagen-perfil.is-active[data-v-7ec2c004] {\r\n    position: fixed;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    z-index: 3;\r\n    left: 40vw;\r\n    top: 5vh;\r\n    width: auto;\r\n    -webkit-box-align: end;\r\n        -ms-flex-align: end;\r\n            align-items: flex-end;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.menu.is-active[data-v-7ec2c004] {\r\n    padding: 0;\r\n    margin: 0;\r\n    left: 0;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    font-size: 2em;\n}\n.header[data-v-7ec2c004] {\r\n    height: initial;\r\n    position: fixed;\n}\n}\n@media screen and (max-width: 425px){\n.imagen-perfil.is-active[data-v-7ec2c004] {\r\n    left: 35vw;\n}\nnav[data-v-7ec2c004]{\r\n    width: 0%;\n}\n.logo[data-v-7ec2c004] {\r\n    width: 20%;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: end;\r\n        -ms-flex-align: end;\r\n            align-items: flex-end;\n}\n.header[data-v-7ec2c004] {\r\n    height: 60px;\n}\n.header h1[data-v-7ec2c004] {\r\n    font-size: .8em;\n}\n}\n@media screen and (max-width: 320px){\n.header h1[data-v-7ec2c004] {\r\n    font-size: .6em;\n}\n.logo[data-v-7ec2c004] {\r\n    height: 60px;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\n}\n.lista-llaves input[data-v-7ec2c004] {\r\n    font-size: .5em;\n}\n.row-container h3[data-v-7ec2c004] {\r\n    font-size: 0.7em;\n}\n}\r\n\r\n/* ************** MENU HAMBURGUESA ****************** */\r\n/*@font-face {\r\n  font-family: 'icomoon';\r\n  src:  url('../fonts/icomoon.eot?87coz9');\r\n  src:  url('../fonts/icomoon.eot?87coz9#iefix') format('embedded-opentype'),\r\n    url('../fonts/icomoon.ttf?87coz9') format('truetype'),\r\n    url('../fonts/icomoon.woff?87coz9') format('woff'),\r\n    url('../fonts/icomoon.svg?87coz9#icomoon') format('svg');\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}*/\n[class^=\"icon-\"][data-v-7ec2c004], [class*=\" icon-\"][data-v-7ec2c004] {\r\n  font-family: 'icomoon' !important;\r\n  speak: none;\r\n  font-style: normal;\r\n  font-weight: normal;\r\n  font-variant: normal;\r\n  text-transform: none;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\n}\n.icon-menu[data-v-7ec2c004]:before {\r\n  content: \"\\E900\";\n}", ""]);
+
+// exports
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports) {
 
 /*
@@ -47570,7 +47586,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -47589,7 +47605,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(49)
+var listToStyles = __webpack_require__(48)
 
 /*
 type StyleObject = {
@@ -47798,7 +47814,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports) {
 
 /**
@@ -47831,7 +47847,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47889,7 +47905,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47909,7 +47925,7 @@ var render = function() {
       "div",
       { staticClass: "llaves-cards" },
       _vm._l(_vm.pruebas, function(registro) {
-        return _c("div", [
+        return _c("div", { staticClass: "card-item" }, [
           _c("h3", [_vm._v(_vm._s(registro["id"]))]),
           _vm._v(" "),
           _c("h3", [_vm._v(_vm._s(registro["maestro"]))]),
@@ -47972,54 +47988,10 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(57);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(48)("07c35b77", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ec2c004\",\"scoped\":true,\"hasInlineConfig\":true}!./principal.css", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ec2c004\",\"scoped\":true,\"hasInlineConfig\":true}!./principal.css");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var escape = __webpack_require__(46);
-exports = module.exports = __webpack_require__(47)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\nhtml[data-v-7ec2c004] {\r\n  font-family: 'Hind', sans-serif;\r\n  margin: 0;\r\n  padding: 0;\r\n  height: 100%;\r\n  width: 100%;\r\n  -webkit-box-sizing: border-box;\r\n          box-sizing: border-box;\n}\nbody[data-v-7ec2c004]{\r\n  height: 100%;\r\n  width: 100%;\r\n  padding: 0;\r\n  margin: 0;\n}\n.container-grid[data-v-7ec2c004] {\r\n  margin: 0;\r\n  padding: 0;\r\n  height: 100%;\r\n  width: 100%;\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  grid-template-rows: 150px 1fr 30px;\r\n  grid-template-areas: \"header header\"\r\n                       \"llaves-prestadas formulario-prestamo\"\r\n                       \"footer footer\";\n}\n.header[data-v-7ec2c004] {\r\n  grid-area: header;\r\n  width: 100%;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center; \r\n  background-color: #004990;\r\n  font-size: 20px;\n}\n.logo[data-v-7ec2c004] {\r\n  width: 15%;\r\n  margin: 0 10px 0 30px;\r\n  -ms-flex-item-align: end;\r\n      align-self: flex-end;\r\n  text-align: end;\n}\n.header h1[data-v-7ec2c004] {\r\n  font-size: 1.5em;\r\n  margin: 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: end;\r\n      -ms-flex-align: end;\r\n          align-items: flex-end;\r\n  padding-bottom: 3%;\r\n  width: 40%;\r\n  color: #fff;\r\n  font-weight: 500;\n}\nnav[data-v-7ec2c004] {\r\n  width: 40%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: end;\r\n      -ms-flex-align: end;\r\n          align-items: flex-end;\n}\n.menu[data-v-7ec2c004] {\r\n  width: 100%;\r\n  list-style: none;\r\n  text-align: end;\r\n  margin: 0 0 8px 0;\n}\n.menu li[data-v-7ec2c004] {\r\n  display: inline-block;\r\n  margin: 0 5px;\r\n  font-size: 17px;\n}\n.menu a[data-v-7ec2c004] {\r\n  text-decoration: none;\r\n  font-size: 1em;\r\n  color: #fff;\n}\n.menu a[data-v-7ec2c004]:hover {\r\n  -webkit-box-shadow: 0 8px 0 0 #F7A11A;\r\n          box-shadow: 0 8px 0 0 #F7A11A;\n}\n.imagen-perfil[data-v-7ec2c004] {\r\n  width: 5%;\r\n  margin: 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: end;\r\n      -ms-flex-align: end;\r\n          align-items: flex-end;\r\n  padding: 0 40px 10px 10px;\n}\n.division[data-v-7ec2c004] {\r\n  height: 1%;\r\n  background-color: lightgray;\r\n  margin: 0;\r\n  width: 90%;\n}\n.llaves-prestadas[data-v-7ec2c004] {\r\n  grid-area: llaves-prestadas;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  height: 100%;\n}\n.llaves-prestadas .division[data-v-7ec2c004] {\r\n  background: #004990;\r\n  height: 2px;\r\n  padding-top: 1px;\n}\n.llaves-titles[data-v-7ec2c004]{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -ms-flex-pack: distribute;\r\n      justify-content: space-around;\r\n  width: 90%;\n}\n.llaves-titles h3[data-v-7ec2c004] {\r\n  font-size: 16px;\r\n  margin: 10px 0;\r\n  -ms-flex-item-align: center;\r\n      align-self: center;\r\n  height: 10%;\n}\n.llaves-cards[data-v-7ec2c004] {\r\n  width: 90%;\r\n  height: 91%;\r\n  overflow: hidden;\r\n  padding: 3px;\n}\n.card-item[data-v-7ec2c004] {\r\n  border: .5px solid lightgray;\r\n  display: -webkit-inline-box;\r\n  display: -ms-inline-flexbox;\r\n  display: inline-flex;\r\n  margin: 3px 0;\r\n  height: 10%;\r\n  width: 100%;\r\n  -ms-flex-pack: distribute;\r\n      justify-content: space-around;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  border-radius: 15px;\n}\n.card-item h3[data-v-7ec2c004] {\r\n  font-size: .8em;\r\n  font-weight: 500;\n}\n.llaves-paginador[data-v-7ec2c004] {\r\n  height: 9%;\r\n  width: 90%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.llaves-paginador ul[data-v-7ec2c004] {\r\n  list-style: none;\r\n  text-align: center;\r\n  margin: 0;\r\n  padding: 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.llaves-paginador a[data-v-7ec2c004] {\r\n  color: gray;\r\n  float: left;\r\n  text-decoration: none;\r\n  -webkit-transition: background-color .3s;\r\n  transition: background-color .3s;\r\n  border: 1px solid #ddd;\r\n  font-size: 1.2em;\r\n  padding: 0 10px 0 10px;\r\n  border-radius: 3px;\r\n  cursor: pointer;\n}\n.llaves-paginador a[data-v-7ec2c004]:hover {\r\n  color: white;\r\n  background: lightblue;\n}\n.formulario-prestamo[data-v-7ec2c004] {\r\n  grid-area: formulario-prestamo;\r\n  height: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.formulario-prestamo form[data-v-7ec2c004] {\r\n  height: 69%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  font-size: 22px;\r\n  -webkit-box-sizing: content-box;\r\n          box-sizing: content-box;\r\n  width: 75%;\n}\n.formulario-prestamo .division[data-v-7ec2c004] {\r\n  background: #004990;\r\n  height: 2px;\r\n  padding-top: 1px;\n}\n.row-container[data-v-7ec2c004] {\r\n  margin: 7px 0;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n      -ms-flex-pack: end;\r\n          justify-content: flex-end;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.row-container input[data-v-7ec2c004] {\r\n  font-size: 18px;\r\n  border-radius: 20px;\r\n  margin-right: 10px;\r\n  border-style: none;\r\n  border: 1px solid lightgray;\r\n  width: 67%;\r\n  height: 25px;\n}\n.row-container h3[data-v-7ec2c004] {\r\n  text-decoration: none;\r\n  color: gray;\r\n  width: 30%;\r\n  margin: 0;\r\n  font-weight: normal;\r\n  font-size: 0.9em;\n}\n.combo-box[data-v-7ec2c004] {\r\n  cursor: pointer;\n}\n.combo-box[data-v-7ec2c004]:focus {\n}\n.lista-llaves input[data-v-7ec2c004] {\r\n  text-align: center;\n}\n.pequeños input[data-v-7ec2c004] {\r\n  width: 30%;\n}\n.pequeños .title-hora[data-v-7ec2c004] {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\n}\n.button-registro[data-v-7ec2c004] {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  height: 20%;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  width: 100%;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\n}\n.button-registro .registrar[data-v-7ec2c004] {\r\n  text-decoration: none;\r\n  background-color: #004990;\r\n  border-radius: 20px;\r\n  margin: 0;\r\n  padding: 5px 40px;\r\n  font-size: 1em;\r\n  color: #fff;\r\n  border: none;\n}\n.footer[data-v-7ec2c004] {\r\n  grid-area: footer;\r\n  /* height: 5%; */\r\n  width: 100%;\r\n  background-color: #F7A11A;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: justify;\r\n      -ms-flex-pack: justify;\r\n          justify-content: space-between;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\n}\n.footer a[data-v-7ec2c004] {\r\n  padding: 0 30px;\r\n  text-decoration: none;\r\n  color: #fff;\r\n  font-size: 15px;\n}\n.burger-button[data-v-7ec2c004] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n  background: #004990;\r\n  display: block;\r\n  color: #f4fbff;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  position: fixed;\r\n  z-index: 4;\r\n  left: 5px;\r\n  top: 5px;\r\n  display: none;\n}\n@media screen and (max-width: 834px){\n.container-grid[data-v-7ec2c004] {\r\n    width: 100%;\r\n    height: 100%;\n}\n.header h1[data-v-7ec2c004] {\r\n    font-size: 1.2em;\n}\n.logo[data-v-7ec2c004] {\r\n    width: 15%;\r\n    margin: 0;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    text-align: center;\r\n    -ms-flex-item-align: end;\r\n        align-self: flex-end;\n}\n.menu ol[data-v-7ec2c004] {\r\n    padding: 0;\n}\n.menu li[data-v-7ec2c004] {\r\n    font-size: .7em;\n}\n.imagen-perfil[data-v-7ec2c004] {\r\n    padding-right: 10px;\n}\n.imagen-perfil img[data-v-7ec2c004] {\r\n    width: 30px;\n}\n.lista-llaves input[data-v-7ec2c004] {\r\n    font-size: .6em;\n}\n}\n@media screen and (max-width: 656px){\nnav[data-v-7ec2c004] {\r\n    width: 0;\n}\n.container-grid[data-v-7ec2c004] {\r\n    margin: 0;\r\n    padding: 0;\r\n    height: 100%;\r\n    width: 100%;\r\n    display: grid;\r\n    grid-template-columns: 1fr;\r\n    grid-template-rows: 60px 400px 450px 30px;\r\n    grid-template-areas: \"header\"\r\n                         \"formulario-prestamo\"\r\n                         \"llaves-prestadas\"\r\n                         \"footer\";\n}\n.burger-button[data-v-7ec2c004] {\r\n    display: initial;\r\n    top: 2vh;\n}\n.logo[data-v-7ec2c004] {\r\n    width: 11%;\n}\n.header h1[data-v-7ec2c004] {\r\n    padding: 0;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\n}\n.imagen-perfil[data-v-7ec2c004] {\r\n    position: fixed;\r\n    left: -30vw;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    -webkit-transition: .3s;\r\n    transition: .3s;\n}\n.imagen-perfil img[data-v-7ec2c004] {\r\n    width: 100px;\r\n    height: 100px;\n}\n.menu[data-v-7ec2c004] {\r\n    position: fixed;\r\n    background: #004990;\r\n    z-index: 3;\r\n    top: -10vh;\r\n    left: -130vw;\r\n    width: 100vw;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    bottom: -10vh;\r\n    -webkit-transition: .3s;\r\n    transition: .3s;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    font-size: 2em;\n}\n.imagen-perfil.is-active[data-v-7ec2c004] {\r\n    position: fixed;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    z-index: 3;\r\n    left: 40vw;\r\n    top: 5vh;\r\n    width: auto;\r\n    -webkit-box-align: end;\r\n        -ms-flex-align: end;\r\n            align-items: flex-end;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.menu.is-active[data-v-7ec2c004] {\r\n    padding: 0;\r\n    margin: 0;\r\n    left: 0;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-orient: vertical;\r\n    -webkit-box-direction: normal;\r\n        -ms-flex-direction: column;\r\n            flex-direction: column;\r\n    font-size: 2em;\n}\n.header[data-v-7ec2c004] {\r\n    height: initial;\r\n    position: fixed;\n}\n}\n@media screen and (max-width: 425px){\n.imagen-perfil.is-active[data-v-7ec2c004] {\r\n    left: 35vw;\n}\nnav[data-v-7ec2c004]{\r\n    width: 0%;\n}\n.logo[data-v-7ec2c004] {\r\n    width: 20%;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: end;\r\n        -ms-flex-align: end;\r\n            align-items: flex-end;\n}\n.header[data-v-7ec2c004] {\r\n    height: 60px;\n}\n.header h1[data-v-7ec2c004] {\r\n    font-size: .8em;\n}\n}\n@media screen and (max-width: 320px){\n.header h1[data-v-7ec2c004] {\r\n    font-size: .6em;\n}\n.logo[data-v-7ec2c004] {\r\n    height: 60px;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\n}\n.lista-llaves input[data-v-7ec2c004] {\r\n    font-size: .5em;\n}\n.row-container h3[data-v-7ec2c004] {\r\n    font-size: 0.7em;\n}\n}\r\n\r\n/* ************** MENU HAMBURGUESA ****************** */\n@font-face {\r\n  font-family: 'icomoon';\r\n  src:  url(" + escape(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../fonts/icomoon.eot?87coz9\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))) + ");\r\n  src:  url(" + escape(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../fonts/icomoon.eot?87coz9\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))) + "#iefix) format('embedded-opentype'),\r\n    url(" + escape(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../fonts/icomoon.ttf?87coz9\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))) + ") format('truetype'),\r\n    url(" + escape(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../fonts/icomoon.woff?87coz9\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))) + ") format('woff'),\r\n    url(" + escape(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../fonts/icomoon.svg?87coz9\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))) + "#icomoon) format('svg');\r\n  font-weight: normal;\r\n  font-style: normal;\n}\n[class^=\"icon-\"][data-v-7ec2c004], [class*=\" icon-\"][data-v-7ec2c004] {\r\n  font-family: 'icomoon' !important;\r\n  speak: none;\r\n  font-style: normal;\r\n  font-weight: normal;\r\n  font-variant: normal;\r\n  text-transform: none;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\n}\n.icon-menu[data-v-7ec2c004]:before {\r\n  content: \"\\E900\";\n}", ""]);
-
-// exports
-
 
 /***/ })
 /******/ ]);

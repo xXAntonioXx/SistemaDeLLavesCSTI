@@ -11,7 +11,7 @@
       </div>
       <div class="division"></div>
       <div class="llaves-cards">
-        <div v-for="registro in pruebas">
+        <div v-for="registro in pruebas" class="card-item">
             <h3>{{registro['id']}}</h3>
             <h3>{{registro['maestro']}}</h3>
             <h3>{{registro['materia']}}</h3>
@@ -38,7 +38,7 @@
     </section>
 </template>
 
-<style scoped src="../../css/principal.css">	
+<style scoped src="./css/principal.css">	
 </style>
 
 <script>
