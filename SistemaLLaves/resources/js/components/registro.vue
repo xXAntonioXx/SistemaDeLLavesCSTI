@@ -38,7 +38,7 @@
     </section>
 </template>
 
-<style scoped src="./css/principal.css">	
+<style scoped src="../../../public/css/principal.1.css">	
 </style>
 
 <script>

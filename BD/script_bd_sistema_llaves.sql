@@ -21,6 +21,7 @@ llaves.*/
 /* En la tabla "taulas" se 
 almacenara la informacion de las aulas
 a las que puede pertenecer una llave*/
+
 CREATE TABLE taulas(
 id INT AUTO_INCREMENT,
 area VARCHAR(8),
@@ -155,7 +156,6 @@ CREATE TABLE tobjetos(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(50),
 marca  VARCHAR(50),
-descripcion VARCHAR(100),
 inventario INT,
 PRIMARY KEY(id)
 );
@@ -221,7 +221,7 @@ PRIMARY KEY(id)
 DROP TABLE IF EXISTS tregistros;
 CREATE TABLE tregistros(
 id INT AUTO_INCREMENT,
-id_horario INT,
+id_horario INT NULL,
 hora_entrada TIMESTAMP NOT NULL,
 hora_salida TIMESTAMP NULL,
 id_excepcion INT NULL DEFAULT NULL,
@@ -242,3 +242,4 @@ FOREIGN KEY (id_prestamo) REFERENCES tprestamos(id),
 CONSTRAINT FK_tregistros_tusuarios
 FOREIGN KEY (id_usuario) REFERENCES tusuarios(id)
 );
+//

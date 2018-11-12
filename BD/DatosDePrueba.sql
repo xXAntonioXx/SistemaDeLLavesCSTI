@@ -51,9 +51,13 @@ call sp_registrar_horario(33333333,'2018','3',65657,"Mineria de datos","LUNES,MA
 call sp_registrar_horario(33333333,'2018','3',65658,"Introduccion al software de base","LUNES,MARTES,MIERCOLES,jueves,viernes",'07:00:00','08:00:00');
 
 
+/*Registrar Objetos*/
+call sp_registrar_objeto("Control-A/C","mirage",5);
+call sp_registrar_objeto("Control-A/C","YORK",5);
+call sp_registrar_objeto("Control-Cañon","Epson",5);
+call sp_registrar_objeto("bocinas","lanix",5);
 
-
-
-call sp_registrar_prestamo(null,"1,3,2");
+/*Registrar prestamo*/
+call sp_registrar_prestamo(0,"1,3,2");
 
 SELECT * from tusuarios;

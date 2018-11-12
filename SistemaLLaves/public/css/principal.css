@@ -458,7 +458,7 @@ nav {
 }
 
 /* ************** MENU HAMBURGUESA ****************** */
-@font-face {
+/*@font-face {
   font-family: 'icomoon';
   src:  url('../fonts/icomoon.eot?87coz9');
   src:  url('../fonts/icomoon.eot?87coz9#iefix') format('embedded-opentype'),
@@ -467,7 +467,7 @@ nav {
     url('../fonts/icomoon.svg?87coz9#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon' !important;

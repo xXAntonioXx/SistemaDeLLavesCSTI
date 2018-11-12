@@ -27,3 +27,6 @@ Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::
 Route::get('/salir','LoginController@salir');
 
 Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
+
+//API para consultar la base de datos
+Route::get('/api/registros','ApisController@registros');
