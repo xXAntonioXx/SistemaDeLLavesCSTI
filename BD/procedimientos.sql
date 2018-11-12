@@ -4,11 +4,42 @@ Autor:Murillo Mario
 --------------------
 En este archivo se encuentran todos los procedimientos
 almacenados que realizara la base de datos
+
+
+
+-------------N O T A #1--------
+la estructura del procedimiento es:
+CREATE PROCEDURE [DBname].[ProcName](
+	[parametros de entrada.]
+)
+BEGIN
+-------CUERPO DEL PROCEDIMIENTO------
+END
+
+
+-------------N O T A #2--------
+COMO LLAMAR UN PROCEDIMIENTO:
+CALL [ProcName]([param1],[param2]...);
+
+-los parametros se envian segun el tipo de dato
+si es entero se envia solo el numero
+-si es texto se encia entre comillas simples o
+dobles
+-si es fecha se envia entre comillas simples
 */
 
 
+
 /*--------------TERMINADO--------------*/
-/*Registro de una llave en la base de datos*/
+/*Este procedimineto se encarga de 
+registrar una llave y su respectivo salon
+en caso de no estar regisrado. Si el salon
+ya se encuentra registrado, simplemente se
+realiza una busqueda del 'id' del salon ya 
+registrado y se coloca su en el nuevo 
+registro de la llave.
+*/
+
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_llave;
 CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
@@ -30,7 +61,10 @@ DELIMITER;
 
 
 /*--------------TERMINADO--------------*/
-/*Registro de un maestro en la base de datos*/
+/*El siguiente metodo simplemente se encarga
+de registrar a un maestro en la base de datos
+y como se puede observar tan solo recibe
+dos parametros.*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_maestro;
 CREATE PROCEDURE sistema_llaves.sp_registrar_maestro (
@@ -44,6 +78,8 @@ END
 DELIMITER;
 
 
+
+/*--------------TERMINADO--------------*/
 /*Registro de una materia en la base de datos*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_materia;
@@ -58,10 +94,11 @@ DELIMITER;
 
 
 /*--------------TERMINADO--------------*/
-/*Registro de un horario "*/
+/*Registro de horario*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_horario;
 CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
+
 	in p_codigo_llave BIGINT(20),
 	in p_year YEAR(4),
 	in p_ciclo CHAR(1),
@@ -70,15 +107,15 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 	in p_dias VARCHAR(50),
 	in p_hora_inicio TIME,
 	in p_hora_fin TIME
+
 )
 BEGIN
-	/*Valida que la llave exista*/
+
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
 		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
 	end if;
 
-	/*Valida que */
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaterias WHERE nombre=UPPER(p_nombre_mat)) THEN
 		SIGNAL SQLSTATE '46001'
 		SET MESSAGE_TEXT='La materia indicada no se encuentra registrada.';
@@ -86,7 +123,7 @@ BEGIN
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
 		SIGNAL SQLSTATE '46002'
-		SET MESSAGE_TEXT='La maestro indicado no se encuentra registrado.';
+		SET MESSAGE_TEXT='EL maestro indicado no se encuentra registrado.';
 	end if;
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias)) THEN
@@ -110,24 +147,89 @@ BEGIN
 	INSERT INTO sistema_llaves.thorarios(id,year,ciclo,codigo_llave,num_emp_maestro,id_materia,id_dias_horas)
 	VALUES (null,p_year,p_ciclo,p_codigo_llave,p_num_emp_maestro,@var3,@var4);
 
+	SET @var1 = NULL;
+	SET @var2 = NULL;
+	SET @var3 = NULL;
+	SET @var4 = NULL;
+
 END
 //
 DELIMITER;
 
-
+/*--------------TERMINADO--------------*/
 /*Registro de un objeto en la base de datos*/
 /*CREATE DEFINER = CURRENT_USER PROCEDURE....*/
 DELIMITER //
+
+DROP  PROCEDURE IF EXISTS sp_registrar_objeto;
 CREATE PROCEDURE sistema_llaves.sp_registrar_objeto (
 	in p_nombre VARCHAR(50),
 	in p_marca VARCHAR(50),
 	in p_inventario INT(11)
 ) 
 BEGIN
-INSERT INTO sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,p_nombre,p_marca,p_inventario);
+INSERT INTO sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,UPPER(p_nombre),UPPER(p_marca),p_inventario);
 END
 //
 DELIMITER;
+
+
+
+
+/*---------------TERMINADO----------------*/
+/*Consulta para cargar la  seccion de llaves
+ prestadas en la pagina de registro*/
+DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
+ CREATE PROCEDURE sistema_llaves.sp_get_llavesPrestadas()
+ BEGIN
+ 	SELECT r.id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(au.area,"-",au.aula) as salon, r.hora_entrada, r.hora_salida
+	FROM sistema_llaves.tregistros AS r 
+	INNER JOIN sistema_llaves.thorarios AS h ON r.id_horario = h.id
+	INNER JOIN sistema_llaves.tmaestros AS mae ON h.num_emp_maestro = mae.num_emp
+	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
+	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
+	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
+	WHERE r.hora_entrada >= CURDATE();
+ END
+//
+DELIMITER ;
+
+
+/*---------------TERMINADO----------------*/
+/*FORMATO DE LA HORA yyyy-MM-DD HH:MM:SS*/
+DELIMITER //
+DROP  PROCEDURE IF EXISTS sp_get_frmPrestamo;
+CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
+	in p_codigo_llaves BIGINT(20),	
+	in p_hora TIMESTAMP
+)
+ BEGIN
+ 	DECLARE expresion VARCHAR(9) DEFAULT 'null';
+ 	IF CONVERT(MINUTE(p_hora),UNSIGNED) > 39 THEN
+ 		SET p_hora = p_hora + INTERVAL (60 - CONVERT(MINUTE(p_hora),UNSIGNED)) MINUTE;
+ 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
+ 	ELSE 
+ 		SET p_hora = p_hora - INTERVAL CONVERT(MINUTE(p_hora),UNSIGNED) MINUTE;
+ 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
+ 	END IF;
+
+ 	SET expresion = (ELT(WEEKDAY(p_hora) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'));
+ 	SELECT ho.id AS id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula
+ 	FROM thorarios AS ho
+ 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
+ 	INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.id = llav.id_aula
+ 	INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
+ 	INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
+ 	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
+ 	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
+ 	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
+ 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=3 
+ 	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
+ 	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
+ END
+//
+DELIMITER ;
 
 
 
@@ -163,7 +265,7 @@ BEGIN
 			SET @id_prest= @id_prest + 1;
 		END IF;
 	ELSE
-		SELECT  @id_prest := MAX(id_control) FROM sistema_llaves.tprestamos WHERE id=@id_prest;
+		SELECT  @id_prest := MAX(id_control) FROM sistema_llaves.tprestamos WHERE id=p_id_prestamo;
 		SET p_id_control = @id_prest + 1;
 		SET @id_prest = p_id_prestamo;
 	END IF;
@@ -207,93 +309,102 @@ BEGIN
 		SET MESSAGE_TEXT='Error: Hay un problema en la cadena introducida.';
 	END IF;
 
-
-	SET @num:= LENGTH(p_mensaje);
+	SET @num = LENGTH(p_mensaje);
 	IF (@num>0) THEN
 		SIGNAL SQLSTATE '46006'
 		SET MESSAGE_TEXT= p_mensaje;
 	END IF;
 	
 	/*SELECT @VALOR := SUBSTRING(@VALOR,LOCATE(",",@VALOR)+1,LENGTH(@VALOR));
-
 	INSERT INTO tprestamos(id,id_control,id_objeto,estado) VALUES (null,p_id,p_id_objeto,false);
 	*/
 END;
 //
 DELIMITER ;
 
-
-
-/*---------------EN PROCESO----------------*/
-/*Registro un prestamo en la base de datos*/
+/*--------------TERMINADO--------------*/
+/*Registro una excepcion en la base de datos*/
 DELIMITER //
- CREATE PROCEDURE sistema_llaves.sp_registrar_prestamo(
-	in p_hora_entrada,
-	in p_id_horariop
- )
- BEGIN
- 	
- END
+DROP  PROCEDURE IF EXISTSsp_registrar_registro;
+CREATE PROCEDURE sistema_llaves.sp_registrar_excepcion(
+	in p_codigo_llave BIGINT(20),
+	in p_num_emp_maestro INT
+)
+BEGIN
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
+		SIGNAL SQLSTATE '46000'
+		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
+	end if;
+
+
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
+		SIGNAL SQLSTATE '46002'
+		SET MESSAGE_TEXT='EL maestro indicado no se encuentra registrado.';
+	end if;
+
+	INSERT INTO texcepciones(id,codigo_llave,num_emp) VALUES (null,p_codigo_llave,p_num_emp_maestro);
+
+	SELECT @id_excepcion := MAX(id) FROM texcepciones;
+
+END
 //
 DELIMITER ;
 
 
 
 /*---------------TERMINADO----------------*/
-/*Consulta para cargar la  seccion de llaves
- prestadas en la pagina de registro*/
+/*Registro un prestamo de llave en la base de datos*/
+/*
+
+-------NOTA:--------
+Si el registro lleva relacionada una excepcion
+y/ó un prestamo.
+Antes de ejecutar este procedimiento debe ejecutar
+el procedimiento 'sp_registrar_excepcion' y/ó el 
+procedimiento 'sp_registrar_prestamo'.
+Por ultimo SIN CERRAR la conexion, procedemos 
+a ejecutar este procedimiento.
+ya que este procedimiento hace uso de 
+variables declaradas por el usuario.
+
+	
+*/
 DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
- CREATE PROCEDURE sistema_llaves.sp_get_llavesPrestadas()
- BEGIN
- 	SELECT r.id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(au.area,"-",au.aula) as salon, r.hora_entrada, r.hora_salida
-	FROM sistema_llaves.tregistros AS r 
-	INNER JOIN sistema_llaves.thorarios AS h ON r.id_horario = h.id
-	INNER JOIN sistema_llaves.tmaestros AS mae ON h.num_emp_maestro = mae.num_emp
-	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
-	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
-	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
-	WHERE r.hora_entrada >= CURDATE();
- END
-//
-DELIMITER ;
 
-
-
-/*FORMATO DE LA HORA yyyy-MM-DD HH:MM:SS*/
-DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_get_frmPrestamo;
-CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
-	in p_codigo_llaves BIGINT(20),	
-	in p_hora TIMESTAMP
+DROP  PROCEDURE IF EXISTS sp_registrar_registro;
+CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
+	in p_hora_entrada TIMESTAMP,
+	in p_id_horario  INT(11),
+	in p_id_usuario INT(11)
 )
  BEGIN
- 	DECLARE expresion VARCHAR(9) DEFAULT 'null';
- 	IF CONVERT(MINUTE(p_hora),UNSIGNED) > 39 THEN
- 		SET p_hora = p_hora + INTERVAL (60 - CONVERT(MINUTE(p_hora),UNSIGNED)) MINUTE;
- 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
- 	ELSE 
- 		SET p_hora = p_hora - INTERVAL CONVERT(MINUTE(p_hora),UNSIGNED) MINUTE;
- 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
- 	END IF;
+ 	CASE
+ 		WHEN (p_id_horario > 0) AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NOT NULL) THEN 
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
+ 		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NULL) THEN 
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,null,p_id_usuario);
+ 		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NULL) THEN 
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
+ 		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NOT NULL) THEN
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,@id_prest,p_id_usuario);
+ 		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NOT NULL) THEN
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
+ 		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NOT NULL) THEN
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,@id_prest,p_id_usuario);
+ 		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NULL) THEN
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,null,p_id_usuario);
+ 		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NULL) THEN
+ 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
+ 	END CASE;
 
- 	/*ELT(WEEKDAY(campo_fecha) + 1, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'))*/
- 	SET expresion = (ELT(WEEKDAY(p_hora) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'));
- 	SELECT mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula
- 	FROM thorarios AS ho
- 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
- 	INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.id = llav.id_aula
- 	INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
- 	INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
- 	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
- 	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
- 	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
- 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=3 
- 	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
- 	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
- 	
- END
+ 	@id_excepcion=null;
+ 	@id_prest=null;
 
+END
 //
 DELIMITER ;
 
+
+
+
+/*https://manuales.guebs.com/mysql-5.0/error-handling.html*/
