@@ -47480,7 +47480,7 @@ var content = __webpack_require__(46);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(52)("164f285a", content, false, {});
+var update = __webpack_require__(52)("18fd40da", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -47942,11 +47942,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            pruebas: [{ id: '1', maestro: 'Cirett', materia: 'Estructura de Datos', aula: '5j-201', hora: '12:00' }, { id: '2', maestro: 'Alvaro', materia: 'Inteligencia Artificial', aula: '5g-201', hora: '14:00' }, { id: '3', maestro: 'Raquel', materia: 'Mineria de Datos', aula: '5j-203', hora: '09:00' }]
+            pruebas: [{ id: '1', maestro: 'Cirett', materia: 'Estructura de Datos', aula: '5j-201', hora: '12:00' }, { id: '2', maestro: 'Alvaro', materia: 'Inteligencia Artificial', aula: '5g-201', hora: '14:00' }]
         };
     }
 });
@@ -47959,34 +47999,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "llaves-prestadas" }, [
-    _c("h2", [_vm._v("Llaves prestadas")]),
+  return _c("div", { staticClass: "container-grid" }, [
+    _c("section", { staticClass: "llaves-prestadas" }, [
+      _c("h2", [_vm._v("Llaves prestadas")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "division" }),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "division" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "llaves-cards" },
+        _vm._l(_vm.pruebas, function(registro) {
+          return _c("div", { staticClass: "card-item" }, [
+            _c("h3", [_vm._v(_vm._s(registro["id"]))]),
+            _vm._v(" "),
+            _c("h3", [_vm._v(_vm._s(registro["maestro"]))]),
+            _vm._v(" "),
+            _c("h3", [_vm._v(_vm._s(registro["materia"]))]),
+            _vm._v(" "),
+            _c("h3", [_vm._v(_vm._s(registro["aula"]))]),
+            _vm._v(" "),
+            _c("h3", [_vm._v(_vm._s(registro["hora"]))])
+          ])
+        })
+      ),
+      _vm._v(" "),
+      _vm._m(1)
+    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "division" }),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "division" }),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "llaves-cards" },
-      _vm._l(_vm.pruebas, function(registro) {
-        return _c("div", { staticClass: "card-item" }, [
-          _c("h3", [_vm._v(_vm._s(registro["id"]))]),
-          _vm._v(" "),
-          _c("h3", [_vm._v(_vm._s(registro["maestro"]))]),
-          _vm._v(" "),
-          _c("h3", [_vm._v(_vm._s(registro["materia"]))]),
-          _vm._v(" "),
-          _c("h3", [_vm._v(_vm._s(registro["aula"]))]),
-          _vm._v(" "),
-          _c("h3", [_vm._v(_vm._s(registro["hora"]))])
-        ])
-      })
-    ),
-    _vm._v(" "),
-    _vm._m(1)
+    _vm._m(2)
   ])
 }
 var staticRenderFns = [
@@ -48022,6 +48066,149 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("li", [_c("a", [_vm._v("5")])])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "formulario-prestamo" }, [
+      _c("div", { staticClass: "formulario-tittle" }, [
+        _c("h2", [_vm._v("Formulario de prestamo")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "ghost-div" })
+      ]),
+      _vm._v(" "),
+      _c(
+        "form",
+        { staticClass: "formulario-prestamo-content", attrs: { action: "" } },
+        [
+          _c("h3", { staticClass: "llaves" }, [_vm._v("No. Llave")]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "maestros" }, [_vm._v("Maestro")]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "materia" }, [_vm._v("Materia")]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "aula" }, [_vm._v("Aula")]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "hora" }, [_vm._v("Hora")]),
+          _vm._v(" "),
+          _c("select", { staticClass: "combo-box inputs" }, [
+            _c("option", { attrs: { value: "Rivera Samudio" } }, [
+              _vm._v("Rivera Samudio")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Lab-IQ" } }, [_vm._v("Lab-IQ")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Lab-Mecatronica" } }, [
+              _vm._v("Lab-Mecatronica")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "llaves-i inputs",
+            attrs: { type: "text" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "maestros-i inputs",
+            attrs: { type: "text" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "materia-i inputs",
+            attrs: { type: "text" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "aula-i inputs",
+            attrs: { type: "text" }
+          }),
+          _vm._v(" "),
+          _c("input", { staticClass: "hora-i inputs", attrs: { type: "text" } })
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "button-registro" }, [
+        _c("input", {
+          staticClass: "registrar",
+          attrs: {
+            type: "submit",
+            value: "Registrar",
+            onclick: "window.location='#modal-container';"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "modal-container", attrs: { id: "modal-container" } },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("h3", { staticClass: "modal-tittle" }, [
+              _vm._v("Lista de articulos")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-list" }, [
+              _c(
+                "select",
+                {
+                  staticClass: "combo-box",
+                  attrs: {
+                    name: "modal-article-list",
+                    id: "modal-article-list"
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "Bocinas" } }, [
+                    _vm._v("Bocinas")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Bocinas" } }, [
+                    _vm._v("Bocinas")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "combo-box",
+                  attrs: {
+                    name: "modal-article-list",
+                    id: "modal-article-list"
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "Bocinas" } }, [
+                    _vm._v("Control")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Bocinas" } }, [
+                    _vm._v("Bocinas")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-buttons" }, [
+              _c("input", {
+                staticClass: "modal-button-aceptar",
+                attrs: { type: "button", value: "Aceptar" }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "modal-button-cancelar",
+                attrs: {
+                  type: "button",
+                  value: "Cancelar",
+                  onclick: "window.location='#';"
+                }
+              })
+            ])
+          ])
+        ]
+      )
     ])
   }
 ]

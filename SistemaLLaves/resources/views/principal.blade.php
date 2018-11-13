@@ -1,6 +1,6 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
-    <div id="app">
+    <div id="app" style="width:100%;">
       <registro></registro>
     </div>
     <script src="{{asset('js/app.js')}}"></script>
@@ -34,7 +34,7 @@
         </ul>
       </div>
     </section-->
-    <section class="formulario-prestamo">
+    <!--section class="formulario-prestamo">
       <h2>Formulario de prestamo</h2>
       <div class="division"></div>
       <form action="">
@@ -68,7 +68,7 @@
       <div class="button-registro">
           <input type="submit" value="Ingresar" class="registrar"/>
       </div>
-    </section>
+    </section-->
     <!-- <div class="container-sections">
     </div> -->
 @stop
