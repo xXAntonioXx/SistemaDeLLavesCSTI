@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Prestamo de llaves</title>
   <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
-  <link rel="stylesheet" href="{{asset('/css/principal.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/principal.1.css')}}">
 </head>
 <body>
   <div class="container-grid">

@@ -4,6 +4,7 @@
       <registro></registro>
     </div>
     <script src="{{asset('js/app.js')}}"></script>
+    
     <!--section class="llaves-prestadas">
       <h2>Llaves prestadas</h2>
       <div class="division"></div>
@@ -34,41 +35,72 @@
         </ul>
       </div>
     </section-->
+    <div class="container-grid">
     <section class="formulario-prestamo">
-      <h2>Formulario de prestamo</h2>
-      <div class="division"></div>
-      <form action="">
-        <div class="row-container lista-llaves">
-          <input class="combo-box" list="salones" name="salones" placeholder="Llaves únicas y diferentes">
-          <datalist id="salones">
-            <option value="Rivera Samudio">Rivera Samudio</option>
-            <option value="Lab-IQ">Lab-IQ</option>
-            <option value="Lab-Mecatronica">Lab-Mecatronica</option>
-          </datalist>
-        </div>
-        <div class="row-container">
-          <h3 href="">No. Llave</h3>
-          <input type="text">
-        </div>
-        <div class="row-container">
-            <h3 href="">Maestro</h3>
-            <input type="text">
-        </div>
-        <div class="row-container">
-            <h3 href="">Materia</h3>
-            <input type="text">
-        </div>
-        <div class="row-container pequeños">
-            <h3 href="">Aula</h3>
-            <input type="text">
-            <h3 href="" class="title-hora">Hora</h3>
-          <input type="text">
-        </div>
+      <div class="formulario-tittle">
+          <h2>Formulario de prestamo</h2>
+          <div class="ghost-div"></div>
+      </div>
+      <form action="" class="formulario-prestamo-content">
+        <h3 class="llaves">No. Llave</h3>
+        <h3 class="maestros">Maestro</h3>
+        <h3 class="materia">Materia</h3>
+        <h3 class="aula">Aula</h3>
+        <h3 class="hora">Hora</h3>
+        <select class="combo-box inputs">
+          <option value="Rivera Samudio">Rivera Samudio</option>
+          <option value="Lab-IQ">Lab-IQ</option>
+          <option value="Lab-Mecatronica">Lab-Mecatronica</option>
+        </select>
+        <input class="llaves-i inputs" type="text">
+        <input class="maestros-i inputs" type="text">
+        <input class="materia-i inputs" type="text">
+        <input class="aula-i inputs" type="text">
+        <input class="hora-i inputs" type="text">
       </form>
       <div class="button-registro">
-          <input type="submit" value="Ingresar" class="registrar"/>
+          <input type="submit" value="Registrar" class="registrar" onclick="window.location='#modal-container';"/>
+      </div>
+      <div id="modal-container" class="modal-container">
+        <div class="modal-content">
+          <h3 class="modal-tittle">Lista de articulos</h3>
+          <div class="modal-list">
+            <select class="combo-box" name="modal-article-list" id="modal-article-list">
+              <option value="Bocinas">Bocinas</option>
+              <option value="Bocinas">Bocinas</option>
+            </select>
+            <select class="combo-box" name="modal-article-list" id="modal-article-list">
+              <option value="Bocinas">Control</option>
+              <option value="Bocinas">Bocinas</option>
+            </select>
+          </div>
+          <div class="modal-buttons">
+            <input type="button" value="Aceptar" class="modal-button-aceptar">
+            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';">
+          </div>
+        </div>
       </div>
     </section>
-    <!-- <div class="container-sections">
-    </div> -->
+    </div>
+  <script>
+      const ipad = window.matchMedia('screen and (max-width: 744px)');
+      const menu = document.querySelector('.menu');
+      const burgerButton = document.querySelector('#burger-menu');
+      ipad.addListener(validation);
+      function validation(event){
+        if(event.matches){
+          burgerButton.addEventListener('click', hideShow);
+        } else {
+          burgerButton.removeEventListener('click', hideShow);
+        }
+      }
+      validation(ipad);
+      function hideShow(){
+        if(menu.classList.contains('is-active')){
+          menu.classList.remove('is-active');
+        }else {
+          menu.classList.add('is-active');
+        }
+      }
+    </script>
 @stop
