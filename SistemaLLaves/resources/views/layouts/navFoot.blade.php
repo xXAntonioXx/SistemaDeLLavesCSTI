@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Prestamo de llaves</title>
-  <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
-  <link rel="stylesheet" href="{{asset('/css/principal.css')}}">
+  <link rel="icon" type="image/png" href="images/key.png">
+  <link rel="stylesheet" href="{{asset('/css/principal.1.css')}}">
 </head>
 <body>
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
       <figure class="logo">
-        <img src="{{asset('/images/log-unison.png')}}" alt="logo-unison" width="60%">
+        <img id="logo-unison" src="images/log-unison.png" alt="logo-unison" >
       </figure>
       <h1>PRESTAMO DE LLAVES</h1>
       <nav >
@@ -32,18 +32,17 @@
           </li>
         </ol>
       </nav>
-      <figure class="imagen-perfil">
-        <img src="{{asset('/images/log-unison.png')}}" alt="imagen-de-perfil" width="50px">
-      </figure>
+      <i class="icon-out log-out" id="log-out"></i>
     </header>
-
+    </div>
     @yield('cuerpo')
-
+    <div class="container-grid">
     <footer class="footer">
       <a href="">Derechos Reservados</a>
       <a href="">Acerca de Nosotros</a>
     </footer>
-  </div>
+</div>
+  <!--/div-->
   <script>
       // console.log('Hola perroooooos!!!!');
       const ipad = window.matchMedia('screen and (max-width: 656px)');
