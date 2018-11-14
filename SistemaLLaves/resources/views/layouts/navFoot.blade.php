@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Prestamo de llaves</title>
   <link rel="icon" type="image/png" href="images/key.png">
-  <link rel="stylesheet" href="{{asset('/css/principal.1.css')}}">
+  <link rel="stylesheet" href="{{asset('css/principal.1.css')}}">
 </head>
 <body>
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
       <figure class="logo">
-        <img id="logo-unison" src="images/log-unison.png" alt="logo-unison" >
+        <!-- <img id="logo-unison" src="images/log-unison.png" alt="logo-unison" > -->
       </figure>
       <h1>PRESTAMO DE LLAVES</h1>
       <nav >
@@ -34,14 +34,12 @@
       </nav>
       <i class="icon-out log-out" id="log-out"></i>
     </header>
-    </div>
     @yield('cuerpo')
-    <div class="container-grid">
     <footer class="footer">
-      <a href="">Derechos Reservados</a>
-      <a href="">Acerca de Nosotros</a>
+      <h3>&copy; Derechos Reservados</h3>
+      <h3>&lsaquo; Acerca de Nosotros &rsaquo;</h3>
     </footer>
-</div>
+  </div>
   <!--/div-->
   <script>
       // console.log('Hola perroooooos!!!!');
