@@ -1,4 +1,4 @@
-/*
+﻿/*
 ******************************************
 ESTA MANERA SERIA SIN EL PROCEDIMIENTO
 ******************************************
@@ -132,5 +132,14 @@ call sp_registrar_objeto("bocinas","lanix",5);
 
 /*Registrar prestamo*/
 call sp_registrar_prestamo(0,"1,3,2");
+
+/*Ejemplo de un nuevo registro*/
+/*al leer el codigo de la llave se busca el horario(que incluye id,maestro,aula) para llenar el formulario, con el procedimiento*/
+call sp_get_frmPrestamo('codigo_llave','fecha y hora')
+/*al seleccionar un objeto del combo box en la ventana modal tendremos que usar el procedimiento para un nuevo prestamo al darle click al boton "aceptar"
+call sp_registrar_prestamo(0,'Objeto1,Objeto2,ObjetoN')//si es la primera vez
+call sp_registrar_prestamo('id_de_prestamo','Objeto1,Objeto2,ObjetoN')//si NO es la primera vez
+/*finalmente para generar un nuevo registro utilizamos*/
+call sp_registrar_registro('FECHA Y HORA','id_horario','id_usuario')//id horario lo tomamos de sp_get_frmPrestamo
 
 SELECT * from tusuarios;

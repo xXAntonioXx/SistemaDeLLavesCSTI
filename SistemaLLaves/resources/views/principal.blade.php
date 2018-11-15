@@ -1,6 +1,6 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
-    <div id="app" >
+    <div id="app" class="container-wrapper">
       <registro></registro>
     </div>
     <script src="{{asset('js/app.js')}}"></script>
