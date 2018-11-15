@@ -1,2 +1,0 @@
-call sp_registrar_horario(99999999,'2018','3',65654,"SERVIDORES","SABADO,DOMINGO",'18:00:00',"019:00:00");//
-INSERT INTO tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES(null,6,'2018-11-11 18:10:10',null,null,null,1);

@@ -190,7 +190,7 @@ DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
 	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
 	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
 	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
-	WHERE r.hora_entrada >= CURDATE();
+	WHERE r.hora_entrada >= CURDATE() ORDER BY 'DESC';
  END
 //
 DELIMITER ;
@@ -206,6 +206,17 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
 )
  BEGIN
  	DECLARE expresion VARCHAR(9) DEFAULT 'null';
+ 	DECLARE p_ciclo CHAR(1);
+
+
+ 	IF MONTH(p_hora)>=1 AND MONTH(p_hora)<6 THEN
+ 		SET p_ciclo = '1';
+ 	ELSEIF MONTH(p_hora)>=6 AND MONTH(p_hora)<8 THEN
+ 		SET p_ciclo = '2';
+ 	ELSE
+ 		SET p_ciclo = '3';
+ 	END IF;
+
  	IF CONVERT(MINUTE(p_hora),UNSIGNED) > 39 THEN
  		SET p_hora = p_hora + INTERVAL (60 - CONVERT(MINUTE(p_hora),UNSIGNED)) MINUTE;
  		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
@@ -224,7 +235,7 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
  	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
  	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
- 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=3 
+ 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=p_ciclo
  	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
  	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
  END
