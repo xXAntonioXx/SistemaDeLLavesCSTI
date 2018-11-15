@@ -1,5 +1,5 @@
 <template>
-<div class="container-grid">
+<div class="body-container">
     <section class="llaves-prestadas">
       <h2>Llaves prestadas</h2>
       <div class="division"></div>
