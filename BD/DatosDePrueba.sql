@@ -132,7 +132,22 @@ call sp_registrar_objeto("bocinas","lanix",5);
 
 /*Registrar prestamo*/
 call sp_registrar_prestamo(0,"1,3,2");
-
+call sp_registrar_registro('2018-11-15 07:10:00',1,1);
+call sp_registrar_registro('2018-11-15 07:10:00',2,1);
+call sp_registrar_registro('2018-11-15 07:10:00',3,1);
+call sp_registrar_registro('2018-11-15 07:10:00',4,1);
+call sp_registrar_registro('2018-11-15 07:10:00',5,1);
+call sp_registrar_registro('2018-11-15 07:10:00',6,1);
+call sp_registrar_registro('2018-11-15 07:10:00',7,1);
+call sp_registrar_registro('2018-11-15 07:10:00',8,1);
+call sp_registrar_registro('2018-11-15 07:10:00',9,1);
+call sp_registrar_registro('2018-11-15 07:10:00',10,1);
+call sp_registrar_registro('2018-11-15 07:10:00',11,1);
+call sp_registrar_registro('2018-11-15 07:10:00',12,1);
+call sp_registrar_registro('2018-11-15 07:10:00',13,1);
+call sp_registrar_registro('2018-11-15 07:10:00',14,1);
+call sp_registrar_registro('2018-11-15 07:10:00',15,1);
+call sp_registrar_registro('2018-11-15 07:10:00',16,1);
 /*Ejemplo de un nuevo registro*/
 /*al leer el codigo de la llave se busca el horario(que incluye id,maestro,aula) para llenar el formulario, con el procedimiento*/
 call sp_get_frmPrestamo('codigo_llave','fecha y hora')
