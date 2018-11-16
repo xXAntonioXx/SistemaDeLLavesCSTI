@@ -325,7 +325,7 @@ DELIMITER ;
 /*--------------TERMINADO--------------*/
 /*Registro una excepcion en la base de datos*/
 DELIMITER //
-DROP  PROCEDURE IF EXISTSsp_registrar_registro;
+DROP  PROCEDURE IF EXISTSsp_registrar_excepcion;
 CREATE PROCEDURE sistema_llaves.sp_registrar_excepcion(
 	in p_codigo_llave BIGINT(20),
 	in p_num_emp_maestro INT
@@ -333,7 +333,7 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_excepcion(
 BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
-		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
+		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';3
 	end if;
 
 
@@ -397,8 +397,8 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
  	END CASE;
 
- 	@id_excepcion=null;
- 	@id_prest=null;
+ 	SET @id_excepcion=null;
+ 	SET @id_prest=null;
 
 END
 //
