@@ -1,10 +1,11 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
-    <div id="app">
+    <div id="app" class="container-wrapper">
       <registro></registro>
     </div>
     <script src="{{asset('js/app.js')}}"></script>
     
+<<<<<<< HEAD
     <!--section class="llaves-prestadas">
       <h2>Llaves prestadas</h2>
       <div class="division"></div>
@@ -103,4 +104,6 @@
         }
       }
     </script>
+=======
+>>>>>>> 4a218ab9472616c152f41ed6330806ad006b7b29
 @stop

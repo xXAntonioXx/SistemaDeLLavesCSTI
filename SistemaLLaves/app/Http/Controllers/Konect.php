@@ -2,8 +2,8 @@
 
 function conectar(){
     $servername="localhost";
-    $username="keySystem";
-    $password="keySystem";
+    $username="root";
+    $password="Discord1";
     $dbname="sistema_llaves";
     $charset="utf8mb4";
 

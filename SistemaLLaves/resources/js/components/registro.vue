@@ -1,4 +1,5 @@
 <template>
+<div class="body-container">
     <section class="llaves-prestadas">
       <h2>Llaves prestadas</h2>
       <div class="division"></div>
@@ -9,7 +10,6 @@
         <h3>SALON</h3>
         <h3>HORA</h3>
       </div>
-      <div class="division"></div>
       <div class="llaves-cards">
         <div v-for="registro in pruebas" class="card-item">
             <h3>{{registro['id']}}</h3>
@@ -34,6 +34,7 @@
           <h2>Formulario de prestamo</h2>
           <div class="ghost-div"></div>
       </div>
+<<<<<<< HEAD
       <form action="" class="formulario-prestamo-content">
         <h3 class="llaves">No. Llave</h3>
         <h3 class="maestros">Maestro</h3>
@@ -51,6 +52,28 @@
         <input class="aula-i inputs" type="text">
         <input class="hora-i inputs" type="text">
       </form>
+=======
+      <div class="formulario-wrapper">
+        <form action="" class="formulario-prestamo-content">
+          <h3 class="llaves">No. Llave</h3>
+          <h3 class="maestros">Maestro</h3>
+          <h3 class="materia">Materia</h3>
+          <h3 class="aula">Aula</h3>
+          <h3 class="hora">Hora</h3>
+          <select class="combo-box inputs">
+            <option value="Rivera Samudio">Rivera Samudio</option>
+            <option value="Lab-IQ">Lab-IQ</option>
+            <option value="Lab-Mecatronica">Lab-Mecatronica</option>
+          </select>
+            <input class="llaves-i inputs" type="text">
+            <input class="maestros-i inputs" type="text">
+            <input class="materia-i inputs" type="text">
+            <input class="aula-i inputs" type="text">
+            <input class="hora-i inputs" type="text">
+        </form>
+      </div>
+
+>>>>>>> 4a218ab9472616c152f41ed6330806ad006b7b29
       <div class="button-registro">
           <input type="submit" value="Registrar" class="registrar" onclick="window.location='#modal-container';"/>
       </div>
@@ -74,9 +97,13 @@
         </div>
       </div>
     </section>
+<<<<<<< HEAD
+=======
+    </div>
+>>>>>>> 4a218ab9472616c152f41ed6330806ad006b7b29
 </template>
 
-<style scoped src="../../../public/css/principal.1.css">	
+<style scoped src="../../../public/css/principal.css">	
 </style>
 
 <script>
@@ -86,7 +113,12 @@ export default {
             pruebas:[
                 {id:'1',maestro:'Cirett',materia:'Estructura de Datos',aula:'5j-201',hora:'12:00'},
                 {id:'2',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
-                {id:'3',maestro:'Raquel',materia:'Mineria de Datos',aula:'5j-203',hora:'09:00'}
+                {id:'3',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
+                {id:'4',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
+                {id:'5',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
+                {id:'6',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
+                {id:'7',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
+
             ],
         }
     }

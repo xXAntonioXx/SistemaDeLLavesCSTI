@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Prestamo de llaves</title>
+<<<<<<< HEAD
   <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
   <link rel="stylesheet" href="{{asset('/css/principal.1.css')}}">
+=======
+  <link rel="icon" type="image/png" href="images/key.png">
+  <link rel="stylesheet" href="{{asset('css/principal.css')}}">
+>>>>>>> 4a218ab9472616c152f41ed6330806ad006b7b29
 </head>
 <body>
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
       <figure class="logo">
-        <img src="{{asset('/images/log-unison.png')}}" alt="logo-unison" width="60%">
+        <!-- <img id="logo-unison" src="images/log-unison.png" alt="logo-unison" > -->
       </figure>
       <h1>PRESTAMO DE LLAVES</h1>
       <nav >
@@ -32,18 +37,15 @@
           </li>
         </ol>
       </nav>
-      <figure class="imagen-perfil">
-        <img src="{{asset('/images/log-unison.png')}}" alt="imagen-de-perfil" width="50px">
-      </figure>
+      <i class="icon-out log-out" id="log-out"></i>
     </header>
-
     @yield('cuerpo')
-
     <footer class="footer">
-      <a href="">Derechos Reservados</a>
-      <a href="">Acerca de Nosotros</a>
+      <h3>&copy; Derechos Reservados</h3>
+      <h3>&lsaquo; Acerca de Nosotros &rsaquo;</h3>
     </footer>
   </div>
+  <!--/div-->
   <script>
       // console.log('Hola perroooooos!!!!');
       const ipad = window.matchMedia('screen and (max-width: 656px)');
