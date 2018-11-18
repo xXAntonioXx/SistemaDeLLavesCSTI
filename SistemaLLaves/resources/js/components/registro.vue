@@ -1,8 +1,8 @@
 <template>
 <div class="body-container">
     <section class="llaves-prestadas">
-      <h2>Llaves prestadas</h2>
-      <div class="division"></div>
+      <h2 class="llaves-prestadas-tittle">Llaves prestadas</h2>
+      <!--div class="division"></div-->
       <div class="llaves-titles">
         <h3>ID</h3>
         <h3>MAESTRO</h3>
@@ -77,10 +77,7 @@
         </div>
       </div>
     </section>
-<<<<<<< HEAD
-=======
     </div>
->>>>>>> 4a218ab9472616c152f41ed6330806ad006b7b29
 </template>
 
 <style scoped src="../../../public/css/principal.css">	
@@ -94,10 +91,6 @@ export default {
                 {id:'1',maestro:'Cirett',materia:'Estructura de Datos',aula:'5j-201',hora:'12:00'},
                 {id:'2',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
                 {id:'3',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
-                {id:'4',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
-                {id:'5',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
-                {id:'6',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
-                {id:'7',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
 
             ],
         }
