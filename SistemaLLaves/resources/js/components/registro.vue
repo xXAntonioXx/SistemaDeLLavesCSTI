@@ -34,25 +34,6 @@
           <h2>Formulario de prestamo</h2>
           <div class="ghost-div"></div>
       </div>
-<<<<<<< HEAD
-      <form action="" class="formulario-prestamo-content">
-        <h3 class="llaves">No. Llave</h3>
-        <h3 class="maestros">Maestro</h3>
-        <h3 class="materia">Materia</h3>
-        <h3 class="aula">Aula</h3>
-        <h3 class="hora">Hora</h3>
-        <select class="combo-box inputs">
-          <option value="Rivera Samudio">Rivera Samudio</option>
-          <option value="Lab-IQ">Lab-IQ</option>
-          <option value="Lab-Mecatronica">Lab-Mecatronica</option>
-        </select>
-        <input class="llaves-i inputs" type="text">
-        <input class="maestros-i inputs" type="text">
-        <input class="materia-i inputs" type="text">
-        <input class="aula-i inputs" type="text">
-        <input class="hora-i inputs" type="text">
-      </form>
-=======
       <div class="formulario-wrapper">
         <form action="" class="formulario-prestamo-content">
           <h3 class="llaves">No. Llave</h3>
@@ -73,7 +54,6 @@
         </form>
       </div>
 
->>>>>>> 4a218ab9472616c152f41ed6330806ad006b7b29
       <div class="button-registro">
           <input type="submit" value="Registrar" class="registrar" onclick="window.location='#modal-container';"/>
       </div>
