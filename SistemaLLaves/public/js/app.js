@@ -47988,15 +47988,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            pruebas: [{ id: '1', maestro: 'Cirett', materia: 'Estructura de Datos', aula: '5j-201', hora: '12:00' }, { id: '2', maestro: 'Alvaro', materia: 'Inteligencia Artificial', aula: '5g-201', hora: '14:00' }, { id: '3', maestro: 'Alvaro', materia: 'Inteligencia Artificial', aula: '5g-201', hora: '14:00' }]
-        };
+  data: function data() {
+    return {
+      Pages: [],
+      indicePagina: 0,
+      paginas: 1
+    };
+  },
+  created: function created() {
+    this.fetchRegistros();
+  },
+
+  computed: {
+    Paginate: function Paginate() {
+      return this.Pages.slice(7 * (this.indicePagina - 1), 7 * this.indicePagina);
     }
+  },
+  methods: {
+    fetchRegistros: function fetchRegistros() {
+      var _this = this;
+
+      fetch('api/registros').then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this.paginas = Math.ceil(data.length / 7);
+        _this.Pages = data;
+      });
+    },
+    getPages: function getPages(nPage) {
+      this.indicePagina = nPage;
+    }
+  }
 });
 
 /***/ }),
@@ -48018,7 +48042,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "llaves-cards" },
-        _vm._l(_vm.pruebas, function(registro) {
+        _vm._l(_vm.Paginate, function(registro) {
           return _c("div", { staticClass: "card-item" }, [
             _c("h3", [_vm._v(_vm._s(registro["id"]))]),
             _vm._v(" "),
@@ -48026,17 +48050,36 @@ var render = function() {
             _vm._v(" "),
             _c("h3", [_vm._v(_vm._s(registro["materia"]))]),
             _vm._v(" "),
-            _c("h3", [_vm._v(_vm._s(registro["aula"]))]),
+            _c("h3", [_vm._v(_vm._s(registro["salon"]))]),
             _vm._v(" "),
-            _c("h3", [_vm._v(_vm._s(registro["hora"]))])
+            _c("h3", [_vm._v(_vm._s(registro["hora_entrada"].split(" ")[1]))])
           ])
         })
       ),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "llaves-paginador" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.paginas, function(n) {
+            return _c("li", [
+              _c(
+                "a",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.getPages(n)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(n))]
+              )
+            ])
+          })
+        )
+      ])
     ]),
     _vm._v(" "),
-    _vm._m(2)
+    _vm._m(1)
   ])
 }
 var staticRenderFns = [
@@ -48054,24 +48097,6 @@ var staticRenderFns = [
       _c("h3", [_vm._v("SALON")]),
       _vm._v(" "),
       _c("h3", [_vm._v("HORA")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "llaves-paginador" }, [
-      _c("ul", [
-        _c("li", [_c("a", [_vm._v("1")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", [_vm._v("2")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", [_vm._v("3")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", [_vm._v("4")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", [_vm._v("5")])])
-      ])
     ])
   },
   function() {

@@ -11,21 +11,19 @@
         <h3>HORA</h3>
       </div>
       <div class="llaves-cards">
-        <div v-for="registro in pruebas" class="card-item">
+        <div v-for="registro in Paginate" class="card-item">
             <h3>{{registro['id']}}</h3>
             <h3>{{registro['maestro']}}</h3>
             <h3>{{registro['materia']}}</h3>
-            <h3>{{registro['aula']}}</h3>
-            <h3>{{registro['hora']}}</h3>
+            <h3>{{registro['salon']}}</h3>
+            <h3>{{ registro['hora_entrada'].split(" ")[1] }}</h3>
         </div>
       </div>
       <div class="llaves-paginador">
         <ul>
-          <li><a>1</a></li>
-          <li><a>2</a></li>
-          <li><a>3</a></li>
-          <li><a>4</a></li>
-          <li><a>5</a></li>
+          <li v-for="n in paginas">
+            <a @click="getPages(n)">{{n}}</a>
+          </li>
         </ul>
       </div>
     </section>
@@ -87,13 +85,31 @@
 export default {
     data(){
         return{
-            pruebas:[
-                {id:'1',maestro:'Cirett',materia:'Estructura de Datos',aula:'5j-201',hora:'12:00'},
-                {id:'2',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
-                {id:'3',maestro:'Alvaro',materia:'Inteligencia Artificial',aula:'5g-201',hora:'14:00'},
-
-            ],
+            Pages:[],
+            indicePagina:0,
+            paginas:1,
         }
+    },
+    created(){
+      this.fetchRegistros();
+    },
+    computed:{
+      Paginate(){
+        return this.Pages.slice(7*(this.indicePagina-1),7*this.indicePagina);
+      },
+    },
+    methods:{
+      fetchRegistros(){
+        fetch('api/registros')
+        .then(res=>res.json())
+        .then(data=>{
+          this.paginas=Math.ceil(data.length/7);
+          this.Pages=data;
+        });
+      },
+      getPages(nPage){
+        this.indicePagina=nPage;
+      }
     }
 }
 </script>
