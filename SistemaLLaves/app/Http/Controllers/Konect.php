@@ -14,5 +14,4 @@ function conectar(){
     }catch(PDOException $e){
         return $e->getMessage();
     }
-    //return "hola";
 }

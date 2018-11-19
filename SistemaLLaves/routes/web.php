@@ -19,7 +19,6 @@ Route::get('/wc', function () {
 //rutas y metodos para el login de usuario
 Route::get('/','LoginController@principal');
 Route::post('/validate','LoginController@validar');
-Route::get('/prueba','LoginController@insertar');
 
 //rutas para la pagina principal
 Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
@@ -29,5 +28,6 @@ Route::get('/salir','LoginController@salir');
 Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
 
 //API para consultar la base de datos
-Route::get('/api/registros','ApisController@registrosNum');
-Route::get('/api/lap','ApisController@lap');
+Route::get('/api/registros','ApisController@registrosNum')->middleware(CheckSess::class);
+Route::get('/api/lap','ApisController@lap')->middleware(CheckSess::class);
+
