@@ -25,4 +25,8 @@ class ApisController extends Controller
         
     }
 
+    public function buscarHorario(Request $req){
+        return $req['timez'];
+    }
+
 }

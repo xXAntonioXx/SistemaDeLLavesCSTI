@@ -20,5 +20,8 @@
         "style-loader": "^0.23.1",
         "vue": "^2.5.7"
     },
-    "dependencies": {}
+    "dependencies": {
+        "moment": "^2.22.2",
+        "moment-timezone": "^0.5.23"
+    }
 }

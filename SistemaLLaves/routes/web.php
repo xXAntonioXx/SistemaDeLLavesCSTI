@@ -30,4 +30,5 @@ Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba pa
 //API para consultar la base de datos
 Route::get('/api/registros','ApisController@registrosNum')->middleware(CheckSess::class);
 Route::get('/api/lap','ApisController@lap')->middleware(CheckSess::class);
+Route::post('/api/buscarHorario','ApisController@buscarHorario')->middleware(CheckSess::class);
 

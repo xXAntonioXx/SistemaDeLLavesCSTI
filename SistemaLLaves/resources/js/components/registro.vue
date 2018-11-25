@@ -44,7 +44,7 @@
             <option value="Lab-IQ">Lab-IQ</option>
             <option value="Lab-Mecatronica">Lab-Mecatronica</option>
           </select>
-            <input class="llaves-i inputs" type="text">
+            <input @keyup.enter="buscarHorario(codigoKey)" class="llaves-i inputs" type="text" v-model="codigoKey">
             <input class="maestros-i inputs" type="text">
             <input class="materia-i inputs" type="text">
             <input class="aula-i inputs" type="text">
@@ -69,7 +69,7 @@
             </select>
           </div>
           <div class="modal-buttons">
-            <input type="button" value="Aceptar" class="modal-button-aceptar">
+            <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="showTime">
             <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';">
           </div>
         </div>
@@ -82,12 +82,16 @@
 </style>
 
 <script>
+import moment from 'moment-timezone';
+//const mom = require('moment');
+
 export default {
     data(){
         return{
             Pages:[],
             indicePagina:0,
             paginas:1,
+            codigoKey:'',
         }
     },
     created(){
@@ -107,8 +111,19 @@ export default {
           this.Pages=data;
         });
       },
+
       getPages(nPage){
         this.indicePagina=nPage;
+      },
+
+      showTime(){
+        let timez = moment.tz.guess();
+        return moment.tz(timez).format("YYYY-M-D HH:mm:ss");
+      },
+
+      buscarHorario(codigoLLave){
+        axios.post('/api/buscarHorario',{'codigo':codigoLLave,'timez':this.showTime()})
+          .then((dumb)=>{console.log(dumb)});
       }
     }
 }
