@@ -1,4 +1,4 @@
-/*
+﻿/*
 --------------------
 Autor:Murillo Mario
 --------------------
@@ -292,10 +292,10 @@ BEGIN
 		WHILE @num > 0 DO
 			SET @argTemp=SUBSTRING(p_arreglo,1,LOCATE(",",p_arreglo)-1);
 			
-			IF NOT EXISTS(SELECT id FROM sistema_llaves.tobjetos WHERE id=CAST(@argTemp AS INT)) THEN
+			IF NOT EXISTS(SELECT id FROM sistema_llaves.tobjetos WHERE id=CAST(@argTemp AS SIGNED INTEGER)) THEN
 				SET p_mensaje= CONCAT(p_mensaje,"El producto ", @argTemp," no se encuentra en la base de datos. ");
 			ELSE
-				INSERT INTO sistema_llaves.tprestamos(id,id_control,id_objeto,estado) VALUES (@id_prest,p_id_control,CAST(@argTemp AS INT),DEFAULT);
+				INSERT INTO sistema_llaves.tprestamos(id,id_control,id_objeto,estado) VALUES (@id_prest,p_id_control,CAST(@argTemp AS SIGNED INTEGER),DEFAULT);
 				SET p_id_control= p_id_control + 1;
 			END IF;
 			SET @num = @num - 1;

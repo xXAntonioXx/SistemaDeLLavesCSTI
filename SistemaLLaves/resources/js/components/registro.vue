@@ -123,7 +123,7 @@ export default {
 
       buscarHorario(codigoLLave){
         axios.post('/api/buscarHorario',{'codigo':codigoLLave,'timez':this.showTime()})
-          .then((dumb)=>{console.log(dumb)});
+          .then(dumb=>console.log(dumb));
       }
     }
 }
