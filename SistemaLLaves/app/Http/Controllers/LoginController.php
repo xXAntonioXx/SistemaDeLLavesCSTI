@@ -27,7 +27,7 @@ class LoginController extends Controller
             
             $contraseña=password_hash("contra",PASSWORD_DEFAULT);
 
-            $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'antonio','{$contraseña}','1',1)";
+            $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'admin','{$contraseña}','1',1)";
             
             $this->conexion->query($insert);
         }catch(PDOException $e){
