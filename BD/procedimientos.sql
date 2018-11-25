@@ -56,7 +56,7 @@ BEGIN
 	INSERT INTO sistema_llaves.tllaves(id,codigo,numero,id_aula) VALUES (null, p_codigo,p_numero,@var1);
 END
 //
-DELIMITER;
+DELIMITER ;
 
 
 
@@ -75,7 +75,7 @@ BEGIN
 	INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre) VALUES (null,p_num_emp,UPPER(p_nombre));
 END
 //
-DELIMITER;
+DELIMITER ;
 
 
 
@@ -90,7 +90,7 @@ BEGIN
 	INSERT INTO sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, UPPER(p_nombre), UPPER(p_programa));
 END 
 //
-DELIMITER;
+DELIMITER ;
 
 
 /*--------------TERMINADO--------------*/
@@ -154,7 +154,7 @@ BEGIN
 
 END
 //
-DELIMITER;
+DELIMITER ;
 
 /*--------------TERMINADO--------------*/
 /*Registro de un objeto en la base de datos*/
@@ -171,7 +171,7 @@ BEGIN
 INSERT INTO sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,UPPER(p_nombre),UPPER(p_marca),p_inventario);
 END
 //
-DELIMITER;
+DELIMITER ;
 
 
 
@@ -325,7 +325,7 @@ DELIMITER ;
 /*--------------TERMINADO--------------*/
 /*Registro una excepcion en la base de datos*/
 DELIMITER //
-DROP  PROCEDURE IF EXISTSsp_registrar_excepcion;
+DROP  PROCEDURE IF EXISTS sp_registrar_excepcion;
 CREATE PROCEDURE sistema_llaves.sp_registrar_excepcion(
 	in p_codigo_llave BIGINT(20),
 	in p_num_emp_maestro INT
