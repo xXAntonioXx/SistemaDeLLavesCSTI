@@ -2,8 +2,8 @@
 
 function conectar(){
     $servername="localhost";
-    $username="root";
-    $password="Discord1";
+    $username="keySystem";
+    $password="keySystem";
     $dbname="sistema_llaves";
     $charset="utf8mb4";
 
@@ -14,5 +14,4 @@ function conectar(){
     }catch(PDOException $e){
         return $e->getMessage();
     }
-    //return "hola";
 }
