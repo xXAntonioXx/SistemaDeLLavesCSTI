@@ -13,6 +13,7 @@
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
       <figure class="logo">
+        <a style="display:block; height:100%; width:100%;" href="/main"></a>
       </figure>
       <h1>PRESTAMO DE LLAVES</h1>
       <nav >
