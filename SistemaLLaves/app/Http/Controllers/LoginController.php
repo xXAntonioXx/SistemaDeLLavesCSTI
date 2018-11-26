@@ -38,7 +38,7 @@ class LoginController extends Controller
 
     //confirmacion de credenciales
     public function validar(Request $req){//validamos si el post no viene vacio
-        
+
         $this->validate($req,[
             'nombre'=>'required',
             'contra'=>'required'

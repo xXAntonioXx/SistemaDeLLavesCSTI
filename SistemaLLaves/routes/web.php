@@ -11,13 +11,14 @@
 |
 */
 use App\Http\Middleware\CheckSess;
+use App\Http\Middleware\alreadyStartSession;
 
 Route::get('/wc', function () {
     return view('welcome');
 });
 
 //rutas y metodos para el login de usuario
-Route::get('/','LoginController@principal');
+Route::get('/','LoginController@principal')->middleware(alreadyStartSession::class);
 Route::post('/validate','LoginController@validar');
 
 //rutas para la pagina principal
