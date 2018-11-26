@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-include 'konect.php';
+include 'Konect.php';
 
 class ApisController extends Controller
 {

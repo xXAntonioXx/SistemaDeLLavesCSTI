@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Session;
-include 'konect.php';
+include 'Konect.php';
 
 class LoginController extends Controller
 {
