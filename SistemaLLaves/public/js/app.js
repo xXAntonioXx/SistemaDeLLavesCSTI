@@ -64356,7 +64356,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       Pages: [],
-      indicePagina: 0,
+      indicePagina: 1,
       paginas: 1,
       codigoKey: ''
     };
@@ -64390,7 +64390,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     buscarHorario: function buscarHorario(codigoLLave) {
       axios.post('/api/buscarHorario', { 'codigo': codigoLLave, 'timez': this.showTime() }).then(function (dumb) {
-        console.log(dumb);
+        return console.log(dumb);
       });
     }
   }

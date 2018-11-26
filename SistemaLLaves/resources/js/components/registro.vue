@@ -89,7 +89,7 @@ export default {
     data(){
         return{
             Pages:[],
-            indicePagina:0,
+            indicePagina:1,
             paginas:1,
             codigoKey:'',
         }
