@@ -118,10 +118,14 @@ export default {
 
       showTime(){
         let timez = moment.tz.guess();
-        return moment.tz(timez).format("YYYY-M-D HH:mm:ss");
+        let FechaHora = moment.tz(timez).format("YYYY-M-D HH:mm:ss")
+        //return moment.tz(timez).format("YYYY-M-D HH:mm:ss");
+        return FechaHora;
       },
 
       buscarHorario(codigoLLave){
+        console.log(codigoLLave+ ""+"" +this.showTime())
+        alert(codigoLLave)
         axios.post('/api/buscarHorario',{'codigo':codigoLLave,'timez':this.showTime()})
           .then(dumb=>console.log(dumb));
       }
