@@ -25,9 +25,13 @@ class ApisController extends Controller
         
     }
 
-    public function buscarHorario(Request $req){
-        $codigoLLave=$req['codigo'];
-        return $codigoLLave;
+    public function buscarHorario($codigo,$hora){
+        $consulta="CALL sp_get_frmPrestamo({$codigo},'{$hora}')";
+        $horario=$this->conexion->query($consulta)->fetch();
+        if($horario){
+            return $horario;    
+        }
+        return $horario;
     }
 
 }
