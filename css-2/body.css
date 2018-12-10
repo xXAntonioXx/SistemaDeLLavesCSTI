@@ -1,0 +1,9 @@
+html {
+  font-family: 'Hind', sans-serif;
+  @apply --expander;
+}
+
+body{
+  @apply --expander;
+  font-size: 30px;
+}

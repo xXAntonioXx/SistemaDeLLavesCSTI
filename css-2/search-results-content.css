@@ -1,0 +1,9 @@
+.search-results-content {
+  /* max-height: 380px; */
+  max-height: 60vh;
+  grid-area: search-results-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}

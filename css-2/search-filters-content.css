@@ -1,0 +1,110 @@
+.search-filters-content {
+  grid-area: search-filters-content;
+  box-sizing: border-box;
+  width: 70%;
+  justify-self: center;
+  @media (--ipad) {
+    box-sizing: none;
+    width: 90%;
+  }
+  & h3 {
+    font-size: 1.2rem;
+    @media (--large) {
+      font-size: 1.8rem;
+    }
+    @media (--ipad) {
+      font-size: 1rem;
+    }
+  }
+  & .search-filters-section {
+    display: flex;
+    flex-direction: column;
+  }
+  & .search-filters-hours {
+    display: flex;
+    height: 30px;
+    justify-content: space-around;
+    & p {
+      text-align: center;
+      width: 40px;
+      margin: 0;
+      font-size: 1.1rem;
+      @media (--large) {
+        font-size: 1.5rem;
+      }
+    }
+    & input {
+      @media (--tablets) {
+        width: 200px;
+      }
+      @media (--phones) {
+        width: 120px;
+      }
+      @media (--small-phones) {
+        width: 90px;
+      }
+    }
+  }
+  
+  & .search-filters-dayschecks {
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    & input {
+      display: flex;
+      margin: 0;
+      justify-content: space-arround;
+      width: 20px;
+      height: 20px;
+      font-size: 1em;
+      @media (--large) {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    @media (--large) {
+      justify-content: space-around;
+    }
+    @media (--ipad){
+      justify-content: space-around;
+    }
+    @media (--tablets){
+      justify-content: space-around;
+    }
+  }
+  
+  & .search-filters-days {
+    display: flex;
+    justify-content: center;
+    & p {
+      margin: 0;
+      width: 50px;
+      font-size: 1.1rem;
+      text-align: center;
+      @media (--large) {
+        font-size: 1.5rem;
+      }
+    }
+    @media (--large) {
+      justify-content: space-around;
+    }
+    @media (--tablets){
+      justify-content: space-around;
+    }
+  }
+}
+
+.search-inputs {
+  font-family: 'Hind', sans-serif;
+  font-size: 1rem;
+  height: 25px;
+  border-radius: 20px;
+  border: 1px solid var(--color_texto);
+  align-self: center;
+  padding-left: 10px;
+  width: 96%;
+  @media (--large) {
+    height: 30px;
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,55 @@
+
+.llaves-cards {
+  /* padding-top: 20px; */
+  grid-area: llaves-cards;
+  width: 90%;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  height: 95%;
+}
+
+.card-item {
+  border: .5px solid lightgray;
+  display: inline-flex;
+  margin: 3px 0;
+  height: 35px;
+  width: 99%;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 15px;
+  justify-self: center;
+  & h3 {
+    font-size: .9rem;
+    font-weight: 500;
+    max-height: 35px;
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (--large) {
+      font-size: 1.2rem;
+    }
+    @media (--normal){
+      font-size: .7rem;
+    }
+    @media (--ipad){
+      font-size: .6rem;
+    }
+    @media (--small-phones){
+      font-size: .55rem;
+    }
+  }
+  &:hover {
+    background: green;
+    background: -webkit-linear-gradient(to right, var(--color_verde), var(--color_blanco), var(--color_blanco), var(--color_blanco));
+    background: linear-gradient(to right, var(--color_verde), var(--color_blanco), var(--color_blanco), var(--color_blanco));
+  }
+  @media (--large) {
+    height: 60px;
+    border-radius: 45px;
+  }
+}

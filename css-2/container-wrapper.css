@@ -1,0 +1,10 @@
+.container-wrapper {
+  grid-area: container-wrapper;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  grid-template: 1fr / 1fr;
+  grid-template-areas: "body-container";
+}

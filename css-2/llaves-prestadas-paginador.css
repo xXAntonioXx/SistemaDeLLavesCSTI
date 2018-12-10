@@ -1,0 +1,35 @@
+.llaves-paginador {
+  grid-area: llaves-paginador;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & ul {
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & a {
+    color: gray;
+    float: left;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    padding: 0 10px 0 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    @media (--large) {
+      font-size: 1.7rem;
+    }
+    &:hover {
+      color: white;
+      background: var(--color_principal);
+    }
+  }
+}

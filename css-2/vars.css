@@ -1,0 +1,44 @@
+:root{
+  --color_principal: #004990;
+  --color_secundario: #F7A11A;
+  --color_texto: #585858;
+  --color_verde: #58FA58;
+  --color_blanco: #f4fbff;
+  --expander: {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  };
+  --button_principal: {
+    text-decoration: none;
+    background-color: var(--color_principal);
+    border-radius: 20px;
+    margin: 0;
+    padding: 5px 40px;
+    font-size: 1em;
+    color: #fff;
+    border: none;
+  };
+  --button_secundario: {
+    background: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 5px 40px;
+    font-size: 1em;
+    color: #00001a;
+    border: 2px solid var(--color_principal);  
+    height: 60%;
+  };
+}
+
+@custom-media --large (width >1366px);
+@custom-media --normal (width >=922px) and (width <=1180px);
+@custom-media --ipad (width <922px) and (width >=768px);
+@custom-media --tablets (width <768px);
+@custom-media --phones (width <560px);
+@custom-media --small-phones (width <425px);

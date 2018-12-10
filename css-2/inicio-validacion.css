@@ -1,0 +1,18 @@
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-top: 15px;
+  &:hover {
+    & .tooltip-text {
+      visibility: visible;
+    }
+  }
+  & .tooltip-text {
+    visibility: hidden;
+    color: red;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+  }
+}

@@ -1,0 +1,5 @@
+:root {
+  --color_primario: #004990;
+}
+
+@custom-media --small (width <= 425px);

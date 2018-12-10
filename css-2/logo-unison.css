@@ -1,0 +1,24 @@
+.logo {
+  background: url('../images/log-unison.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 120px;
+  width: 120px;
+  margin: 5px 10px;
+  align-self: flex-end;
+  text-align: end;
+  padding-bottom: 20px;
+  @media (--tablets){
+    height: 60px;
+    width: 60px;
+    margin-bottom: 3px;
+    padding-bottom: 0;
+    background-size: contain;
+  }
+  @media (--phones) {
+    height: 47px;
+    width: 47px;
+    margin-bottom: 6px;
+  }
+}

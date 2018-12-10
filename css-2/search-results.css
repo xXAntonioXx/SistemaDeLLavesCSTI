@@ -1,0 +1,12 @@
+.search-results {
+  grid-area: search-results;
+  display: grid;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas: "search-results-tittle"
+                       "search-results-content";
+  width: 100%;
+  height: 100%;
+  @media (--large) {
+    grid-template-rows: 120px 1fr;
+  }
+}

@@ -1,0 +1,134 @@
+.formulario-prestamo-content {
+  grid-area: formulario-prestamo-content;
+  display: grid;
+  display: -ms-grid;
+  display: -moz-grid;
+  -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 20% 35% 10% 35%;
+  grid-template: repeat( 5, 50px) / 20% 35% 10% 35%;
+  grid-template-areas: ". combo-box combo-box combo-box"
+                       "llaves llaves-i llaves-i llaves-i"
+                       "maestros maestros-i maestros-i maestros-i"
+                       "materia materia-i materia-i materia-i"
+                       "aula aula-i hora hora-i";
+  margin: 0;
+  width: 97%;
+  height: 100%;
+  align-content: center;
+  & h3 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--color_texto);
+    font-size: 1.2rem;
+    @media (--large) {
+      font-size: 1.8rem;
+    }
+    @media (--normal){
+      font-size: .8rem;
+    }
+    @media (--ipad){
+      font-size: .8rem;
+    }
+    @media (--phones) {
+      font-size: .8rem;
+    }
+  }
+  @media (--large) {
+    grid-template-rows: repeat(5, 70px);
+  }
+  @media (--tablets) {
+    width: 90%;
+  }
+}
+
+.combo-box {
+  grid-area: combo-box;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 1rem;
+  border: 1px solid lightgray;
+  padding: 5px;
+  color: darkgray;
+  padding-top: 0;
+  padding-bottom: 0;
+  @media (--large) {
+    font-size: 1.4rem;
+  }
+}
+
+.llaves {
+  grid-area: llaves;
+}
+
+.llaves-i {
+  grid-area: llaves-i;
+}
+
+.maestros {
+  grid-area: maestros;
+}
+
+.maestros-i {
+  grid-area: maestros-i;
+}
+
+.materia{
+  grid-area: materia;
+}
+
+.materia-i {
+  grid-area: materia-i;
+}
+
+.aula {
+  grid-area: aula;
+}
+
+.aula-i{
+  grid-area: aula-i;
+  @media (--ipad){
+    width: 90%;
+  }
+  @media (--phones) {
+    width: 85%;
+  }
+}
+
+.hora {
+  grid-area: hora;
+  padding-left: 0;
+  text-align: center;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+  
+}
+
+.hora-i {
+  grid-area: hora-i;
+  width: 90% !important;
+  
+}
+
+.inputs {
+  font-family: 'Hind', sans-serif;
+  font-size: 1rem;
+  height: 30px;
+  border-radius: 20px;
+  border: 1px solid var(--color_texto);
+  align-self: center;
+  padding-left: 10px;
+  width: 96%;
+  @media (--large) {
+    height: 40px;
+    font-size: 1.3rem;
+  }
+  @media (--normal){
+    font-size: .8rem;
+  }
+  @media (--phones) {
+    height: 25px;
+  }
+}

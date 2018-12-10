@@ -1,0 +1,9 @@
+.formulario-wrapper {
+  grid-area: formulario-wrapper;
+  height: 100%;
+  width: 100%;
+  @media (--tablets) {
+    display: flex;
+    justify-content: center;
+  }
+}

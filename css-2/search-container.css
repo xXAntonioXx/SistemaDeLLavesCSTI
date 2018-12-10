@@ -1,0 +1,19 @@
+.search-container {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  /* grid-template-columns: 30% 70%; */
+  grid-template-areas: "search-filters search-results";
+  @media (--ipad) {
+  }
+  @media (--tablets) {
+    grid-template-rows: 510px 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: "search-filters"
+                         "search-results";
+  }
+}

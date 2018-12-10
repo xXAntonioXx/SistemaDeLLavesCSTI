@@ -1,0 +1,54 @@
+@import './body.css';
+@import './container-wrapper.css';
+@import './body-container.css';
+@import './container.css';
+@import './header.css';
+@import './logo-unison.css';
+@import './menu.css';
+@import './salida.css';
+/* Modal para la parte de soporte */
+@import './modal-soporte-window.css';
+@import './modal-soporte-title.css';
+@import './modal-soporte-content.css';
+@import './modal-soporte-buttons.css';
+/* Llaves prestadas */
+@import './llaves-prestadas.css';
+@import './llaves-prestadas-tittles.css';
+@import './llaves-prestadas-cards.css';
+@import './llaves-prestadas-paginador.css';
+/* Formulario de prestamo de llaves */
+@import './formulario-prestamo.css';
+@import './formulario-prestamo-tittles.css';
+@import './formulario-wrapper.css';
+@import './formulario-prestamo-content.css';
+@import './formulario-prestamo-buttonregistro.css';
+/* Modal para el prestamo de objetos */
+@import './modal-window.css';
+@import './modal-window-tittles.css';
+@import './modal-window-list.css';
+@import './modal-window-buttons.css';
+/* Pagina de busqueda */
+@import './search-container.css';
+@import './search-filters-form.css';
+@import './search-filters-tittle.css';
+@import './search-filters-content.css';
+@import './search-filters-button.css';
+@import './search-results.css';
+@import './search-results-content.css';
+@import './search-results-title.css';
+@import './search-results-content-card.css';
+/* Footer */
+@import './footer.css';
+/* Menu hamburguesa */
+@import './burger-menu.css';
+/* Variables */
+@import './vars.css';
+
+/* Dimensiones:
+Pantalla 1
+width: 1920
+height: 1080 
+Pantalla 2 
+width: 1366
+height: 768
+*/

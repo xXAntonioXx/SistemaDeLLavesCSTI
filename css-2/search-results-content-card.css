@@ -1,0 +1,119 @@
+.search-results-content-card {
+  display: flex;
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 80%;
+  min-height: fit-content;
+  padding: 10px;
+  margin-bottom: 5px;
+  & h3 {
+    margin: 0;
+    font-size: 1rem;
+    width: 6%;
+    @media (--large) {
+      font-size: 1.8rem;
+    }
+  }
+  & #search-results-id {
+    text-align: end;
+    padding-right: 10px;
+  }
+  & div {
+    display: flex;
+    flex-direction: column;
+    width: 94%;
+    & h3 {
+      margin: 0;
+      width: 100%;
+    }
+    & div {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      & p {
+        margin: 0;
+        font-size: 1rem;
+        @media (--large) {
+          font-size: 1.4rem;
+        }
+      }
+      & #search-results-classroom {
+        width: 15%;
+        @media (--small-phones) {
+          width: 20%;
+        }
+      }
+      & #search-results-teacher {
+        width: 85%;
+        @media (--small-phones) {
+          width: 80%;
+        }
+      }
+      & #search-results-hour {
+        width: 15%;
+        @media (--phones) {
+          width: 25%;
+        }
+        @media (--small-phones) {
+          width: 40%;
+        }
+      }
+      & #search-results-days {
+        width: 85%;
+        @media (--phones) {
+          width: 75%;
+        }
+        @media (--small-phones) {
+          width: 60%;
+        }
+      }
+      & #search-results-objectname {
+        width: 15%;
+        @media (--ipad) {
+          width: 25%;
+        }
+        @media (--phones) {
+          width: 25%;
+        }
+        @media (--small-phones){
+          width: 30%;
+        }
+      }
+      & #search-results-objectbrand {
+        width: 70%;
+        @media (--ipad) {
+          width: 50%;
+        }
+        @media (--phones) {
+          width: 50%;
+        }
+        @media (--small-phones){
+          width: 30%;
+        }
+      }
+      & #search-results-objectstatus {
+        width: 15%;
+        @media (--ipad) {
+          width: 25%;
+        }
+        @media (--phones) {
+          width: 25%;
+        }
+        @media (--small-phones){
+          width: 40%;
+        }
+      }
+    }
+    & p {
+      margin: 0;
+      font-size: 1rem;
+      @media (--large) {
+        font-size: 1.4rem;
+      }
+    }
+    & #search-results-objects {
+      width: 100%;
+      border-bottom: 1px solid gray;
+    }
+  }
+}

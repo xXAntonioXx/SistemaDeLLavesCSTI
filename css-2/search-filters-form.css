@@ -1,0 +1,28 @@
+.search-filters-form {
+  grid-area: search-filters;
+  height: 100%;
+  display: grid;
+  border-right: 1px solid gray;
+  grid-template-rows: 70px 1fr 60px;
+  grid-template-columns: 1fr;
+  width: 100%;
+  grid-template-areas: "search-filters-tittle"
+  "search-filters-content"
+                       "search-filters-button";
+                       & h3 {
+    font-family: 'Hind', sans-serif;
+    font-size: 1.2rem;
+    margin: 0;
+    padding-left: 15px;
+    width: 20%;
+    color: var(--color_texto);
+  }
+  @media (--large) {
+    grid-template-rows: 120px 1fr 100px;
+  }
+  @media (--tablets) {
+    grid-template-rows: 80px 330px 100px;
+    height: 510px;
+    border-bottom: 1px solid gray;
+  }
+}
