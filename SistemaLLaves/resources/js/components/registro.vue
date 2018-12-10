@@ -108,18 +108,22 @@ export default {
     },
     methods:{
       fetchRegistros(){
-        /*axios({
+        axios({
           method:'get',
           url:'api/registros'
         })
-        .then(res=>{console.log(res.data)});*/
-        fetch('api/registros')
+        .then(data=>{
+          this.paginas=Math.ceil(data['data'].length/7);
+          this.Pages=data['data'];
+          console.log(data['data']);
+        });
+        /*fetch('api/registros')
         .then(res=>res.json())
         .then(data=>{
           this.paginas=Math.ceil(data.length/7);
           this.Pages=data;
           console.log(data);
-        });
+        });*/
       },
 
       getPages(nPage){
