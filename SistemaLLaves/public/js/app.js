@@ -64428,18 +64428,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     fetchRegistros: function fetchRegistros() {
-      axios({
-        method: 'get',
-        url: 'api/registros'
-      }).then(function (res) {
-        console.log(res.data);
+      var _this = this;
+
+      /*axios({
+        method:'get',
+        url:'api/registros'
+      })
+      .then(res=>{console.log(res.data)});*/
+      fetch('api/registros').then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this.paginas = Math.ceil(data.length / 7);
+        _this.Pages = data;
+        console.log(data);
       });
-      /*fetch('api/registros')
-      .then(res=>res.json())
-      .then(data=>{
-        this.paginas=Math.ceil(data.length/7);
-        this.Pages=data;
-      });*/
     },
     getPages: function getPages(nPage) {
       this.indicePagina = nPage;
