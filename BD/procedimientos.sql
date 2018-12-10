@@ -1,4 +1,4 @@
-/*
+﻿/*
 --------------------
 Autor:Murillo Mario
 --------------------
@@ -56,7 +56,7 @@ BEGIN
 	INSERT INTO sistema_llaves.tllaves(id,codigo,numero,id_aula) VALUES (null, p_codigo,p_numero,@var1);
 END
 //
-DELIMITER;
+DELIMITER ;
 
 
 
@@ -75,7 +75,7 @@ BEGIN
 	INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre) VALUES (null,p_num_emp,UPPER(p_nombre));
 END
 //
-DELIMITER;
+DELIMITER ;
 
 
 
@@ -90,7 +90,7 @@ BEGIN
 	INSERT INTO sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, UPPER(p_nombre), UPPER(p_programa));
 END 
 //
-DELIMITER;
+DELIMITER ;
 
 
 /*--------------TERMINADO--------------*/
@@ -154,7 +154,7 @@ BEGIN
 
 END
 //
-DELIMITER;
+DELIMITER ;
 
 /*--------------TERMINADO--------------*/
 /*Registro de un objeto en la base de datos*/
@@ -171,7 +171,7 @@ BEGIN
 INSERT INTO sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,UPPER(p_nombre),UPPER(p_marca),p_inventario);
 END
 //
-DELIMITER;
+DELIMITER ;
 
 
 
@@ -292,10 +292,10 @@ BEGIN
 		WHILE @num > 0 DO
 			SET @argTemp=SUBSTRING(p_arreglo,1,LOCATE(",",p_arreglo)-1);
 			
-			IF NOT EXISTS(SELECT id FROM sistema_llaves.tobjetos WHERE id=CAST(@argTemp AS INT)) THEN
+			IF NOT EXISTS(SELECT id FROM sistema_llaves.tobjetos WHERE id=CAST(@argTemp AS SIGNED INTEGER)) THEN
 				SET p_mensaje= CONCAT(p_mensaje,"El producto ", @argTemp," no se encuentra en la base de datos. ");
 			ELSE
-				INSERT INTO sistema_llaves.tprestamos(id,id_control,id_objeto,estado) VALUES (@id_prest,p_id_control,CAST(@argTemp AS INT),DEFAULT);
+				INSERT INTO sistema_llaves.tprestamos(id,id_control,id_objeto,estado) VALUES (@id_prest,p_id_control,CAST(@argTemp AS SIGNED INTEGER),DEFAULT);
 				SET p_id_control= p_id_control + 1;
 			END IF;
 			SET @num = @num - 1;
@@ -325,7 +325,7 @@ DELIMITER ;
 /*--------------TERMINADO--------------*/
 /*Registro una excepcion en la base de datos*/
 DELIMITER //
-DROP  PROCEDURE IF EXISTSsp_registrar_excepcion;
+DROP  PROCEDURE IF EXISTS sp_registrar_excepcion;
 CREATE PROCEDURE sistema_llaves.sp_registrar_excepcion(
 	in p_codigo_llave BIGINT(20),
 	in p_num_emp_maestro INT

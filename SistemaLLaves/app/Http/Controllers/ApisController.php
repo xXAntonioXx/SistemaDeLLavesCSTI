@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
-include 'konect.php';
+include 'Konect.php';
 
 class ApisController extends Controller
 {
@@ -15,16 +14,24 @@ class ApisController extends Controller
         $this->conexion=conectar();
     }
 
-    public function registros(){
-        //***prototipo del paginado ***
+    public function registrosNum(Request $req){
 
-        $registros=$this->conexion->query('select * from tregistros')->fetch();
-        //dd($registros);
-        $currentPage=LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 5;
+        //Trae todos los registros del dia de hoy
 
+        $registros=$this->conexion->query('CALL sp_get_llavesPrestadas()')->fetchAll();
+        $coleccion=collect($registros);
 
-        $elementoPaginados=new LengthAwarePaginator($registros,1,$perPage,$currentPage);
-        return $elementoPaginados;
+        return $coleccion;
+        
     }
+
+    public function buscarHorario($codigo,$hora){
+        $consulta="CALL sp_get_frmPrestamo({$codigo},'{$hora}')";
+        $horario=$this->conexion->query($consulta)->fetch();
+        if($horario){
+            return $horario;    
+        }
+        return $horario;
+    }
+
 }

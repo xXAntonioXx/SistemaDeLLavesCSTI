@@ -1,18 +1,14 @@
 <?php
 
 function conectar(){
-    $servername="localhost";
-    $username="root";
-    $password="Discord1";
-    $dbname="sistema_llaves";
-    $charset="utf8mb4";
+    $username="keySystem";
+    $password="keySystem";
 
-    $cs = "mysql:host=localhost;dbname=sistema_llaves";
+    $cs = "mysql:host=localhost;dbname=sistema_llaves;charset=utf8";
     try{
         $conection = new PDO($cs,$username,$password);
         return $conection;
     }catch(PDOException $e){
         return $e->getMessage();
     }
-    //return "hola";
 }

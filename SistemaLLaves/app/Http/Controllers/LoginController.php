@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Session;
-include 'konect.php';
+include 'Konect.php';
 
 class LoginController extends Controller
 {
@@ -27,7 +27,7 @@ class LoginController extends Controller
             
             $contraseña=password_hash("contra",PASSWORD_DEFAULT);
 
-            $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'antonio','{$contraseña}','1',1)";
+            $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'admin','{$contraseña}','1',1)";
             
             $this->conexion->query($insert);
         }catch(PDOException $e){
@@ -38,7 +38,7 @@ class LoginController extends Controller
 
     //confirmacion de credenciales
     public function validar(Request $req){//validamos si el post no viene vacio
-        
+
         $this->validate($req,[
             'nombre'=>'required',
             'contra'=>'required'
