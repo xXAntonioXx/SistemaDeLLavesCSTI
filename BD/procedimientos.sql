@@ -1,4 +1,4 @@
-/*
+﻿/*
 --------------------
 Autor:Murillo Mario
 --------------------
@@ -50,10 +50,10 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
 )
 BEGIN
 	IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=UPPER(p_area) and aula=p_aula) THEN
-		INSERT INTO sistema_llaves.taulas(id,area,aula) VALUES (null,UPPER(p_area),p_aula);
+		INSERT INTO sistema_llaves.taulas(id,numero,area,aula) VALUES (null,p_numero,UPPER(p_area),p_aula);
 	END IF;
 	SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=p_aula AND area=p_area;
-	INSERT INTO sistema_llaves.tllaves(id,codigo,numero,id_aula) VALUES (null, p_codigo,p_numero,@var1);
+	INSERT INTO sistema_llaves.tllaves(id,codigo,id_aula) VALUES (null, p_codigo,@var1);
 END
 //
 DELIMITER ;
@@ -333,7 +333,7 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_excepcion(
 BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
-		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';3
+		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
 	end if;
 
 
@@ -349,7 +349,6 @@ BEGIN
 END
 //
 DELIMITER ;
-
 
 
 /*---------------TERMINADO----------------*/
