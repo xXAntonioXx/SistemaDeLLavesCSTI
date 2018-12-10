@@ -34,4 +34,21 @@ class ApisController extends Controller
         return $horario;
     }
 
+    public function nuevoPrestamo(Request $req){
+        $id=$req["id"];
+        $objetos=$req["objList"];
+        
+        $prestamo="CALL sp_registrar_prestamo({$id},{$objetos})";
+        $this->conexion->query($prestamo);
+    }
+
+    public function Borrame(Request $req){
+        dd($req->session()->get('id'));
+    }
+
+    public function nuevoRegistro(Request $req){
+        $registrar="CALL sp_registrar_registro('2018-12-10 00:00:00',7,1)";
+        $this->conexion->query($registrar);
+    }
+
 }

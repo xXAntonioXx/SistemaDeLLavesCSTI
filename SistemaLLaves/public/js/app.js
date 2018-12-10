@@ -64224,9 +64224,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
-//const mom = require('moment');
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -64236,8 +64237,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       paginas: 1,
       codigoKey: '',
       registroForm: [],
-      estadoInput: false,
-      comboIterates: 1
+      estadoInput: true,
+      comboIterates: 1,
+      PrestamoList: '',
+      objetos: [{ 'id': 1, 'obj': 'Control A/C(Mirage)' }, { 'id': 2, 'obj': 'Control A/C(YORK)' }, { 'id': 3, 'obj': 'Control Cañon' }, { 'id': 4, 'obj': 'bocinas' }],
+      globalTime: '0'
     };
   },
   created: function created() {
@@ -64277,18 +64281,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       /*axios.post('/api/buscarHorario',{'codigo':codigoLLave,'timez':this.showTime()})
         .then(dumb=>console.log(dumb));*/
       var time = this.showTime();
+      this.globalTime = time;
       var busqueda = 'api/buscarHorario/' + codigoLLave + '/' + time;
-      console.log("se hace busqueda: " + busqueda);
       axios.get(busqueda).then(function (res) {
         _this2.registroForm = res.data;
         _this2.registroForm['hora'] = _this2.showTime(2);
-        _this2.estadoInput = true;
       });
+      this.estadoInput = true;
     },
     agregarCombo: function agregarCombo(identificador) {
       if (identificador == this.comboIterates) {
         this.comboIterates++;
       }
+    },
+    formularioParaExcepcion: function formularioParaExcepcion() {
+      this.registroForm = [];
+      this.estadoInput = false;
+      this.codigoKey = '';
+    },
+    objetosPrestamo: function objetosPrestamo(objeto) {
+      this.PrestamoList += objeto + ',';
+      alert(this.PrestamoList);
+    },
+    cleanObjPrestamo: function cleanObjPrestamo() {
+      this.comboIterates = 1;
+      this.PrestamoList = '';
+    },
+    NuevoPrestamo: function NuevoPrestamo() {
+      axios.post('/api/nuevoPrestamo', { 'id': 0, 'objList': this.PrestamoList.slice(0, -1) }).then(function () {
+        alert('registro realizado');
+      });
+    },
+    NuevoRegistro: function NuevoRegistro() {
+      axios.post('/api/nuevoRegistro', { 'id': 0, 'objList': this.PrestamoList.slice(0, -1) }).then(function () {
+        alert('registro realizado x2');
+      });
     }
   }
 });
@@ -65235,7 +65262,7 @@ var render = function() {
         _c(
           "ul",
           _vm._l(_vm.paginas, function(n) {
-            return _c("li", [
+            return _c("li", { key: n }, [
               _c(
                 "a",
                 {
@@ -65271,7 +65298,30 @@ var render = function() {
             _vm._v(" "),
             _c("h3", { staticClass: "hora" }, [_vm._v("Hora")]),
             _vm._v(" "),
-            _vm._m(2),
+            _c(
+              "select",
+              {
+                staticClass: "combo-box inputs",
+                on: {
+                  change: function($event) {
+                    _vm.formularioParaExcepcion()
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "Rivera Samudio" } }, [
+                  _vm._v("Rivera Samudio")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Lab-IQ" } }, [
+                  _vm._v("Lab-IQ")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Lab-Mecatronica" } }, [
+                  _vm._v("Lab-Mecatronica")
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -65407,7 +65457,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(3),
+      _vm._m(2),
       _vm._v(" "),
       _c(
         "div",
@@ -65438,17 +65488,57 @@ var render = function() {
                     }
                   },
                   [
-                    _c("option", { attrs: { value: "Bocinas" } }, [
-                      _vm._v("Bocinas")
-                    ]),
+                    _c(
+                      "option",
+                      {
+                        attrs: { value: "Bocinas" },
+                        on: {
+                          click: function($event) {
+                            _vm.objetosPrestamo(1)
+                          }
+                        }
+                      },
+                      [_vm._v("Control A/AC(Mirage)")]
+                    ),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "Bocinas" } }, [
-                      _vm._v("Control Cañon")
-                    ]),
+                    _c(
+                      "option",
+                      {
+                        attrs: { value: "Bocinas" },
+                        on: {
+                          click: function($event) {
+                            _vm.objetosPrestamo(2)
+                          }
+                        }
+                      },
+                      [_vm._v("Control A/AC(YORK)")]
+                    ),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "Bocinas" } }, [
-                      _vm._v("Control A/AC")
-                    ])
+                    _c(
+                      "option",
+                      {
+                        attrs: { value: "Bocinas" },
+                        on: {
+                          click: function($event) {
+                            _vm.objetosPrestamo(3)
+                          }
+                        }
+                      },
+                      [_vm._v("Control Cañon")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        attrs: { value: "Bocinas" },
+                        on: {
+                          click: function($event) {
+                            _vm.objetosPrestamo(4)
+                          }
+                        }
+                      },
+                      [_vm._v("Bocinas")]
+                    )
                   ]
                 )
               })
@@ -65457,8 +65547,17 @@ var render = function() {
             _c("div", { staticClass: "modal-buttons" }, [
               _c("input", {
                 staticClass: "modal-button-aceptar",
-                attrs: { type: "button", value: "Aceptar" },
-                on: { click: _vm.showTime }
+                attrs: {
+                  type: "button",
+                  value: "Aceptar",
+                  onclick: "window.location='#';"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.NuevoRegistro()
+                    _vm.NuevoPrestamo()
+                  }
+                }
               }),
               _vm._v(" "),
               _c("input", {
@@ -65467,6 +65566,11 @@ var render = function() {
                   type: "button",
                   value: "Cancelar",
                   onclick: "window.location='#';"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.cleanObjPrestamo()
+                  }
                 }
               })
             ])
@@ -65501,22 +65605,6 @@ var staticRenderFns = [
       _c("h2", [_vm._v("Formulario de prestamo")]),
       _vm._v(" "),
       _c("div", { staticClass: "ghost-div" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("select", { staticClass: "combo-box inputs" }, [
-      _c("option", { attrs: { value: "Rivera Samudio" } }, [
-        _vm._v("Rivera Samudio")
-      ]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Lab-IQ" } }, [_vm._v("Lab-IQ")]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Lab-Mecatronica" } }, [
-        _vm._v("Lab-Mecatronica")
-      ])
     ])
   },
   function() {
