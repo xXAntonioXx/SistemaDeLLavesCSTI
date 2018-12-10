@@ -64278,8 +64278,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     buscarHorario: function buscarHorario(codigoLLave) {
       var _this2 = this;
 
-      /*axios.post('/api/buscarHorario',{'codigo':codigoLLave,'timez':this.showTime()})
-        .then(dumb=>console.log(dumb));*/
       var time = this.showTime();
       this.globalTime = time;
       var busqueda = 'api/buscarHorario/' + codigoLLave + '/' + time;
@@ -64301,20 +64299,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     objetosPrestamo: function objetosPrestamo(objeto) {
       this.PrestamoList += objeto + ',';
-      alert(this.PrestamoList);
     },
     cleanObjPrestamo: function cleanObjPrestamo() {
       this.comboIterates = 1;
       this.PrestamoList = '';
     },
     NuevoPrestamo: function NuevoPrestamo() {
-      axios.post('/api/nuevoPrestamo', { 'id': 0, 'objList': this.PrestamoList.slice(0, -1) }).then(function () {
-        alert('registro realizado');
-      });
+      axios.post('/api/nuevoPrestamo', { 'id': 0, 'objList': this.PrestamoList.slice(0, -1) });
     },
     NuevoRegistro: function NuevoRegistro() {
-      axios.post('/api/nuevoRegistro', {}).then(function () {
-        alert('registro realizado x2');
+      axios.post('/api/nuevoRegistro', { 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'] }).then(function () {
+        alert('registro realizado');
       });
     }
   }

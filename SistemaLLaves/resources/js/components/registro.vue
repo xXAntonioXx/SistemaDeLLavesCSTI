@@ -128,8 +128,6 @@ export default {
       },
 
       buscarHorario(codigoLLave){
-        /*axios.post('/api/buscarHorario',{'codigo':codigoLLave,'timez':this.showTime()})
-          .then(dumb=>console.log(dumb));*/
         let time=this.showTime();
         this.globalTime=time;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
@@ -153,7 +151,6 @@ export default {
       },
       objetosPrestamo(objeto){
         this.PrestamoList+=objeto+',';
-        alert(this.PrestamoList);
       },
       cleanObjPrestamo(){
         this.comboIterates=1;
@@ -161,11 +158,10 @@ export default {
       },
       NuevoPrestamo(){ 
         axios.post('/api/nuevoPrestamo',{'id':0,'objList':this.PrestamoList.slice(0,-1)})
-        .then(()=>{alert('registro realizado')});
       },
       NuevoRegistro(){
-        axios.post('/api/nuevoRegistro',{})
-        .then(()=>{alert('registro realizado x2')});
+        axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id']})
+        .then(()=>{alert('registro realizado')});
       }
     }
 }

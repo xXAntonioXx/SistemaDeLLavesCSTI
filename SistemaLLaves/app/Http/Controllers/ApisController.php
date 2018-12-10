@@ -47,7 +47,10 @@ class ApisController extends Controller
     }
 
     public function nuevoRegistro(Request $req){
-        $registrar="CALL sp_registrar_registro('2018-12-10 01:00:00',7,1)";
+        $hora=$req["fechaHora"];
+        $idHorario=$req["idHorario"];
+        $idUsuario=$req->session()->get('id');
+        $registrar="CALL sp_registrar_registro('{$hora}',{$idHorario},{$idUsuario})";
         $this->conexion->query($registrar);
     }
 
