@@ -164,7 +164,7 @@ export default {
         .then(()=>{alert('registro realizado')});
       },
       NuevoRegistro(){
-        axios.post('/api/nuevoRegistro',{'id':0,'objList':this.PrestamoList.slice(0,-1)})
+        axios.post('/api/nuevoRegistro',{})
         .then(()=>{alert('registro realizado x2')});
       }
     }

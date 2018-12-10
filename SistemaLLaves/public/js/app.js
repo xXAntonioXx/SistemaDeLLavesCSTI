@@ -64313,7 +64313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     NuevoRegistro: function NuevoRegistro() {
-      axios.post('/api/nuevoRegistro', { 'id': 0, 'objList': this.PrestamoList.slice(0, -1) }).then(function () {
+      axios.post('/api/nuevoRegistro', {}).then(function () {
         alert('registro realizado x2');
       });
     }
