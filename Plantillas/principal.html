@@ -27,11 +27,26 @@
             <a href="inventario.html" class="link">Inventario</a>
           </li>
           <li>
-            <a href="soporte.html" class="link">Soporte</a>
+            <a href="#modal-soporte-container" class="link">Soporte</a>
           </li>
         </ol>
       </nav>
       <i class="icon-out log-out" id="log-out"></i>
+      <div id="modal-soporte-container" class="modal-soporte-container">
+        <div class="modal-soporte-content">
+          <h2 class="modal-soporte-tittle">¿Tiene algún problema?</h3>
+          <div class="modal-soporte-description">
+            <h3>Asunto</h3>
+            <input type="text" id="modal-soporte-asunto">
+            <h3>Descripción</h3>
+            <textarea rows="7" cols="68" id="modal-descripcion"></textarea>
+          </div>
+          <div class="modal-soporte-buttons">
+            <input type="button" value="Enviar" class="modal-soporte-button-aceptar">
+            <input type="button" value="Cancelar" class="modal-soporte-button-cancelar" onclick="window.location='#';">
+          </div>
+        </div>
+      </div>
     </header>
     <div class="container-wrapper">
       <div class="body-container">
@@ -41,58 +56,16 @@
             <h3>ID</h3>
             <h3>MAESTRO</h3>
             <h3>MATERIA</h3>
-            <h3>SALON</h3>
+            <h3>AULA</h3>
             <h3>HORA</h3>
           </div>
           <div class="llaves-cards">
             <div class="card-item">
-              <h3>2</h3>
-              <h3>Lorem ipsum dolor sit</h3>
-              <h3>Estructura</h3>
-              <h3>5j-205</h3>
-              <h3>12:00</h3>
-            </div>
-            <div class="card-item">
-              <h3>2</h3>
-              <h3>Ciret</h3>
-              <h3>Estructura</h3>
-              <h3>5j-205</h3>
-              <h3>12:00</h3>
-            </div>
-            <div class="card-item">
-              <h3>2</h3>
-              <h3>Ciret</h3>
-              <h3>Estructura</h3>
-              <h3>5j-205</h3>
-              <h3>12:00</h3>
-            </div>
-            <div class="card-item">
-              <h3>2</h3>
-              <h3>Ciret</h3>
-              <h3>Estructura</h3>
-              <h3>5j-205</h3>
-              <h3>12:00</h3>
-            </div>
-            <div class="card-item">
-              <h3>2</h3>
-              <h3>Ciret</h3>
-              <h3>Estructura</h3>
-              <h3>5j-205</h3>
-              <h3>12:00</h3>
-            </div>
-            <div class="card-item">
-              <h3>2</h3>
-              <h3>Ciret</h3>
-              <h3>Estructura</h3>
-              <h3>5j-205</h3>
-              <h3>12:00</h3>
-            </div>
-            <div class="card-item">
-              <h3>2</h3>
-              <h3>Ciret</h3>
-              <h3>Estructura</h3>
-              <h3>5j-205</h3>
-              <h3>12:00</h3>
+              <h3 id="llave-id">2</h3>
+              <h3 id="llave-maestro">Lorem ipsum dolor sit</h3>
+              <h3 id="llave-clase">Estructura</h3>
+              <h3 id="llave-aula">5j-205</h3>
+              <h3 id="llave-hora">12:00</h3>
             </div>
           </div>
           <div class="llaves-paginador">

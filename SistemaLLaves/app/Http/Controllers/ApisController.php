@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-include 'konect.php';
+include 'Konect.php';
 
 class ApisController extends Controller
 {
@@ -23,6 +23,15 @@ class ApisController extends Controller
 
         return $coleccion;
         
+    }
+
+    public function buscarHorario($codigo,$hora){
+        $consulta="CALL sp_get_frmPrestamo({$codigo},'{$hora}')";
+        $horario=$this->conexion->query($consulta)->fetch();
+        if($horario){
+            return $horario;    
+        }
+        return $horario;
     }
 
 }
