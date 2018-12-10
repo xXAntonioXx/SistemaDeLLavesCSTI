@@ -131,11 +131,11 @@ export default {
         let time=this.showTime();
         this.globalTime=time;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
-        axios.get(busqueda)
+        /*axios.get(busqueda)
         .then(res=>{
           this.registroForm=res.data;
           this.registroForm['hora']=this.showTime(2);
-        });
+        });*/
         this.estadoInput=true;
       },
 
