@@ -21,7 +21,7 @@
       </div>
       <div class="llaves-paginador">
         <ul>
-          <li v-for="n in paginas">
+          <li v-for="n in paginas" :key="n">
             <a @click="getPages(n)">{{n}}</a>
           </li>
         </ul>
@@ -39,7 +39,7 @@
           <h3 class="materia">Materia</h3>
           <h3 class="aula">Aula</h3>
           <h3 class="hora">Hora</h3>
-          <select class="combo-box inputs">
+          <select class="combo-box inputs" @change="formularioParaExcepcion()">
             <option value="Rivera Samudio">Rivera Samudio</option>
             <option value="Lab-IQ">Lab-IQ</option>
             <option value="Lab-Mecatronica">Lab-Mecatronica</option>
@@ -60,14 +60,16 @@
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd)" :key="comboInd">
-              <option value="Bocinas">Bocinas</option>
-              <option value="Bocinas">Control Cañon</option>
-              <option value="Bocinas">Control A/AC</option>
+              <!--option v-for="object in objetos" :key="object['id']">{{object['obj']}}</option-->
+              <option value="Bocinas" v-on:click="objetosPrestamo(1)">Control A/AC(Mirage)</option>
+              <option value="Bocinas" v-on:click="objetosPrestamo(2)">Control A/AC(YORK)</option>
+              <option value="Bocinas" v-on:click="objetosPrestamo(3)">Control Cañon</option>
+              <option value="Bocinas" v-on:click="objetosPrestamo(4)">Bocinas</option>
             </select>
           </div>
           <div class="modal-buttons">
-            <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="showTime">
-            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';">
+            <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro();NuevoPrestamo()" onclick="window.location='#';">
+            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="cleanObjPrestamo()">
           </div>
         </div>
       </div>
@@ -80,7 +82,6 @@
 
 <script>
 import moment from 'moment-timezone';
-//const mom = require('moment');
 
 export default {
     data(){
@@ -90,8 +91,11 @@ export default {
             paginas:1,
             codigoKey:'',
             registroForm:[],
-            estadoInput:false,
-            comboIterates:1
+            estadoInput:true,
+            comboIterates:1,
+            PrestamoList:'',
+            objetos:[{'id':1,'obj':'Control A/C(Mirage)'},{'id':2,'obj':'Control A/C(YORK)'},{'id':3,'obj':'Control Cañon'},{'id':4,'obj':'bocinas'},],
+            globalTime:'0'
         }
     },
     created(){
@@ -124,23 +128,40 @@ export default {
       },
 
       buscarHorario(codigoLLave){
-        /*axios.post('/api/buscarHorario',{'codigo':codigoLLave,'timez':this.showTime()})
-          .then(dumb=>console.log(dumb));*/
         let time=this.showTime();
+        this.globalTime=time;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
-        console.log("se hace busqueda: "+busqueda);
         axios.get(busqueda)
         .then(res=>{
           this.registroForm=res.data;
           this.registroForm['hora']=this.showTime(2);
-          this.estadoInput=true;
         });
+        this.estadoInput=true;
       },
 
       agregarCombo(identificador){
         if(identificador==this.comboIterates){
           this.comboIterates++;
         }
+      },
+      formularioParaExcepcion(){
+        this.registroForm=[];
+        this.estadoInput=false;
+        this.codigoKey='';
+      },
+      objetosPrestamo(objeto){
+        this.PrestamoList+=objeto+',';
+      },
+      cleanObjPrestamo(){
+        this.comboIterates=1;
+        this.PrestamoList='';
+      },
+      NuevoPrestamo(){ 
+        axios.post('/api/nuevoPrestamo',{'id':0,'objList':this.PrestamoList.slice(0,-1)})
+      },
+      NuevoRegistro(){
+        axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id']})
+        .then(()=>{alert('registro realizado')});
       }
     }
 }

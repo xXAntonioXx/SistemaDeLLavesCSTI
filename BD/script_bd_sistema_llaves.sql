@@ -24,6 +24,7 @@ a las que puede pertenecer una llave*/
 
 CREATE TABLE taulas(
 id INT AUTO_INCREMENT,
+numero INT(11) UNIQUE,
 area VARCHAR(8),
 aula VARCHAR(8),
 PRIMARY KEY (id)
@@ -35,7 +36,6 @@ llaves*/
 CREATE TABLE tllaves(
 id INT AUTO_INCREMENT,
 codigo BIGINT(20) NOT NULL UNIQUE,
-numero INT(11),
 id_aula INT NOT NULL,
 PRIMARY KEY (id),
 

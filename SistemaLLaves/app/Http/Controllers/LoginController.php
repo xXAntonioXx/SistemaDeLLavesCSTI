@@ -55,6 +55,7 @@ class LoginController extends Controller
             if($RESULTADO){
                 
                 Session::put('estado',true);
+                Session::put('id',$datos['id']);
                 return redirect('/main');
             
             }else{
