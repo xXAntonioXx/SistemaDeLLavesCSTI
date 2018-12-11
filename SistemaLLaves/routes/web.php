@@ -19,22 +19,22 @@ Route::get('/wc', function () {
 
 //rutas y metodos para el login de usuario
 Route::get('/','LoginController@principal')->middleware(alreadyStartSession::class);
-Route::post('/validate','LoginController@validar');
+Route::post('/validate','LoginController@validar');//para validar el usuario en el login
 
 //rutas para la pagina principal
 Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
+Route::get('/busqueda','PrincipalController@cargarBusqueda')->middleware(CheckSess::class);
 
-Route::get('/salir','LoginController@salir');
+Route::get('/salir','LoginController@salir');//opcion de salir
 
 Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
 
 //API para consultar la base de datos
 Route::post('/api/nuevoPrestamo','ApisController@nuevoPrestamo')->middleware(CheckSess::class);
-Route::post('/api/nuevoRegistro','ApisController@nuevoRegistro');
+Route::post('/api/nuevoRegistro','ApisController@nuevoRegistro')->middleware(CheckSess::class);
 Route::get('/api/registros','ApisController@registrosNum')->middleware(CheckSess::class);
 Route::get('/api/lap','ApisController@lap')->middleware(CheckSess::class);
 Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario')->middleware(CheckSess::class);
-//Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 
 
 

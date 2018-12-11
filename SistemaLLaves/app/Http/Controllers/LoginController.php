@@ -78,8 +78,9 @@ class LoginController extends Controller
         }
     }
 
-    public function salir(){
+    public function salir(){//eliminamos la variables de cookie para matar la sesion y redirijimos al login
         Session::forget('estado');
+        Session::forget('id');
         return redirect('/');
     }
 }

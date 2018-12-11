@@ -59,7 +59,7 @@
         <div class="modal-content">
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
-            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd)" :key="comboInd">
+            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd)" :disabled="validate=comboInd['estado']" :key="comboInd['id']">
               <!--option v-for="object in objetos" :key="object['id']">{{object['obj']}}</option-->
               <option value="Bocinas" v-on:click="objetosPrestamo(1)">Control A/AC(Mirage)</option>
               <option value="Bocinas" v-on:click="objetosPrestamo(2)">Control A/AC(YORK)</option>
@@ -92,7 +92,8 @@ export default {
             codigoKey:'',
             registroForm:[],
             estadoInput:true,
-            comboIterates:1,
+            //comboIterates:1,
+            comboIterates:[{id:1,estado:false}],
             PrestamoList:'',
             objetos:[{'id':1,'obj':'Control A/C(Mirage)'},{'id':2,'obj':'Control A/C(YORK)'},{'id':3,'obj':'Control Cañon'},{'id':4,'obj':'bocinas'},],
             globalTime:'0'
@@ -105,87 +106,75 @@ export default {
       Paginate(){
         return this.Pages.slice(7*(this.indicePagina-1),7*this.indicePagina);
       },
+      deshabilitarCombo(){
+        return true;
+      }
     },
     methods:{
-      fetchRegistros(){
-<<<<<<< HEAD
-        /*axios({
-          method:'get',
-          url:'api/registros'
-        })
-        .then(data=>{
-          console.log(data);
-          this.paginas=Math.ceil(data['data'].length/7);
-          this.Pages=data['data'];
-          console.log(data['data']);
-        });*/
-        fetch('api/registros')
-=======
+      fetchRegistros(){//metodo para traer todos los registros del dia
         axios.get('api/registros')
         .then(data=>{
           this.paginas=Math.ceil(data['data'].length/7);
-          this.Pages=data['data'];
+          this.Pages=data['data'].reverse();
         });
-        /*fetch('api/registros')
->>>>>>> 3bae81f7063439d40aa638722eee111b3555ffc6
-        .then(res=>res.json())
-        .then(data=>{
-          this.paginas=Math.ceil(data.length/7);
-          this.Pages=data;
-<<<<<<< HEAD
-          console.log(data);
-        });
-=======
-        });*/
->>>>>>> 3bae81f7063439d40aa638722eee111b3555ffc6
       },
 
-      getPages(nPage){
+      getPages(nPage){//obtener cantidad n de paginas
         this.indicePagina=nPage;
       },
 
-      showTime(caso=1){
+      showTime(caso=1){//obtenemos la hora actual fechaHora=(fecha/hora) hora=(hora)
         let timez = moment.tz.guess();
         let FechaHora = moment.tz(timez).format("YYYY-M-D HH:mm:ss");
         let hora=moment.tz(timez).format("HH:mm:ss");
         return caso==1?FechaHora:hora;
       },
 
-      buscarHorario(codigoLLave){
+      buscarHorario(codigoLLave){//obtenemos id,maestro,materia,aula con el codigo de llave
         let time=this.showTime();
         this.globalTime=time;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
-        /*axios.get(busqueda)
+        axios.get(busqueda)
         .then(res=>{
           this.registroForm=res.data;
           this.registroForm['hora']=this.showTime(2);
-        });*/
+        });
         this.estadoInput=true;
       },
 
-      agregarCombo(identificador){
-        if(identificador==this.comboIterates){
-          this.comboIterates++;
-        }
+      agregarCombo(identificador){//deshabilitamos el combo seleccionado y generamos un nuevo combo
+        identificador["estado"]=true;
+        this.comboIterates.push({id:identificador['id']+1,estado:false});
       },
-      formularioParaExcepcion(){
+
+      formularioParaExcepcion(){//limpiamos todo el formulario(posiblemente hay que eliminar)
         this.registroForm=[];
         this.estadoInput=false;
         this.codigoKey='';
       },
-      objetosPrestamo(objeto){
+
+      objetosPrestamo(objeto){//generamos la cadena del prestamo obtenidos de los combo
         this.PrestamoList+=objeto+',';
       },
-      cleanObjPrestamo(){
-        this.comboIterates=1;
+
+      cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
+        this.comboIterates=[{id:1,estado:false}];
         this.PrestamoList='';
+        this.registroForm=[];
+        this.codigoKey='';
       },
-      NuevoPrestamo(){ 
+
+      NuevoPrestamo(){ //generamos un nuevo prestamo de objetos
         axios.post('/api/nuevoPrestamo',{'id':0,'objList':this.PrestamoList.slice(0,-1)})
       },
-      NuevoRegistro(){
+
+      NuevoRegistro(){//se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
         axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id']})
-        .then(()=>{alert('registro realizado')});
+        .then(()=>{
+          alert('registro realizado');
+          this.fetchRegistros();
+          this.cleanObjPrestamo();
+        });
       }
     }
 }

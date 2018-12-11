@@ -8,33 +8,31 @@ include 'Konect.php';
 
 class ApisController extends Controller
 {
-    public $conexion;
+    public $conexion;//instanciamos la conexión a la base de datos
 
     public function __construct(){
-        $this->conexion=conectar();
+        $this->conexion=conectar();//abrimos la conexión a la base de datos
     }
 
-    public function registrosNum(Request $req){
-
-        //Trae todos los registros del dia de hoy
+    public function registrosNum(Request $req){//devuelve los registros del dia actual de la base de datos
 
         $registros=$this->conexion->query('CALL sp_get_llavesPrestadas()')->fetchAll();
-        $coleccion=collect($registros);
+        $coleccion=collect($registros);//tomamos todos los JSON devueltos y los colocamos en uno solo(buscar:laravel colecciones)
 
         return $coleccion;
         
     }
 
-    public function buscarHorario($codigo,$hora){
+    public function buscarHorario($codigo,$hora){//buscamos el horario en base al codigo de la llave y la hora
         $consulta="CALL sp_get_frmPrestamo({$codigo},'{$hora}')";
         $horario=$this->conexion->query($consulta);
-        if($horario){
+        if($horario){//solo en caso de que exista el horario se retornara en forma de JSON
             return $horario->fetch();    
         }
-        return $horario;
+        return $horario;//de lo contrario se devuelve un false
     }
 
-    public function nuevoPrestamo(Request $req){
+    public function nuevoPrestamo(Request $req){//generamos un nuevo prestamo de objetos(controles A/AC, control cañon, bocinas)
         $id=$req["id"];
         $objetos=$req["objList"];
         
@@ -42,14 +40,10 @@ class ApisController extends Controller
         $this->conexion->query($prestamo);
     }
 
-    public function Borrame(Request $req){
-        dd($req->session()->get('id'));
-    }
-
-    public function nuevoRegistro(Request $req){
+    public function nuevoRegistro(Request $req){//ya generado un prestamo generamos un registro de de que la llave de cierto salon fue tomado a determinada hora por determinado maestro segun el horario
         $hora=$req["fechaHora"];
         $idHorario=$req["idHorario"];
-        $idUsuario=$req->session()->get('id');
+        $idUsuario=$req->session()->get('id');//obtenemos el identificador de la sercretaria/usuario que registro la llave
         $registrar="CALL sp_registrar_registro('{$hora}',{$idHorario},{$idUsuario})";
         $this->conexion->query($registrar);
     }

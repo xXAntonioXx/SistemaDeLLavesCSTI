@@ -22,7 +22,7 @@
             <a href="/main" class="link">Inicio</a>
           </li>
           <li>
-            <a href="busqueda.html" class="link">Busqueda</a>
+            <a href="/busqueda" class="link">Busqueda</a>
           </li>
           <li>
             <a href="inventario.html" class="link">Inventario</a>

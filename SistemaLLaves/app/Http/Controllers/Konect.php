@@ -1,5 +1,6 @@
 <?php
 
+//con este metodo generamos la conexion con la base de datos con el usuario keySystem el cual solo tiene permiso de SELECT y EXECUTE en los precedimientos
 function conectar(){
     $username="keySystem";
     $password="keySystem";

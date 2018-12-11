@@ -64411,7 +64411,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       codigoKey: '',
       registroForm: [],
       estadoInput: true,
-      comboIterates: 1,
+      //comboIterates:1,
+      comboIterates: [{ id: 1, estado: false }],
       PrestamoList: '',
       objetos: [{ 'id': 1, 'obj': 'Control A/C(Mirage)' }, { 'id': 2, 'obj': 'Control A/C(YORK)' }, { 'id': 3, 'obj': 'Control Cañon' }, { 'id': 4, 'obj': 'bocinas' }],
       globalTime: '0'
@@ -64424,87 +64425,80 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     Paginate: function Paginate() {
       return this.Pages.slice(7 * (this.indicePagina - 1), 7 * this.indicePagina);
+    },
+    deshabilitarCombo: function deshabilitarCombo() {
+      return true;
     }
   },
   methods: {
     fetchRegistros: function fetchRegistros() {
       var _this = this;
 
-<<<<<<< HEAD
-      /*axios({
-        method:'get',
-        url:'api/registros'
-      })
-      .then(data=>{
-        console.log(data);
-        this.paginas=Math.ceil(data['data'].length/7);
-        this.Pages=data['data'];
-        console.log(data['data']);
-      });*/
-      fetch('api/registros').then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        _this.paginas = Math.ceil(data.length / 7);
-        _this.Pages = data;
-        console.log(data);
-=======
+      //metodo para traer todos los registros del dia
       axios.get('api/registros').then(function (data) {
         _this.paginas = Math.ceil(data['data'].length / 7);
-        _this.Pages = data['data'];
->>>>>>> 3bae81f7063439d40aa638722eee111b3555ffc6
+        _this.Pages = data['data'].reverse();
       });
-      /*fetch('api/registros')
-      .then(res=>res.json())
-      .then(data=>{
-        this.paginas=Math.ceil(data.length/7);
-        this.Pages=data;
-      });*/
     },
     getPages: function getPages(nPage) {
+      //obtener cantidad n de paginas
       this.indicePagina = nPage;
     },
     showTime: function showTime() {
       var caso = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-
+      //obtenemos la hora actual fechaHora=(fecha/hora) hora=(hora)
       var timez = __WEBPACK_IMPORTED_MODULE_0_moment_timezone___default.a.tz.guess();
       var FechaHora = __WEBPACK_IMPORTED_MODULE_0_moment_timezone___default.a.tz(timez).format("YYYY-M-D HH:mm:ss");
       var hora = __WEBPACK_IMPORTED_MODULE_0_moment_timezone___default.a.tz(timez).format("HH:mm:ss");
       return caso == 1 ? FechaHora : hora;
     },
     buscarHorario: function buscarHorario(codigoLLave) {
+      var _this2 = this;
+
+      //obtenemos id,maestro,materia,aula con el codigo de llave
       var time = this.showTime();
       this.globalTime = time;
       var busqueda = 'api/buscarHorario/' + codigoLLave + '/' + time;
-      /*axios.get(busqueda)
-      .then(res=>{
-        this.registroForm=res.data;
-        this.registroForm['hora']=this.showTime(2);
-      });*/
+      axios.get(busqueda).then(function (res) {
+        _this2.registroForm = res.data;
+        _this2.registroForm['hora'] = _this2.showTime(2);
+      });
       this.estadoInput = true;
     },
     agregarCombo: function agregarCombo(identificador) {
-      if (identificador == this.comboIterates) {
-        this.comboIterates++;
-      }
+      //deshabilitamos el combo seleccionado y generamos un nuevo combo
+      identificador["estado"] = true;
+      this.comboIterates.push({ id: identificador['id'] + 1, estado: false });
     },
     formularioParaExcepcion: function formularioParaExcepcion() {
+      //limpiamos todo el formulario(posiblemente hay que eliminar)
       this.registroForm = [];
       this.estadoInput = false;
       this.codigoKey = '';
     },
     objetosPrestamo: function objetosPrestamo(objeto) {
+      //generamos la cadena del prestamo obtenidos de los combo
       this.PrestamoList += objeto + ',';
     },
     cleanObjPrestamo: function cleanObjPrestamo() {
-      this.comboIterates = 1;
+      //limpiamos el formulario despues de generar un registro
+      this.comboIterates = [{ id: 1, estado: false }];
       this.PrestamoList = '';
+      this.registroForm = [];
+      this.codigoKey = '';
     },
     NuevoPrestamo: function NuevoPrestamo() {
+      //generamos un nuevo prestamo de objetos
       axios.post('/api/nuevoPrestamo', { 'id': 0, 'objList': this.PrestamoList.slice(0, -1) });
     },
     NuevoRegistro: function NuevoRegistro() {
+      var _this3 = this;
+
+      //se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
       axios.post('/api/nuevoRegistro', { 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'] }).then(function () {
         alert('registro realizado');
+        _this3.fetchRegistros();
+        _this3.cleanObjPrestamo();
       });
     }
   }
@@ -65665,11 +65659,12 @@ var render = function() {
                 return _c(
                   "select",
                   {
-                    key: comboInd,
+                    key: comboInd["id"],
                     staticClass: "combo-box",
                     attrs: {
                       name: "modal-article-list",
-                      id: "modal-article-list"
+                      id: "modal-article-list",
+                      disabled: (_vm.validate = comboInd["estado"])
                     },
                     on: {
                       change: function($event) {
