@@ -64430,21 +64430,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchRegistros: function fetchRegistros() {
       var _this = this;
 
-      axios({
-        method: 'get',
-        url: 'api/registros'
-      }).then(function (data) {
-        _this.paginas = Math.ceil(data['data'].length / 7);
-        _this.Pages = data['data'];
-        console.log(data['data']);
-      });
-      /*fetch('api/registros')
-      .then(res=>res.json())
+      /*axios({
+        method:'get',
+        url:'api/registros'
+      })
       .then(data=>{
-        this.paginas=Math.ceil(data.length/7);
-        this.Pages=data;
         console.log(data);
+        this.paginas=Math.ceil(data['data'].length/7);
+        this.Pages=data['data'];
+        console.log(data['data']);
       });*/
+      fetch('api/registros').then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this.paginas = Math.ceil(data.length / 7);
+        _this.Pages = data;
+        console.log(data);
+      });
     },
     getPages: function getPages(nPage) {
       this.indicePagina = nPage;
