@@ -113,6 +113,7 @@ export default {
           url:'api/registros'
         })
         .then(data=>{
+          console.log(data);
           this.paginas=Math.ceil(data['data'].length/7);
           this.Pages=data['data'];
           console.log(data['data']);
