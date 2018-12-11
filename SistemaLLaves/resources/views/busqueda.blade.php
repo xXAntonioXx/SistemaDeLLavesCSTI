@@ -1,5 +1,6 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
+<div class="body-container">
 <div class="search-container">
   <form action="" class="search-filters-form">
     <div class="search-filters-tittle">
@@ -213,5 +214,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 @stop
