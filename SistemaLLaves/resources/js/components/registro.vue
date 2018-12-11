@@ -108,6 +108,7 @@ export default {
     },
     methods:{
       fetchRegistros(){
+<<<<<<< HEAD
         /*axios({
           method:'get',
           url:'api/registros'
@@ -119,12 +120,24 @@ export default {
           console.log(data['data']);
         });*/
         fetch('api/registros')
+=======
+        axios.get('api/registros')
+        .then(data=>{
+          this.paginas=Math.ceil(data['data'].length/7);
+          this.Pages=data['data'];
+        });
+        /*fetch('api/registros')
+>>>>>>> 3bae81f7063439d40aa638722eee111b3555ffc6
         .then(res=>res.json())
         .then(data=>{
           this.paginas=Math.ceil(data.length/7);
           this.Pages=data;
+<<<<<<< HEAD
           console.log(data);
         });
+=======
+        });*/
+>>>>>>> 3bae81f7063439d40aa638722eee111b3555ffc6
       },
 
       getPages(nPage){
