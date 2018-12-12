@@ -53,14 +53,13 @@
       </div>
 
       <div class="button-registro">
-          <input type="submit" value="Registrar" class="registrar" onclick="window.location='#modal-container';"/>
+          <input type="submit" value="Registrar" class="registrar"  onclick="window.location='#modal-container'" v-on:click="'window-location='+mostrarModal" :disabled="validated=RegistrarState"/>
       </div>
       <div id="modal-container" class="modal-container">
         <div class="modal-content">
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd)" :disabled="validate=comboInd['estado']" :key="comboInd['id']">
-              <!--option v-for="object in objetos" :key="object['id']">{{object['obj']}}</option-->
               <option value="Bocinas" v-on:click="objetosPrestamo(1)">Control A/AC(Mirage)</option>
               <option value="Bocinas" v-on:click="objetosPrestamo(2)">Control A/AC(YORK)</option>
               <option value="Bocinas" v-on:click="objetosPrestamo(3)">Control Cañon</option>
@@ -92,11 +91,11 @@ export default {
             codigoKey:'',
             registroForm:[],
             estadoInput:true,
-            //comboIterates:1,
             comboIterates:[{id:1,estado:false}],
             PrestamoList:'',
             objetos:[{'id':1,'obj':'Control A/C(Mirage)'},{'id':2,'obj':'Control A/C(YORK)'},{'id':3,'obj':'Control Cañon'},{'id':4,'obj':'bocinas'},],
-            globalTime:'0'
+            globalTime:'0',
+            RegistrarState:true,
         }
     },
     created(){
@@ -138,6 +137,7 @@ export default {
         .then(res=>{
           this.registroForm=res.data;
           this.registroForm['hora']=this.showTime(2);
+          this.RegistrarState=false;
         });
         this.estadoInput=true;
       },
@@ -162,6 +162,7 @@ export default {
         this.PrestamoList='';
         this.registroForm=[];
         this.codigoKey='';
+        this.RegistrarState=true;
       },
 
       NuevoPrestamo(){ //generamos un nuevo prestamo de objetos
@@ -175,7 +176,7 @@ export default {
           this.fetchRegistros();
           this.cleanObjPrestamo();
         });
-      }
+      },
     }
 }
 </script>
