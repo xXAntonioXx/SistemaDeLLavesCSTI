@@ -14,7 +14,7 @@ INSERT INTO tllaves(id,codigo,numero,id_aula) VALUES
 */
 
 /*Registra llaves (y el aula en caso de no existir)*/
-CALL sp_registrar_llave(100000000,1,"5K","101");
+CALL sp_registrar_llave(100000001,1,"5K","101");
 CALL sp_registrar_llave(100000002,2,"5K","102");
 CALL sp_registrar_llave(100000003,3,"5K","201");
 CALL sp_registrar_llave(100000004,4,"5K","202");

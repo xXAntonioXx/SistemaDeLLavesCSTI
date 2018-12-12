@@ -406,4 +406,62 @@ DELIMITER ;
 
 
 
+/*----------------------------------------------------------------------*/
+/*-------------------  ES DEVOLUCIN?? ---------------------------*/
+/*--------------------------------------------------------------------*/
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS sp_get_esdevolucion;
+CREATE PROCEDURE sistema_llaves.sp_get_esdevolucion(
+	in p_codigo_llave INT(11)
+)
+BEGIN
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
+		SIGNAL SQLSTATE '46000'
+		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
+	end if;
+
+	IF EXISTS(
+	SELECT * FROM tregistros AS reg
+ 	INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
+ 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
+ 	WHERE llav.codigo=p_codigo_llave and reg.hora_entrada>=from_unixtime(CURDATE(),'%Y-%m-%d') and reg.hora_salida IS NULL
+ 	) THEN
+ 		SELECT reg.id as id, reg.hora_entrada,reg.id_prestamo 
+ 		FROM tregistros AS reg
+ 		INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
+ 		INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
+ 		WHERE llav.codigo=p_codigo_llave and reg.hora_entrada>=from_unixtime(CURDATE(),'%Y-%m-%d') and reg.hora_salida IS NULL;
+ 	ELSE
+ 		SELECT 'Nuevo';
+ 	END IF;
+
+END
+//
+DELIMITER ;
+/*--------------------- EN PROCESO --------------------------------------*/
+/*----------------------------------------------------------------------*/
+/*-------------------  OBTENER OBJETOS ---------------------------*/
+/*--------------------------------------------------------------------*/
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS sp_get_objetos;
+CREATE PROCEDURE sistema_llaves.sp_get_objetos(
+	in p_id_prestamo INT(11)
+)
+BEGIN
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
+		SIGNAL SQLSTATE '46009'
+		SET MESSAGE_TEXT=CONCAT('No existe prestamo con id: ', p_id_prestamo);
+	END IF;
+	SELECT prs.id_control AS id_control,prs.id_objeto as id_objeto,obj.nombre,obj.marca;
+	FROM tprestamos AS prs
+	INNER JOIN tobjetos AS obj ON  obj.id=prs.id_objeto
+	WHERE id=p_id_prestamo;
+
+END
+//
+DELIMITER ;
+
 /*https://manuales.guebs.com/mysql-5.0/error-handling.html*/
