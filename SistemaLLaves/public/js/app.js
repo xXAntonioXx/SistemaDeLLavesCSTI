@@ -64398,6 +64398,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -64410,9 +64411,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       codigoKey: '',
       registroForm: [],
       estadoInput: true,
-      comboIterates: [{ id: 1, estado: false }],
+      comboIterates: [{ id: 1, estado: false, valor: '1' }],
       PrestamoList: '',
-      objetos: [{ 'id': 1, 'obj': 'Control A/C(Mirage)' }, { 'id': 2, 'obj': 'Control A/C(YORK)' }, { 'id': 3, 'obj': 'Control Cañon' }, { 'id': 4, 'obj': 'bocinas' }],
       globalTime: '0',
       RegistrarState: true
     };
@@ -64424,9 +64424,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     Paginate: function Paginate() {
       return this.Pages.slice(7 * (this.indicePagina - 1), 7 * this.indicePagina);
-    },
-    deshabilitarCombo: function deshabilitarCombo() {
-      return true;
     }
   },
   methods: {
@@ -64478,11 +64475,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     objetosPrestamo: function objetosPrestamo(objeto) {
       //generamos la cadena del prestamo obtenidos de los combo
+      alert(this.PrestamoList);
       this.PrestamoList += objeto + ',';
     },
     cleanObjPrestamo: function cleanObjPrestamo() {
       //limpiamos el formulario despues de generar un registro
-      this.comboIterates = [{ id: 1, estado: false }];
+      this.comboIterates = [{ id: 1, estado: false, valor: '1' }];
       this.PrestamoList = '';
       this.registroForm = [];
       this.codigoKey = '';
@@ -64490,6 +64488,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     NuevoPrestamo: function NuevoPrestamo() {
       //generamos un nuevo prestamo de objetos
+      alert(this.PrestamoList);
       axios.post('/api/nuevoPrestamo', { 'id': 0, 'objList': this.PrestamoList.slice(0, -1) });
     },
     NuevoRegistro: function NuevoRegistro() {
@@ -64501,6 +64500,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this3.fetchRegistros();
         _this3.cleanObjPrestamo();
       });
+    },
+    borrame: function borrame(valor) {
+      alert(valor);
     }
   }
 });
@@ -65650,11 +65652,6 @@ var render = function() {
             value: "Registrar",
             onclick: "window.location='#modal-container'",
             disabled: (_vm.validated = _vm.RegistrarState)
-          },
-          on: {
-            click: function($event) {
-              "window-location=" + _vm.mostrarModal
-            }
           }
         })
       ]),
@@ -65675,24 +65672,51 @@ var render = function() {
                 return _c(
                   "select",
                   {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: comboInd["id"],
+                        expression: "comboInd['id']"
+                      }
+                    ],
                     key: comboInd["id"],
                     staticClass: "combo-box",
                     attrs: {
                       name: "modal-article-list",
-                      id: "modal-article-list",
-                      disabled: (_vm.validate = comboInd["estado"])
+                      id: "modal-article-list"
                     },
                     on: {
-                      change: function($event) {
-                        _vm.agregarCombo(comboInd)
-                      }
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            comboInd,
+                            "id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          _vm.objetosPrestamo(comboInd["id"])
+                          _vm.agregarCombo(comboInd)
+                        }
+                      ]
                     }
                   },
                   [
                     _c(
                       "option",
                       {
-                        attrs: { value: "Bocinas" },
+                        domProps: { value: 1 },
                         on: {
                           click: function($event) {
                             _vm.objetosPrestamo(1)
@@ -65705,7 +65729,7 @@ var render = function() {
                     _c(
                       "option",
                       {
-                        attrs: { value: "Bocinas" },
+                        domProps: { value: 2 },
                         on: {
                           click: function($event) {
                             _vm.objetosPrestamo(2)
@@ -65718,7 +65742,7 @@ var render = function() {
                     _c(
                       "option",
                       {
-                        attrs: { value: "Bocinas" },
+                        domProps: { value: 3 },
                         on: {
                           click: function($event) {
                             _vm.objetosPrestamo(3)
@@ -65731,7 +65755,7 @@ var render = function() {
                     _c(
                       "option",
                       {
-                        attrs: { value: "Bocinas" },
+                        domProps: { value: 4 },
                         on: {
                           click: function($event) {
                             _vm.objetosPrestamo(4)
