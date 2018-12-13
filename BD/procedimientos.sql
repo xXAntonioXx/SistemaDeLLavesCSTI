@@ -405,7 +405,7 @@ DELIMITER ;
 
 
 
-
+/*-------------------------  TERMINADO  ------------------------*/
 /*----------------------------------------------------------------------*/
 /*-------------------  ES DEVOLUCIN?? ---------------------------*/
 /*--------------------------------------------------------------------*/
@@ -428,19 +428,24 @@ BEGIN
  	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
  	WHERE llav.codigo=p_codigo_llave and reg.hora_entrada>=from_unixtime(CURDATE(),'%Y-%m-%d') and reg.hora_salida IS NULL
  	) THEN
- 		SELECT reg.id as id, reg.hora_entrada,reg.id_prestamo 
+ 		SELECT reg.id as id,mae.nombre, mat,nombre as materia, reg.hora_entrada,reg.id_prestamo 
  		FROM tregistros AS reg
  		INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
  		INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
- 		WHERE llav.codigo=p_codigo_llave and reg.hora_entrada>=from_unixtime(CURDATE(),'%Y-%m-%d') and reg.hora_salida IS NULL;
+ 		INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
+ 		INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
+ 		WHERE llav.codigo=p_codigo_llave and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59')) and reg.hora_salida IS NULL;
  	ELSE
- 		SELECT 'Nuevo';
+ 		SELECT CAST(0 AS UNSIGNED INTEGER) AS id;
  	END IF;
 
 END
 //
 DELIMITER ;
-/*--------------------- EN PROCESO --------------------------------------*/
+
+
+
+/*-------------------------  TERMINADO  ------------------------*/
 /*----------------------------------------------------------------------*/
 /*-------------------  OBTENER OBJETOS ---------------------------*/
 /*--------------------------------------------------------------------*/
@@ -451,17 +456,21 @@ CREATE PROCEDURE sistema_llaves.sp_get_objetos(
 	in p_id_prestamo INT(11)
 )
 BEGIN
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
+	DECLARE p_mensaje VARCHAR(500) DEFAULT '';
+	SET p_mensaje =CONCAT('No existe prestamo con id: ', p_id_prestamo);
+	IF NOT EXISTS (SELECT id_control FROM sistema_llaves.tprestamos WHERE id=p_id_prestamo) THEN
 		SIGNAL SQLSTATE '46009'
-		SET MESSAGE_TEXT=CONCAT('No existe prestamo con id: ', p_id_prestamo);
+		SET MESSAGE_TEXT=p_mensaje;
 	END IF;
-	SELECT prs.id_control AS id_control,prs.id_objeto as id_objeto,obj.nombre,obj.marca;
+	SELECT prs.id_control AS id_control,prs.id_objeto as id_objeto,obj.nombre,obj.marca
 	FROM tprestamos AS prs
 	INNER JOIN tobjetos AS obj ON  obj.id=prs.id_objeto
-	WHERE id=p_id_prestamo;
-
+	WHERE prs.id=p_id_prestamo;
 END
 //
 DELIMITER ;
+
+
+
 
 /*https://manuales.guebs.com/mysql-5.0/error-handling.html*/

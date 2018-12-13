@@ -149,8 +149,19 @@ call sp_registrar_registro('2018-11-15 07:10:00',14,1);
 call sp_registrar_registro('2018-11-15 07:10:00',15,1);
 call sp_registrar_registro('2018-11-15 07:10:00',16,1);
 /*Ejemplo de un nuevo registro*/
+
+/*Primero que todo se debe identificar si la llave ingresada al sistema esta siendo procesada para un prestamo o una devolucion*/
+/*Si el siguiente procedimiento regresa un campo llamado "id" con el entero "0" quiere decir que la llave se prepara para un prestamo.*/
+/*En caso de mostrar un id distinto de "0" se tratara de una devolucion de la llave*/
+/*NOTA: si es una devolucion la consulta devuelve el id del registro, nombre del maestro, el nombre de la materia, la fecha y hora en que se registro la entrada y el id del prestamo asocialdo*/
+/*los campos anteriores se presentan de la siguiente manera   | id  |  nombre  |  materia  |  hora_entrada  | id_prestamo  |  */
+call sp_get_esdevolucion('codigo_llave');
+
+/*si es una devolucion y si el "id_prestamo" es distinto de null entonces debemos ejecutar el siguiente metodo*/
+call sp_get_objetos('id_prestamo');
+
 /*al leer el codigo de la llave se busca el horario(que incluye id,maestro,aula) para llenar el formulario, con el procedimiento*/
-call sp_get_frmPrestamo('codigo_llave','fecha y hora')
+call sp_get_frmPrestamo('codigo_llave','fecha y hora');
 /*al seleccionar un objeto del combo box en la ventana modal tendremos que usar el procedimiento para un nuevo prestamo al darle click al boton "aceptar"
 call sp_registrar_prestamo(0,'Objeto1,Objeto2,ObjetoN')//si es la primera vez
 call sp_registrar_prestamo('id_de_prestamo','Objeto1,Objeto2,ObjetoN')//si NO es la primera vez
