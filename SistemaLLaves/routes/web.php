@@ -24,6 +24,7 @@ Route::post('/validate','LoginController@validar');//para validar el usuario en 
 //rutas para la pagina principal
 Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
 Route::get('/busqueda','PrincipalController@cargarBusqueda')->middleware(CheckSess::class);
+Route::get('/inventario','PrincipalController@cargarInventario')->middleware(CheckSess::class);
 
 Route::get('/salir','LoginController@salir');//opcion de salir
 

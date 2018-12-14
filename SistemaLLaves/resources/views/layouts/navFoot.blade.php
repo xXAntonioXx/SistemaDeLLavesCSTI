@@ -25,14 +25,33 @@
             <a href="/busqueda" class="link">Busqueda</a>
           </li>
           <li>
-            <a href="inventario.html" class="link">Inventario</a>
+            <a href="/inventario" class="link">Inventario</a>
           </li>
           <li>
-            <a href="soporte.html" class="link">Soporte</a>
+            <a href="#modal-soporte-container" class="link">Soporte</a>
           </li>
           <li>
             <a href="/salir" class="link">Salir</a>
           </li>
+        </ol>
+      </nav>
+      <i class="icon-out log-out" id="log-out"></i>
+      <div id="modal-soporte-container" class="modal-soporte-container">
+        <div class="modal-soporte-content">
+          <h2 class="modal-soporte-tittle">¿Tiene algún problema?</h3>
+          <div class="modal-soporte-description">
+            <h3>Asunto</h3>
+            <input type="text" id="modal-soporte-asunto">
+            <h3>Descripción</h3>
+            <textarea rows="7" cols="68" id="modal-descripcion"></textarea>
+          </div>
+          <div class="modal-soporte-buttons">
+            <input type="button" value="Enviar" class="modal-soporte-button-aceptar">
+            <input type="button" value="Cancelar" class="modal-soporte-button-cancelar" onclick="window.location='#';">
+          </div>
+        </div>
+      </div>
+          
         </ol>
       </nav>
       <i class="icon-out log-out" id="log-out"></i>

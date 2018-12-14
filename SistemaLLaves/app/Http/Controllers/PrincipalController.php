@@ -13,4 +13,8 @@ class PrincipalController extends Controller
     public function cargarBusqueda(){
         return view('busqueda');
     }
+
+    public function cargarInventario(){
+        return view('inventario');
+    }
 }
