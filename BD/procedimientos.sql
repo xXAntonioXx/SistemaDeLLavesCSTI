@@ -190,7 +190,7 @@ DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
 	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
 	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
 	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
-	WHERE r.hora_entrada >= CURDATE();
+	WHERE r.hora_entrada >= CURDATE() and r.hora_salida IS NULL;
  END
 //
 DELIMITER ;
@@ -276,7 +276,7 @@ BEGIN
 	/*En este bloque de codigo lo que se hace*/
 	/*es ir agregando los prestamos.*/
 	/*En el caso de que solo se detecte un*/
-	/*objeto se realiza la parte dei IF*/
+	/*objeto se realiza la parte del IF*/
 	/*Si son mas de un objeto se realiza la */
 	/*parte de el ELSE IF*/
 	IF @num = 1 THEN
@@ -420,7 +420,7 @@ BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
 		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
-	end if;
+	END IF;
 
 	IF EXISTS(
 	SELECT * FROM tregistros AS reg
@@ -428,7 +428,7 @@ BEGIN
  	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
  	WHERE llav.codigo=p_codigo_llave and reg.hora_entrada>=from_unixtime(CURDATE(),'%Y-%m-%d') and reg.hora_salida IS NULL
  	) THEN
- 		SELECT reg.id as id,mae.nombre, mat,nombre as materia, reg.hora_entrada,reg.id_prestamo 
+ 		SELECT reg.id as id,mae.nombre, mat.nombre as materia, reg.hora_entrada,reg.id_prestamo 
  		FROM tregistros AS reg
  		INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
  		INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
@@ -447,7 +447,7 @@ DELIMITER ;
 
 /*-------------------------  TERMINADO  ------------------------*/
 /*----------------------------------------------------------------------*/
-/*-------------------  OBTENER OBJETOS ---------------------------*/
+/*-------------------  OBTENER OBJETOS  ---------------------------*/
 /*--------------------------------------------------------------------*/
 
 DELIMITER //
@@ -472,5 +472,48 @@ DELIMITER ;
 
 
 
+/*-------------------------  TERMINADO  ------------------------*/
+/*----------------------------------------------------------------------*/
+/*-------------------  DEVOLUCION LLAVE/OBJETOS  ---------------------------*/
+/*--------------------------------------------------------------------*/
+DELIMITER //
+DROP PROCEDURE IF EXISTS sp_set_registro;
+CREATE PROCEDURE sistema_llaves.sp_set_registro(
+	in p_id_registro INT(11),
+	in p_hora_salida TIMESTAMP,
+	in p_id_prestamo INT(11),
+	in p_id_control_arg VARCHAR(1000)
+)
+BEGIN
+	DECLARE p_arreglo VARCHAR(500);
+	SET p_arreglo = p_id_control_arg;
+
+	SET @num = LENGTH(p_arreglo);
+	IF (@num != 0) THEN 
+		/*Calcular la cantidad de objetos para marcar su devolucion*/
+		SET @num =(LENGTH(p_arreglo) - LENGTH(REPLACE(p_arreglo, ',', '')))+1;
+
+		IF @num = 1 THEN
+			UPDATE sistema_llaves.tprestamos SET estado=1 WHERE id=p_id_prestamo and id_control=p_arreglo;
+		ELSEIF @num>1 THEN
+			SET p_arreglo= CONCAT(p_arreglo,",");
+			WHILE @num > 0 DO
+				SET @argTemp=SUBSTRING(p_arreglo,1,LOCATE(",",p_arreglo)-1);
+
+				UPDATE sistema_llaves.tprestamos SET estado=1 WHERE id=p_id_prestamo and id_control=CAST(@argTemp AS SIGNED INTEGER);
+
+				SET @num = @num - 1;
+				IF (@num >0) THEN
+					SET p_arreglo := SUBSTRING(p_arreglo,LOCATE(",",p_arreglo)+1,LENGTH(p_arreglo));
+				END IF;
+			END WHILE;
+		END IF;
+	END IF;
+
+	UPDATE sistema_llaves.tregistros SET hora_salida=p_hora_salida WHERE id=p_id_registro;
+
+END
+//
+DELIMITER ;
 
 /*https://manuales.guebs.com/mysql-5.0/error-handling.html*/
