@@ -3,164 +3,41 @@
 Autor:Murillo Mario
 --------------------
 En este archivo se encuentran todos los procedimientos
-almacenados que realizara la base de datos
+almacenados que se ejecutaran en la vista inicio del
+sitio web.
 
 
-
--------------N O T A #1--------
+-------------N O T A #1------------
 la estructura del procedimiento es:
 CREATE PROCEDURE [DBname].[ProcName](
 	[parametros de entrada.]
 )
 BEGIN
--------CUERPO DEL PROCEDIMIENTO------
+----CUERPO DEL PROCEDIMIENTO----
 END
+-----------------------------------
 
 
--------------N O T A #2--------
+-------------N O T A #2--------------
 COMO LLAMAR UN PROCEDIMIENTO:
 CALL [ProcName]([param1],[param2]...);
 
 -los parametros se envian segun el tipo de dato
 si es entero se envia solo el numero
--si es texto se encia entre comillas simples o
+-si es texto se envia entre comillas simples o
 dobles
 -si es fecha se envia entre comillas simples
 */
+-------------------------------------
 
 
-
-/*--------------TERMINADO--------------*/
-/*Este procedimineto se encarga de 
-registrar una llave y su respectivo salon
-en caso de no estar regisrado. Si el salon
-ya se encuentra registrado, simplemente se
-realiza una busqueda del 'id' del salon ya 
-registrado y se coloca su en el nuevo 
-registro de la llave.
-*/
-
-DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_registrar_llave;
-CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
-	in p_codigo BIGINT(20),
-	in p_numero INT(11),
-	in p_area VARCHAR(8),
-	in p_aula VARCHAR(8)
-)
-BEGIN
-	IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=UPPER(p_area) and aula=p_aula) THEN
-		INSERT INTO sistema_llaves.taulas(id,numero,area,aula) VALUES (null,p_numero,UPPER(p_area),p_aula);
-	END IF;
-	SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=p_aula AND area=p_area;
-	INSERT INTO sistema_llaves.tllaves(id,codigo,id_aula) VALUES (null, p_codigo,@var1);
-END
-//
-DELIMITER ;
-
-
-
-/*--------------TERMINADO--------------*/
-/*El siguiente metodo simplemente se encarga
-de registrar a un maestro en la base de datos
-y como se puede observar tan solo recibe
-dos parametros.*/
-DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_registrar_maestro;
-CREATE PROCEDURE sistema_llaves.sp_registrar_maestro (
-	in p_num_emp INT, 
-	in p_nombre VARCHAR(70)
-)
-BEGIN
-	INSERT INTO sistema_llaves.tmaestros(id,num_emp,nombre) VALUES (null,p_num_emp,UPPER(p_nombre));
-END
-//
-DELIMITER ;
-
-
-
-/*--------------TERMINADO--------------*/
-/*Registro de una materia en la base de datos*/
-DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_registrar_materia;
-CREATE PROCEDURE sistema_llaves.sp_registrar_materia (
-	in p_nombre VARCHAR(50),
-	in p_programa VARCHAR(10))
-BEGIN
-	INSERT INTO sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, UPPER(p_nombre), UPPER(p_programa));
-END 
-//
-DELIMITER ;
-
-
-/*--------------TERMINADO--------------*/
-/*Registro de horario*/
-DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_registrar_horario;
-CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
-
-	in p_codigo_llave BIGINT(20),
-	in p_year YEAR(4),
-	in p_ciclo CHAR(1),
-	in p_num_emp_maestro INT,
-	in p_nombre_mat VARCHAR(150),
-	in p_dias VARCHAR(50),
-	in p_hora_inicio TIME,
-	in p_hora_fin TIME
-
-)
-BEGIN
-
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
-		SIGNAL SQLSTATE '46000'
-		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
-	end if;
-
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaterias WHERE nombre=UPPER(p_nombre_mat)) THEN
-		SIGNAL SQLSTATE '46001'
-		SET MESSAGE_TEXT='La materia indicada no se encuentra registrada.';
-	end if;
-
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
-		SIGNAL SQLSTATE '46002'
-		SET MESSAGE_TEXT='EL maestro indicado no se encuentra registrado.';
-	end if;
-
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias)) THEN
-		INSERT INTO sistema_llaves.tdias (id,dias) values(null,UPPER(p_dias));
-	end if;
-
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.thoras WHERE hora_inicio=p_hora_inicio and hora_fin=p_hora_fin) THEN
-		INSERT INTO sistema_llaves.thoras(id,hora_inicio,hora_fin) VALUES (null,p_hora_inicio,p_hora_fin);
-	end if;
-
-	SELECT @var1 := id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias);
-	SELECT @var2 := id FROM sistema_llaves.thoras WHERE hora_inicio=p_hora_inicio and hora_fin=p_hora_fin;
-
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias_horas WHERE idDias=@var1 AND idHoras=@var2) THEN
-		INSERT INTO sistema_llaves.tdias_horas (id,idDias,idHoras) VALUES (null,@var1, @var2);
-	end if;
-
-	SELECT @var3 := id FROM sistema_llaves.tmaterias WHERE nombre=p_nombre_mat;
-	SELECT @var4 := id FROM tdias_horas WHERE idDias=@var1 and idHoras=@var2;
-
-	INSERT INTO sistema_llaves.thorarios(id,year,ciclo,codigo_llave,num_emp_maestro,id_materia,id_dias_horas)
-	VALUES (null,p_year,p_ciclo,p_codigo_llave,p_num_emp_maestro,@var3,@var4);
-
-	SET @var1 = NULL;
-	SET @var2 = NULL;
-	SET @var3 = NULL;
-	SET @var4 = NULL;
-
-END
-//
-DELIMITER ;
-
-/*--------------TERMINADO--------------*/
+/*-----------------------------------------------------*/
+/*---------------- REGISTRO DE OBJETOS ---------------*/
+/*---------------------------------------------------*/
 /*Registro de un objeto en la base de datos*/
 /*CREATE DEFINER = CURRENT_USER PROCEDURE....*/
-DELIMITER //
 
+DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_objeto;
 CREATE PROCEDURE sistema_llaves.sp_registrar_objeto (
 	in p_nombre VARCHAR(50),
@@ -175,8 +52,9 @@ DELIMITER ;
 
 
 
-
-/*---------------TERMINADO----------------*/
+/*-----------------------------------------------------*/
+/*------- OBTENER LAS LLAVES EN PRESTAMO DEL DÍA -----*/
+/*---------------------------------------------------*/
 /*Consulta para cargar la  seccion de llaves
  prestadas en la pagina de registro*/
 DELIMITER //
@@ -195,9 +73,10 @@ DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
 //
 DELIMITER ;
 
-
-/*---------------TERMINADO----------------*/
-/*FORMATO DE LA HORA yyyy-MM-DD HH:MM:SS*/
+/*-------------------------------------------------------*/
+/*-- OBTENER LOS DATOS PARA LLENAR EL FRM DE REGISTRO --*/
+/*-----------------------------------------------------*/
+/*FORMATO DE LA HORA YYYY-mm-dd HH:MM:SS*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_get_frmPrestamo;
 CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
@@ -232,8 +111,9 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
 DELIMITER ;
 
 
-
-/*--------------TERMINADO--------------*/
+/*-----------------------------------------------------*/
+/*----- REGISTRAR PRESTAMO(PRESTAMO DE OBJETOS) ------*/
+/*---------------------------------------------------*/
 /*Registro de un prestamo*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_prestamo;
@@ -322,7 +202,9 @@ END;
 //
 DELIMITER ;
 
-/*--------------TERMINADO--------------*/
+/*-----------------------------------------------------*/
+/*------------- REGISTRAR EXCEPCION ------------------*/
+/*---------------------------------------------------*/
 /*Registro una excepcion en la base de datos*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_excepcion;
@@ -351,23 +233,21 @@ END
 DELIMITER ;
 
 
-/*---------------TERMINADO----------------*/
-/*Registro un prestamo de llave en la base de datos*/
-/*
+/*-----------------------------------------------------*/
+/*------- REGISTRAR REGISTRO (PRESTAMO DE LLAVE) -----*/
+/*---------------------------------------------------*/
 
--------NOTA:--------
-Si el registro lleva relacionada una excepcion
-y/ó un prestamo.
-Antes de ejecutar este procedimiento debe ejecutar
-el procedimiento 'sp_registrar_excepcion' y/ó el 
+/*-------NOTA:--------
+Si el registro lleva relacionada una excepcion y/ó un prestamo.
+Antes de ejecutar este procedimiento se debe ejecutar 
+el procedimiento  'sp_registrar_excepcion' y/ó el 
 procedimiento 'sp_registrar_prestamo'.
 Por ultimo SIN CERRAR la conexion, procedemos 
 a ejecutar este procedimiento.
 ya que este procedimiento hace uso de 
 variables declaradas por el usuario.
-
-	
 */
+
 DELIMITER //
 
 DROP  PROCEDURE IF EXISTS sp_registrar_registro;
@@ -403,12 +283,9 @@ END
 //
 DELIMITER ;
 
-
-
-/*-------------------------  TERMINADO  ------------------------*/
-/*----------------------------------------------------------------------*/
-/*-------------------  ES DEVOLUCIN?? ---------------------------*/
-/*--------------------------------------------------------------------*/
+/*-----------------------------------------------------------*/
+/*-----  PROCEDIMIENTO PARA SAVER  SI  ES DEVOLUCIN? -------*/
+/*---------------------------------------------------------*/
 
 
 DELIMITER //
@@ -443,11 +320,8 @@ END
 //
 DELIMITER ;
 
-
-
-/*-------------------------  TERMINADO  ------------------------*/
 /*----------------------------------------------------------------------*/
-/*-------------------  OBTENER OBJETOS  ---------------------------*/
+/*---------------------  OBTENER OBJETOS     --------------------------*/
 /*--------------------------------------------------------------------*/
 
 DELIMITER //
@@ -471,10 +345,8 @@ END
 DELIMITER ;
 
 
-
-/*-------------------------  TERMINADO  ------------------------*/
 /*----------------------------------------------------------------------*/
-/*-------------------  DEVOLUCION LLAVE/OBJETOS  ---------------------------*/
+/*--------------  REGISTRAR DEVOLUCION LLAVE/OBJETOS  -----------------*/
 /*--------------------------------------------------------------------*/
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_set_registro;
@@ -515,5 +387,9 @@ BEGIN
 END
 //
 DELIMITER ;
+
+
+
+
 
 /*https://manuales.guebs.com/mysql-5.0/error-handling.html*/
