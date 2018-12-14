@@ -28,8 +28,9 @@ DELIMITER ;
 
 DELIMITER //
 DROP TRIGGER IF EXISTS tg_users_rol_BI;
+
 CREATE TRIGGER tg_users_rol_BI BEFORE INSERT 
-ON users FOR EACH ROW
+ON tusuarios FOR EACH ROW
 BEGIN
 	CALL CHK_user_rol(new.rol);
 END//
@@ -57,7 +58,7 @@ DELIMITER ;
 
 DELIMITER //
 DROP TRIGGER IF EXISTS tg_horario_ciclo_BI;
-CREATE TRIGGER tg_users_rol_BI BEFORE INSERT 
+CREATE TRIGGER tg_horario_ciclo_BI BEFORE INSERT 
 ON thorarios FOR EACH ROW
 BEGIN
 	CALL CHK_horario_ciclo(new.ciclo);

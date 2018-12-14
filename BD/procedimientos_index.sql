@@ -7,50 +7,6 @@ almacenados que se ejecutaran en la vista inicio del
 sitio web.
 
 
--------------N O T A #1------------
-la estructura del procedimiento es:
-CREATE PROCEDURE [DBname].[ProcName](
-	[parametros de entrada.]
-)
-BEGIN
-----CUERPO DEL PROCEDIMIENTO----
-END
------------------------------------
-
-
--------------N O T A #2--------------
-COMO LLAMAR UN PROCEDIMIENTO:
-CALL [ProcName]([param1],[param2]...);
-
--los parametros se envian segun el tipo de dato
-si es entero se envia solo el numero
--si es texto se envia entre comillas simples o
-dobles
--si es fecha se envia entre comillas simples
-*/
--------------------------------------
-
-
-/*-----------------------------------------------------*/
-/*---------------- REGISTRO DE OBJETOS ---------------*/
-/*---------------------------------------------------*/
-/*Registro de un objeto en la base de datos*/
-/*CREATE DEFINER = CURRENT_USER PROCEDURE....*/
-
-DELIMITER //
-DROP  PROCEDURE IF EXISTS sp_registrar_objeto;
-CREATE PROCEDURE sistema_llaves.sp_registrar_objeto (
-	in p_nombre VARCHAR(50),
-	in p_marca VARCHAR(50),
-	in p_inventario INT(11)
-) 
-BEGIN
-INSERT INTO sistema_llaves.tobjetos(id,nombre,marca,inventario) VALUES (null,UPPER(p_nombre),UPPER(p_marca),p_inventario);
-END
-//
-DELIMITER ;
-
-
 
 /*-----------------------------------------------------*/
 /*------- OBTENER LAS LLAVES EN PRESTAMO DEL DÍA -----*/

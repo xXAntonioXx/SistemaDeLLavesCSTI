@@ -11,11 +11,6 @@ que hacen operaciones que solo los administradores pueden realizar.
 /*-----------------------------------------------------*/
 /*------------ REGISTRO DE LLAVES Y SALON ------------*/
 /*---------------------------------------------------*/
-/*Este procedimineto se encarga de  registrar una llave y su respectivo salon,
-en caso de no estar regisrado. Si el salon ya se encuentra registrado, simplemente se
-realiza una busqueda del 'id' del salon ya  registrado y se coloca su en el nuevo 
-registro de la llave.
-*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_llave;
 CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
@@ -38,10 +33,6 @@ DELIMITER ;
 /*-----------------------------------------------------*/
 /*--------------- REGISTRO DE MAESTROS ---------------*/
 /*---------------------------------------------------*/
-/*El siguiente metodo simplemente se encarga
-de registrar a un maestro en la base de datos
-y como se puede observar tan solo recibe
-dos parametros.*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_maestro;
 CREATE PROCEDURE sistema_llaves.sp_registrar_maestro (
