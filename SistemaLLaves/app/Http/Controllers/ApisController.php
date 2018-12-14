@@ -36,7 +36,7 @@ class ApisController extends Controller
         $id=$req["id"];
         $objetos=$req["objList"];
         
-        $prestamo="CALL sp_registrar_prestamo({$id},{$objetos})";
+        $prestamo="CALL sp_registrar_prestamo({$id},'{$objetos}')";
         $this->conexion->query($prestamo);
     }
 

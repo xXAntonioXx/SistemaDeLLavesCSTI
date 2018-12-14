@@ -11,7 +11,7 @@
         <h3>HORA</h3>
       </div>
       <div class="llaves-cards">
-        <div v-for="registro in Paginate" class="card-item" :key="registro['id']">
+        <div v-for="registro in Paginate" class="card-item" :key="registro['id']" :title="registro['salon']+'\n'+registro['maestro']+'\n'+registro['materia']">
             <h3>{{registro['id']}}</h3>
             <h3>{{registro['maestro']}}</h3>
             <h3>{{registro['materia']}}</h3>
@@ -60,11 +60,11 @@
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <!--select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd)" :disabled="validate=comboInd['estado']" :key="comboInd['id']"-->
-            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="objetosPrestamo(comboInd['id']);agregarCombo(comboInd)" :key="comboInd['id']" v-model="comboInd['id']">
-              <option :value="1" v-on:click="objetosPrestamo(1)" >Control A/AC(Mirage)</option>
-              <option :value="2" v-on:click="objetosPrestamo(2)">Control A/AC(YORK)</option>
-              <option :value="3" v-on:click="objetosPrestamo(3)">Control Cañon</option>
-              <option :value="4" v-on:click="objetosPrestamo(4)">Bocinas</option>
+            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']">
+              <option :value="1">Control A/AC(Mirage)</option>
+              <option :value="2">Control A/AC(YORK)</option>
+              <option :value="3">Control Cañon</option>
+              <option :value="4">Bocinas</option>
             </select>
           </div>
           <div class="modal-buttons">
@@ -92,7 +92,7 @@ export default {
             codigoKey:'',
             registroForm:[],
             estadoInput:true,
-            comboIterates:[{id:1,estado:false,valor:'1'}],
+            comboIterates:[{id:1,estado:false,valor:'0'}],
             PrestamoList:'',
             globalTime:'0',
             RegistrarState:true,
@@ -139,20 +139,17 @@ export default {
         this.estadoInput=true;
       },
 
-      agregarCombo(identificador){//deshabilitamos el combo seleccionado y generamos un nuevo combo
+      agregarCombo(identificador,objeto){//deshabilitamos el combo seleccionado y generamos un nuevo combo
+        this.PrestamoList+=objeto+',';
         identificador["estado"]=true;
         this.comboIterates.push({id:identificador['id']+1,estado:false});
+        alert(this.PrestamoList);
       },
 
       formularioParaExcepcion(){//limpiamos todo el formulario(posiblemente hay que eliminar)
         this.registroForm=[];
         this.estadoInput=false;
         this.codigoKey='';
-      },
-
-      objetosPrestamo(objeto){//generamos la cadena del prestamo obtenidos de los combo
-        alert(this.PrestamoList);
-        this.PrestamoList+=objeto+',';
       },
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
@@ -164,8 +161,8 @@ export default {
       },
 
       NuevoPrestamo(){ //generamos un nuevo prestamo de objetos
-        alert(this.PrestamoList);
-        axios.post('/api/nuevoPrestamo',{'id':0,'objList':this.PrestamoList.slice(0,-1)})
+        alert(this.PrestamoList.slice(0,-1));
+        axios.post('/api/nuevoPrestamo',{'id':0,'objList':this.PrestamoList.slice(0,-1)}).then(()=>alert('prestamo realizado'));
       },
 
       NuevoRegistro(){//se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
