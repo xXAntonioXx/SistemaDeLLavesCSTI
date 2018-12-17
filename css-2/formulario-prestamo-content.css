@@ -88,6 +88,9 @@
 
 .aula-i{
   grid-area: aula-i;
+  @media (--large) {
+    width: 90%;
+  }
   @media (--ipad){
     width: 90%;
   }
@@ -108,8 +111,11 @@
 
 .hora-i {
   grid-area: hora-i;
-  width: 90% !important;
-  
+  width: 90%;
+  @media (--large) {
+    width: 87%;
+    margin-left: 8px;
+  }
 }
 
 .inputs {

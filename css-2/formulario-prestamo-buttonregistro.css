@@ -12,5 +12,10 @@
   & .registrar {
     @apply --button_principal;
     font-family: 'Hind', sans-serif;
+    margin-right: 30px;
+  }
+  & .cancelar {
+    @apply --button_secundario;
+    font-family: 'Hind', sans-serif;
   }
 }

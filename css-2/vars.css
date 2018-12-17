@@ -31,8 +31,7 @@
     padding: 5px 40px;
     font-size: 1em;
     color: #00001a;
-    border: 2px solid var(--color_principal);  
-    height: 60%;
+    border: 2px solid var(--color_principal);
   };
 }
 
