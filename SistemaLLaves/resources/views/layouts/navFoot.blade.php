@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
   <link rel="stylesheet" href="{{asset('css/principal.css')}}">
 </head>
-<body onunload="">
+<body>
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
@@ -64,6 +64,7 @@
   </div>
   <!--/div-->
   <script>
+      window.addEventListener('unload',function(){});
       const ipad = window.matchMedia('screen and (max-width: 767px)');
       const menu = document.querySelector('.menu');
       const nav = document.querySelector('nav');
@@ -87,12 +88,7 @@
         }
       }
 
-      window.onpageshow = function (event) {
-        alert("se disparo el evento del cache");
-        if (event.persisted) {
-            window.location.reload();
-        }
-      };
+      
     </script>
 </body>
 </html>
