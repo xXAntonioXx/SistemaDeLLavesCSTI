@@ -67,15 +67,11 @@
       window.addEventListener("pageshow",(event)=>{
         var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
         if ( historyTraversal ) {
+          alert("se dispara el evento");
          // Handle page restore.
           window.location.reload();
         }
       });
-      /*window.onpageshow = function (event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-      };*/
       const ipad = window.matchMedia('screen and (max-width: 767px)');
       const menu = document.querySelector('.menu');
       const nav = document.querySelector('nav');
