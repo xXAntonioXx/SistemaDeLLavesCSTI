@@ -88,6 +88,7 @@
       }
 
       window.onpageshow = function (event) {
+        alert("se disparo el evento del cache");
         if (event.persisted) {
             window.location.reload();
         }
