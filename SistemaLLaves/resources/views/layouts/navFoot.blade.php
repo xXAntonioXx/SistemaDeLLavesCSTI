@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="images/key.png">
   <link rel="stylesheet" href="{{asset('css/principal.css')}}">
 </head>
-<body>
+<body onunload="">
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
