@@ -64,7 +64,9 @@
   </div>
   <!--/div-->
   <script>
-      window.addListener('unload',function(){});
+      window.addEventListener("pageshow",(event)=>{
+        alert("la pagina en recarga");
+      });
       const ipad = window.matchMedia('screen and (max-width: 767px)');
       const menu = document.querySelector('.menu');
       const nav = document.querySelector('nav');
