@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Prestamo de llaves</title>
-  <link rel="icon" type="image/png" href="images/key.png">
+  <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
   <link rel="stylesheet" href="{{asset('css/principal.css')}}">
 </head>
 <body onunload="">
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
-      <figure class="logo">
+      <figure class="logo" >
         <a style="display:block; height:100%; width:100%;" href="/main"></a>
       </figure>
       <h1>PRESTAMO DE LLAVES</h1>
@@ -86,6 +86,12 @@
           nav.classList.add('is-active');
         }
       }
+
+      window.onpageshow = function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+      };
     </script>
 </body>
 </html>
