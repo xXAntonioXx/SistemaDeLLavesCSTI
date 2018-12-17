@@ -64,7 +64,7 @@
   </div>
   <!--/div-->
   <script>
-      window.addEventListener('unload',function(){});
+      window.addListener('unload',function(){});
       const ipad = window.matchMedia('screen and (max-width: 767px)');
       const menu = document.querySelector('.menu');
       const nav = document.querySelector('nav');
