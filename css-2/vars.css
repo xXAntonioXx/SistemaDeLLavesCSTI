@@ -19,8 +19,10 @@
     font-size: 1em;
     color: #fff;
     border: none;
+    cursor: pointer;
   };
   --button_secundario: {
+    cursor: pointer;
     background: #fff;
     border-radius: 20px;
     text-decoration: none;

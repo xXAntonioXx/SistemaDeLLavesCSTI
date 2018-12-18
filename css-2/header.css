@@ -23,7 +23,8 @@
       font-size: 1.8rem;
     }
     @media (--ipad){
-      font-size: 1.5rem;
+      font-size: 1.3rem;
+      width: 35%
     }
     @media (--tablets){
       font-size: 1.4rem;

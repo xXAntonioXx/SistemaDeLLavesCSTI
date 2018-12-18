@@ -2,6 +2,9 @@ nav {
   width: 40%;
   display: flex;
   align-items: flex-end;
+  @media (--ipad) {
+    width: 50%;
+  }
   @media (--tablets) {
     width: 0;
   }
@@ -15,14 +18,14 @@ nav.is-active {
   bottom: 0;
   right: 0;
   width: 100%;
-  transition: .3s;
+  transition: .4s;
 }
 
 .menu {
   width: 100%;
   list-style: none;
   text-align: right;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
   padding: 0;
   & li {
     display: inline-block;
@@ -57,10 +60,10 @@ nav.is-active {
     justify-content: center;
     flex-direction: column;
     bottom: 0;
-    transition: .3s;
   }
 }
 
 .menu.is-active {
+  transition: .2s;
   left: 50vw;
 }

@@ -4,21 +4,14 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 100%;
   grid-template-rows: 23% 1fr 5%;
   grid-template-areas: "header"
                        "container-wrapper"
                        "footer";
   @media (--ipad) {
     grid-template-rows: 180px 1fr 30px;
-    grid-template-areas: "header"
-                         "container-wrapper"
-                         "footer";
   }
   @media (--tablets) {
     grid-template-rows: 60px 1fr 30px;
-    grid-template-areas: "header"
-                         "container-wrapper"
-                         "footer";
   }
 }
