@@ -19,8 +19,10 @@
     font-size: 1em;
     color: #fff;
     border: none;
+    cursor: pointer;
   };
   --button_secundario: {
+    cursor: pointer;
     background: #fff;
     border-radius: 20px;
     text-decoration: none;
@@ -31,8 +33,7 @@
     padding: 5px 40px;
     font-size: 1em;
     color: #00001a;
-    border: 2px solid var(--color_principal);  
-    height: 60%;
+    border: 2px solid var(--color_principal);
   };
 }
 
