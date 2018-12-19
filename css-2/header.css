@@ -17,13 +17,14 @@
     color: #fff;
     font-weight: 500;
     @media (--large) {
-      font-size: 2.9rem;
+      font-size: 2.7rem;
     }
     @media (--normal){
       font-size: 1.8rem;
     }
     @media (--ipad){
-      font-size: 1.5rem;
+      font-size: 1.3rem;
+      width: 35%
     }
     @media (--tablets){
       font-size: 1.4rem;

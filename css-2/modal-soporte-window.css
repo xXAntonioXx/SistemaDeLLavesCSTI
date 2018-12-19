@@ -34,10 +34,12 @@
   border-radius: 5px;
   @media (--large) {
     grid-template-rows: 110px 1fr 80px;
+    grid-template-columns: 700px;
     width: 700px;
     height: 650px;
   }
   @media (--phones) {
+    grid-template-columns: 100%;
     width: 100%;
   }
 }

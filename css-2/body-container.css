@@ -12,4 +12,18 @@
     grid-template-areas: "formulario-prestamo"
                          "llaves-prestadas";
   }
+  @media (--phones) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "formulario-prestamo"
+                          "llaves-prestadas";
+  }
+  @media (--small-phones) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "formulario-prestamo"
+                          "llaves-prestadas";
+  }
 }
