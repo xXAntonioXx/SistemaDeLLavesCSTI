@@ -151,14 +151,25 @@ call sp_registrar_registro('2018-11-15 07:10:00',16,1);
 /*Ejemplo de un nuevo registro*/
 
 /*Primero que todo se debe identificar si la llave ingresada al sistema esta siendo procesada para un prestamo o una devolucion*/
-/*Si el siguiente procedimiento regresa un campo llamado "id" con el entero "0" quiere decir que la llave se prepara para un prestamo.*/
+/*Si el siguiente procedimiento regresa un campo llamado "id" con el  valor entero "0" quiere decir que la llave se prepara para un prestamo.*/
 /*En caso de mostrar un id distinto de "0" se tratara de una devolucion de la llave*/
-/*NOTA: si es una devolucion la consulta devuelve el id del registro, nombre del maestro, el nombre de la materia, la fecha y hora en que se registro la entrada y el id del prestamo asocialdo*/
-/*los campos anteriores se presentan de la siguiente manera   | id  |  nombre  |  materia  |  hora_entrada  | id_prestamo  |  */
+/*NOTA: si es una devolucion la consulta devuelve el id del registro, nombre del maestro, el nombre de la materia,*/
+/* la fecha y hora en que se registro la entrada y el id del prestamo asocialdo*/
+/*los campos del siguiente metodo se presentan de la siguiente manera*/
+/*  | id  |  nombre  |  materia  |  hora_entrada  | id_prestamo  |  */
 call sp_get_esdevolucion('codigo_llave');
 
-/*si es una devolucion y si el "id_prestamo" es distinto de null entonces debemos ejecutar el siguiente metodo*/
-call sp_get_objetos('id_prestamo');
+/*si es una devolucion y ademas si el "id_prestamo" es distinto de null entonces debemos ejecutar el siguiente metodo*/
+call sp_get_objetos('id_prestamo'); /*devueve una lista de objetos con los campos |id_control|id_objeto|nombre|marca|*/
+
+/*Seguimos con el caso de ser una devolucion...*/
+/*Para realizar la devolucion pertinente ejecutaremos el siguiente metodo*/
+call sp_set_registro('id_registro','hora_salida','id_prestamo','arg_id_objetos');
+/*NOTA: los datos del metodo son obtenidos de los dos metodos ejecutados con aterioridad.*/
+/*El ultimo parametro es un arreglo con los id de SOLO los objetos que se estan devolviendo*/
+
+/*En caso de no ser una devolucion osea que el primer metodo returne en el campo id el valor '0' */
+/*ejecutamos lo siguiente (lo que sigue es lo que ya tenias)*/
 
 /*al leer el codigo de la llave se busca el horario(que incluye id,maestro,aula) para llenar el formulario, con el procedimiento*/
 call sp_get_frmPrestamo('codigo_llave','fecha y hora');
