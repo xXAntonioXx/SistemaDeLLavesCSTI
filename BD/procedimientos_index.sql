@@ -210,9 +210,13 @@ DROP  PROCEDURE IF EXISTS sp_registrar_registro;
 CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
 	in p_hora_entrada TIMESTAMP,
 	in p_id_horario  INT(11),
-	in p_id_usuario INT(11)
+	in p_id_usuario INT(11),
+	in p_id_objeto_arg VARCHAR(1000)
 )
  BEGIN
+ 	IF p_id_objeto_arg IS NOT NULL THEN
+ 		CALL sp_registrar_prestamo(0,p_id_objeto_arg);
+ 	END IF;
  	CASE
  		WHEN (p_id_horario > 0) AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NOT NULL) THEN 
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
