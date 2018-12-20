@@ -32,8 +32,13 @@ class ApisController extends Controller
 
     public function ObjetosPrestados($idPrestamo){
 
-        $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetch();
-        return $objetosPrestados;
+        $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetchAll();
+        $obj=array();
+        foreach ($objetosPrestados as $value) {
+            array_push($obj,$value[2]);
+        }
+        $obJSON=json_encode($obj);
+        return $obJSON;
     }
 
     public function buscarHorario($codigo,$hora){//buscamos el horario en base al codigo de la llave y la hora

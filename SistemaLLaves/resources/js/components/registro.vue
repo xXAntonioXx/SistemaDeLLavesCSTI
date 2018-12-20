@@ -73,8 +73,8 @@
           </div>
         </div>
       </div>
-      <app-modalDevolucion>contenido</app-modalDevolucion>
     </section>
+      <app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto"></app-modalDevolucion>
     </div>
 </template>
 
@@ -98,6 +98,8 @@ export default {
             PrestamoList:'',
             globalTime:'0',
             RegistrarState:true,
+            esDevolucion:false,
+            objeto:[]
         }
     },
     components:{
@@ -134,13 +136,15 @@ export default {
       PrestamoOdevolucion(codigoLLave){
         let consulta = `api/devolucionOprestamo/${codigoLLave}`;
         axios.get(consulta).then(res=>{
+          let nuevo=res.data['id'];
           let resultado = res.data['id_prestamo'];
-          if (resultado == 0){
+          if (nuevo == 0){
             this.buscarHorario(codigoLLave);
           }else{
-
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
+              this.objeto=res.data;
+              this.esDevolucion=true;
             });
           }
         });
