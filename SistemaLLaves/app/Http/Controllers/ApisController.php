@@ -11,7 +11,9 @@ class ApisController extends Controller
     public $conexion;//instanciamos la conexión a la base de datos
 
     public function __construct(){
-        $this->conexion=conectar();//abrimos la conexión a la base de datos
+        if(!$this->conexion){
+            $this->conexion=conectar();//abrimos la conexión a la base de datos
+        }
     }
 
     public function registrosNum(Request $req){//devuelve los registros del dia actual de la base de datos
@@ -23,6 +25,17 @@ class ApisController extends Controller
         
     }
 
+    public function Devolucion_O_Prestamo($codigo){//metodo para revisar si la llave se esta prestando o devolviendo
+        $resultadoBusqueda = $this->conexion->query("CALL sp_get_esdevolucion({$codigo})")->fetch();
+        return $resultadoBusqueda;
+    }
+
+    public function ObjetosPrestados($idPrestamo){
+
+        $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetch();
+        return $objetosPrestados;
+    }
+
     public function buscarHorario($codigo,$hora){//buscamos el horario en base al codigo de la llave y la hora
         $consulta="CALL sp_get_frmPrestamo({$codigo},'{$hora}')";
         $horario=$this->conexion->query($consulta);
@@ -32,19 +45,12 @@ class ApisController extends Controller
         return $horario;//de lo contrario se devuelve un false
     }
 
-    public function nuevoPrestamo(Request $req){//generamos un nuevo prestamo de objetos(controles A/AC, control cañon, bocinas)
-        $id=$req["id"];
-        $objetos=$req["objList"];
-        
-        $prestamo="CALL sp_registrar_prestamo({$id},'{$objetos}')";
-        $this->conexion->query($prestamo);
-    }
-
     public function nuevoRegistro(Request $req){//ya generado un prestamo generamos un registro de de que la llave de cierto salon fue tomado a determinada hora por determinado maestro segun el horario
         $hora=$req["fechaHora"];
         $idHorario=$req["idHorario"];
         $idUsuario=$req->session()->get('id');//obtenemos el identificador de la sercretaria/usuario que registro la llave
-        $registrar="CALL sp_registrar_registro('{$hora}',{$idHorario},{$idUsuario})";
+        $objetos=$req["objList"];
+        $registrar="CALL sp_registrar_registro('{$hora}',{$idHorario},{$idUsuario},'{$objetos}')";
         $this->conexion->query($registrar);
     }
 

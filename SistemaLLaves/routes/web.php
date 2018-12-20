@@ -32,10 +32,13 @@ Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba pa
 
 //API para consultar la base de datos
 Route::post('/api/nuevoPrestamo','ApisController@nuevoPrestamo')->middleware(CheckSess::class);
+//Route::post('/api/nuevoPrestamo','ApisController@nuevoPrestamo');
 Route::post('/api/nuevoRegistro','ApisController@nuevoRegistro')->middleware(CheckSess::class);
 Route::get('/api/registros','ApisController@registrosNum')->middleware(CheckSess::class);
 Route::get('/api/lap','ApisController@lap')->middleware(CheckSess::class);
 Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario')->middleware(CheckSess::class);
+Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
+Route::get('api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
 
 
 

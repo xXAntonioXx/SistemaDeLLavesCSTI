@@ -44,7 +44,7 @@
             <option value="Lab-IQ">Lab-IQ</option>
             <option value="Lab-Mecatronica">Lab-Mecatronica</option>
           </select>
-            <input @keyup.enter="buscarHorario(codigoKey)" class="llaves-i inputs" type="text" v-model="codigoKey">
+            <input @keyup.enter="PrestamoOdevolucion(codigoKey)" class="llaves-i inputs" type="text" v-model="codigoKey">
             <input class="maestros-i inputs" type="text" v-model="registroForm['maestro']" :disabled="validate=estadoInput">
             <input class="materia-i inputs" type="text" v-model="registroForm['materia']" :disabled="validate=estadoInput">
             <input class="aula-i inputs" type="text" v-model="registroForm['aula']" :disabled="validate=estadoInput">
@@ -68,11 +68,12 @@
             </select>
           </div>
           <div class="modal-buttons">
-            <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro();NuevoPrestamo()" onclick="window.location='#';">
+            <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro()" onclick="window.location='#';">
             <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="cleanObjPrestamo()">
           </div>
         </div>
       </div>
+      <app-modalDevolucion>contenido</app-modalDevolucion>
     </section>
     </div>
 </template>
@@ -82,6 +83,7 @@
 
 <script>
 import moment from 'moment-timezone';
+import modalDevolucion from './modalDevolucion';
 
 export default {
     data(){
@@ -97,6 +99,9 @@ export default {
             globalTime:'0',
             RegistrarState:true,
         }
+    },
+    components:{
+      'app-modalDevolucion':modalDevolucion
     },
     created(){
       this.fetchRegistros();
@@ -124,6 +129,21 @@ export default {
         let FechaHora = moment.tz(timez).format("YYYY-M-D HH:mm:ss");
         let hora=moment.tz(timez).format("HH:mm:ss");
         return caso==1?FechaHora:hora;
+      },
+
+      PrestamoOdevolucion(codigoLLave){
+        let consulta = `api/devolucionOprestamo/${codigoLLave}`;
+        axios.get(consulta).then(res=>{
+          let resultado = res.data['id_prestamo'];
+          if (resultado == 0){
+            this.buscarHorario(codigoLLave);
+          }else{
+
+            let ruta = `api/obtenerObjetos/${resultado}`;
+            axios.get(ruta).then(res=>{
+            });
+          }
+        });
       },
 
       buscarHorario(codigoLLave){//obtenemos id,maestro,materia,aula con el codigo de llave
@@ -160,22 +180,14 @@ export default {
         this.RegistrarState=true;
       },
 
-      NuevoPrestamo(){ //generamos un nuevo prestamo de objetos
-        alert(this.PrestamoList.slice(0,-1));
-        axios.post('/api/nuevoPrestamo',{'id':0,'objList':this.PrestamoList.slice(0,-1)}).then(()=>alert('prestamo realizado'));
-      },
-
       NuevoRegistro(){//se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
-        axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id']})
+        axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
         .then(()=>{
           alert('registro realizado');
           this.fetchRegistros();
           this.cleanObjPrestamo();
         });
       },
-      borrame(valor){
-        alert(valor);
-      }
     }
 }
 </script>
