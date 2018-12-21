@@ -55,7 +55,7 @@
       <div class="button-registro">
           <input type="submit" value="Registrar" class="registrar"  onclick="window.location='#modal-container'" :disabled="validated=RegistrarState"/>
       </div>
-      <div id="modal-container" class="modal-container">
+      <div id="modal-container" class="modal-container" >
         <div class="modal-content">
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
@@ -74,7 +74,7 @@
         </div>
       </div>
     </section>
-      <app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto"></app-modalDevolucion>
+        <app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto"></app-modalDevolucion>
     </div>
 </template>
 
@@ -99,7 +99,7 @@ export default {
             globalTime:'0',
             RegistrarState:true,
             esDevolucion:false,
-            objeto:[]
+            objeto:[],
         }
     },
     components:{
@@ -143,6 +143,7 @@ export default {
           }else{
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
+              console.log(res);
               this.objeto=res.data;
               this.esDevolucion=true;
             });
