@@ -2,10 +2,12 @@
     <div class="capa-cebolla">
         <div class="ventanaModal">
             <h3 class="titulo">objetos prestados</h3>
-            
-            <div v-for="objetos in listado" :key="objetos" class="listado">
-                <label :for="objetos">{{objetos}}</label><input type="checkbox" :id="objetos" v-model="objetosDevueltos"><br>
+            {{this.disparaMetodo}}
+            <div v-for="objetos in listado" :key="objetos['id_control']" class="listado">
+                <label :for="objetos">{{objetos['nombre']}}</label><input type="checkbox" :id="objetos['id_control']" v-model="objetosDevueltos"><br>
             </div>
+
+            <slot class=""></slot>
         </div>
     </div>
 </template>
@@ -43,13 +45,18 @@
         font-weight: lighter;
         grid-template-columns: repeat(2,1fr);
     }
-
-    /*.listado label{
-        
-        float: left;
-    }*/
     .listado input{
         border-radius: 9px;
+    }
+
+    .botonFin{
+        border: 1px solid #004990;
+        border-radius: 50px;
+        width: 50%;
+        height: 7%;
+        background: white;
+        font-size: 70%;
+        margin-top: 70%;
     }
 </style>
 
@@ -58,12 +65,21 @@ export default {
     data(){
         return {
             listado:this.objetos,
+            disparaMetodo:this.activar,
             objetosDevueltos:[]
         }
     },
     props:[
-        'objetos'
-    ]
+        'objetos',
+        'activar'
+    ],
+    watch:{
+        disparaMetodo:function(){
+            console.log("asdfasdf")
+        }
+    },
+    methods:{
+    }
 }
 </script>
 

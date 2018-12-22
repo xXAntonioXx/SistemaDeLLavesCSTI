@@ -74,7 +74,11 @@
         </div>
       </div>
     </section>
-        <app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto"></app-modalDevolucion>
+        <!--app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" activar="true"-->
+        <app-modalDevolucion v-if="esDevolucion" :objetos="objeto" :activar="this.activar">
+          <input type="button" value="Listo" class="botonFin" @click="this.activar=true;/*esDevolucion=false*/">
+          {{this.activar}}
+        </app-modalDevolucion>
     </div>
 </template>
 
@@ -100,6 +104,7 @@ export default {
             RegistrarState:true,
             esDevolucion:false,
             objeto:[],
+            activar:false,
         }
     },
     components:{
@@ -143,12 +148,16 @@ export default {
           }else{
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
-              console.log(res);
               this.objeto=res.data;
               this.esDevolucion=true;
+              /*this.activar=true;*/
             });
           }
         });
+      },
+
+      devolucion(){
+        let cadena=``
       },
 
       buscarHorario(codigoLLave){//obtenemos id,maestro,materia,aula con el codigo de llave

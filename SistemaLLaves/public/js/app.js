@@ -64229,6 +64229,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -64247,7 +64251,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       globalTime: '0',
       RegistrarState: true,
       esDevolucion: false,
-      objeto: []
+      objeto: [],
+      activar: false
     };
   },
 
@@ -64297,12 +64302,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         } else {
           var ruta = 'api/obtenerObjetos/' + resultado;
           axios.get(ruta).then(function (res) {
-            console.log(res);
             _this2.objeto = res.data;
             _this2.esDevolucion = true;
+            /*this.activar=true;*/
           });
         }
       });
+    },
+    devolucion: function devolucion() {
+      var cadena = '';
     },
     buscarHorario: function buscarHorario(codigoLLave) {
       var _this3 = this;
@@ -65342,7 +65350,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.capa-cebolla{\n    position: absolute;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n}\n.ventanaModal{\n    height: 80%;\n    width: 30%;\n    margin-left: 35%;\n    margin-top: 3%;\n    border-radius: 9px;\n    font-family: Arial, Helvetica, sans-serif;\n    position: absolute;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n}\n.titulo{\n    border-bottom: 2px solid #004990;\n    font-weight: 500;\n    margin: 0%;\n    padding: 5%;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: lighter;\n    grid-template-columns: repeat(2,1fr);\n}\n\n/*.listado label{\n    \n    float: left;\n}*/\n.listado input{\n    border-radius: 9px;\n}\n", ""]);
+exports.push([module.i, "\n.capa-cebolla{\n    position: absolute;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n}\n.ventanaModal{\n    height: 80%;\n    width: 30%;\n    margin-left: 35%;\n    margin-top: 3%;\n    border-radius: 9px;\n    font-family: Arial, Helvetica, sans-serif;\n    position: absolute;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n}\n.titulo{\n    border-bottom: 2px solid #004990;\n    font-weight: 500;\n    margin: 0%;\n    padding: 5%;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: lighter;\n    grid-template-columns: repeat(2,1fr);\n}\n.listado input{\n    border-radius: 9px;\n}\n.botonFin{\n    border: 1px solid #004990;\n    border-radius: 50px;\n    width: 50%;\n    height: 7%;\n    background: white;\n    font-size: 70%;\n    margin-top: 70%;\n}\n", ""]);
 
 // exports
 
@@ -65408,16 +65416,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             listado: this.objetos,
+            disparaMetodo: this.activar,
             objetosDevueltos: []
         };
     },
 
-    props: ['objetos']
+    props: ['objetos', 'activar'],
+    watch: {
+        disparaMetodo: function disparaMetodo() {
+            console.log("asdfasdf");
+        }
+    },
+    methods: {}
 });
 
 /***/ }),
@@ -65434,50 +65456,58 @@ var render = function() {
       { staticClass: "ventanaModal" },
       [
         _c("h3", { staticClass: "titulo" }, [_vm._v("objetos prestados")]),
-        _vm._v(" "),
+        _vm._v("\n        " + _vm._s(this.disparaMetodo) + "\n        "),
         _vm._l(_vm.listado, function(objetos) {
-          return _c("div", { key: objetos, staticClass: "listado" }, [
-            _c("label", { attrs: { for: objetos } }, [_vm._v(_vm._s(objetos))]),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.objetosDevueltos,
-                  expression: "objetosDevueltos"
-                }
-              ],
-              attrs: { type: "checkbox", id: objetos },
-              domProps: {
-                checked: Array.isArray(_vm.objetosDevueltos)
-                  ? _vm._i(_vm.objetosDevueltos, null) > -1
-                  : _vm.objetosDevueltos
-              },
-              on: {
-                change: function($event) {
-                  var $$a = _vm.objetosDevueltos,
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = null,
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 && (_vm.objetosDevueltos = $$a.concat([$$v]))
+          return _c(
+            "div",
+            { key: objetos["id_control"], staticClass: "listado" },
+            [
+              _c("label", { attrs: { for: objetos } }, [
+                _vm._v(_vm._s(objetos["nombre"]))
+              ]),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.objetosDevueltos,
+                    expression: "objetosDevueltos"
+                  }
+                ],
+                attrs: { type: "checkbox", id: objetos["id_control"] },
+                domProps: {
+                  checked: Array.isArray(_vm.objetosDevueltos)
+                    ? _vm._i(_vm.objetosDevueltos, null) > -1
+                    : _vm.objetosDevueltos
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.objetosDevueltos,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.objetosDevueltos = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.objetosDevueltos = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
                     } else {
-                      $$i > -1 &&
-                        (_vm.objetosDevueltos = $$a
-                          .slice(0, $$i)
-                          .concat($$a.slice($$i + 1)))
+                      _vm.objetosDevueltos = $$c
                     }
-                  } else {
-                    _vm.objetosDevueltos = $$c
                   }
                 }
-              }
-            }),
-            _c("br")
-          ])
-        })
+              }),
+              _c("br")
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _vm._t("default")
       ],
       2
     )
@@ -65873,7 +65903,22 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.esDevolucion
-        ? _c("app-modalDevolucion", { attrs: { objetos: _vm.objeto } })
+        ? _c(
+            "app-modalDevolucion",
+            { attrs: { objetos: _vm.objeto, activar: this.activar } },
+            [
+              _c("input", {
+                staticClass: "botonFin",
+                attrs: { type: "button", value: "Listo" },
+                on: {
+                  click: function($event) {
+                    this.activar = true /*esDevolucion=false*/
+                  }
+                }
+              }),
+              _vm._v("\r\n          " + _vm._s(this.activar) + "\r\n        ")
+            ]
+          )
         : _vm._e()
     ],
     1
