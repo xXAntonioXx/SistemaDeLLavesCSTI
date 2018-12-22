@@ -14,9 +14,15 @@
       font-size: 1.8rem;
     }
   }
+  & #search-results-date {
+    margin-right: 10px;
+  }
   & #search-results-id {
     text-align: end;
     padding-right: 10px;
+  }
+  & .search-results-symbol {
+    cursor: pointer;
   }
   & div {
     display: flex;
@@ -25,6 +31,17 @@
     & h3 {
       margin: 0;
       width: 100%;
+    }
+    & .search-results-loanobjects {
+      background: #e5e5e5;
+      border-radius: 5px;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      flex-direction: column;
+      display: none;
+    }
+    & .is-active {
+      display: flex;
     }
     & div {
       display: flex;
@@ -39,37 +56,39 @@
       }
       & #search-results-classroom {
         width: 15%;
+        margin-left: 10px;
         @media (--small-phones) {
           width: 20%;
         }
       }
       & #search-results-teacher {
         width: 85%;
+        margin-left: 10px;
         @media (--small-phones) {
           width: 80%;
         }
       }
-      & #search-results-hour {
-        width: 15%;
-        @media (--phones) {
-          width: 25%;
-        }
-        @media (--small-phones) {
-          width: 40%;
-        }
+      & #search-results-start {
+        margin: 0 10px;
       }
-      & #search-results-days {
-        width: 85%;
-        @media (--phones) {
-          width: 75%;
-        }
-        @media (--small-phones) {
-          width: 60%;
-        }
+      & #search-results-end {
+        margin-left: 10px;
+      }
+      & #search-results-symbol {
+        font-size: 0.8rem;
+        transition: 0.3s ease-in;
+      }
+      & .rotation {
+        transition: 0.3s ease-in;
+        transform: rotate(-180deg);
       }
       & #search-results-objectname {
         width: 15%;
+        margin-left: 3px;
         @media (--ipad) {
+          width: 25%;
+        }
+        @media (--tablets) {
           width: 25%;
         }
         @media (--phones) {
@@ -84,6 +103,9 @@
         @media (--ipad) {
           width: 50%;
         }
+        @media (--tablets) {
+          width: 50%;
+        }
         @media (--phones) {
           width: 50%;
         }
@@ -94,6 +116,9 @@
       & #search-results-objectstatus {
         width: 15%;
         @media (--ipad) {
+          width: 25%;
+        }
+        @media (--tablets) {
           width: 25%;
         }
         @media (--phones) {
@@ -110,10 +135,6 @@
       @media (--large) {
         font-size: 1.4rem;
       }
-    }
-    & #search-results-objects {
-      width: 100%;
-      border-bottom: 1px solid gray;
     }
   }
 }
