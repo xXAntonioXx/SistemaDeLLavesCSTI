@@ -35,7 +35,9 @@ class ApisController extends Controller
         $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetchAll();
         $obj=array();
         foreach ($objetosPrestados as $value) {
-            array_push($obj,$value[2]);
+            $aux=array("{$value[0]}"=>$value[2]);
+            $obj=array_merge($obj,$aux);
+            //array_push($obj,$value[2]=$value[2]);
         }
         $obJSON=json_encode($obj);
         return $obJSON;

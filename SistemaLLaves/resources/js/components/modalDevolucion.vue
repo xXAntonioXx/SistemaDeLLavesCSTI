@@ -1,25 +1,33 @@
 <template>
-    <div class="ventanaModal">
-        <h3 class="titulo">objetos prestados</h3>
-        
-        <div v-for="objetos in listado" :key="objetos" class="listado">
-            <label :for="objetos">{{objetos}}</label><input type="checkbox" :id="objetos" v-model="objetosDevueltos"><br>
+    <div class="capa-cebolla">
+        <div class="ventanaModal">
+            <h3 class="titulo">objetos prestados</h3>
+            
+            <div v-for="objetos in listado" :key="objetos" class="listado">
+                <label :for="objetos">{{objetos}}</label><input type="checkbox" :id="objetos" v-model="objetosDevueltos"><br>
+            </div>
         </div>
     </div>
 </template>
 
 <style>
+    .capa-cebolla{
+        position: absolute;
+        z-index: 1;
+        background-color: rgba(0, 0, 0,.5);
+        height: 100%;
+        width: 100%;
+    }
     .ventanaModal{
         height: 80%;
         width: 30%;
         margin-left: 35%;
         margin-top: 3%;
-        border: 1px solid black;
         border-radius: 9px;
         font-family: Arial, Helvetica, sans-serif;
         position: absolute;
         background: white;
-        z-index: 1;
+        z-index: 3;
         overflow: auto;
         text-align: center;
     }
