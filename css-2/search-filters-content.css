@@ -1,7 +1,7 @@
 .search-filters-content {
   grid-area: search-filters-content;
   box-sizing: border-box;
-  width: 70%;
+  width: 75%;
   justify-self: center;
   @media (--ipad) {
     box-sizing: none;
@@ -81,6 +81,10 @@
   & .search-filters-days {
     display: flex;
     justify-content: center;
+    & .date {
+      /* width: 65%; */
+      font-size: .8rem;
+    }
     & p {
       margin: 0;
       width: 50px;

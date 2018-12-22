@@ -24,6 +24,12 @@
   & .search-results-symbol {
     cursor: pointer;
   }
+  & .search-results-division {
+    margin-left: 3px;
+    align-self: flex-end;
+    height: 12px;
+    border-top: 1px solid gray;
+  }
   & div {
     display: flex;
     flex-direction: column;
