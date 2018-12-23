@@ -74,11 +74,12 @@
         </div>
       </div>
     </section>
-        <!--app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" activar="true"-->
-        <app-modalDevolucion v-if="esDevolucion" :objetos="objeto" :activar="this.activar">
-          <input type="button" value="Listo" class="botonFin" @click="this.activar=true;/*esDevolucion=false*/">
-          {{this.activar}}
-        </app-modalDevolucion>
+        <!--app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" activar="true" ref="ventanaDevolucion">
+          <input type="button" value="Listo" class="botonFin" @click="this.$ref.ventanaDevolucion.alerta();esDevolucion=false">
+        </app-modalDevolucion-->
+        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(2)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado">
+          <input type="button" value="Listo" class="botonFin" @click="devolucion();esDevolucion=false">
+        </modalDevolucion>
     </div>
 </template>
 
@@ -104,11 +105,12 @@ export default {
             RegistrarState:true,
             esDevolucion:false,
             objeto:[],
-            activar:false,
+            idRegistroExistente:'',
+            idPrestamoRegistrado:''
         }
     },
     components:{
-      'app-modalDevolucion':modalDevolucion
+      modalDevolucion
     },
     created(){
       this.fetchRegistros();
@@ -150,14 +152,15 @@ export default {
             axios.get(ruta).then(res=>{
               this.objeto=res.data;
               this.esDevolucion=true;
-              /*this.activar=true;*/
+              this.idRegistroExistente=nuevo;
+              this.idPrestamoRegistrado=resultado;
             });
           }
         });
       },
 
       devolucion(){
-        let cadena=``
+        this.$refs.ventanaDevolucion.hacerDevolucion();
       },
 
       buscarHorario(codigoLLave){//obtenemos id,maestro,materia,aula con el codigo de llave

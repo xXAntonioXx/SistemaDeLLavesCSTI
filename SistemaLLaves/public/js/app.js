@@ -64233,6 +64233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -64252,12 +64253,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       RegistrarState: true,
       esDevolucion: false,
       objeto: [],
-      activar: false
+      idRegistroExistente: '',
+      idPrestamoRegistrado: ''
     };
   },
 
   components: {
-    'app-modalDevolucion': __WEBPACK_IMPORTED_MODULE_1__modalDevolucion___default.a
+    modalDevolucion: __WEBPACK_IMPORTED_MODULE_1__modalDevolucion___default.a
   },
   created: function created() {
     this.fetchRegistros();
@@ -64304,13 +64306,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           axios.get(ruta).then(function (res) {
             _this2.objeto = res.data;
             _this2.esDevolucion = true;
-            /*this.activar=true;*/
+            _this2.idRegistroExistente = nuevo;
+            _this2.idPrestamoRegistrado = resultado;
           });
         }
       });
     },
     devolucion: function devolucion() {
-      var cadena = '';
+      this.$refs.ventanaDevolucion.hacerDevolucion();
     },
     buscarHorario: function buscarHorario(codigoLLave) {
       var _this3 = this;
@@ -65428,18 +65431,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             listado: this.objetos,
-            disparaMetodo: this.activar,
             objetosDevueltos: []
         };
     },
 
-    props: ['objetos', 'activar'],
-    watch: {
-        disparaMetodo: function disparaMetodo() {
-            console.log("asdfasdf");
+    props: ['objetos', 'hora', 'idRegistro', 'idPrestamo'],
+    methods: {
+        hacerDevolucion: function hacerDevolucion() {
+            var cadenaObjetos = this.objetosDevueltos.join();
+            /*let horaDevolucion = this.hora;
+            let registro = this.idRegistro;
+            let prestamo = this.idPrestamo;*/
+            axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.idPrestamo, 'objDevueltos': cadenaObjetos }).then(function (res) {
+                console.log(res);
+            });
         }
-    },
-    methods: {}
+    }
 });
 
 /***/ }),
@@ -65456,7 +65463,7 @@ var render = function() {
       { staticClass: "ventanaModal" },
       [
         _c("h3", { staticClass: "titulo" }, [_vm._v("objetos prestados")]),
-        _vm._v("\n        " + _vm._s(this.disparaMetodo) + "\n        "),
+        _vm._v(" "),
         _vm._l(_vm.listado, function(objetos) {
           return _c(
             "div",
@@ -65465,6 +65472,7 @@ var render = function() {
               _c("label", { attrs: { for: objetos } }, [
                 _vm._v(_vm._s(objetos["nombre"]))
               ]),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -65476,8 +65484,9 @@ var render = function() {
                 ],
                 attrs: { type: "checkbox", id: objetos["id_control"] },
                 domProps: {
+                  value: objetos["id_objeto"],
                   checked: Array.isArray(_vm.objetosDevueltos)
-                    ? _vm._i(_vm.objetosDevueltos, null) > -1
+                    ? _vm._i(_vm.objetosDevueltos, objetos["id_objeto"]) > -1
                     : _vm.objetosDevueltos
                 },
                 on: {
@@ -65486,7 +65495,7 @@ var render = function() {
                       $$el = $event.target,
                       $$c = $$el.checked ? true : false
                     if (Array.isArray($$a)) {
-                      var $$v = null,
+                      var $$v = objetos["id_objeto"],
                         $$i = _vm._i($$a, $$v)
                       if ($$el.checked) {
                         $$i < 0 && (_vm.objetosDevueltos = $$a.concat([$$v]))
@@ -65904,19 +65913,27 @@ var render = function() {
       _vm._v(" "),
       _vm.esDevolucion
         ? _c(
-            "app-modalDevolucion",
-            { attrs: { objetos: _vm.objeto, activar: this.activar } },
+            "modalDevolucion",
+            {
+              ref: "ventanaDevolucion",
+              attrs: {
+                objetos: _vm.objeto,
+                hora: _vm.showTime(2),
+                idRegistro: this.idRegistroExistente,
+                idPrestamo: this.idPrestamoRegistrado
+              }
+            },
             [
               _c("input", {
                 staticClass: "botonFin",
                 attrs: { type: "button", value: "Listo" },
                 on: {
                   click: function($event) {
-                    this.activar = true /*esDevolucion=false*/
+                    _vm.devolucion()
+                    _vm.esDevolucion = false
                   }
                 }
-              }),
-              _vm._v("\r\n          " + _vm._s(this.activar) + "\r\n        ")
+              })
             ]
           )
         : _vm._e()

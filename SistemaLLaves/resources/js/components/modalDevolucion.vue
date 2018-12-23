@@ -2,9 +2,9 @@
     <div class="capa-cebolla">
         <div class="ventanaModal">
             <h3 class="titulo">objetos prestados</h3>
-            {{this.disparaMetodo}}
             <div v-for="objetos in listado" :key="objetos['id_control']" class="listado">
-                <label :for="objetos">{{objetos['nombre']}}</label><input type="checkbox" :id="objetos['id_control']" v-model="objetosDevueltos"><br>
+                <label :for="objetos">{{objetos['nombre']}}</label>
+                <input type="checkbox" :id="objetos['id_control']" v-model="objetosDevueltos" :value="objetos['id_objeto']"><br>
             </div>
 
             <slot class=""></slot>
@@ -65,20 +65,26 @@ export default {
     data(){
         return {
             listado:this.objetos,
-            disparaMetodo:this.activar,
             objetosDevueltos:[]
         }
     },
     props:[
         'objetos',
-        'activar'
+        'hora',
+        'idRegistro',
+        'idPrestamo'
     ],
-    watch:{
-        disparaMetodo:function(){
-            console.log("asdfasdf")
-        }
-    },
     methods:{
+        hacerDevolucion(){
+            let cadenaObjetos=this.objetosDevueltos.join();
+            /*let horaDevolucion = this.hora;
+            let registro = this.idRegistro;
+            let prestamo = this.idPrestamo;*/
+            axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.idPrestamo,'objDevueltos':cadenaObjetos})
+            .then(res=>{
+                console.log(res);
+            });
+        }
     }
 }
 </script>
