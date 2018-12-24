@@ -31,14 +31,14 @@
             <a href="#modal-soporte-container" class="link">Soporte</a>
           </li>
           <li>
-            <a href="/salir" class="link">Salir</a>
+           <a href="/salir" style="display:block; height:100%; width:100%;"><i class="icon-salir salir"></i></a>
           </li>
         </ol>
       </nav>
       <i class="icon-out log-out" id="log-out"></i>
       <div id="modal-soporte-container" class="modal-soporte-container">
         <div class="modal-soporte-content">
-          <h2 class="modal-soporte-tittle">¿Tiene algún problema?</h3>
+          <h2 class="modal-soporte-tittle">Reportar un problemas</h3>
           <div class="modal-soporte-description">
             <h3>Asunto</h3>
             <input type="text" id="modal-soporte-asunto">
