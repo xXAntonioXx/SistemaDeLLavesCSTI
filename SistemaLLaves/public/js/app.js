@@ -65443,7 +65443,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             let registro = this.idRegistro;
             let prestamo = this.idPrestamo;*/
             axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.idPrestamo, 'objDevueltos': cadenaObjetos }).then(function (res) {
-                console.log(res);
+                if (res.data) {
+                    alert("devolucion realizada");
+                } else {
+                    console.log(res);
+                }
             });
         }
     }
@@ -65918,7 +65922,7 @@ var render = function() {
               ref: "ventanaDevolucion",
               attrs: {
                 objetos: _vm.objeto,
-                hora: _vm.showTime(2),
+                hora: _vm.showTime(1),
                 idRegistro: this.idRegistroExistente,
                 idPrestamo: this.idPrestamoRegistrado
               }

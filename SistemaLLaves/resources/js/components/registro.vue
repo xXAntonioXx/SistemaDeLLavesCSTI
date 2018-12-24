@@ -77,7 +77,7 @@
         <!--app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" activar="true" ref="ventanaDevolucion">
           <input type="button" value="Listo" class="botonFin" @click="this.$ref.ventanaDevolucion.alerta();esDevolucion=false">
         </app-modalDevolucion-->
-        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(2)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado">
+        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado">
           <input type="button" value="Listo" class="botonFin" @click="devolucion();esDevolucion=false">
         </modalDevolucion>
     </div>

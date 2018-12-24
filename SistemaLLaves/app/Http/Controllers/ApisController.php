@@ -42,7 +42,9 @@ class ApisController extends Controller
         $horaDevolucion = $req["horaDevolucion"];
         $idPrestamoObjetos = $req["idPrestamos"];
         $objetosDevueltos = $req["objDevueltos"];
-        return $registro . $horaDevolucion . $idPrestamoObjetos . $objetosDevueltos;
+        $UpdateRegistro="CALL sp_set_registro({$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
+        $this->conexion->query($UpdateRegistro);
+        return true;
     }
 
     public function buscarHorario($codigo,$hora){//buscamos el horario en base al codigo de la llave y la hora

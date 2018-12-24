@@ -81,8 +81,12 @@ export default {
             let registro = this.idRegistro;
             let prestamo = this.idPrestamo;*/
             axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.idPrestamo,'objDevueltos':cadenaObjetos})
-            .then(res=>{
-                console.log(res);
+            .then((res)=>{
+                if (res.data){
+                    alert("devolucion realizada");
+                }else{
+                    console.log(res);
+                }
             });
         }
     }
