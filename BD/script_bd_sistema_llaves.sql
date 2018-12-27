@@ -26,6 +26,7 @@ CREATE TABLE taulas(
 id INT AUTO_INCREMENT,
 numero INT(11) UNIQUE,
 area VARCHAR(8),
+aula VARCHAR(8),
 PRIMARY KEY (id)
 );
 
