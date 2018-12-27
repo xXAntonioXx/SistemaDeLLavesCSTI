@@ -15,16 +15,15 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
 Vue.component(
     'registro', 
     require('./components/registro.vue')
 );
 
-/*vue.component(
+Vue.component(
     'busqueda',
     require('./components/Busqueda.vue')
-);*/
+);
 
 const app = new Vue({
     el: '#app',
