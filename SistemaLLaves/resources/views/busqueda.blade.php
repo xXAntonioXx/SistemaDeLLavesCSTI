@@ -34,7 +34,7 @@
           <option value="22:00">22:00</option>
         </select>
         <p>a</p>
-        <select class="search-inputs hours"
+        <select class="search-inputs hours">
           <option value="07:59">07:59</option>
           <option value="08:59">08:59</option>
           <option value="09:59">09:59</option>
@@ -74,144 +74,11 @@
     <div class="search-results-tittle" id="REGISTROS">
       <h2>REGISTROS</h2>
     </div>
-    <div class="search-results-content">
-      <div class="search-results-content-card">
-        <h3 id="search-results-id">1</h3>
-        <div>
-          <div>
-            <h3 id="search-results-class">Estructura de datos</h3>
-            <p id="search-results-date">19/12/2018</p>
-          </div>
-          <div>
-            <p>Maestro/a: </p>
-            <p id="search-results-teacher">Raquel Torres</p>
-          </div>
-          <div>
-            <p>Aula: </p>
-            <p id="search-results-classroom">5j-205</p>
-          </div>
-          <div>
-            <p>Entrada:</p>
-            <p id="search-results-start">12:00</p>
-            <p>Salida:</p>
-            <p id="search-results-end">13:00</p>
-          </div>
-          <div>
-            <p id="search-results-objects">Prestamos</p>
-            <div class="search-results-division"></div>
-            <p class="search-results-symbol">&#9660;</p>
-          </div>
-          <div class="search-results-loanobjects">
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="search-results-content-card">
-        <h3 id="search-results-id">1</h3>
-        <div>
-          <div>
-            <h3 id="search-results-class">Estructura de datos</h3>
-            <p id="search-results-date">19/12/2018</p>
-          </div>
-          <div>
-            <p>Maestro/a: </p>
-            <p id="search-results-teacher">Raquel Torres</p>
-          </div>
-          <div>
-            <p>Aula: </p>
-            <p id="search-results-classroom">5j-205</p>
-          </div>
-          <div>
-            <p>Entrada:</p>
-            <p id="search-results-start">12:00</p>
-            <p>Salida:</p>
-            <p id="search-results-end">13:00</p>
-          </div>
-          <div>
-            <p id="search-results-objects">Prestamos</p>
-            <div class="search-results-division"></div>
-            <p class="search-results-symbol">&#9660;</p>
-          </div>
-          <div class="search-results-loanobjects">
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="search-results-content-card">
-        <h3 id="search-results-id">1</h3>
-        <div>
-          <div>
-            <h3 id="search-results-class">Estructura de datos</h3>
-            <p id="search-results-date">19/12/2018</p>
-          </div>
-          <div>
-            <p>Maestro/a: </p>
-            <p id="search-results-teacher">Raquel Torres</p>
-          </div>
-          <div>
-            <p>Aula: </p>
-            <p id="search-results-classroom">5j-205</p>
-          </div>
-          <div>
-            <p>Entrada:</p>
-            <p id="search-results-start">12:00</p>
-            <p>Salida:</p>
-            <p id="search-results-end">13:00</p>
-          </div>
-          <div>
-            <p id="search-results-objects">Prestamos</p>
-            <div class="search-results-division"></div>
-            <p class="search-results-symbol">&#9660;</p>
-          </div>
-          <div class="search-results-loanobjects">
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-            <div >
-              <p id="search-results-objectname">Proyector</p>
-              <p id="search-results-objectbrand">Cannon</p>
-              <p id="search-results-objectstatus">Devuelto</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div id="app" >
+      <!--listaBusqueda></listaBusqueda-->
     </div>
   </div>
 </div>
 </div>
+<script src="{{asset('js/app.js')}}"></script>
 @stop

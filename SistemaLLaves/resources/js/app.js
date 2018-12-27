@@ -16,8 +16,16 @@ window.Vue = require('vue');
  */
 
 
-Vue.component('registro', require('./components/registro.vue'));
+Vue.component(
+    'registro', 
+    require('./components/registro.vue')
+);
+
+/*vue.component(
+    'busqueda',
+    require('./components/Busqueda.vue')
+);*/
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });
