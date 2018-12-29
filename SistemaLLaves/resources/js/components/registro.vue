@@ -69,13 +69,13 @@
           </div>
           <div class="modal-buttons">
             <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro()" onclick="window.location='#';">
-            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="cleanObjPrestamo()">
+            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="PrestamoList=''">
           </div>
         </div>
       </div>
     </section>
         <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado">
-          <input type="button" value="Listo" class="botonFin" @click="devolucion();esDevolucion=false">
+          <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
           <input type="submit" value="Cancelar" class="botonCancelar" @click="cancelarDevolucion()" />
         </modalDevolucion>
     </div>
@@ -180,9 +180,11 @@ export default {
       },
 
       agregarCombo(identificador,objeto){//deshabilitamos el combo seleccionado y generamos un nuevo combo
-        this.PrestamoList+=objeto+',';
-        identificador["estado"]=true;
-        this.comboIterates.push({id:identificador['id']+1,estado:false});
+        if(this.comboIterates.length<4){
+          this.PrestamoList+=objeto+',';
+          identificador["estado"]=true;
+          this.comboIterates.push({id:identificador['id']+1,estado:false});
+        }
       },
 
       formularioParaExcepcion(){//limpiamos todo el formulario(posiblemente hay que eliminar)
@@ -193,7 +195,7 @@ export default {
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
         this.comboIterates=[{id:1,estado:false,valor:'1'}];
-        this.PrestamoList='';
+        //this.PrestamoList='';
         this.registroForm=[];
         this.codigoKey='';
         this.RegistrarState=true;

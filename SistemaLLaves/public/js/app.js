@@ -64336,9 +64336,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     agregarCombo: function agregarCombo(identificador, objeto) {
       //deshabilitamos el combo seleccionado y generamos un nuevo combo
-      this.PrestamoList += objeto + ',';
-      identificador["estado"] = true;
-      this.comboIterates.push({ id: identificador['id'] + 1, estado: false });
+      if (this.comboIterates.length < 4) {
+        this.PrestamoList += objeto + ',';
+        identificador["estado"] = true;
+        this.comboIterates.push({ id: identificador['id'] + 1, estado: false });
+      }
     },
     formularioParaExcepcion: function formularioParaExcepcion() {
       //limpiamos todo el formulario(posiblemente hay que eliminar)
@@ -64349,7 +64351,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     cleanObjPrestamo: function cleanObjPrestamo() {
       //limpiamos el formulario despues de generar un registro
       this.comboIterates = [{ id: 1, estado: false, valor: '1' }];
-      this.PrestamoList = '';
+      //this.PrestamoList='';
       this.registroForm = [];
       this.codigoKey = '';
       this.RegistrarState = true;
@@ -65957,7 +65959,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.cleanObjPrestamo()
+                      _vm.PrestamoList = ""
                     }
                   }
                 })
@@ -65982,7 +65984,7 @@ var render = function() {
             [
               _c("input", {
                 staticClass: "botonFin",
-                attrs: { type: "button", value: "Listo" },
+                attrs: { type: "button", value: "Aceptar" },
                 on: {
                   click: function($event) {
                     _vm.devolucion()
