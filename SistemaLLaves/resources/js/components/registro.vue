@@ -60,7 +60,7 @@
         <div class="modal-content">
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
-            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']">
+            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
               <option :value="1">Control A/AC(Mirage)</option>
               <option :value="2">Control A/AC(YORK)</option>
               <option :value="3">Control Cañon</option>
@@ -69,7 +69,7 @@
           </div>
           <div class="modal-buttons">
             <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro()" onclick="window.location='#';">
-            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="PrestamoList=''">
+            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="comboIterates=[{id:1,estado:false,valor:'0'}];PrestamoList=''">
           </div>
         </div>
       </div>
@@ -182,9 +182,11 @@ export default {
       agregarCombo(identificador,objeto){//deshabilitamos el combo seleccionado y generamos un nuevo combo
         if(this.comboIterates.length<4){
           this.PrestamoList+=objeto+',';
-          identificador["estado"]=true;
           this.comboIterates.push({id:identificador['id']+1,estado:false});
+        }else if(this.comboIterates.length==4){
+          this.PrestamoList+=objeto+',';
         }
+          identificador["estado"]=true;
       },
 
       formularioParaExcepcion(){//limpiamos todo el formulario(posiblemente hay que eliminar)

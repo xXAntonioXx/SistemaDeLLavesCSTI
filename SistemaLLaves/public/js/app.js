@@ -64338,9 +64338,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //deshabilitamos el combo seleccionado y generamos un nuevo combo
       if (this.comboIterates.length < 4) {
         this.PrestamoList += objeto + ',';
-        identificador["estado"] = true;
         this.comboIterates.push({ id: identificador['id'] + 1, estado: false });
+      } else if (this.comboIterates.length == 4) {
+        this.PrestamoList += objeto + ',';
       }
+      identificador["estado"] = true;
+      alert(this.PrestamoList);
     },
     formularioParaExcepcion: function formularioParaExcepcion() {
       //limpiamos todo el formulario(posiblemente hay que eliminar)
@@ -65889,6 +65892,7 @@ var render = function() {
                         id: "modal-article-list",
                         disabled: (_vm.validate = comboInd["estado"])
                       },
+                      domProps: { value: null },
                       on: {
                         change: [
                           function($event) {
@@ -65959,6 +65963,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
+                      _vm.comboIterates = [{ id: 1, estado: false, valor: "0" }]
                       _vm.PrestamoList = ""
                     }
                   }
