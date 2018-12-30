@@ -5,7 +5,7 @@
 En este archivo se encuentran todos los procedimientos almacenados 
 que hacen operaciones que solo los administradores pueden realizar.
 
-
+*/
 
 
 /*-----------------------------------------------------*/
@@ -61,54 +61,54 @@ END
 DELIMITER ;
 
 /*-----------------------------------------------------*/
-/*---------------- REGISTRO DE HORARIOS --------------*/
-/*---------------------------------------------------*/
+/*-------------------- EN PROCESO --------------------*/
+/*---------------- REGISTRO DE HORARIOS -------------*/
+/*--------------------------------------------------*/
 /*Registro de horario*/
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_horario;
 CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 
-	in p_codigo_llave BIGINT(20),
-	in p_year YEAR(4),
-	in p_ciclo CHAR(1),
 	in p_num_emp_maestro INT,
+	in p_nombre_maestro VARCHAR(70),
 	in p_nombre_mat VARCHAR(150),
+	in p_programa_mat VARCHAR(10),
+	in p_codigo_llave BIGINT(20),
 	in p_dias VARCHAR(50),
 	in p_hora_inicio TIME,
-	in p_hora_fin TIME
-
+	in p_hora_fin TIME,
+	in p_year YEAR(4),
+	in p_ciclo CHAR(1)
 )
 BEGIN
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
 		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
-	end if;
+	END IF;
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaterias WHERE nombre=UPPER(p_nombre_mat)) THEN
-		SIGNAL SQLSTATE '46001'
-		SET MESSAGE_TEXT='La materia indicada no se encuentra registrada.';
-	end if;
+		CALL sp_registrar_materia(p_nombre_mat, p_programa_mat);
+	END IF;
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
-		SIGNAL SQLSTATE '46002'
-		SET MESSAGE_TEXT='EL maestro indicado no se encuentra registrado.';
-	end if;
+		CALL sp_registrar_maestro(p_num_emp_maestro,p_nombre_maestro);
+	END IF;
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias)) THEN
 		INSERT INTO sistema_llaves.tdias (id,dias) values(null,UPPER(p_dias));
-	end if;
+	END IF;
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.thoras WHERE hora_inicio=p_hora_inicio and hora_fin=p_hora_fin) THEN
 		INSERT INTO sistema_llaves.thoras(id,hora_inicio,hora_fin) VALUES (null,p_hora_inicio,p_hora_fin);
-	end if;
+	END IF;
 
 	SELECT @var1 := id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias);
 	SELECT @var2 := id FROM sistema_llaves.thoras WHERE hora_inicio=p_hora_inicio and hora_fin=p_hora_fin;
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias_horas WHERE idDias=@var1 AND idHoras=@var2) THEN
 		INSERT INTO sistema_llaves.tdias_horas (id,idDias,idHoras) VALUES (null,@var1, @var2);
-	end if;
+	END IF;
 
 	SELECT @var3 := id FROM sistema_llaves.tmaterias WHERE nombre=p_nombre_mat;
 	SELECT @var4 := id FROM tdias_horas WHERE idDias=@var1 and idHoras=@var2;

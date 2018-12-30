@@ -1,3 +1,12 @@
+/*
+-------------------------------
+---- Autor:Murillo Mario ------
+-------------------------------
+En este archivo se encuentran todos los procedimientos almacenados 
+que hacen operaciones que solo los administradores pueden realizar.
+
+*/
+
 
 /*--------------------------------------*/
 /*----------------EN PROCESO--------------*/

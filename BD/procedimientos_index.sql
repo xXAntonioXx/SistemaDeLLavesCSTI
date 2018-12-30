@@ -6,7 +6,7 @@ En este archivo se encuentran todos los procedimientos
 almacenados que se ejecutaran en la vista inicio del
 sitio web.
 
-
+*/
 
 /*-----------------------------------------------------*/
 /*------- OBTENER LAS LLAVES EN PRESTAMO DEL DÍA -----*/
@@ -222,7 +222,7 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
 	in p_id_objeto_arg VARCHAR(1000)
 )
  BEGIN
- 	IF p_id_objeto_arg IS NOT NULL THEN
+ 	IF p_id_objeto_arg IS NOT NULL AND LENGTH(p_id_objeto_arg)>0 THEN
  		CALL sp_registrar_prestamo(0,p_id_objeto_arg);
  	END IF;
  	CASE
