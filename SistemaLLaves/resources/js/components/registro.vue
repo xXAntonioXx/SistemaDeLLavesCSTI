@@ -159,6 +159,7 @@ export default {
 
       devolucion(){
         this.$refs.ventanaDevolucion.hacerDevolucion();
+        this.fetchRegistros();
       },
       cancelarDevolucion(){
         this.$refs.ventanaDevolucion.cancelar();

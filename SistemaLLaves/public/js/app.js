@@ -64314,6 +64314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     devolucion: function devolucion() {
       this.$refs.ventanaDevolucion.hacerDevolucion();
+      this.fetchRegistros();
     },
     cancelarDevolucion: function cancelarDevolucion() {
       this.$refs.ventanaDevolucion.cancelar();
@@ -64343,7 +64344,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.PrestamoList += objeto + ',';
       }
       identificador["estado"] = true;
-      alert(this.PrestamoList);
     },
     formularioParaExcepcion: function formularioParaExcepcion() {
       //limpiamos todo el formulario(posiblemente hay que eliminar)
