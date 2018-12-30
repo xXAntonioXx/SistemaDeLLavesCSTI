@@ -172,13 +172,13 @@ BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
 		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
-	end if;
+	END IF;
 
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
 		SIGNAL SQLSTATE '46002'
 		SET MESSAGE_TEXT='EL maestro indicado no se encuentra registrado.';
-	end if;
+	END IF;
 
 	INSERT INTO texcepciones(id,codigo_llave,num_emp) VALUES (null,p_codigo_llave,p_num_emp_maestro);
 
@@ -238,7 +238,6 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
 
  	SET @id_excepcion=null;
  	SET @id_prest=null;
-
 END
 //
 DELIMITER ;
@@ -263,7 +262,8 @@ BEGIN
 	SELECT * FROM tregistros AS reg
  	INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
  	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
- 	WHERE llav.codigo=p_codigo_llave and reg.hora_entrada>=from_unixtime(CURDATE(),'%Y-%m-%d') and reg.hora_salida IS NULL
+ 	WHERE llav.codigo=p_codigo_llave and reg.hora_salida IS NULL
+ 	and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59'))
  	) THEN
  		SELECT reg.id as id,mae.nombre, mat.nombre as materia, reg.hora_entrada,reg.id_prestamo 
  		FROM tregistros AS reg
