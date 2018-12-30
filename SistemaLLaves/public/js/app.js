@@ -64234,8 +64234,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -64317,6 +64315,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     devolucion: function devolucion() {
       this.$refs.ventanaDevolucion.hacerDevolucion();
     },
+    cancelarDevolucion: function cancelarDevolucion() {
+      this.$refs.ventanaDevolucion.cancelar();
+      this.esDevolucion = false;
+      this.codigoKey = '';
+    },
     buscarHorario: function buscarHorario(codigoLLave) {
       var _this3 = this;
 
@@ -64333,10 +64336,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     agregarCombo: function agregarCombo(identificador, objeto) {
       //deshabilitamos el combo seleccionado y generamos un nuevo combo
-      this.PrestamoList += objeto + ',';
-      identificador["estado"] = true;
-      this.comboIterates.push({ id: identificador['id'] + 1, estado: false });
-      alert(this.PrestamoList);
+      if (this.comboIterates.length < 4) {
+        this.PrestamoList += objeto + ',';
+        identificador["estado"] = true;
+        this.comboIterates.push({ id: identificador['id'] + 1, estado: false });
+      }
     },
     formularioParaExcepcion: function formularioParaExcepcion() {
       //limpiamos todo el formulario(posiblemente hay que eliminar)
@@ -64347,7 +64351,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     cleanObjPrestamo: function cleanObjPrestamo() {
       //limpiamos el formulario despues de generar un registro
       this.comboIterates = [{ id: 1, estado: false, valor: '1' }];
-      this.PrestamoList = '';
+      //this.PrestamoList='';
       this.registroForm = [];
       this.codigoKey = '';
       this.RegistrarState = true;
@@ -65355,7 +65359,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.capa-cebolla{\n    position: absolute;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n}\n.ventanaModal{\n    height: 80%;\n    width: 30%;\n    margin-left: 35%;\n    margin-top: 3%;\n    border-radius: 9px;\n    font-family: Arial, Helvetica, sans-serif;\n    position: absolute;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n}\n.titulo{\n    border-bottom: 2px solid #004990;\n    font-weight: 500;\n    margin: 0%;\n    padding: 5%;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: lighter;\n    grid-template-columns: repeat(2,1fr);\n}\n.listado input{\n    border-radius: 9px;\n}\n.botonFin{\n    border: 1px solid #004990;\n    border-radius: 50px;\n    width: 50%;\n    height: 7%;\n    background: white;\n    font-size: 70%;\n    margin-top: 70%;\n}\n", ""]);
+exports.push([module.i, "\n.capa-cebolla{\n    position: fixed;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n    display:-webkit-box;\n    display:-ms-flexbox;\n    display:flex;\n    top: 0;\n    bottom: 100%;\n}\n.ventanaModal{\n    height: 80vh;\n    width: 500px;\n    margin: auto;\n    border-radius: 5px;\n    position: relative;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    border: 2px solid grey;\n}\n.titulo{\n    font-family: Montserrat,sans-serif;\n    border-bottom: 2px solid #004990;\n    font-weight: 500;\n    font-size: 1.7rem;\n    margin: 0%;\n    padding: 5%;\n}\n.contentListado{\n    height: 75%;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: lighter;\n    font-size: 1.7rem;\n    grid-template-columns: repeat(2,1fr);\n}\n.listado input{\n    border-radius: 9px;\n}\n.botonFin{\n    border-radius: 50px;\n    width: 30%;\n    background: #004990;\n    font-size: 70%;\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    margin: auto;\n    height: 30px;\n}\n.botonCancelar{\n    border: 2px solid #004990;\n    border-radius: 50px;\n    width: 30%;\n    background: white;\n    font-size: 70%;\n    -ms-flex-item-align: center;\n        align-self: center;\n    margin: auto;\n    height: 30px;\n}\n.opciones{\n    vertical-align: bottom;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    /*grid-template-columns: repeat(2,1fr);*/\n    font-size: 0.7em;\n}\n", ""]);
 
 // exports
 
@@ -65366,6 +65370,42 @@ exports.push([module.i, "\n.capa-cebolla{\n    position: absolute;\n    z-index:
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -65451,6 +65491,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(res);
                 }
             });
+        },
+        cancelar: function cancelar() {
+            this.objetos, this.hora, this.idRegistro, this.idPrestamo = null;
         }
     }
 });
@@ -65464,12 +65507,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "capa-cebolla" }, [
-    _c(
-      "div",
-      { staticClass: "ventanaModal" },
-      [
-        _c("h3", { staticClass: "titulo" }, [_vm._v("objetos prestados")]),
-        _vm._v(" "),
+    _c("div", { staticClass: "ventanaModal" }, [
+      _c("h3", { staticClass: "titulo" }, [_vm._v("objetos prestados")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "contentListado" },
         _vm._l(_vm.listado, function(objetos) {
           return _c(
             "div",
@@ -65520,12 +65563,11 @@ var render = function() {
               _c("br")
             ]
           )
-        }),
-        _vm._v(" "),
-        _vm._t("default")
-      ],
-      2
-    )
+        })
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "opciones" }, [_vm._t("default")], 2)
+    ])
   ])
 }
 var staticRenderFns = []
@@ -65803,6 +65845,16 @@ var render = function() {
               onclick: "window.location='#modal-container'",
               disabled: (_vm.validated = _vm.RegistrarState)
             }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "cancelar",
+            attrs: { type: "submit", value: "Cancelar" },
+            on: {
+              click: function($event) {
+                _vm.cleanObjPrestamo()
+              }
+            }
           })
         ]),
         _vm._v(" "),
@@ -65907,7 +65959,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.cleanObjPrestamo()
+                      _vm.PrestamoList = ""
                     }
                   }
                 })
@@ -65932,11 +65984,21 @@ var render = function() {
             [
               _c("input", {
                 staticClass: "botonFin",
-                attrs: { type: "button", value: "Listo" },
+                attrs: { type: "button", value: "Aceptar" },
                 on: {
                   click: function($event) {
                     _vm.devolucion()
                     _vm.esDevolucion = false
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "botonCancelar",
+                attrs: { type: "submit", value: "Cancelar" },
+                on: {
+                  click: function($event) {
+                    _vm.cancelarDevolucion()
                   }
                 }
               })
