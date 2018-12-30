@@ -67,7 +67,7 @@ los maestros*/
 de dias en las cuales se inpartiran las clases*/
 CREATE TABLE tdias(
 id INT AUTO_INCREMENT,
-dias VARCHAR(50) NOT NULL,
+dias VARCHAR(52) NOT NULL,
 PRIMARY KEY(id)
 );
 

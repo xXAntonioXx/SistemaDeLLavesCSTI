@@ -41,6 +41,7 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
 )
  BEGIN
  	DECLARE expresion VARCHAR(9) DEFAULT 'null';
+ 	DECLARE p_ciclo INT(11) DEFAULT 1;
  	IF CONVERT(MINUTE(p_hora),UNSIGNED) > 39 THEN
  		SET p_hora = p_hora + INTERVAL (60 - CONVERT(MINUTE(p_hora),UNSIGNED)) MINUTE;
  		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
@@ -48,6 +49,13 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  		SET p_hora = p_hora - INTERVAL CONVERT(MINUTE(p_hora),UNSIGNED) MINUTE;
  		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
  	END IF;
+
+ 	IF CONVERT(MONTH(p_hora),UNSIGNED)>=6 AND CONVERT(MONTH(p_hora),UNSIGNED)<=7 THEN
+ 		SET p_ciclo = 2;
+ 	ELSEIF CONVERT(MONTH(p_hora),UNSIGNED)>=8 AND CONVERT(MONTH(p_hora),UNSIGNED)<=12 THEN
+ 		SET p_ciclo = 3;
+ 	END IF;
+
 
  	SET expresion = (ELT(WEEKDAY(p_hora) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'));
  	SELECT ho.id AS id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula
@@ -59,7 +67,7 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
  	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
  	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
- 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=3 
+ 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=p_ciclo
  	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
  	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
  END

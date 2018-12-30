@@ -31,7 +31,7 @@ BEGIN
 			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
-			WHERE  mae.nombre = UPPER(p_maestro) AND mat.nombre = UPPER(p_materia) AND aul.area=UPPER(p_area) AND aul.aula=UPPER(p_aula)
+			WHERE  mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%') AND aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%')
 			AND TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta);
 		
@@ -56,7 +56,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND mae.nombre = UPPER(p_maestro);
+			AND mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NULL) AND (p_materia IS NOT NULL) AND (p_area IS NULL) AND (p_aula IS NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -68,7 +68,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND mat.nombre = UPPER(p_materia);
+			AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NULL) AND (p_materia IS NULL) AND (p_area IS NOT NULL) AND (p_aula IS NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -80,7 +80,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.area = UPPER(p_area);
+			AND aul.area LIKE CONCAT('%',UPPER(p_area),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NULL) AND (p_materia IS NULL) AND (p_area IS NULL) AND (p_aula IS NOT NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -92,7 +92,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.aula = UPPER(p_aula);
+			AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NULL) AND (p_materia IS NULL) AND (p_area IS NOT NULL) AND (p_aula IS NOT NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -104,7 +104,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.area = UPPER(p_area) AND aul.aula = UPPER(p_aula);
+			AND aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NOT NULL) AND (p_materia IS NULL) AND (p_area IS NULL) AND (p_aula IS NOT NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -116,7 +116,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.aula = UPPER(p_aula) AND mae.nombre = UPPER(p_maestro);
+			AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%') AND mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NULL) AND (p_materia IS NOT NULL) AND (p_area IS NULL) AND (p_aula IS NOT NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -128,7 +128,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.aula = UPPER(p_aula) AND mat.nombre = UPPER(p_materia);
+			AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NOT NULL) AND (p_materia IS NULL) AND (p_area IS NOT NULL) AND (p_aula IS NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -140,7 +140,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.area = UPPER(p_area) AND mae.nombre = UPPER(p_maestro);
+			AND aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NULL) AND (p_materia IS NOT NULL) AND (p_area IS NOT NULL) AND (p_aula IS NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -152,7 +152,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.area = UPPER(p_area) AND mat.nombre = UPPER(p_materia);
+			AND aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NOT NULL) AND (p_materia IS NOT NULL) AND (p_area IS NULL) AND (p_aula IS NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -164,7 +164,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND mae.nombre = UPPER(p_maestro) AND mat.nombre = UPPER(p_materia);
+			AND mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NOT NULL) AND (p_materia IS NULL) AND (p_area IS NOT NULL) AND (p_aula IS NOT NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -176,7 +176,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.area = UPPER(p_area) AND aul.aula = UPPER(p_aula) AND mae.nombre = UPPER(p_maestro);
+			AND aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%') AND mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NULL) AND (p_materia IS NOT NULL) AND (p_area IS NOT NULL) AND (p_aula IS NOT NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -188,7 +188,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND aul.area = UPPER(p_area) AND aul.aula = UPPER(p_aula) AND mat.nombre = UPPER(p_materia);
+			AND aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NOT NULL) AND (p_materia IS NOT NULL) AND (p_area IS NULL) AND (p_aula IS NOT NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -200,7 +200,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND  aul.aula = UPPER(p_aula) AND mae.nombre = UPPER(p_maestro) AND mat.nombre = UPPER(p_materia);
+			AND  aul.aula LIKE CONCAT('%',UPPER(p_aula),'%') AND mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%');
 
 		WHEN (p_desde IS NOT NULL) AND (p_hasta IS NOT NULL) AND (p_maestro IS NOT NULL) AND (p_materia IS NOT NULL) AND (p_area IS NOT NULL) AND (p_aula IS NULL) THEN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
@@ -212,7 +212,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
 			AND UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(p_desde) AND UNIX_TIMESTAMP(p_hasta)
-			AND  aul.area = UPPER(p_area) AND mae.nombre = UPPER(p_maestro) AND mat.nombre = UPPER(p_materia);
+			AND  aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%');
 	END CASE;
 END			
 //
