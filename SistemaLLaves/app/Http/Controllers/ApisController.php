@@ -34,13 +34,17 @@ class ApisController extends Controller
 
         $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetchAll();
         $obj=array();
-        foreach ($objetosPrestados as $value) {
-            $aux=array("{$value[0]}"=>$value[2]);
-            $obj=array_merge($obj,$aux);
-            //array_push($obj,$value[2]=$value[2]);
-        }
-        $obJSON=json_encode($obj);
-        return $obJSON;
+        return json_encode($objetosPrestados);
+    }
+
+    public function hacerDevolucion(Request $req){
+        $registro = $req["idRegistro"];
+        $horaDevolucion = $req["horaDevolucion"];
+        $idPrestamoObjetos = $req["idPrestamos"];
+        $objetosDevueltos = $req["objDevueltos"];
+        $UpdateRegistro="CALL sp_set_registro({$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
+        $this->conexion->query($UpdateRegistro);
+        return true;
     }
 
     public function buscarHorario($codigo,$hora){//buscamos el horario en base al codigo de la llave y la hora

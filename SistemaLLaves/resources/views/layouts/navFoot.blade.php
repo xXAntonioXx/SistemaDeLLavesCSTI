@@ -31,14 +31,14 @@
             <a href="#modal-soporte-container" class="link">Soporte</a>
           </li>
           <li>
-            <a href="/salir" class="link">Salir</a>
+           <a href="/salir" style="display:block; height:100%; width:100%;"><i class="icon-salir salir"></i></a>
           </li>
         </ol>
       </nav>
       <i class="icon-out log-out" id="log-out"></i>
       <div id="modal-soporte-container" class="modal-soporte-container">
         <div class="modal-soporte-content">
-          <h2 class="modal-soporte-tittle">¿Tiene algún problema?</h3>
+          <h2 class="modal-soporte-tittle">Reportar un problemas</h3>
           <div class="modal-soporte-description">
             <h3>Asunto</h3>
             <input type="text" id="modal-soporte-asunto">
@@ -72,9 +72,16 @@
         }
       });
       const ipad = window.matchMedia('screen and (max-width: 767px)');
+      const arrows = document.querySelectorAll('.search-results-symbol');
+      const loanObjects = document.querySelectorAll('.search-results-loanobjects');
       const menu = document.querySelector('.menu');
       const nav = document.querySelector('nav');
       const burgerButton = document.querySelector('#burger-menu');
+      for(var i = 0; i < arrows.length; i++){
+        loanObjects[i].setAttribute('id', 'element-'+i);
+        let id = loanObjects.item(i).getAttribute('id');
+        arrows[i].addEventListener('click', function(){ hideShowObjects(id) } );
+      }
       ipad.addListener(validation);
       function validation(event){
         if(event.matches){
@@ -84,16 +91,28 @@
         }
       }
       validation(ipad);
-      function hideShow(){
-        if(menu.classList.contains('is-active')){
-          menu.classList.remove('is-active');
-          nav.classList.remove('is-active');
-        }else {
-          menu.classList.add('is-active');
-          nav.classList.add('is-active');
+      function hideShowObjects(id) {
+        for(let i = 0; i < loanObjects.length; i++){
+          if(loanObjects[i].getAttribute('id')===id){
+            if(loanObjects[i].classList.contains('is-active')){
+              loanObjects[i].classList.remove('is-active');
+              arrows[i].classList.remove('rotation');
+            }else {
+              loanObjects[i].classList.add('is-active');
+              arrows[i].classList.add('rotation');
+            }
+          }
         }
       }
-
+      function hideShow(){
+        if(menu.classList.contains('is-active')){
+          nav.classList.remove('is-active');
+          menu.classList.remove('is-active');
+        }else {
+          nav.classList.add('is-active');
+          menu.classList.add('is-active');
+        }
+      }
       
     </script>
 </body>

@@ -54,13 +54,13 @@
 
       <div class="button-registro">
           <input type="submit" value="Registrar" class="registrar"  onclick="window.location='#modal-container'" :disabled="validated=RegistrarState"/>
+          <input type="submit" value="Cancelar" class="cancelar" @click="cleanObjPrestamo()"/>
       </div>
       <div id="modal-container" class="modal-container" >
         <div class="modal-content">
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
-            <!--select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd)" :disabled="validate=comboInd['estado']" :key="comboInd['id']"-->
-            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']">
+            <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
               <option :value="1">Control A/AC(Mirage)</option>
               <option :value="2">Control A/AC(YORK)</option>
               <option :value="3">Control Cañon</option>
@@ -69,12 +69,15 @@
           </div>
           <div class="modal-buttons">
             <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro()" onclick="window.location='#';">
-            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="cleanObjPrestamo()">
+            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="comboIterates=[{id:1,estado:false,valor:'0'}];PrestamoList=''">
           </div>
         </div>
       </div>
     </section>
-        <app-modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto"></app-modalDevolucion>
+        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado">
+          <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
+          <input type="submit" value="Cancelar" class="botonCancelar" @click="cancelarDevolucion()" />
+        </modalDevolucion>
     </div>
 </template>
 
@@ -100,10 +103,12 @@ export default {
             RegistrarState:true,
             esDevolucion:false,
             objeto:[],
+            idRegistroExistente:'',
+            idPrestamoRegistrado:''
         }
     },
     components:{
-      'app-modalDevolucion':modalDevolucion
+      modalDevolucion
     },
     created(){
       this.fetchRegistros();
@@ -143,12 +148,23 @@ export default {
           }else{
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
-              console.log(res);
               this.objeto=res.data;
               this.esDevolucion=true;
+              this.idRegistroExistente=nuevo;
+              this.idPrestamoRegistrado=resultado;
             });
           }
         });
+      },
+
+      devolucion(){
+        this.$refs.ventanaDevolucion.hacerDevolucion();
+        this.fetchRegistros();
+      },
+      cancelarDevolucion(){
+        this.$refs.ventanaDevolucion.cancelar();
+        this.esDevolucion=false;
+        this.codigoKey='';
       },
 
       buscarHorario(codigoLLave){//obtenemos id,maestro,materia,aula con el codigo de llave
@@ -165,10 +181,13 @@ export default {
       },
 
       agregarCombo(identificador,objeto){//deshabilitamos el combo seleccionado y generamos un nuevo combo
-        this.PrestamoList+=objeto+',';
-        identificador["estado"]=true;
-        this.comboIterates.push({id:identificador['id']+1,estado:false});
-        alert(this.PrestamoList);
+        if(this.comboIterates.length<4){
+          this.PrestamoList+=objeto+',';
+          this.comboIterates.push({id:identificador['id']+1,estado:false});
+        }else if(this.comboIterates.length==4){
+          this.PrestamoList+=objeto+',';
+        }
+          identificador["estado"]=true;
       },
 
       formularioParaExcepcion(){//limpiamos todo el formulario(posiblemente hay que eliminar)
@@ -179,7 +198,7 @@ export default {
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
         this.comboIterates=[{id:1,estado:false,valor:'1'}];
-        this.PrestamoList='';
+        //this.PrestamoList='';
         this.registroForm=[];
         this.codigoKey='';
         this.RegistrarState=true;

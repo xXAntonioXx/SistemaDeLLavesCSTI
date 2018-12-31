@@ -2,9 +2,14 @@
     <div class="capa-cebolla">
         <div class="ventanaModal">
             <h3 class="titulo">objetos prestados</h3>
-            
-            <div v-for="objetos in listado" :key="objetos" class="listado">
-                <label :for="objetos">{{objetos}}</label><input type="checkbox" :id="objetos" v-model="objetosDevueltos"><br>
+            <div class="contentListado">
+                <div v-for="objetos in listado" :key="objetos['id_control']" class="listado">
+                    <label :for="objetos">{{objetos['nombre']}}</label>
+                    <input type="checkbox" :id="objetos['id_control']" v-model="objetosDevueltos" :value="objetos['id_objeto']"><br>
+                </div>
+            </div>
+            <div class="opciones">
+                <slot></slot>
             </div>
         </div>
     </div>
@@ -12,44 +17,82 @@
 
 <style>
     .capa-cebolla{
-        position: absolute;
+        position: fixed;
         z-index: 1;
         background-color: rgba(0, 0, 0,.5);
         height: 100%;
         width: 100%;
+        display:flex;
+        top: 0;
+        bottom: 100%;
     }
     .ventanaModal{
-        height: 80%;
-        width: 30%;
-        margin-left: 35%;
-        margin-top: 3%;
-        border-radius: 9px;
-        font-family: Arial, Helvetica, sans-serif;
-        position: absolute;
+        height: 80vh;
+        width: 500px;
+        margin: auto;
+        border-radius: 5px;
+        position: relative;
+        align-items: center;
         background: white;
         z-index: 3;
         overflow: auto;
         text-align: center;
+        flex-direction: column;
+        border: 2px solid grey;
     }
     .titulo{
+        font-family: Montserrat,sans-serif;
         border-bottom: 2px solid #004990;
         font-weight: 500;
+        font-size: 1.7rem;
         margin: 0%;
         padding: 5%;
+    }
+    .contentListado{
+        height: 75%;
     }
     .listado{
         display: grid;
         align-items: center;
         font-weight: lighter;
+        font-size: 1.7rem;
         grid-template-columns: repeat(2,1fr);
-    }
 
-    /*.listado label{
-        
-        float: left;
-    }*/
+    }
     .listado input{
         border-radius: 9px;
+    }
+
+    .botonFin{
+        border-radius: 50px;
+        width: 30%;
+        background: #004990;
+        font-size: 70%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        height: 30px;
+    }
+
+    .botonCancelar{
+        border: 2px solid #004990;
+        border-radius: 50px;
+        width: 30%;
+        background: white;
+        font-size: 70%;
+        align-self: center;
+        margin: auto;
+        height: 30px;
+    }
+
+    .opciones{
+        vertical-align: bottom;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
+        /*grid-template-columns: repeat(2,1fr);*/
+        font-size: 0.7em;
     }
 </style>
 
@@ -62,8 +105,30 @@ export default {
         }
     },
     props:[
-        'objetos'
-    ]
+        'objetos',
+        'hora',
+        'idRegistro',
+        'idPrestamo'
+    ],
+    methods:{
+        hacerDevolucion(){
+            let cadenaObjetos=this.objetosDevueltos.join();
+            /*let horaDevolucion = this.hora;
+            let registro = this.idRegistro;
+            let prestamo = this.idPrestamo;*/
+            axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.idPrestamo,'objDevueltos':cadenaObjetos})
+            .then((res)=>{
+                if (res.data){
+                    alert("devolucion realizada");
+                }else{
+                    console.log(res);
+                }
+            });
+        },
+        cancelar(){
+            this.objetos,this.hora,this.idRegistro,this.idPrestamo=null;
+        }
+    }
 }
 </script>
 

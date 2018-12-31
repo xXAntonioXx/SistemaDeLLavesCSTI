@@ -6,7 +6,7 @@ En este archivo se encuentran todos los procedimientos
 almacenados que se ejecutaran en la vista inicio del
 sitio web.
 
-
+*/
 
 /*-----------------------------------------------------*/
 /*------- OBTENER LAS LLAVES EN PRESTAMO DEL DÍA -----*/
@@ -41,6 +41,7 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
 )
  BEGIN
  	DECLARE expresion VARCHAR(9) DEFAULT 'null';
+ 	DECLARE p_ciclo INT(11) DEFAULT 1;
  	IF CONVERT(MINUTE(p_hora),UNSIGNED) > 39 THEN
  		SET p_hora = p_hora + INTERVAL (60 - CONVERT(MINUTE(p_hora),UNSIGNED)) MINUTE;
  		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
@@ -48,6 +49,13 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  		SET p_hora = p_hora - INTERVAL CONVERT(MINUTE(p_hora),UNSIGNED) MINUTE;
  		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
  	END IF;
+
+ 	IF CONVERT(MONTH(p_hora),UNSIGNED)>=6 AND CONVERT(MONTH(p_hora),UNSIGNED)<=7 THEN
+ 		SET p_ciclo = 2;
+ 	ELSEIF CONVERT(MONTH(p_hora),UNSIGNED)>=8 AND CONVERT(MONTH(p_hora),UNSIGNED)<=12 THEN
+ 		SET p_ciclo = 3;
+ 	END IF;
+
 
  	SET expresion = (ELT(WEEKDAY(p_hora) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'));
  	SELECT ho.id AS id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula
@@ -59,7 +67,7 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
  	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
  	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
- 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=3 
+ 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=p_ciclo
  	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
  	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
  END
@@ -172,13 +180,13 @@ BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
 		SIGNAL SQLSTATE '46000'
 		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
-	end if;
+	END IF;
 
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
 		SIGNAL SQLSTATE '46002'
 		SET MESSAGE_TEXT='EL maestro indicado no se encuentra registrado.';
-	end if;
+	END IF;
 
 	INSERT INTO texcepciones(id,codigo_llave,num_emp) VALUES (null,p_codigo_llave,p_num_emp_maestro);
 
@@ -214,7 +222,7 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
 	in p_id_objeto_arg VARCHAR(1000)
 )
  BEGIN
- 	IF p_id_objeto_arg IS NOT NULL THEN
+ 	IF p_id_objeto_arg IS NOT NULL AND LENGTH(p_id_objeto_arg)>0 THEN
  		CALL sp_registrar_prestamo(0,p_id_objeto_arg);
  	END IF;
  	CASE
@@ -238,7 +246,6 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
 
  	SET @id_excepcion=null;
  	SET @id_prest=null;
-
 END
 //
 DELIMITER ;
@@ -263,7 +270,8 @@ BEGIN
 	SELECT * FROM tregistros AS reg
  	INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
  	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
- 	WHERE llav.codigo=p_codigo_llave and reg.hora_entrada>=from_unixtime(CURDATE(),'%Y-%m-%d') and reg.hora_salida IS NULL
+ 	WHERE llav.codigo=p_codigo_llave and reg.hora_salida IS NULL
+ 	and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59'))
  	) THEN
  		SELECT reg.id as id,mae.nombre, mat.nombre as materia, reg.hora_entrada,reg.id_prestamo 
  		FROM tregistros AS reg
