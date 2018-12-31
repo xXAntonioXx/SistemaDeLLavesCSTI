@@ -98,7 +98,7 @@ export default {
             registroForm:[],
             estadoInput:true,
             comboIterates:[{id:1,estado:false,valor:'0'}],
-            PrestamoList:'',
+            PrestamoList:"",
             globalTime:'0',
             RegistrarState:true,
             esDevolucion:false,
@@ -108,7 +108,7 @@ export default {
         }
     },
     components:{
-      modalDevolucion
+      modalDevolucion,
     },
     created(){
       this.fetchRegistros();
@@ -152,6 +152,12 @@ export default {
               this.esDevolucion=true;
               this.idRegistroExistente=nuevo;
               this.idPrestamoRegistrado=resultado;
+            })
+            .catch(()=>{
+              this.objeto=[];
+              this.esDevolucion=true;
+              this.idRegistroExistente=nuevo;
+              this.idPrestamoRegistrado="NULL";
             });
           }
         });
@@ -160,6 +166,7 @@ export default {
       devolucion(){
         this.$refs.ventanaDevolucion.hacerDevolucion();
         this.fetchRegistros();
+        this.codigoKey='';
       },
       cancelarDevolucion(){
         this.$refs.ventanaDevolucion.cancelar();
@@ -198,7 +205,6 @@ export default {
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
         this.comboIterates=[{id:1,estado:false,valor:'1'}];
-        //this.PrestamoList='';
         this.registroForm=[];
         this.codigoKey='';
         this.RegistrarState=true;

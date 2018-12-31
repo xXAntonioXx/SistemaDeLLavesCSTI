@@ -113,11 +113,10 @@ export default {
     methods:{
         hacerDevolucion(){
             let cadenaObjetos=this.objetosDevueltos.join();
-            /*let horaDevolucion = this.hora;
-            let registro = this.idRegistro;
-            let prestamo = this.idPrestamo;*/
+            
             axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.idPrestamo,'objDevueltos':cadenaObjetos})
             .then((res)=>{
+                alert("al menos hizo la consulta");
                 if (res.data){
                     alert("devolucion realizada");
                 }else{

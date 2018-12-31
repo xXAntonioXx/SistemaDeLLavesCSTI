@@ -42,6 +42,7 @@ class ApisController extends Controller
         $horaDevolucion = $req["horaDevolucion"];
         $idPrestamoObjetos = $req["idPrestamos"];
         $objetosDevueltos = $req["objDevueltos"];
+
         $UpdateRegistro="CALL sp_set_registro({$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
         $this->conexion->query($UpdateRegistro);
         return true;
@@ -61,6 +62,7 @@ class ApisController extends Controller
         $idHorario=$req["idHorario"];
         $idUsuario=$req->session()->get('id');//obtenemos el identificador de la sercretaria/usuario que registro la llave
         $objetos=$req["objList"];
+        
         $registrar="CALL sp_registrar_registro('{$hora}',{$idHorario},{$idUsuario},'{$objetos}')";
         $this->conexion->query($registrar);
     }
