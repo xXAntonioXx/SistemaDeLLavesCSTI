@@ -27,6 +27,9 @@ nav.is-active {
   text-align: right;
   margin: 0 0 4px 0;
   padding: 0;
+  @media (--large) {
+    padding-bottom: 4px;
+  }
   & li {
     display: inline-block;
     margin: 0 5px;

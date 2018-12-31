@@ -20,10 +20,7 @@
   @apply --button_secundario;
   font-family: 'Hind',sans-serif;
   text-align: center;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding: 3px 32px;
   height: 70%;
   @media (--large) {
     height: 62%;

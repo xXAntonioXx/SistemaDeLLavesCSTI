@@ -1,13 +1,19 @@
 .button-registro {
   grid-area: button-registro;
-  display: flex;
+  display: grid;
+  grid-template-columns: 20% 1fr 1fr;
+  grid-template-areas: ". boton-registrar boton-cancelar"; 
   height: 100%;
   align-items: center;
-  width: 100%;
+  justify-self: center;
+  width: 89%;
   justify-content: center;
   font-size: 1rem;
   & .registrar {
+    grid-area: boton-registrar;
+    width: fit-content;
     @apply --button_principal;
+    border: 2px solid var(--color_principal);
     font-family: 'Hind', sans-serif;
     margin-right: 30px;
     @media (--large) {
@@ -22,10 +28,15 @@
       margin-right: 12px;
     }
     @media (--small-phones) {
-      font-size: 0.6rem;
+      font-size: 0.75rem;
+      padding: 2px 32px;
     }
   }
   & .cancelar {
+    width: fit-content;
+    display: flex;
+    justify-self: flex-end;
+    grid-area: boton-cancelar;
     @apply --button_secundario;
     font-family: 'Hind', sans-serif;
     @media (--large) {
@@ -38,7 +49,8 @@
       font-size: 0.8rem;
     }
     @media (--small-phones) {
-      font-size: 0.6rem;
+      font-size: 0.75rem;
+      padding: 2px 32px;
     }
   }
 }
