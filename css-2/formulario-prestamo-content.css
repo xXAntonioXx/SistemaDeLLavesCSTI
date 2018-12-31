@@ -53,8 +53,22 @@
   color: darkgray;
   padding-top: 0;
   padding-bottom: 0;
+  width: 100%;
   @media (--large) {
     font-size: 1.4rem;
+    width: 98%;
+  }
+  @media (--normal) {
+    width: 98%;
+  }
+  @media (--ipad) {
+    width: 99%;
+  }
+  @media (--phones) {
+    width: 98%;
+  }
+  @media (--small-phones) {
+    width: 100%;
   }
 }
 
