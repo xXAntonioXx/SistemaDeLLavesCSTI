@@ -3,6 +3,7 @@
     <div class="search-results-tittle" id="REGISTROS">
       <h2>REGISTROS</h2>
     </div>
+    
     <div class="search-results-content">
       <div class="search-results-content-card">
         <h3 id="search-results-id">1</h3>
@@ -139,6 +140,51 @@
           </div>
         </div>
       </div>
+      <!--div :v-for="reg in this.showingRegistros" class="search-results-content-card">
+        <h3 id="search-results-id">{{reg['id']}}</h3>
+        <div>
+          <div>
+            <h3 id="search-results-class">{{reg['materia']}}</h3>
+            <p id="search-results-date">{{reg['entrada']}}</p>
+          </div>
+          <div>
+            <p>Maestro/a: </p>
+            <p id="search-results-teacher">{{reg['maestro']}}</p>
+          </div>
+          <div>
+            <p>Aula: </p>
+            <p id="search-results-classroom">{{reg['aula']}}</p>
+          </div>
+          <div>
+            <p>Entrada:</p>
+            <p id="search-results-start">{{reg['entrada'].slice(10,0)}}</p>
+            <p>Salida:</p>
+            <p id="search-results-end">{{reg['salida'].slice(10,0)}}</p>
+          </div>
+          <div>
+            <p id="search-results-objects">Prestamos</p>
+            <div class="search-results-division"></div>
+            <p class="search-results-symbol">&#9660;</p>
+          </div>
+          <div class="search-results-loanobjects">
+            <div >
+              <p id="search-results-objectname">Proyector</p>
+              <p id="search-results-objectbrand">Cannon</p>
+              <p id="search-results-objectstatus">Devuelto</p>
+            </div>
+            <div >
+              <p id="search-results-objectname">Proyector</p>
+              <p id="search-results-objectbrand">Cannon</p>
+              <p id="search-results-objectstatus">Devuelto</p>
+            </div>
+            <div >
+              <p id="search-results-objectname">Proyector</p>
+              <p id="search-results-objectbrand">Cannon</p>
+              <p id="search-results-objectstatus">Devuelto</p>
+            </div>
+          </div>
+        </div>
+      </div-->
     </div>
   </div>
 </template>
@@ -150,8 +196,12 @@
 export default {
     data(){
         return{
+          /*showingRegistros:this.registros*/
         }
     },
+    props:[
+      'registros'
+    ],
     methods:{
 
     }

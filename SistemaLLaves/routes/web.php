@@ -23,22 +23,28 @@ Route::post('/validate','LoginController@validar');//para validar el usuario en 
 
 //rutas para la pagina principal
 Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
-Route::get('/busqueda','PrincipalController@cargarBusqueda')->middleware(CheckSess::class);
+Route::get('/busqueda','BusquedaController@cargarBusqueda')->middleware(CheckSess::class);
 Route::get('/inventario','PrincipalController@cargarInventario')->middleware(CheckSess::class);
+
+//rutas para el area de busqueda
+Route::post('/busqueda_registros','BusquedaController@CargarRegistro');
 
 Route::get('/salir','LoginController@salir');//opcion de salir
 
 Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
 
 //API para consultar la base de datos
-Route::post('/api/nuevoPrestamo','ApisController@nuevoPrestamo')->middleware(CheckSess::class);
-Route::post('/api/nuevoRegistro','ApisController@nuevoRegistro')->middleware(CheckSess::class);
-Route::post('/api/devolucion','ApisController@hacerDevolucion')->middleware(CheckSess::class);
-Route::get('/api/registros','ApisController@registrosNum')->middleware(CheckSess::class);
-Route::get('/api/lap','ApisController@lap')->middleware(CheckSess::class);
-Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario')->middleware(CheckSess::class);
-Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
-Route::get('api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
+
+Route::group(['middleware'=>'CheckSess'],function(){
+    Route::post('/api/nuevoPrestamo','ApisController@nuevoPrestamo');
+    Route::post('/api/nuevoRegistro','ApisController@nuevoRegistro');
+    Route::post('/api/devolucion','ApisController@hacerDevolucion');
+    Route::get('/api/registros','ApisController@registrosNum');
+    Route::get('/api/lap','ApisController@lap');
+    Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
+    Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
+    Route::get('api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
+});
 
 
 

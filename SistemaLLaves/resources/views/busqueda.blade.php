@@ -2,20 +2,21 @@
 @section('cuerpo')
 <div class="container-wrapper">
   <div class="search-container">
-    <form action="" class="search-filters-form">
+    <form action="/busqueda_registros" class="search-filters-form" method="post">
+    {{ csrf_field() }}
       <div class="search-filters-tittle">
         <h2>FILTROS</h2>
       </div>
       <div class="search-filters-content">
         <h3>Fecha</h3>
         <div class="search-filters-days">
-          <input type="date" class="search-inputs date">
+          <input name="fechaMinima" type="date" class="search-inputs date">
           <p>a</p>
-          <input type="date" class="search-inputs date">
+          <input name="fechaMaxima" type="date" class="search-inputs date">
         </div>
         <h3>Hora</h3>
         <div class="search-filters-hours">
-          <select class="search-inputs hours">
+          <select name="horaMinima" class="search-inputs hours">
             <option value="07:00">07:00</option>
             <option value="08:00">08:00</option>
             <option value="09:00">09:00</option>
@@ -34,7 +35,7 @@
             <option value="22:00">22:00</option>
           </select>
           <p>a</p>
-          <select class="search-inputs hours">
+          <select name="horaMaxima" class="search-inputs hours">
             <option value="07:59">07:59</option>
             <option value="08:59">08:59</option>
             <option value="09:59">09:59</option>
@@ -55,24 +56,26 @@
         </div>
         <div class="search-filters-section">
           <h3>Maestro</h3>
-          <input type="text" class="search-inputs">
+          <input name="Maestro" type="text" class="search-inputs">
         </div>
         <div class="search-filters-section">
           <h3>Materia</h3>
-          <input type="text" class="search-inputs">
+          <input name="Materia" type="text" class="search-inputs">
         </div>
         <div class="search-filters-section">
           <h3>Aula</h3>
-          <input type="text" class="search-inputs">
+          <input name="Aula" type="text" class="search-inputs">
         </div>
       </div>
       <div class="search-filters-button">
         <input type="submit" value="Buscar" class="filters-button" onclick="window.location='#REGISTROS';">
       </div>
     </form>
+    @isset($respuesta)
     <div id="app">
-        <busqueda></busqueda>
+    <busqueda registros="{{$respuesta}}"></busqueda>
     </div>
+    @endisset
   </div>
 </div>
 <script src="{{asset('js/app.js')}}"></script>

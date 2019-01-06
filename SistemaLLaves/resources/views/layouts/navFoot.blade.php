@@ -31,7 +31,8 @@
             <a href="#modal-soporte-container" class="link">Soporte</a>
           </li>
           <li>
-           <a href="/salir" style="display:block; height:100%; width:100%;"><i class="icon-salir salir"></i></a>
+           <a href="/salir" ><i class="icon-salir salir"></i></a>
+           
           </li>
         </ol>
       </nav>
