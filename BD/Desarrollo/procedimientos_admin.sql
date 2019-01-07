@@ -16,15 +16,17 @@ DROP  PROCEDURE IF EXISTS sp_registrar_llave;
 CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
 	in p_codigo BIGINT(20),
 	in p_numero INT(11),
-	in p_area VARCHAR(8),
-	in p_aula VARCHAR(8)
+	in p_area VARCHAR(10),
+	in p_aula VARCHAR(10)
 )
 BEGIN
-	IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=UPPER(p_area) and aula=p_aula) THEN
-		INSERT INTO sistema_llaves.taulas(id,numero,area,aula) VALUES (null,p_numero,UPPER(p_area),p_aula);
+	IF NOT EXISTS(SELECT * FROM sistema_llaves.tllaves WHERE codigo=UPPER(p_codigo)) THEN
+		IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=UPPER(p_area) and aula=p_aula) THEN
+			INSERT INTO sistema_llaves.taulas(id,numero,area,aula) VALUES (null,p_numero,UPPER(p_area),p_aula);
+		END IF;
+		SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=p_aula AND area=p_area;
+		INSERT INTO sistema_llaves.tllaves(id,codigo,id_aula) VALUES (null, p_codigo,@var1);
 	END IF;
-	SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=p_aula AND area=p_area;
-	INSERT INTO sistema_llaves.tllaves(id,codigo,id_aula) VALUES (null, p_codigo,@var1);
 END
 //
 DELIMITER ;

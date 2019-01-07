@@ -17,11 +17,13 @@ DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
  CREATE PROCEDURE sistema_llaves.sp_get_llavesPrestadas()
  BEGIN
- 	SELECT r.id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(au.area,"-",au.aula) as salon, r.hora_entrada, r.hora_salida
+ 	SELECT r.id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(au.area,"-",au.aula) as salon, r.hora_entrada, tho.hora_fin as hora_salida
 	FROM sistema_llaves.tregistros AS r 
 	INNER JOIN sistema_llaves.thorarios AS h ON r.id_horario = h.id
 	INNER JOIN sistema_llaves.tmaestros AS mae ON h.num_emp_maestro = mae.num_emp
 	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
+	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = h.id_dias_horas
+	INNER JOIN sistema_llaves.thoras  AS tho  ON tho.id = tdh.idHoras
 	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
 	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
 	WHERE r.hora_entrada >= CURDATE() and r.hora_salida IS NULL;

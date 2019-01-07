@@ -21,18 +21,26 @@ llaves.*/
 /* En la tabla "taulas" se 
 almacenara la informacion de las aulas
 a las que puede pertenecer una llave*/
+DROP DATABASE IF EXISTS sistema_llaves;
 
+CREATE DATABASE IF NOT EXISTS sistema_llaves;
+
+USE sistema_llaves;
+
+
+DROP TABLE IF EXISTS taulas;
 CREATE TABLE taulas(
 id INT AUTO_INCREMENT,
 numero INT(11) UNIQUE,
-area VARCHAR(8),
-aula VARCHAR(8),
+area VARCHAR(10),
+aula VARCHAR(10),
 PRIMARY KEY (id)
 );
 
 /*En la tabla "tllaves" se almacenara
 la informacion de identificacion de las
 llaves*/
+DROP TABLE IF EXISTS tllaves;
 CREATE TABLE tllaves(
 id INT AUTO_INCREMENT,
 codigo BIGINT(20) NOT NULL UNIQUE,
@@ -48,6 +56,7 @@ FOREIGN KEY (id_aula) REFERENCES taulas(id)
 /*La tabla "tmaterias" es donde se almacenara
   la informacion mas basica de las materias*/
 /*------------------------------------------*/
+DROP TABLE IF EXISTS tmaterias;
 CREATE TABLE tmaterias(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(150),
@@ -65,6 +74,7 @@ los maestros*/
 
 /*Tabla "tdias" almacenara la combinaciones
 de dias en las cuales se inpartiran las clases*/
+DROP TABLE IF EXISTS tdias;
 CREATE TABLE tdias(
 id INT AUTO_INCREMENT,
 dias VARCHAR(52) NOT NULL,
@@ -73,6 +83,7 @@ PRIMARY KEY(id)
 
 /*La tabla "thoras" almacenara la horass de entrada
 y las horas de salida de las materias*/
+DROP TABLE IF EXISTS thoras;
 CREATE TABLE thoras(
 id INT AUTO_INCREMENT,
 hora_inicio TIME NOT NULL,
@@ -84,6 +95,7 @@ PRIMARY KEY (id)
 /*La tabla "tdias_horas" solo es una tabla
 intermedia para formar el horario de una 
 materia, usando las dos tablas anteriores*/
+DROP TABLE IF EXISTS tdias_horas;
 CREATE TABLE tdias_horas(
 id INT AUTO_INCREMENT,
 idDias INT NOT NULL,
@@ -104,7 +116,7 @@ FOREIGN KEY (idHoras) REFERENCES thoras(id)
 /*En esta tabla "tmaestros" se registraran
   a los distintos maestros"*/
 /*-----------------------------------------*/
-
+DROP TABLE IF EXISTS tmaestros;
 CREATE TABLE tmaestros(
 id INT AUTO_INCREMENT,
 num_emp INT UNIQUE,
@@ -119,7 +131,7 @@ PRIMARY KEY(id)
 /*En la "thorarios" se almacenara
 los horarios de cada maestro*/
 /*----------------------------------*/
-
+DROP TABLE IF EXISTS thorarios;
 CREATE TABLE thorarios(
 id INT AUTO_INCREMENT,
 year YEAR(4) NOT NULL,
@@ -151,7 +163,7 @@ FOREIGN KEY (id_dias_horas) REFERENCES tdias_horas(id)
   estaran almacenando los objetos
   disponibles para prestamos*/
 /*-------------------------------------*/
-
+DROP TABLE IF EXISTS tobjetos;
 CREATE TABLE tobjetos(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(50),
@@ -167,7 +179,7 @@ PRIMARY KEY(id)
   los prestamos efectuados al momento
   de adquirir una llave de un aula*/
 /*----------------------------------------*/
-
+DROP TABLE IF EXISTS tprestamos;
 CREATE TABLE tprestamos(
 id INT,
 id_control INT NOT NULL,
@@ -188,6 +200,7 @@ FOREIGN KEY(id_objeto) REFERENCES tobjetos(id)
   sobre el aula a la cual se le dio acceso al maestro 
   la cual no es es el aula indicada en su horario*/
 /*----------------------------------------------------------*/
+DROP TABLE IF EXISTS texcepciones;
 CREATE TABLE texcepciones(
 id INT AUTO_INCREMENT,
 codigo_llave BIGINT(20),
@@ -204,6 +217,7 @@ FOREIGN KEY(codigo_llave) REFERENCES tllaves(codigo) ON UPDATE CASCADE
 /*En esta tabla "tusuarios"  se almacenaran
   los usarios que tendran acceso al sistema*/
 /*----------------------------------------------------*/
+DROP TABLE IF EXISTS tusuarios;
 CREATE TABLE tusuarios(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(150) UNIQUE,
@@ -242,4 +256,4 @@ FOREIGN KEY (id_prestamo) REFERENCES tprestamos(id),
 CONSTRAINT FK_tregistros_tusuarios
 FOREIGN KEY (id_usuario) REFERENCES tusuarios(id)
 );
-//
+

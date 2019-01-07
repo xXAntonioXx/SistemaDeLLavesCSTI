@@ -1,0 +1,29 @@
+---------------------------------------------------------
+---------Descripccion del contenido de las carpetas------
+---------------------------------------------------------
+
+
++----------+
+|  Datos:  |
++----------+
+En esta carpeta se encuentran los datos que deben ser cargados en la base de datos!
+como por ejemplo los datos de llaves, horarios etc.
+
+
+
++---------------+
+|  Desarrollo:  |
++---------------+
+En esta carpeta se encuentran los archivos con la estructura de bd, los procedimientos almacenados, disparadores, etc.
+
++-----------------+
+| importarDatos:  |
++-----------------+
+En esta carpeta se encuentran los archivos que se encargan de importar los datos a la bd.
+
+
++---------------+
+|  Produccion:  |
++---------------+
+En esta capeta se realizara una exportacion de la base de datos de pruebas, con procedimientos y trigers incluidos para poder importarlos al servidor de produccion.
+Ademas se encuentran los archivos php los cuales sirven para exportar los datos de los csv de los archivos en la carpeta Datos hacia la BD.
