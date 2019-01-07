@@ -30,7 +30,7 @@ class ApisController extends Controller
         return $resultadoBusqueda;
     }
 
-    public function ObjetosPrestados($idPrestamo){
+    public function ObjetosPrestados($idPrestamo){//obtener objetos prestados para cada registros en particular
 
         $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetchAll();
         $obj=array();

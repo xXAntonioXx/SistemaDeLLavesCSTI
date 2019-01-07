@@ -21,8 +21,8 @@ class BusquedaController extends Controller
         $cadenaConsulta = "CALL sp_get_busqueda(null,null,null,null,null,null)";
         $registros=$this->conexion->query($cadenaConsulta)->fetchAll();
         if($registros){
-            //return view('busqueda');
-            return view('busqueda')->with(['respuesta'=>json_encode($registros)]);
+            //return view('busqueda')->with(['respuesta'=>json_encode($registros)]);
+            return view('busqueda')->with('respuesta',json_encode($registros));
         }else{
             return view('busqueda');
         }
