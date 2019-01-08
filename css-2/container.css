@@ -9,7 +9,7 @@
                        "container-wrapper"
                        "footer";
   @media (--ipad) {
-    grid-template-rows: 180px 1fr 30px;
+    grid-template-rows: 125px 1fr 30px;
   }
   @media (--tablets) {
     grid-template-rows: 60px 1fr 30px;
