@@ -31,17 +31,42 @@
         if (($archivo=fopen($destino,'r')) !==FALSE) {
         //leer archivo linea por linea
             while (($linea = fgetcsv($archivo,10000,",")) !== FALSE) {    
-                echo $linea[0] . ',' . $linea[1]. ',' . $linea[2];
+                $arreglo= array('','','','',''.'','','','','','','');
+
                 if($linea[0]==0 || strlen($linea[0])==0){
-                    echo '----El Empleado no esta asignado';
+                    $arreglo[0]='1';
+                }else{
+                	$arreglo[0]=$linea[0];
                 }
+
                 if(strlen($linea[1])==0){
-                    echo '----No hay nombre del maestro';
+                   $arreglo[1]='SIN ASIGNAR...';
+                }else{
+                	$arreglo[1]=$linea[1];
                 }
 
                 if(strlen($linea[2])==0){
-                    echo '----No hay Materia';
+                    $arreglo[2]='SIN ASIGNAR...';
+                }else{
+                	$arreglo[2]=$linea[2];
                 }
+
+                $arreglo[3]=$linea[4];
+
+                $arreglo[4]=$linea[5];
+
+
+                for ($i=6; $i <12 ; $i++) {
+                	
+
+                	list($entrada2,$salida2) = split("-",$linea[$i]); 
+                	if($entrada != $entrada2 or $salida != $salida2){
+                		$igual=0;
+                	}
+                }
+
+
+                echo $arreglo[0] . ',' . $arreglo[1] . ',' . $arreglo[2];
 
                 echo '<br/>';
 
