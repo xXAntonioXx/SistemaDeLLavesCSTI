@@ -91,6 +91,9 @@
       & #search-results-objectname {
         width: 15%;
         margin-left: 3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         @media (--ipad) {
           width: 25%;
         }
@@ -106,6 +109,9 @@
       }
       & #search-results-objectbrand {
         width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         @media (--ipad) {
           width: 50%;
         }
@@ -121,6 +127,9 @@
       }
       & #search-results-objectstatus {
         width: 15%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         @media (--ipad) {
           width: 25%;
         }
