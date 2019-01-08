@@ -1,6 +1,5 @@
 <?php 
     
-    //primer codigo realizado...
     function registrar($argDatos){
         try {
             $conexion = new PDO('mysql:host=localhost;dbname=sistema_llaves','root','Kgmt1709');
@@ -24,7 +23,7 @@
     $archivo=$_FILES["archivo_fls"]["name"];
     if (preg_match("/.csv$/",$archivo)) {
         $archivo=$_FILES["archivo_fls"]["tmp_name"];
-        $destino='archivos/' . date("Y") . date("m") . date("d")  . date("H") . date("i")  . date("s") . '.csv';
+        $destino='archivos/ll' . date("Y") . date("m") . date("d")  . date("H") . date("i")  . date("s") . '.csv';
         move_uploaded_file($archivo,$destino);
         if (($archivo=fopen($destino,'r')) !==FALSE) {
         //leer archivo linea por linea
