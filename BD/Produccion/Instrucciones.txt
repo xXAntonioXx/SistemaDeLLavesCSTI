@@ -1,0 +1,2 @@
+
+Una vez implementada toda la estructura de la BD, todos los procedimientos almacenados y tigres, procederemos a registrar los datos que se encuentran en el Archivo "datosPrimordiales.sql"

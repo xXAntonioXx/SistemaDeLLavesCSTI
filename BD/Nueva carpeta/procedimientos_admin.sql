@@ -74,8 +74,8 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 	in p_num_emp_maestro INT,
 	in p_nombre_maestro VARCHAR(70),
 	in p_nombre_mat VARCHAR(150),
+	in p_num_aula INT(11),
 	in p_programa_mat VARCHAR(10),
-	in p_num_aula BIGINT(20),
 	in p_dias VARCHAR(50),
 	in p_hora_inicio TIME,
 	in p_hora_fin TIME,
@@ -96,6 +96,7 @@ BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
 		CALL sp_registrar_maestro(p_num_emp_maestro,p_nombre_maestro);
 	END IF;
+
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias)) THEN
 		INSERT INTO sistema_llaves.tdias (id,dias) values(null,UPPER(p_dias));
