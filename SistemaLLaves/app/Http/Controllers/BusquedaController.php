@@ -36,6 +36,14 @@ class BusquedaController extends Controller
         $area = mb_substr($req['Aula'],0,2);
         $aula = mb_substr($req['Aula'],3,null);
 
-        return view('busqueda',['respuesta'=>$aula]);
+        $cadenaConsulta = "CALL sp_get_busqueda('{$timeMinimo}','{$timeMaximo}','{$maestro}','{$materia}','{$area}','{$aula}')";
+        /*$registros=$this->conexion->query($cadenaConsulta)->fetchAll();
+        if($registros){
+            return view('busqueda')->with('respuesta',json_encode($registros));
+        }else{
+            return view('busqueda');
+        }*/
+        return view('busqueda')->with('respuesta',$cadenaConsulta);
+
     }
 }

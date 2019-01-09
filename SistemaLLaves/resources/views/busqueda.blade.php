@@ -72,6 +72,7 @@
       </div>
     </form>
     @isset($respuesta)
+    {{$respuesta}}
     <div id="app">
     <busqueda :registros="{{$respuesta}}"></busqueda>
     </div>

@@ -66512,26 +66512,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       showingRegistros: this.registros,
-      objetosAmostrar: {}
+      objetosAmostrar: {},
+      auxiliar: {},
+      idAuxiliar: '',
+      Objeto: []
     };
   },
 
   props: ['registros'],
+  computed: {
+    objetosRegistro: function objetosRegistro() {
+      var id = this.idAuxiliar;
+      var contenido = this.Objeto;
+      this.objetosAmostrar[id] = contenido;
+      return this.objetosAmostrar;
+    }
+  },
   created: function created() {
     this.showingRegistros.forEach(function (element) {
       element['estadoBusqueda'] = true;
@@ -66546,12 +66547,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var ruta = 'api/obtenerObjetos/' + idPrestamo;
         axios.get(ruta).then(function (res) {
           var noExisteAun = true;
-
-          _this.objetosAmostrar[idReg] = res.data;
-          //this.objetosAmostrar.push({id:idReg,content:res.data});
+          if (!_this.objetosAmostrar[idReg]) {
+            _this.idAuxiliar = idReg;
+            _this.Objeto = res.data;
+            _this.objetosAmostrar[idReg] = res.data;
+            _this.objetosRegistro(idReg, res.data);
+          }
           console.log(JSON.stringify(_this.objetosAmostrar));
         });
       }
+    },
+    otroMetodo: function otroMetodo() {
+      console.log(this.objetosAmostrar);
     }
   }
 });
@@ -66566,7 +66573,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "search-results" }, [
     _vm._m(0),
-    _vm._v("\n  " + _vm._s(this.showingRegistros.length) + "\n  "),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "search-results-content" },
@@ -66654,6 +66661,7 @@ var render = function() {
                           registro["estadoBusqueda"] = !registro[
                             "estadoBusqueda"
                           ]
+                          _vm.otroMetodo()
                         }
                       }
                     },
@@ -66661,7 +66669,39 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(4, true)
+                _c(
+                  "div",
+                  { staticClass: "search-results-loanobjects" },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(/*objetosRegistro[registro['id']]*/) +
+                        "\n          "
+                    ),
+                    _vm._l(_vm.objetosRegistro[registro["id"]], function(obj) {
+                      return _c("div", { key: obj["id"] }, [
+                        _c(
+                          "p",
+                          { attrs: { id: "search-results-objectname" } },
+                          [_vm._v(_vm._s(obj["nombre"]))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { attrs: { id: "search-results-objectbrand" } },
+                          [_vm._v(_vm._s(obj["marca"]))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { attrs: { id: "search-results-objectstatus" } },
+                          [_vm._v("Devuelto")]
+                        )
+                      ])
+                    })
+                  ],
+                  2
+                )
               ])
             ]
           )
@@ -66978,56 +67018,6 @@ var staticRenderFns = [
               _vm._v("Devuelto")
             ])
           ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "search-results-loanobjects" }, [
-      _c("div"),
-      _vm._v(" "),
-      _c("div", [
-        _c("p", { attrs: { id: "search-results-objectname" } }, [
-          _vm._v("Proyector")
-        ]),
-        _vm._v(" "),
-        _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-          _vm._v("Cannon")
-        ]),
-        _vm._v(" "),
-        _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-          _vm._v("Devuelto")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("p", { attrs: { id: "search-results-objectname" } }, [
-          _vm._v("Proyector")
-        ]),
-        _vm._v(" "),
-        _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-          _vm._v("Cannon")
-        ]),
-        _vm._v(" "),
-        _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-          _vm._v("Devuelto")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("p", { attrs: { id: "search-results-objectname" } }, [
-          _vm._v("Proyector")
-        ]),
-        _vm._v(" "),
-        _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-          _vm._v("Cannon")
-        ]),
-        _vm._v(" "),
-        _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-          _vm._v("Devuelto")
         ])
       ])
     ])
