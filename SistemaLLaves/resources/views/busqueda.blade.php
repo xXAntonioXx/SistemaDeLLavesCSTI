@@ -71,8 +71,7 @@
         <input type="submit" value="Buscar" class="filters-button" onclick="window.location='#REGISTROS';">
       </div>
     </form>
-    @isset($respuesta)
-    {{$respuesta}}
+    @isset($respuesta)   
     <div id="app">
     <busqueda :registros="{{$respuesta}}"></busqueda>
     </div>
