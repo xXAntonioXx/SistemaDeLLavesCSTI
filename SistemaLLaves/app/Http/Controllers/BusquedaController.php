@@ -35,8 +35,8 @@ class BusquedaController extends Controller
         $timeMinimo = "'{$fechaInferior} {$req['horaMinima']}".":00'";
         $timeMaximo = "'{$fechaSuperior} {$req['horaMaxima']}".":00'";
 
-        $maestro = $req['Maestro'] ? "'{$req['Maestro']}'" : "NULL";
-        $materia = $req['Materia']?"'{$req['Materia']}'":"NULL";
+        $maestro = $req['Maestro'] ? "'".strtoupper($req['Maestro'])."'" : "NULL";
+        $materia = $req['Materia']?"'".strtoupper($req['Materia'])."'":"NULL";
 
         $ValidarSalon=strlen($req['Aula']);
         $area="NULL";
@@ -65,8 +65,8 @@ class BusquedaController extends Controller
         $registros=$this->conexion->query($cadenaConsulta)->fetchAll();
         if($registros){
 
-            return view('busqueda')->with('respuesta',json_encode($registros));
-            //return view('busqueda')->with('respuesta',$cadenaConsulta);
+            //return view('busqueda')->with('respuesta',json_encode($registros));
+            return view('busqueda')->with('respuesta',env('APP_NAME'));
 
         }else{
 

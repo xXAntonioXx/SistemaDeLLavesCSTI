@@ -13,4 +13,3 @@ yarn-error.log
 .env
 .phpunit.result.cache
 package-lock.json
-/app/Http/Controllers/Konect.php
