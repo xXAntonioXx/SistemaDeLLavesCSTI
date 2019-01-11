@@ -5,7 +5,7 @@ function conectar(){
     $username = config('database.connections.mysql.username');
     $password = config('database.connections.mysql.password');
     $dataBase = config('database.connections.mysql.database');
-    $host = env('database.connections.mysql.host');
+    $host = config('database.connections.mysql.host');
     
     $cs = "mysql:host={$host};dbname={$dataBase};charset=utf8";
     try{
