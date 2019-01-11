@@ -354,7 +354,7 @@ BEGIN
 		END IF;
 	END IF;
 
-	UPDATE sistema_llaves.tregistros SET hora_salida=p_hora_salida WHERE id=p_id_registro;
+	UPDATE sistema_llaves.tregistros SET hora_entrada=(select hora_entrada where id=p_id_registro),hora_salida=p_hora_salida WHERE id=p_id_registro;
 
 END
 //
