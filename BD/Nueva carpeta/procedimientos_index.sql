@@ -24,8 +24,7 @@ DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
 	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
 	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = h.id_dias_horas
 	INNER JOIN sistema_llaves.thoras  AS tho  ON tho.id = tdh.idHoras
-	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
-	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
+	INNER JOIN sistema_llaves.taulas AS au ON au.id=h.num_aula
 	WHERE r.hora_entrada >= CURDATE() and r.hora_salida IS NULL;
  END
 //
