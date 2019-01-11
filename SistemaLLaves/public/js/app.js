@@ -66377,141 +66377,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -66577,137 +66442,121 @@ var render = function() {
     _c(
       "div",
       { staticClass: "search-results-content" },
-      [
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._l(_vm.showingRegistros, function(registro) {
-          return _c(
-            "div",
-            { key: registro["id"], staticClass: "search-results-content-card" },
-            [
-              _c("h3", { attrs: { id: "search-results-id" } }, [
-                _vm._v(_vm._s(registro["id"]))
+      _vm._l(_vm.showingRegistros, function(registro) {
+        return _c(
+          "div",
+          { key: registro["id"], staticClass: "search-results-content-card" },
+          [
+            _c("h3", { attrs: { id: "search-results-id" } }, [
+              _vm._v(_vm._s(registro["id"]))
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("div", [
+                _c("h3", { attrs: { id: "search-results-class" } }, [
+                  _vm._v(_vm._s(registro["materia"]))
+                ]),
+                _vm._v(" "),
+                _c("p", { attrs: { id: "search-results-date" } }, [
+                  _vm._v(_vm._s(registro["entrada"].slice(0, 10)))
+                ])
               ]),
               _vm._v(" "),
               _c("div", [
-                _c("div", [
-                  _c("h3", { attrs: { id: "search-results-class" } }, [
-                    _vm._v(_vm._s(registro["materia"]))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { attrs: { id: "search-results-date" } }, [
-                    _vm._v(_vm._s(registro["entrada"].slice(0, 10)))
-                  ])
+                _c("p", [_vm._v("Maestro/a: ")]),
+                _vm._v(" "),
+                _c("p", { attrs: { id: "search-results-teacher" } }, [
+                  _vm._v(_vm._s(registro["maestro"]))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("p", [_vm._v("Aula: ")]),
+                _vm._v(" "),
+                _c("p", { attrs: { id: "search-results-classroom" } }, [
+                  _vm._v(_vm._s(registro["aula"]))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("p", [_vm._v("Entrada:")]),
+                _vm._v(" "),
+                _c("p", { attrs: { id: "search-results-start" } }, [
+                  _vm._v(_vm._s(registro["entrada"].slice(10, 16)))
                 ]),
                 _vm._v(" "),
-                _c("div", [
-                  _c("p", [_vm._v("Maestro/a: ")]),
-                  _vm._v(" "),
-                  _c("p", { attrs: { id: "search-results-teacher" } }, [
-                    _vm._v(_vm._s(registro["maestro"]))
-                  ])
-                ]),
+                _c("p", [_vm._v("Salida:")]),
                 _vm._v(" "),
-                _c("div", [
-                  _c("p", [_vm._v("Aula: ")]),
-                  _vm._v(" "),
-                  _c("p", { attrs: { id: "search-results-classroom" } }, [
-                    _vm._v(_vm._s(registro["aula"]))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c("p", [_vm._v("Entrada:")]),
-                  _vm._v(" "),
-                  _c("p", { attrs: { id: "search-results-start" } }, [
-                    _vm._v(_vm._s(registro["entrada"].slice(10, 16)))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Salida:")]),
-                  _vm._v(" "),
-                  _c("p", { attrs: { id: "search-results-end" } }, [
-                    _vm._v(
-                      _vm._s(
-                        registro["salida"]
-                          ? registro["salida"].slice(10, 16)
-                          : ""
-                      )
+                _c("p", { attrs: { id: "search-results-end" } }, [
+                  _vm._v(
+                    _vm._s(
+                      registro["salida"] ? registro["salida"].slice(10, 16) : ""
                     )
-                  ])
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("p", { attrs: { id: "search-results-objects" } }, [
+                  _vm._v("Prestamos")
                 ]),
                 _vm._v(" "),
-                _c("div", [
-                  _c("p", { attrs: { id: "search-results-objects" } }, [
-                    _vm._v("Prestamos")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "search-results-division" }),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    {
-                      staticClass: "search-results-symbol",
-                      on: {
-                        click: function($event) {
-                          _vm.cargarObjetos(
-                            registro["id_prestamo"],
-                            registro["estadoBusqueda"],
-                            registro["id"]
-                          )
-                          registro["estadoBusqueda"] = !registro[
-                            "estadoBusqueda"
-                          ]
-                          _vm.otroMetodo()
-                        }
-                      }
-                    },
-                    [_vm._v("▼")]
-                  )
-                ]),
+                _c("div", { staticClass: "search-results-division" }),
                 _vm._v(" "),
                 _c(
-                  "div",
-                  { staticClass: "search-results-loanobjects" },
-                  [
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(/*objetosRegistro[registro['id']]*/) +
-                        "\n          "
-                    ),
-                    _vm._l(_vm.objetosRegistro[registro["id"]], function(obj) {
-                      return _c("div", { key: obj["id"] }, [
-                        _c(
-                          "p",
-                          { attrs: { id: "search-results-objectname" } },
-                          [_vm._v(_vm._s(obj["nombre"]))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          { attrs: { id: "search-results-objectbrand" } },
-                          [_vm._v(_vm._s(obj["marca"]))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          { attrs: { id: "search-results-objectstatus" } },
-                          [_vm._v("Devuelto")]
+                  "p",
+                  {
+                    staticClass: "search-results-symbol",
+                    on: {
+                      click: function($event) {
+                        _vm.cargarObjetos(
+                          registro["id_prestamo"],
+                          registro["estadoBusqueda"],
+                          registro["id"]
                         )
-                      ])
-                    })
-                  ],
-                  2
+                        registro["estadoBusqueda"] = !registro["estadoBusqueda"]
+                        _vm.otroMetodo()
+                      }
+                    }
+                  },
+                  [_vm._v("▼")]
                 )
-              ])
-            ]
-          )
-        })
-      ],
-      2
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "search-results-loanobjects" },
+                [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(/*objetosRegistro[registro['id']]*/) +
+                      "\n          "
+                  ),
+                  _vm._l(_vm.objetosRegistro[registro["id"]], function(obj) {
+                    return _c("div", { key: obj["id"] }, [
+                      _c("p", { attrs: { id: "search-results-objectname" } }, [
+                        _vm._v(_vm._s(obj["nombre"]))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { attrs: { id: "search-results-objectbrand" } }, [
+                        _vm._v(_vm._s(obj["marca"]))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        { attrs: { id: "search-results-objectstatus" } },
+                        [_vm._v("Devuelto")]
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ]
+        )
+      }),
+      0
     )
   ])
 }
@@ -66721,306 +66570,6 @@ var staticRenderFns = [
       { staticClass: "search-results-tittle", attrs: { id: "REGISTROS" } },
       [_c("h2", [_vm._v("REGISTROS")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "search-results-content-card" }, [
-      _c("h3", { attrs: { id: "search-results-id" } }, [_vm._v("1")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("div", [
-          _c("h3", { attrs: { id: "search-results-class" } }, [
-            _vm._v("Estructura de datos")
-          ]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-date" } }, [
-            _vm._v("19/12/2018")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Maestro/a: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-teacher" } }, [
-            _vm._v("Raquel Torres")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Aula: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-classroom" } }, [
-            _vm._v("5j-205")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Entrada:")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-start" } }, [_vm._v("12:00")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Salida:")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-end" } }, [_vm._v("13:00")])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", { attrs: { id: "search-results-objects" } }, [
-            _vm._v("Prestamos")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "search-results-division" }),
-          _vm._v(" "),
-          _c("p", { staticClass: "search-results-symbol" }, [_vm._v("▼")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "search-results-loanobjects" }, [
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "search-results-content-card" }, [
-      _c("h3", { attrs: { id: "search-results-id" } }, [_vm._v("1")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("div", [
-          _c("h3", { attrs: { id: "search-results-class" } }, [
-            _vm._v("Estructura de datos")
-          ]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-date" } }, [
-            _vm._v("19/12/2018")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Maestro/a: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-teacher" } }, [
-            _vm._v("Raquel Torres")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Aula: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-classroom" } }, [
-            _vm._v("5j-205")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Entrada:")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-start" } }, [_vm._v("12:00")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Salida:")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-end" } }, [_vm._v("13:00")])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", { attrs: { id: "search-results-objects" } }, [
-            _vm._v("Prestamos")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "search-results-division" }),
-          _vm._v(" "),
-          _c("p", { staticClass: "search-results-symbol" }, [_vm._v("▼")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "search-results-loanobjects" }, [
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "search-results-content-card" }, [
-      _c("h3", { attrs: { id: "search-results-id" } }, [_vm._v("1")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("div", [
-          _c("h3", { attrs: { id: "search-results-class" } }, [
-            _vm._v("Estructura de datos")
-          ]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-date" } }, [
-            _vm._v("19/12/2018")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Maestro/a: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-teacher" } }, [
-            _vm._v("Raquel Torres")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Aula: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-classroom" } }, [
-            _vm._v("5j-205")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", [_vm._v("Entrada:")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-start" } }, [_vm._v("12:00")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Salida:")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "search-results-end" } }, [_vm._v("13:00")])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("p", { attrs: { id: "search-results-objects" } }, [
-            _vm._v("Prestamos")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "search-results-division" }),
-          _vm._v(" "),
-          _c("p", { staticClass: "search-results-symbol" }, [_vm._v("▼")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "search-results-loanobjects" }, [
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("p", { attrs: { id: "search-results-objectname" } }, [
-              _vm._v("Proyector")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-              _vm._v("Cannon")
-            ]),
-            _vm._v(" "),
-            _c("p", { attrs: { id: "search-results-objectstatus" } }, [
-              _vm._v("Devuelto")
-            ])
-          ])
-        ])
-      ])
-    ])
   }
 ]
 render._withStripped = true

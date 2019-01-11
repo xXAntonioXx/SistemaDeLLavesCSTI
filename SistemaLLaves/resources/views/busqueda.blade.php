@@ -71,12 +71,18 @@
         <input type="submit" value="Buscar" class="filters-button" onclick="window.location='#REGISTROS';">
       </div>
     </form>
-    @isset($respuesta)
-    {{$respuesta}}
+    @isset($respuesta)   
     <div id="app">
     <busqueda :registros="{{$respuesta}}"></busqueda>
     </div>
     @endisset
+    @if($errors->has('respuesta'))
+    <div style="margin-top:15%;text-align:center;font-size:60px;color:#a6a6a6">
+      {{$errors->first()}}
+      <br>
+      <a href="/busqueda" style="font-size:25px;color:#004990">Cargar todos los registros...</a>
+    </div>
+    @endif
   </div>
 </div>
 <script src="{{asset('js/app.js')}}"></script>
