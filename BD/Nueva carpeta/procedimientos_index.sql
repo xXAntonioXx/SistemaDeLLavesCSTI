@@ -58,7 +58,6 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  		SET p_ciclo = 3;
  	END IF;
 
-
  	SET expresion = (ELT(WEEKDAY(p_hora) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'));
  	SELECT ho.id AS id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula
  	FROM thorarios AS ho
@@ -69,7 +68,7 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
  	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
  	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
- 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=p_ciclo
+ 	WHERE llav.codigo=p_codigo_llaves AND ho.ciclo=p_ciclo
  	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
  	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
  END
@@ -262,7 +261,7 @@ DELIMITER ;
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_get_esdevolucion;
 CREATE PROCEDURE sistema_llaves.sp_get_esdevolucion(
-	in p_codigo_llave INT(11)
+	in p_codigo_llave BIGINT(20)
 )
 BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN

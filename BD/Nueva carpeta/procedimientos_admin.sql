@@ -54,7 +54,7 @@ DELIMITER ;
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_materia;
 CREATE PROCEDURE sistema_llaves.sp_registrar_materia (
-	in p_nombre VARCHAR(50),
+	in p_nombre VARCHAR(150),
 	in p_programa VARCHAR(10))
 BEGIN
 	INSERT INTO sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, UPPER(p_nombre), UPPER(p_programa));
@@ -114,7 +114,7 @@ BEGIN
 	END IF;
 
  
-	SELECT @var3 := id FROM sistema_llaves.tmaterias WHERE nombre=p_nombre_mat;
+	SELECT @var3 := id FROM sistema_llaves.tmaterias WHERE nombre=UPPER(p_nombre_mat);
 	SELECT @var4 := id FROM tdias_horas WHERE idDias=@var1 and idHoras=@var2;
 
 
