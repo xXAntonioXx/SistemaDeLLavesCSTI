@@ -24,8 +24,7 @@ DROP  PROCEDURE IF EXISTS sp_get_llavesPrestadas;
 	INNER JOIN sistema_llaves.tmaterias AS mat ON h.id_materia = mat.id
 	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = h.id_dias_horas
 	INNER JOIN sistema_llaves.thoras  AS tho  ON tho.id = tdh.idHoras
-	INNER JOIN sistema_llaves.tllaves AS ll ON h.codigo_llave = ll.codigo
-	INNER JOIN sistema_llaves.taulas AS au ON au.id=ll.id_aula
+	INNER JOIN sistema_llaves.taulas AS au ON au.id=h.num_aula
 	WHERE r.hora_entrada >= CURDATE() and r.hora_salida IS NULL;
  END
 //
@@ -58,18 +57,17 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  		SET p_ciclo = 3;
  	END IF;
 
-
  	SET expresion = (ELT(WEEKDAY(p_hora) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'));
  	SELECT ho.id AS id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula
  	FROM thorarios AS ho
- 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
- 	INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.id = llav.id_aula
+ 	INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
+ 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
  	INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
  	INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
  	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
  	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
  	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
- 	WHERE ho.codigo_llave=p_codigo_llaves AND ho.ciclo=p_ciclo
+ 	WHERE llav.codigo=p_codigo_llaves AND ho.ciclo=p_ciclo
  	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
  	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
  END
@@ -190,7 +188,9 @@ BEGIN
 		SET MESSAGE_TEXT='EL maestro indicado no se encuentra registrado.';
 	END IF;
 
-	INSERT INTO texcepciones(id,codigo_llave,num_emp) VALUES (null,p_codigo_llave,p_num_emp_maestro);
+	SELECT @var1 := numero FROM sistema_llaves.tllaves AS tll INNER JOIN sistema_llaves.taulas AS tau ON tau.id = tll.id_aula WHERE tll.codigo= p_codigo_llave; 
+
+	INSERT INTO texcepciones(id,codigo_llave,num_emp) VALUES (null,@var1,p_num_emp_maestro);
 
 	SELECT @id_excepcion := MAX(id) FROM texcepciones;
 
@@ -260,7 +260,7 @@ DELIMITER ;
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_get_esdevolucion;
 CREATE PROCEDURE sistema_llaves.sp_get_esdevolucion(
-	in p_codigo_llave INT(11)
+	in p_codigo_llave BIGINT(20)
 )
 BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
@@ -271,14 +271,16 @@ BEGIN
 	IF EXISTS(
 	SELECT * FROM tregistros AS reg
  	INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
- 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
+    INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
+ 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
  	WHERE llav.codigo=p_codigo_llave and reg.hora_salida IS NULL
  	and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59'))
  	) THEN
  		SELECT reg.id as id,mae.nombre, mat.nombre as materia, reg.hora_entrada,reg.id_prestamo 
  		FROM tregistros AS reg
  		INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
- 		INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.codigo = ho.codigo_llave
+ 		INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
+ 		INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
  		INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
  		INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
  		WHERE llav.codigo=p_codigo_llave and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59')) and reg.hora_salida IS NULL;

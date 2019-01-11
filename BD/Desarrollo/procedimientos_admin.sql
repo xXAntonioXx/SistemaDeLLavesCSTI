@@ -21,10 +21,10 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_llave (
 )
 BEGIN
 	IF NOT EXISTS(SELECT * FROM sistema_llaves.tllaves WHERE codigo=UPPER(p_codigo)) THEN
-		IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=UPPER(p_area) and aula=p_aula) THEN
-			INSERT INTO sistema_llaves.taulas(id,numero,area,aula) VALUES (null,p_numero,UPPER(p_area),p_aula);
+		IF NOT EXISTS(SELECT * FROM sistema_llaves.taulas WHERE area=UPPER(p_area) and aula=UPPER(p_aula)) THEN
+			INSERT INTO sistema_llaves.taulas(id,numero,area,aula) VALUES (null,p_numero,UPPER(p_area),UPPER(p_aula));
 		END IF;
-		SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=p_aula AND area=p_area;
+		SELECT @var1 := id FROM sistema_llaves.taulas WHERE aula=UPPER(p_aula) AND area=UPPER(p_area);
 		INSERT INTO sistema_llaves.tllaves(id,codigo,id_aula) VALUES (null, p_codigo,@var1);
 	END IF;
 END
@@ -54,7 +54,7 @@ DELIMITER ;
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_registrar_materia;
 CREATE PROCEDURE sistema_llaves.sp_registrar_materia (
-	in p_nombre VARCHAR(50),
+	in p_nombre VARCHAR(150),
 	in p_programa VARCHAR(10))
 BEGIN
 	INSERT INTO sistema_llaves.tmaterias(id,nombre,programa) VALUES (null, UPPER(p_nombre), UPPER(p_programa));
@@ -74,7 +74,7 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 	in p_num_emp_maestro INT,
 	in p_nombre_maestro VARCHAR(70),
 	in p_nombre_mat VARCHAR(150),
-	in p_codigo_llave BIGINT(20),
+	in p_num_aula INT(11),
 	in p_programa_mat VARCHAR(10),
 	in p_dias VARCHAR(50),
 	in p_hora_inicio TIME,
@@ -84,9 +84,9 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_horario(
 )
 BEGIN
 
-	IF NOT EXISTS (SELECT id FROM sistema_llaves.tllaves WHERE codigo=p_codigo_llave) THEN
+	IF NOT EXISTS (SELECT id FROM sistema_llaves.taulas WHERE numero=p_num_aula) THEN
 		SIGNAL SQLSTATE '46000'
-		SET MESSAGE_TEXT='La llave indicada no se encuentra registrada.';
+		SET MESSAGE_TEXT='El aula indicada no se encuentra registrada.';
 	END IF;
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaterias WHERE nombre=UPPER(p_nombre_mat)) THEN
@@ -96,6 +96,7 @@ BEGIN
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tmaestros WHERE num_emp=p_num_emp_maestro) THEN
 		CALL sp_registrar_maestro(p_num_emp_maestro,p_nombre_maestro);
 	END IF;
+
 
 	IF NOT EXISTS (SELECT id FROM sistema_llaves.tdias WHERE dias=UPPER(p_dias)) THEN
 		INSERT INTO sistema_llaves.tdias (id,dias) values(null,UPPER(p_dias));
@@ -112,11 +113,13 @@ BEGIN
 		INSERT INTO sistema_llaves.tdias_horas (id,idDias,idHoras) VALUES (null,@var1, @var2);
 	END IF;
 
-	SELECT @var3 := id FROM sistema_llaves.tmaterias WHERE nombre=p_nombre_mat;
+ 
+	SELECT @var3 := id FROM sistema_llaves.tmaterias WHERE nombre=UPPER(p_nombre_mat);
 	SELECT @var4 := id FROM tdias_horas WHERE idDias=@var1 and idHoras=@var2;
 
-	INSERT INTO sistema_llaves.thorarios(id,year,ciclo,codigo_llave,num_emp_maestro,id_materia,id_dias_horas)
-	VALUES (null,p_year,p_ciclo,p_codigo_llave,p_num_emp_maestro,@var3,@var4);
+
+	INSERT INTO sistema_llaves.thorarios(id,year,ciclo,num_aula,num_emp_maestro,id_materia,id_dias_horas)
+	VALUES (null,p_year,p_ciclo,p_num_aula,p_num_emp_maestro,@var3,@var4);
 
 	SET @var1 = NULL;
 	SET @var2 = NULL;

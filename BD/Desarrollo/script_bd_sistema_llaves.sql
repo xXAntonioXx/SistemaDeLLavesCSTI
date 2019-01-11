@@ -136,15 +136,15 @@ CREATE TABLE thorarios(
 id INT AUTO_INCREMENT,
 year YEAR(4) NOT NULL,
 ciclo CHAR(1) NOT NULL,
-codigo_llave BIGINT(20),
+num_aula INT(11) NOT NULL,
 num_emp_maestro INT NOT NULL,
 id_materia INT NOT NULL,
 id_dias_horas INT NOT NULL,
 
 PRIMARY KEY (id),
 
-CONSTRAINT FK_thorarios_tllaves
-FOREIGN KEY (codigo_llave) REFERENCES tllaves(codigo),
+CONSTRAINT FK_thorarios_taulas
+FOREIGN KEY (num_aula) REFERENCES taulas(numero),
 
 CONSTRAINT FK_thorarios_tmaestros
 FOREIGN KEY (num_emp_maestro) REFERENCES tmaestros(num_emp),
@@ -203,12 +203,12 @@ FOREIGN KEY(id_objeto) REFERENCES tobjetos(id)
 DROP TABLE IF EXISTS texcepciones;
 CREATE TABLE texcepciones(
 id INT AUTO_INCREMENT,
-codigo_llave BIGINT(20),
+num_aula INT(11),
 num_emp INT NOT NULL,
 PRIMARY KEY(id),
 
 CONSTRAINT FK_texcepciones_tllaves
-FOREIGN KEY(codigo_llave) REFERENCES tllaves(codigo) ON UPDATE CASCADE
+FOREIGN KEY(num_aula) REFERENCES taulas(numero) ON UPDATE CASCADE
 );
 
 /*--------------------------------------------------------*/

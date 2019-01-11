@@ -27,8 +27,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro;
 			
@@ -36,8 +35,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE  mae.nombre LIKE CONCAT('%',UPPER(p_maestro),'%') AND mat.nombre LIKE CONCAT('%',UPPER(p_materia),'%') AND aul.area LIKE CONCAT('%',UPPER(p_area),'%') AND aul.aula LIKE CONCAT('%',UPPER(p_aula),'%')
@@ -48,8 +46,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -59,8 +56,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -71,8 +67,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -83,8 +78,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -95,8 +89,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -107,8 +100,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -119,8 +111,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -131,8 +122,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -143,8 +133,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -155,8 +144,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -167,8 +155,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -179,8 +166,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -191,8 +177,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -203,8 +188,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
@@ -215,8 +199,7 @@ BEGIN
 			SELECT reg.id as id, mat.nombre as materia, mae.nombre as maestro, CONCAT(aul.area,'-',aul.aula) as aula, reg.hora_entrada as entrada, reg.hora_salida as salida, reg.id_prestamo as id_prestamo
 			FROM sistema_llaves.tregistros AS reg
 			INNER JOIN sistema_llaves.thorarios  AS hor ON hor.id = reg.id_horario
-			INNER JOIN sistema_llaves.tllaves 	 AS lla ON lla.codigo = hor.codigo_llave
-			INNER JOIN sistema_llaves.taulas 	 AS aul ON aul.id = lla.id_aula
+			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = hor.num_aula
 			INNER JOIN sistema_llaves.tmaterias  AS mat ON mat.id = hor.id_materia
 			INNER JOIN sistema_llaves.tmaestros  AS mae ON mae.num_emp = hor.num_emp_maestro
 			WHERE TIME(reg.hora_entrada) BETWEEN TIME(p_desde) AND TIME(p_hasta)
