@@ -201,6 +201,7 @@ export default {
         this.registroForm=[];
         this.estadoInput=false;
         this.codigoKey='';
+        this.PrestamoList='';
       },
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
