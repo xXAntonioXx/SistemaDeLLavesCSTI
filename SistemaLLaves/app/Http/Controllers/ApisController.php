@@ -65,6 +65,7 @@ class ApisController extends Controller
         
         $registrar="CALL sp_registrar_registro('{$hora}',{$idHorario},{$idUsuario},'{$objetos}')";
         $this->conexion->query($registrar);
+        return $registrar;
     }
 
 }
