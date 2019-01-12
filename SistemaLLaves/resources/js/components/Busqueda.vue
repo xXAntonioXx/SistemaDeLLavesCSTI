@@ -29,7 +29,7 @@
           <div>
             <p id="search-results-objects">Prestamos</p>
             <div class="search-results-division"></div>
-            <p class="search-results-symbol" @click="cargarObjetos(registro['id_prestamo'],registro['estadoBusqueda'],registro['id']);registro['estadoBusqueda']=!registro['estadoBusqueda'];otroMetodo();">&#9660;</p>
+            <p class="search-results-symbol" @click="cargarObjetos(registro['id_prestamo'],registro['estadoBusqueda'],registro['id']);registro['estadoBusqueda']=!registro['estadoBusqueda'];">&#9660;</p>
           </div>
           <div class="search-results-loanobjects">
             <div v-for="obj in objetosRegistro[registro['id']]" :key="obj['id']">
@@ -75,7 +75,6 @@ export default {
         element['estadoBusqueda']=true;
 
       });
-      console.log(this.showingRegistros);
     },
     methods:{
        cargarObjetos(idPrestamo,estado,idReg){

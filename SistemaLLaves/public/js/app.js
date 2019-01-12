@@ -66402,7 +66402,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.showingRegistros.forEach(function (element) {
       element['estadoBusqueda'] = true;
     });
-    console.log(this.showingRegistros);
   },
   methods: {
     cargarObjetos: function cargarObjetos(idPrestamo, estado, idReg) {
@@ -66511,7 +66510,6 @@ var render = function() {
                           registro["id"]
                         )
                         registro["estadoBusqueda"] = !registro["estadoBusqueda"]
-                        _vm.otroMetodo()
                       }
                     }
                   },
