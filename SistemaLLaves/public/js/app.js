@@ -64525,7 +64525,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.registroForm = [];
       this.estadoInput = false;
       this.codigoKey = '';
-      this.PrestamoList = '';
     },
     cleanObjPrestamo: function cleanObjPrestamo() {
       //limpiamos el formulario despues de generar un registro
@@ -64533,6 +64532,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.registroForm = [];
       this.codigoKey = '';
       this.RegistrarState = true;
+      this.PrestamoList = '';
     },
     NuevoRegistro: function NuevoRegistro() {
       var _this4 = this;
