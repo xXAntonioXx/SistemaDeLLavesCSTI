@@ -65667,6 +65667,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 } else {
                     console.log(res);
                 }
+            }).catch(function () {
+                alert('sucedio un error');
             });
         },
         cancelar: function cancelar() {

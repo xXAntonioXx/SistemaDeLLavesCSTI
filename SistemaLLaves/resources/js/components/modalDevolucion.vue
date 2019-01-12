@@ -122,6 +122,9 @@ export default {
                 }else{
                     console.log(res);
                 }
+            })
+            .catch(()=>{
+                alert('sucedio un error');
             });
         },
         cancelar(){
