@@ -66377,7 +66377,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -66419,12 +66418,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.objetosAmostrar[idReg] = res.data;
             _this.objetosRegistro(idReg, res.data);
           }
-          console.log(JSON.stringify(_this.objetosAmostrar));
         });
       }
-    },
-    otroMetodo: function otroMetodo() {
-      console.log(this.objetosAmostrar);
     }
   }
 });
@@ -66527,31 +66522,22 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "search-results-loanobjects" },
-                [
-                  _vm._v(
-                    "\n          " +
-                      _vm._s(/*objetosRegistro[registro['id']]*/) +
-                      "\n          "
-                  ),
-                  _vm._l(_vm.objetosRegistro[registro["id"]], function(obj) {
-                    return _c("div", { key: obj["id"] }, [
-                      _c("p", { attrs: { id: "search-results-objectname" } }, [
-                        _vm._v(_vm._s(obj["nombre"]))
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { attrs: { id: "search-results-objectbrand" } }, [
-                        _vm._v(_vm._s(obj["marca"]))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { attrs: { id: "search-results-objectstatus" } },
-                        [_vm._v("Devuelto")]
-                      )
+                _vm._l(_vm.objetosRegistro[registro["id"]], function(obj) {
+                  return _c("div", { key: obj["id"] }, [
+                    _c("p", { attrs: { id: "search-results-objectname" } }, [
+                      _vm._v(_vm._s(obj["nombre"]))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { attrs: { id: "search-results-objectbrand" } }, [
+                      _vm._v(_vm._s(obj["marca"]))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { attrs: { id: "search-results-objectstatus" } }, [
+                      _vm._v("Devuelto")
                     ])
-                  })
-                ],
-                2
+                  ])
+                }),
+                0
               )
             ])
           ]
