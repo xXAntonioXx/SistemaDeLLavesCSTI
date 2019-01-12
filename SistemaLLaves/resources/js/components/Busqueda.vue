@@ -32,7 +32,6 @@
             <p class="search-results-symbol" @click="cargarObjetos(registro['id_prestamo'],registro['estadoBusqueda'],registro['id']);registro['estadoBusqueda']=!registro['estadoBusqueda'];otroMetodo();">&#9660;</p>
           </div>
           <div class="search-results-loanobjects">
-            {{/*objetosRegistro[registro['id']]*/}}
             <div v-for="obj in objetosRegistro[registro['id']]" :key="obj['id']">
               <p id="search-results-objectname">{{obj['nombre']}}</p>
               <p id="search-results-objectbrand">{{obj['marca']}}</p>
@@ -89,14 +88,10 @@ export default {
               this.Objeto=res.data;
               this.objetosAmostrar[idReg]=res.data;
               this.objetosRegistro(idReg,res.data);
-            }
-            console.log(JSON.stringify(this.objetosAmostrar));     
+            }  
           });
         }
       },
-      otroMetodo(){
-        console.log(this.objetosAmostrar);
-      }
     }
 }
 </script>

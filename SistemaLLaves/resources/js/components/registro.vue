@@ -213,9 +213,8 @@ export default {
 
       NuevoRegistro(){//se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
         axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
-        .then((res)=>{
+        .then(()=>{
           alert('registro realizado');
-          console.log(res.data);
           this.fetchRegistros();
           this.cleanObjPrestamo();
         });
