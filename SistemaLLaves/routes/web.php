@@ -17,23 +17,35 @@ Route::get('/wc', function () {
     return view('welcome');
 });
 
-//rutas y metodos para el login de usuario
+//rutas y metodos para el login de usuario######################################################################
+
 Route::get('/','LoginController@principal')->middleware(alreadyStartSession::class);
 Route::post('/validate','LoginController@validar');//para validar el usuario en el login
 
-//rutas para la pagina principal
+################################################################################################################
+//rutas para la pagina principal################################################################################
+
 Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
 Route::get('/busqueda','BusquedaController@cargarBusqueda')->middleware(CheckSess::class);
 Route::get('/inventario','PrincipalController@cargarInventario')->middleware(CheckSess::class);
 
-//rutas para el area de busqueda
+################################################################################################################
+//rutas para el area de busqueda################################################################################
+
 Route::post('/busqueda_registros','BusquedaController@CargarRegistro');
+
+################################################################################################################
+//rutas para el area de soporte#################################################################################
+
+Route::post('/enviarObservacion','SoporteController@EnviarMail');
+
+##############################################################################################################
 
 Route::get('/salir','LoginController@salir');//opcion de salir
 
 Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
 
-//API para consultar la base de datos
+//API para consultar la base de datos###########################################################################
 
 Route::group(['middleware'=>'CheckSess'],function(){
     Route::post('/api/nuevoPrestamo','ApisController@nuevoPrestamo');
@@ -45,7 +57,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
     Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
     Route::get('api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
 });
-
+###############################################################################################################
 
 
 
