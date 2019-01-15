@@ -276,7 +276,7 @@ BEGIN
  	WHERE llav.codigo=p_codigo_llave and reg.hora_salida IS NULL
  	and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59'))
  	) THEN
- 		SELECT reg.id as id,mae.nombre, mat.nombre as materia, reg.hora_entrada,reg.id_prestamo 
+ 		SELECT reg.id as id,mae.nombre, mat.nombre as materia, CONCAT(aul.area,aul.aula) as aula, reg.hora_entrada,reg.id_prestamo 
  		FROM tregistros AS reg
  		INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
  		INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
