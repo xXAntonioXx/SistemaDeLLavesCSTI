@@ -37,6 +37,14 @@
 @import './search-results-content.css';
 @import './search-results-title.css';
 @import './search-results-content-card.css';
+/* Zona de inventario */
+@import './inventory-container.css';
+@import './inventory-title.css';
+@import './inventory-content.css';
+@import './inventory-content-titles.css';
+@import './inventory-content-items-zone.css';
+@import './inventory-content-items.css';
+@import './inventory-buttons.css';
 /* Footer */
 @import './footer.css';
 /* Menu hamburguesa */

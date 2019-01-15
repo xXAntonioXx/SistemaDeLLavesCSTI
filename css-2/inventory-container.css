@@ -1,0 +1,16 @@
+.inventory-container {
+  height: 100%;
+  width: 80%;
+  justify-self: center;
+  display: grid;
+  grid-template-rows: 55px 1fr 60px;
+  grid-template-areas: "inventory-title"
+                       "inventory-items"
+                       "inventory-buttons";
+  @media (--tablets) {
+  grid-template-rows: 45px 50px 1fr;
+  grid-template-areas: "inventory-title"
+                       "inventory-buttons"
+                       "inventory-items";
+  }
+}

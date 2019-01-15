@@ -1,0 +1,9 @@
+.inventory {
+  grid-area: inventory-items;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10% 90%;
+  grid-template-areas: "inventory-titles"
+                       "inventory-items";
+}

@@ -1,0 +1,5 @@
+.inventory-items {
+  max-height: 300px;
+  grid-area: inventory-items;
+  overflow-y: auto;
+}

@@ -1,0 +1,26 @@
+.inventory-titles {
+  grid-area: inventory-titles;
+  display: flex;
+  width: 100%;
+  border-block-end: 1px solid gray;
+  & h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  & #inventory-title-id {
+    width: 12%;
+    text-align: center;
+  }
+  & #inventory-title-object {
+    width: 20%;
+  }
+  & #inventory-title-brand {
+    width: 20%;
+  }
+  & #inventory-title-description {
+    width: 36%;
+  }
+  & #inventory-title-quantity {
+    width: 12%;
+  }
+}

@@ -16,6 +16,6 @@
     }
   }
   @media (--large) {
-    height: fit-content;
+    height: 100%;
   }
 }
