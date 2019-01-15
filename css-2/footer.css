@@ -15,4 +15,7 @@
       font-size: 1.5rem;
     }
   }
+  @media (--large) {
+    height: fit-content;
+  }
 }

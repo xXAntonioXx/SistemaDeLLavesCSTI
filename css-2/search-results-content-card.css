@@ -14,8 +14,14 @@
       font-size: 1.8rem;
     }
   }
+  & #search-results-class {
+    width: 80%;
+  }
   & #search-results-date {
     margin-right: 10px;
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
   }
   & #search-results-id {
     text-align: end;

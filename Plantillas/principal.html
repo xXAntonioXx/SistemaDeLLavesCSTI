@@ -52,7 +52,7 @@
       </div>
     </header>
     <div class="container-wrapper">
-      <!-- <div class="body-container">
+      <div class="body-container">
         <section class="llaves-prestadas">
           <h2 class="llaves-prestadas-tittle">Llaves prestadas</h2>
           <div class="llaves-titles">
@@ -177,8 +177,8 @@
             </div>
           </div>
         </section>
-      </div> -->
-      <div class="search-container">
+      </div>
+      <!-- <div class="search-container">
         <form action="" class="search-filters-form">
           <div class="search-filters-tittle">
             <h2>FILTROS</h2>
@@ -257,7 +257,7 @@
               <div>
                 <div>
                   <h3 id="search-results-class">Estructura de datos</h3>
-                  <p id="search-results-date">19/12/2018</p>
+                  <p id="search-results-date">2019-01-18</p>
                 </div>
                 <div>
                   <p>Maestro/a: </p>
@@ -302,7 +302,7 @@
               <div>
                 <div>
                   <h3 id="search-results-class">Estructura de datos</h3>
-                  <p id="search-results-date">19/12/2018</p>
+                  <p id="search-results-date">2019-01-18</p>
                 </div>
                 <div>
                   <p>Maestro/a: </p>
@@ -347,7 +347,7 @@
               <div>
                 <div>
                   <h3 id="search-results-class">Estructura de datos</h3>
-                  <p id="search-results-date">19/12/2018</p>
+                  <p id="search-results-date">2019-01-18</p>
                 </div>
                 <div>
                   <p>Maestro/a: </p>
@@ -389,7 +389,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <footer class="footer">
       <h3>&copy; Derechos Reservados</h3>
@@ -403,11 +403,14 @@
       const menu = document.querySelector('.menu');
       const nav = document.querySelector('nav');
       const burgerButton = document.querySelector('#burger-menu');
-      for(var i = 0; i < arrows.length; i++){
-        loanObjects[i].setAttribute('id', 'element-'+i);
-        let id = loanObjects.item(i).getAttribute('id');
-        arrows[i].addEventListener('click', function(){ hideShowObjects(id) } );
+      function addClassToObjects() {
+        for(var i = 0; i < arrows.length; i++){
+          loanObjects[i].setAttribute('id', 'element-'+i);
+          let id = loanObjects.item(i).getAttribute('id');
+          arrows[i].addEventListener('click', function(){ hideShowObjects(id) } );
+        }
       }
+      addClassToObjects()
       ipad.addListener(validation);
       function validation(event){
         if(event.matches){
@@ -419,7 +422,7 @@
       validation(ipad);
       function hideShowObjects(id) {
         for(let i = 0; i < loanObjects.length; i++){
-          if(loanObjects[i].getAttribute('id')===id){
+          if(loanObjects[i].getAttribute('id')===id) {
             if(loanObjects[i].classList.contains('is-active')){
               loanObjects[i].classList.remove('is-active');
               arrows[i].classList.remove('rotation');
