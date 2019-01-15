@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\PruebaMail;
+use Mail;
 
 include 'Konect.php';
 
@@ -17,7 +19,8 @@ class SoporteController extends Controller
     }
 
     public function EnviarMail(Request $req){
-        //mail("jose_antony11@hotmail.com","esta es una prueba","si lees esto antonio significa que se esta logrando enviar un correo");
+        $data=['mensaje'=>'this is a test exito'];
+        Mail::to('rocker4NT0N10@gmail.com')->send(new PruebaMail($data));
         return view('principal');
     }
 }
