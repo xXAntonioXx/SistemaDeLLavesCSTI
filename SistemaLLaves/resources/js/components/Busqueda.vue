@@ -27,7 +27,7 @@
             <p id="search-results-end">{{registro['salida'] ? registro['salida'].slice(10,16):''}}</p>
           </div>
           <div>
-            <p id="search-results-objects">Prestamos</p>
+            <p id="search-results-objects">Préstamos</p>
             <div class="search-results-division"></div>
             <p class="search-results-symbol" @click="cargarObjetos(registro['id_prestamo'],registro['estadoBusqueda'],registro['id']);registro['estadoBusqueda']=!registro['estadoBusqueda'];">&#9660;</p>
           </div>

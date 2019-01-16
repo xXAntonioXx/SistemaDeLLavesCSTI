@@ -7,7 +7,7 @@
         <h3>ID</h3>
         <h3>MAESTRO</h3>
         <h3>MATERIA</h3>
-        <h3>SALON</h3>
+        <h3>SALÓN</h3>
         <h3>HORA</h3>
       </div>
       <div class="llaves-cards">
@@ -29,7 +29,7 @@
     </section>
     <section class="formulario-prestamo">
       <div class="formulario-tittle">
-          <h2>Formulario de prestamo</h2>
+          <h2>Formulario de préstamo</h2>
           <div class="ghost-div"></div>
       </div>
       <div class="formulario-wrapper">
