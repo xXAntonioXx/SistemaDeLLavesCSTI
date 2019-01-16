@@ -61,10 +61,13 @@
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
-              <option :value="1">Control A/AC(Mirage)</option>
+              <option v-for="objects in ObjetosCombo" :value="objects['id']" :key="objects['id']">
+                {{objects['object']}}
+              </option>
+              <!--option :value="1">Control A/AC(Mirage)</option>
               <option :value="2">Control A/AC(YORK)</option>
               <option :value="3">Control Cañon</option>
-              <option :value="4">Bocinas</option>
+              <option :value="4">Bocinas</option-->
             </select>
           </div>
           <div class="modal-buttons">
@@ -74,7 +77,7 @@
         </div>
       </div>
     </section>
-        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado">
+        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado" :maestro="maestroDevolucion" :materia="materiaDevolucion">
           <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
           <input type="submit" value="Cancelar" class="botonCancelar" @click="cancelarDevolucion()" />
         </modalDevolucion>
@@ -104,7 +107,15 @@ export default {
             esDevolucion:false,
             objeto:[],
             idRegistroExistente:'',
-            idPrestamoRegistrado:''
+            idPrestamoRegistrado:'',
+            ObjetosCombo:[
+              {id:1,object:"Control A/AC(Mirage)"},
+              {id:2,object:"Control A/AC(YORK)"},
+              {id:3,object:"Control Cañon"},
+              {id:4,object:"Bocinas"}
+            ],
+            maestroDevolucion:'',
+            materiaDevolucion:''
         }
     },
     components:{
@@ -146,6 +157,8 @@ export default {
           if (nuevo == 0){
             this.buscarHorario(codigoLLave);
           }else{
+            this.maestroDevolucion=res.data['nombre'];
+            this.materiaDevolucion=res.data['materia'];
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
               this.objeto=res.data;

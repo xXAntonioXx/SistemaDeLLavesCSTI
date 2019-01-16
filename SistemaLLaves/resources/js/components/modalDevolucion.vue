@@ -2,6 +2,10 @@
     <div class="capa-cebolla">
         <div class="ventanaModal">
             <h3 class="titulo">objetos prestados</h3>
+            <div class="devolucionInfo">
+                <label style="text:blue">Maestro:</label>{{maestro}}<br>
+                <label style="text:blue">Materia:</label> {{materia}}
+            </div>
             <div class="contentListado">
                 <div v-for="objetos in listado" :key="objetos['id_control']" class="listado">
                     <label :for="objetos">{{objetos['nombre']}}</label>
@@ -16,6 +20,18 @@
 </template>
 
 <style>
+    .devolucionInfo{
+        text-align: left;
+        font-size: 18px;
+        display: inline-block;
+    }
+
+    .devolucionInfo label{
+        color: #004990;
+        font-weight: bold;
+        font-family: Montserrat;
+    }
+
     .capa-cebolla{
         position: fixed;
         z-index: 1;
@@ -87,10 +103,10 @@
     }
 
     .opciones{
-        vertical-align: bottom;
+        /*vertical-align: bottom;*/
         display: flex;
-        align-items: flex-start;
-        justify-content: space-around;
+        /*align-items: flex-start;*/
+        /*justify-content: space-around;*/
         /*grid-template-columns: repeat(2,1fr);*/
         font-size: 0.7em;
     }
@@ -101,14 +117,18 @@ export default {
     data(){
         return {
             listado:this.objetos,
-            objetosDevueltos:[]
+            objetosDevueltos:[],
+            maestro:this.maestro,
+            materia:this.materia
         }
     },
     props:[
         'objetos',
         'hora',
         'idRegistro',
-        'idPrestamo'
+        'idPrestamo',
+        'maestro',
+        'materia'
     ],
     methods:{
         hacerDevolucion(){
@@ -116,12 +136,12 @@ export default {
             
             axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.idPrestamo,'objDevueltos':cadenaObjetos})
             .then((res)=>{
-                alert("al menos hizo la consulta");
-                if (res.data){
+                alert("devolucion realizada");
+                /*if (res.data){
                     alert("devolucion realizada");
                 }else{
                     console.log(res);
-                }
+                }*/
             })
             .catch(()=>{
                 alert('sucedio un error');
