@@ -61,13 +61,9 @@
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
-              <option v-for="objects in ObjetosCombo" :value="objects['id']" :key="objects['id']">
+              <option v-for="objects in computedObjects" :value="objects['id']" :key="objects['id']">
                 {{objects['object']}}
               </option>
-              <!--option :value="1">Control A/AC(Mirage)</option>
-              <option :value="2">Control A/AC(YORK)</option>
-              <option :value="3">Control Cañon</option>
-              <option :value="4">Bocinas</option-->
             </select>
           </div>
           <div class="modal-buttons">
@@ -128,6 +124,12 @@ export default {
       Paginate(){
         return this.Pages.slice(7*(this.indicePagina-1),7*this.indicePagina);
       },
+      computedObjects(){
+        let listado = this.PrestamoList;
+        return this.ObjetosCombo.filter((item)=>{
+          return !listado.includes(item.id);
+        });
+      }
     },
     methods:{
       fetchRegistros(){//metodo para traer todos los registros del dia

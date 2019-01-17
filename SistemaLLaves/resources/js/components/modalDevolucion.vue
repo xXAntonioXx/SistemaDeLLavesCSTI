@@ -77,10 +77,11 @@
     .listado{
         display: grid;
         align-items: center;
-        font-weight: lighter;
-        font-size: 1.7rem;
+        font-weight: inherit;
+        font-size: 1.2rem;
         grid-template-columns: repeat(2,1fr);
-
+        text-align: left;
+        margin-left: 50px;
     }
     .listado input{
         margin: auto;
@@ -134,8 +135,9 @@ export default {
         return {
             listado:this.objetos,
             objetosDevueltos:[],
-            maestro:this.maestro,
-            materia:this.materia
+            PrestamoID:this.idPrestamo,
+            Maestro:this.maestro,
+            Materia:this.materia
         }
     },
     props:[
@@ -150,7 +152,7 @@ export default {
         hacerDevolucion(){
             let cadenaObjetos=this.objetosDevueltos.join();
             
-            axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.idPrestamo,'objDevueltos':cadenaObjetos})
+            axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.PrestamoID,'objDevueltos':cadenaObjetos})
             .then((res)=>{
                 alert("devolucion realizada");
                 /*if (res.data){
@@ -164,7 +166,7 @@ export default {
             });
         },
         cancelar(){
-            this.objetos,this.hora,this.idRegistro,this.idPrestamo=null;
+            this.objetos,this.hora,this.idRegistro,this.PrestamoID=null;
         }
     }
 }

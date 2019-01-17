@@ -52828,7 +52828,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.5.18
+ * Vue.js v2.5.21
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
@@ -55730,7 +55730,7 @@ function mountComponent (
   // component's mounted hook), which relies on vm._watcher being already defined
   new Watcher(vm, updateComponent, noop, {
     before: function before () {
-      if (vm._isMounted) {
+      if (vm._isMounted && !vm._isDestroyed) {
         callHook(vm, 'beforeUpdate');
       }
     }
@@ -56671,9 +56671,10 @@ function renderList (
       ret[i] = render(val[key], key, i);
     }
   }
-  if (isDef(ret)) {
-    (ret)._isVList = true;
+  if (!isDef(ret)) {
+    ret = [];
   }
+  (ret)._isVList = true;
   return ret
 }
 
@@ -58015,7 +58016,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.5.18';
+Vue.version = '2.5.21';
 
 /*  */
 
@@ -58368,12 +58369,6 @@ var emptyNode = new VNode('', {}, []);
 
 var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
-function childrenIgnored (vnode) {
-  return vnode && vnode.data && vnode.data.domProps && (
-    vnode.data.domProps.innerHTML || vnode.data.domProps.textContent
-  )
-}
-
 function sameVnode (a, b) {
   return (
     a.key === b.key && (
@@ -58381,7 +58376,6 @@ function sameVnode (a, b) {
         a.tag === b.tag &&
         a.isComment === b.isComment &&
         isDef(a.data) === isDef(b.data) &&
-        !childrenIgnored(a) && !childrenIgnored(b) &&
         sameInputType(a, b)
       ) || (
         isTrue(a.isAsyncPlaceholder) &&
@@ -59680,7 +59674,7 @@ function genComponentModel (
 
   el.model = {
     value: ("(" + value + ")"),
-    expression: ("\"" + value + "\""),
+    expression: JSON.stringify(value),
     callback: ("function (" + baseValueExpression + ") {" + assignment + "}")
   };
 }
@@ -62301,7 +62295,7 @@ function processKey (el) {
         var parent = el.parent;
         if (iterator && iterator === exp && parent && parent.tag === 'transition-group') {
           warn$2(
-            "Do not use v-for index as key on <transtion-group> children, " +
+            "Do not use v-for index as key on <transition-group> children, " +
             "this is the same as not using keys."
           );
         }
@@ -63418,7 +63412,9 @@ function genChildren (
       el$1.tag !== 'template' &&
       el$1.tag !== 'slot'
     ) {
-      var normalizationType = checkSkip && state.maybeComponent(el$1) ? ",1" : "";
+      var normalizationType = checkSkip
+        ? state.maybeComponent(el$1) ? ",1" : ",0"
+        : "";
       return ("" + ((altGenElement || genElement)(el$1, state)) + normalizationType)
     }
     var normalizationType$1 = checkSkip
@@ -64248,7 +64244,7 @@ var content = __webpack_require__(174);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("302a1c33", content, false, {});
+var update = __webpack_require__(6)("48e1629a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -64406,10 +64402,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -64447,6 +64439,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     Paginate: function Paginate() {
       return this.Pages.slice(7 * (this.indicePagina - 1), 7 * this.indicePagina);
+    },
+    computedObjects: function computedObjects() {
+      var listado = this.PrestamoList;
+      return this.ObjetosCombo.filter(function (item) {
+        return !listado.includes(item.id);
+      });
     }
   },
   methods: {
@@ -65531,7 +65529,7 @@ var content = __webpack_require__(183);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("7c0a3aba", content, false, {});
+var update = __webpack_require__(6)("98fec5ba", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -65555,7 +65553,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.devolucionInfo{\r\n        text-align: left;\r\n        font-size: 18px;\r\n        display: inline-block;\r\n        margin: auto;\n}\n.devolucionInfo label{\r\n        color: #004990;\r\n        font-weight: bold;\r\n        font-family: Montserrat;\n}\n.capa-cebolla{\r\n        position: fixed;\r\n        z-index: 1;\r\n        background-color: rgba(0, 0, 0,.5);\r\n        height: 100%;\r\n        width: 100%;\r\n        display:-webkit-box;\r\n        display:-ms-flexbox;\r\n        display:flex;\r\n        top: 0;\r\n        bottom: 100%;\n}\n.ventanaModal{\r\n        height: 80vh;\r\n        width: 500px;\r\n        margin: auto;\r\n        border-radius: 5px;\r\n        position: relative;\r\n        -webkit-box-align: center;\r\n            -ms-flex-align: center;\r\n                align-items: center;\r\n        background: white;\r\n        z-index: 3;\r\n        overflow: auto;\r\n        text-align: center;\r\n        -webkit-box-orient: vertical;\r\n        -webkit-box-direction: normal;\r\n            -ms-flex-direction: column;\r\n                flex-direction: column;\r\n        border: 2px solid grey;\r\n\r\n        display: grid;\r\n        grid-template-rows: 10% 10% 72% 8%;\r\n        -ms-flex-line-pack: space-evenly;\r\n            align-content: space-evenly;\n}\n.titulo{\r\n        font-family: Montserrat,sans-serif;\r\n        font-weight: 500;\r\n        font-size: 1.7rem;\r\n        margin: auto;\r\n        height: 100%;\n}\n.contentListado{\r\n        height: 100%;\r\n        overflow-y: scroll;\n}\n.listado{\r\n        display: grid;\r\n        -webkit-box-align: center;\r\n            -ms-flex-align: center;\r\n                align-items: center;\r\n        font-weight: lighter;\r\n        font-size: 1.7rem;\r\n        grid-template-columns: repeat(2,1fr);\n}\n.listado input{\r\n        margin: auto;\r\n        border-radius: 9px;\n}\n.botonFin{\r\n        border-radius: 50px;\r\n        width: 30%;\r\n        background: #004990;\r\n        font-size: 70%;\r\n        color: white;\r\n        display: -webkit-box;\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        -webkit-box-pack: center;\r\n            -ms-flex-pack: center;\r\n                justify-content: center;\r\n        margin: auto;\r\n        height: 30px;\n}\n.botonCancelar{\r\n        border: 2px solid #004990;\r\n        border-radius: 50px;\r\n        width: 30%;\r\n        background: white;\r\n        font-size: 70%;\r\n        -ms-flex-item-align: center;\r\n            align-self: center;\r\n        margin: auto;\r\n        height: 30px;\n}\n.opciones{\r\n        /*vertical-align: bottom;*/\r\n        display: -webkit-box;\r\n        display: -ms-flexbox;\r\n        display: flex;\r\n        position: absolute;\r\n        bottom: 0;\r\n        margin-bottom: 5%;\r\n        width: 100%;\r\n        /*align-items: flex-start;*/\r\n        /*justify-content: space-around;*/\r\n        /*grid-template-columns: repeat(2,1fr);*/\r\n        font-size: 0.7em;\n}\n.tituloDiv{\r\n        border-bottom: 2px solid #004990;\r\n        height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\n.devolucionInfo{\n    text-align: left;\n    font-size: 18px;\n    display: inline-block;\n    margin: auto;\n}\n.devolucionInfo label{\n    color: #004990;\n    font-weight: bold;\n    font-family: Montserrat;\n}\n.capa-cebolla{\n    position: fixed;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n    display:-webkit-box;\n    display:-ms-flexbox;\n    display:flex;\n    top: 0;\n    bottom: 100%;\n}\n.ventanaModal{\n    height: 80vh;\n    width: 500px;\n    margin: auto;\n    border-radius: 5px;\n    position: relative;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    border: 2px solid grey;\n\n    display: grid;\n    grid-template-rows: 10% 10% 72% 8%;\n    -ms-flex-line-pack: space-evenly;\n        align-content: space-evenly;\n}\n.titulo{\n    font-family: Montserrat,sans-serif;\n    font-weight: 500;\n    font-size: 1.7rem;\n    margin: auto;\n    height: 100%;\n}\n.contentListado{\n    height: 100%;\n    overflow-y: scroll;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: inherit;\n    font-size: 1.2rem;\n    grid-template-columns: repeat(2,1fr);\n    text-align: left;\n    margin-left: 50px;\n}\n.listado input{\n    margin: auto;\n    border-radius: 9px;\n}\n.botonFin{\n    border-radius: 50px;\n    width: 30%;\n    background: #004990;\n    font-size: 70%;\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    margin: auto;\n    height: 30px;\n}\n.botonCancelar{\n    border: 2px solid #004990;\n    border-radius: 50px;\n    width: 30%;\n    background: white;\n    font-size: 70%;\n    -ms-flex-item-align: center;\n        align-self: center;\n    margin: auto;\n    height: 30px;\n}\n.opciones{\n    /*vertical-align: bottom;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    position: absolute;\n    bottom: 0;\n    margin-bottom: 5%;\n    width: 100%;\n    /*align-items: flex-start;*/\n    /*justify-content: space-around;*/\n    /*grid-template-columns: repeat(2,1fr);*/\n    font-size: 0.7em;\n}\n.tituloDiv{\n    border-bottom: 2px solid #004990;\n    height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -65696,14 +65694,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             listado: this.objetos,
             objetosDevueltos: [],
-            maestro: this.maestro,
-            materia: this.materia
+            PrestamoID: this.idPrestamo,
+            Maestro: this.maestro,
+            Materia: this.materia
         };
     },
 
@@ -65712,7 +65712,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         hacerDevolucion: function hacerDevolucion() {
             var cadenaObjetos = this.objetosDevueltos.join();
 
-            axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.idPrestamo, 'objDevueltos': cadenaObjetos }).then(function (res) {
+            axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.PrestamoID, 'objDevueltos': cadenaObjetos }).then(function (res) {
                 alert("devolucion realizada");
                 /*if (res.data){
                     alert("devolucion realizada");
@@ -65724,7 +65724,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cancelar: function cancelar() {
-            this.objetos, this.hora, this.idRegistro, this.idPrestamo = null;
+            this.objetos, this.hora, this.idRegistro, this.PrestamoID = null;
         }
     }
 });
@@ -65747,7 +65747,7 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _c("label", { staticStyle: { text: "blue" } }, [_vm._v("Materia:")]),
-        _vm._v(" " + _vm._s(_vm.materia) + "\r\n            ")
+        _vm._v(" " + _vm._s(_vm.materia) + "\n        ")
       ]),
       _vm._v(" "),
       _c(
@@ -65803,7 +65803,8 @@ var render = function() {
               _c("br")
             ]
           )
-        })
+        }),
+        0
       ),
       _vm._v(" "),
       _c("div", { staticClass: "opciones" }, [_vm._t("default")], 2)
@@ -65880,7 +65881,8 @@ var render = function() {
                 ])
               ]
             )
-          })
+          }),
+          0
         ),
         _vm._v(" "),
         _c("div", { staticClass: "llaves-paginador" }, [
@@ -65900,7 +65902,8 @@ var render = function() {
                   [_vm._v(_vm._s(n))]
                 )
               ])
-            })
+            }),
+            0
           )
         ])
       ]),
@@ -66164,7 +66167,7 @@ var render = function() {
                         ]
                       }
                     },
-                    _vm._l(_vm.ObjetosCombo, function(objects) {
+                    _vm._l(_vm.computedObjects, function(objects) {
                       return _c(
                         "option",
                         {
@@ -66179,9 +66182,11 @@ var render = function() {
                           )
                         ]
                       )
-                    })
+                    }),
+                    0
                   )
-                })
+                }),
+                0
               ),
               _vm._v(" "),
               _c("div", { staticClass: "modal-buttons" }, [
@@ -66360,7 +66365,7 @@ var content = __webpack_require__(189);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("44e0ac62", content, false, {});
+var update = __webpack_require__(6)("c07523bc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -66603,12 +66608,14 @@ var render = function() {
                       _vm._v("Devuelto")
                     ])
                   ])
-                })
+                }),
+                0
               )
             ])
           ]
         )
-      })
+      }),
+      0
     )
   ])
 }
