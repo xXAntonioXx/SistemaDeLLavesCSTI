@@ -1,7 +1,9 @@
 <template>
     <div class="capa-cebolla">
         <div class="ventanaModal">
-            <h3 class="titulo">objetos prestados</h3>
+            <div class="tituloDiv">
+                <h3 class="titulo">objetos prestados</h3>
+            </div>
             <div class="devolucionInfo">
                 <label style="text:blue">Maestro:</label>{{maestro}}<br>
                 <label style="text:blue">Materia:</label> {{materia}}
@@ -24,6 +26,7 @@
         text-align: left;
         font-size: 18px;
         display: inline-block;
+        margin: auto;
     }
 
     .devolucionInfo label{
@@ -55,17 +58,21 @@
         text-align: center;
         flex-direction: column;
         border: 2px solid grey;
+
+        display: grid;
+        grid-template-rows: 10% 10% 72% 8%;
+        align-content: space-evenly;
     }
     .titulo{
         font-family: Montserrat,sans-serif;
-        border-bottom: 2px solid #004990;
         font-weight: 500;
         font-size: 1.7rem;
-        margin: 0%;
-        padding: 5%;
+        margin: auto;
+        height: 100%;
     }
     .contentListado{
-        height: 75%;
+        height: 100%;
+        overflow-y: scroll;
     }
     .listado{
         display: grid;
@@ -76,6 +83,7 @@
 
     }
     .listado input{
+        margin: auto;
         border-radius: 9px;
     }
 
@@ -105,10 +113,18 @@
     .opciones{
         /*vertical-align: bottom;*/
         display: flex;
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 5%;
+        width: 100%;
         /*align-items: flex-start;*/
         /*justify-content: space-around;*/
         /*grid-template-columns: repeat(2,1fr);*/
         font-size: 0.7em;
+    }
+    .tituloDiv{
+        border-bottom: 2px solid #004990;
+        height: 100%;
     }
 </style>
 

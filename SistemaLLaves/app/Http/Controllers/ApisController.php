@@ -26,6 +26,7 @@ class ApisController extends Controller
     }
 
     public function Devolucion_O_Prestamo($codigo){//metodo para revisar si la llave se esta prestando o devolviendo
+        //$cadenaConsulta = "CALL sp_get_esdevolucion({$codigo})";
         $resultadoBusqueda = $this->conexion->query("CALL sp_get_esdevolucion({$codigo})")->fetch();
         return $resultadoBusqueda;
     }
@@ -53,7 +54,7 @@ class ApisController extends Controller
         if($horario){//solo en caso de que exista el horario se retornara en forma de JSON
             return $horario->fetch();    
         }
-        return $horario;//de lo contrario se devuelve un false
+        return "esto si se esta ejecutando";//de lo contrario se devuelve un false
     }
 
     public function nuevoRegistro(Request $req){//ya generado un prestamo generamos un registro de de que la llave de cierto salon fue tomado a determinada hora por determinado maestro segun el horario
