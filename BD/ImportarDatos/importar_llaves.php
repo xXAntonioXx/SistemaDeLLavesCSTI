@@ -2,7 +2,7 @@
     
     function registrar($argDatos){
         try {
-            $conexion = new PDO('mysql:host=localhost;dbname=sistema_llaves','root','Kgmt1709');
+            $conexion = new PDO('mysql:host=localhost;dbname=sistema_llaves','root','');
             $statement = $conexion->prepare('CALL sp_registrar_llave( :codigo,:numero,:area,:aula)');
             $statement->execute(array(
                 ':codigo' => $argDatos[0],

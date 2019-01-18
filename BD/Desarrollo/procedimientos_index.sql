@@ -231,28 +231,28 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
  	CASE
  		WHEN (p_id_horario > 0) AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NOT NULL) THEN 
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NULL) THEN 
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,null,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NULL) THEN 
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NOT NULL) THEN
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,@id_prest,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NOT NULL) THEN
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NOT NULL) THEN
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,@id_prest,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NULL) THEN
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,null,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NULL) THEN
  			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
- 			UPDATE tllaves SET estado=1 where codigo=p_codigo_llave;
+ 			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
  	END CASE;
 
  	SET @id_excepcion=null;
@@ -281,7 +281,7 @@ BEGIN
  	INNER JOIN sistema_llaves.thorarios   AS ho   ON ho.id=reg.id_horario 
     INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
  	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
- 	WHERE llav.codigo=p_codigo_llave and reg.hora_salida IS NULL and llav.estado=1
+ 	WHERE llav.codigo=p_codigo_llave and reg.hora_salida IS NULL and llav.ref IS NOT NULL
  	and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59'))
  	) THEN
  		SELECT reg.id as id,mae.nombre, mat.nombre as materia, CONCAT(aul.area,"-",aul.aula) as aula, reg.hora_entrada,reg.id_prestamo 
@@ -291,7 +291,7 @@ BEGIN
  		INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
  		INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
  		INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
- 		WHERE llav.codigo=p_codigo_llave and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59')) and reg.hora_salida IS NULL;
+ 		WHERE ho.id=(SELECT llav.ref where llav.codigo=p_codigo_llave) and UNIX_TIMESTAMP(reg.hora_entrada) BETWEEN UNIX_TIMESTAMP(DATE(CURDATE())) AND UNIX_TIMESTAMP(CONCAT(DATE(CURDATE()),' 23:59:59')) and reg.hora_salida IS NULL;
  	ELSE
  		SELECT CAST(0 AS UNSIGNED INTEGER) AS id;
  	END IF;
@@ -332,6 +332,7 @@ DELIMITER ;
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_set_registro;
 CREATE PROCEDURE sistema_llaves.sp_set_registro(
+	in p_codigo_llave BIGINT(20),
 	in p_id_registro INT(11),
 	in p_hora_salida TIMESTAMP,
 	in p_id_prestamo INT(11),
@@ -364,7 +365,7 @@ BEGIN
 	END IF;
 
 	UPDATE sistema_llaves.tregistros SET hora_entrada=(select hora_entrada where id=p_id_registro),hora_salida=p_hora_salida WHERE id=p_id_registro;
-
+	UPDATE sistema_llaves.tllaves SET ref=NULL where codigo=p_codigo_llave;
 END
 //
 DELIMITER ;
