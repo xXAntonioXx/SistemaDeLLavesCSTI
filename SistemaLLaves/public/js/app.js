@@ -64402,6 +64402,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -64445,6 +64448,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.ObjetosCombo.filter(function (item) {
         return !listado.includes(item.id);
       });
+    },
+    objetoElegido: function objetoElegido() {
+      return this.ObjetosCombo[this.idObjetoSelected].object;
     }
   },
   methods: {
@@ -64512,6 +64518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //obtenemos id,maestro,materia,aula con el codigo de llave
       var time = this.showTime();
       this.globalTime = time;
+      this.codigoKey = codigoLLave;
       var busqueda = 'api/buscarHorario/' + codigoLLave + '/' + time;
       axios.get(busqueda).then(function (res) {
         console.log(res);
@@ -64554,7 +64561,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this4 = this;
 
       //se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
-      axios.post('/api/nuevoRegistro', { 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'], 'objList': this.PrestamoList.slice(0, -1) }).then(function () {
+      axios.post('/api/nuevoRegistro', { 'llave': this.codigoKey, 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'], 'objList': this.PrestamoList.slice(0, -1) }).then(function (res) {
+        console.log(res.data);
         alert('registro realizado');
         _this4.fetchRegistros();
         _this4.cleanObjPrestamo();
@@ -66170,10 +66178,7 @@ var render = function() {
                     _vm._l(_vm.computedObjects, function(objects) {
                       return _c(
                         "option",
-                        {
-                          key: objects["id"],
-                          domProps: { value: objects["id"] }
-                        },
+                        { key: objects["id"], domProps: { value: objects.id } },
                         [
                           _vm._v(
                             "\r\n                " +

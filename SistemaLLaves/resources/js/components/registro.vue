@@ -61,7 +61,10 @@
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
-              <option v-for="objects in computedObjects" :value="objects['id']" :key="objects['id']">
+              <!--option v-for="objects in computedObjects" :value="objects['id']" :label="ObjetosCombo[objects['id']]" :key="objects['id']">
+                {{objects['object']}}
+              </option-->
+              <option v-for="objects in computedObjects" :value="objects.id" :key="objects['id']">
                 {{objects['object']}}
               </option>
             </select>
@@ -129,6 +132,9 @@ export default {
         return this.ObjetosCombo.filter((item)=>{
           return !listado.includes(item.id);
         });
+      },
+      objetoElegido(){
+        return this.ObjetosCombo[this.idObjetoSelected].object;
       }
     },
     methods:{
@@ -192,6 +198,7 @@ export default {
       buscarHorario(codigoLLave){//obtenemos id,maestro,materia,aula con el codigo de llave
         let time=this.showTime();
         this.globalTime=time;
+        this.codigoKey=codigoLLave;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
         axios.get(busqueda)
         .then(res=>{
@@ -233,8 +240,9 @@ export default {
       },
 
       NuevoRegistro(){//se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
-        axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
-        .then(()=>{
+        axios.post('/api/nuevoRegistro',{'llave':this.codigoKey,'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
+        .then((res)=>{
+          console.log(res.data);
           alert('registro realizado');
           this.fetchRegistros();
           this.cleanObjPrestamo();

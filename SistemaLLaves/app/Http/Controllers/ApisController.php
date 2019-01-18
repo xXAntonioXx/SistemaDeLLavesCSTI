@@ -58,13 +58,15 @@ class ApisController extends Controller
     }
 
     public function nuevoRegistro(Request $req){//ya generado un prestamo generamos un registro de de que la llave de cierto salon fue tomado a determinada hora por determinado maestro segun el horario
+        $llave=$req["llave"];
         $hora=$req["fechaHora"];
         $idHorario=$req["idHorario"];
         $idUsuario=$req->session()->get('id');//obtenemos el identificador de la sercretaria/usuario que registro la llave
         $objetos=$req["objList"];
         
-        $registrar="CALL sp_registrar_registro('{$hora}',{$idHorario},{$idUsuario},'{$objetos}')";
+        $registrar="CALL sp_registrar_registro({$llave},'{$hora}',{$idHorario},{$idUsuario},'{$objetos}')";
         $this->conexion->query($registrar);
+        return $registrar;
     }
 
 }
