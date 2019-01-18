@@ -6,7 +6,7 @@ $password='contra';
 
 function registrar($a,$b){
         try {
-            $conexion = new PDO('mysql:host=localhost;dbname=sistema_llaves','root','Kgmt1709');
+            $conexion = new PDO('mysql:host=localhost;dbname=sistema_llaves','root','');
             $contra=password_hash($b, PASSWORD_DEFAULT);
             $statement = $conexion->query("INSERT INTO tusuarios VALUES(null,'$a','$contra',1,DEFAULT)");
             
