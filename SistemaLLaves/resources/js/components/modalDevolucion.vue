@@ -61,8 +61,50 @@
         border: 2px solid grey;
 
         display: grid;
-        grid-template-rows: 10% 15% 50% 8%;
+        grid-template-rows: 10% 20% 60% 10%;
         align-content: space-evenly;
+    }
+    @media screen and (max-width:600px) and (max-height:480px){
+        .ventanaModal{
+            height: 500px;
+            width: 500px;
+            margin: auto;
+            border-radius: 5px;
+            position: relative;
+            align-items: center;
+            background: white;
+            z-index: 3;
+            overflow: auto;
+            text-align: center;
+            flex-direction: column;
+            border: 2px solid grey;
+
+            display: grid;
+            grid-template-rows: 10% 30% 50% 10%;
+            align-content: space-evenly;
+        }
+    }
+    @media screen and (max-height:490px) and (orientation: landscape) and (min-width: 610px){
+        .ventanaModal{
+            height: 80vh;
+            width: 500px;
+            margin: auto;
+            border-radius: 5px;
+            position: relative;
+            align-items: center;
+            background: white;
+            z-index: 3;
+            overflow: auto;
+            text-align: center;
+            flex-direction: column;
+            border: 2px solid grey;
+
+            display: grid;
+            grid-template-rows: 40px 120px 200px 40px;
+            align-content: space-evenly;
+
+            overflow-y: scroll;
+        }
     }
     .titulo{
         font-family: Montserrat,sans-serif;

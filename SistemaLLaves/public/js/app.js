@@ -65577,7 +65577,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.devolucionInfo{\n    text-align: left;\n    font-size: 18px;\n    display: inline-block;\n    margin: auto;\n}\n.devolucionInfo label{\n    color: #004990;\n    font-weight: bold;\n    font-family: Montserrat;\n}\n.capa-cebolla{\n    position: fixed;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n    display:-webkit-box;\n    display:-ms-flexbox;\n    display:flex;\n    top: 0;\n    bottom: 100%;\n}\n.ventanaModal{\n    height: 80vh;\n    width: 500px;\n    margin: auto;\n    border-radius: 5px;\n    position: relative;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    border: 2px solid grey;\n\n    display: grid;\n    grid-template-rows: 10% 15% 50% 8%;\n    -ms-flex-line-pack: space-evenly;\n        align-content: space-evenly;\n}\n.titulo{\n    font-family: Montserrat,sans-serif;\n    font-weight: 500;\n    font-size: 1.7rem;\n    margin: auto;\n    height: 100%;\n}\n.contentListado{\n    height: 100%;\n    overflow-y: scroll;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: inherit;\n    font-size: 1.2rem;\n    grid-template-columns: repeat(2,1fr);\n    text-align: left;\n    margin-left: 50px;\n}\n.listado input{\n    margin: auto;\n    border-radius: 9px;\n}\n.botonFin{\n    border-radius: 50px;\n    width: 30%;\n    background: #004990;\n    font-size: 70%;\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    margin: auto;\n    height: 30px;\n}\n.botonCancelar{\n    border: 2px solid #004990;\n    border-radius: 50px;\n    width: 30%;\n    background: white;\n    font-size: 70%;\n    -ms-flex-item-align: center;\n        align-self: center;\n    margin: auto;\n    height: 30px;\n}\n.opciones{\n    /*vertical-align: bottom;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    position: absolute;\n    bottom: 0;\n    margin-bottom: 5%;\n    width: 100%;\n    /*align-items: flex-start;*/\n    /*justify-content: space-around;*/\n    /*grid-template-columns: repeat(2,1fr);*/\n    font-size: 0.7em;\n}\n.tituloDiv{\n    border-bottom: 2px solid #004990;\n    height: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.devolucionInfo{\n    text-align: left;\n    font-size: 18px;\n    display: inline-block;\n    margin: auto;\n}\n.devolucionInfo label{\n    color: #004990;\n    font-weight: bold;\n    font-family: Montserrat;\n}\n.capa-cebolla{\n    position: fixed;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n    display:-webkit-box;\n    display:-ms-flexbox;\n    display:flex;\n    top: 0;\n    bottom: 100%;\n}\n.ventanaModal{\n    height: 80vh;\n    width: 500px;\n    margin: auto;\n    border-radius: 5px;\n    position: relative;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    border: 2px solid grey;\n\n    display: grid;\n    grid-template-rows: 10% 20% 60% 10%;\n    -ms-flex-line-pack: space-evenly;\n        align-content: space-evenly;\n}\n@media screen and (max-width:600px) and (max-height:480px){\n.ventanaModal{\n        height: 500px;\n        width: 500px;\n        margin: auto;\n        border-radius: 5px;\n        position: relative;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        background: white;\n        z-index: 3;\n        overflow: auto;\n        text-align: center;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        border: 2px solid grey;\n\n        display: grid;\n        grid-template-rows: 10% 30% 50% 10%;\n        -ms-flex-line-pack: space-evenly;\n            align-content: space-evenly;\n}\n}\n@media screen and (max-height:490px) and (orientation: landscape) and (min-width: 610px){\n.ventanaModal{\n        height: 80vh;\n        width: 500px;\n        margin: auto;\n        border-radius: 5px;\n        position: relative;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        background: white;\n        z-index: 3;\n        overflow: auto;\n        text-align: center;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        border: 2px solid grey;\n\n        display: grid;\n        grid-template-rows: 40px 120px 200px 40px;\n        -ms-flex-line-pack: space-evenly;\n            align-content: space-evenly;\n\n        overflow-y: scroll;\n}\n}\n.titulo{\n    font-family: Montserrat,sans-serif;\n    font-weight: 500;\n    font-size: 1.7rem;\n    margin: auto;\n    height: 100%;\n}\n.contentListado{\n    height: 100%;\n    overflow-y: scroll;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: inherit;\n    font-size: 1.2rem;\n    grid-template-columns: repeat(2,1fr);\n    text-align: left;\n    margin-left: 50px;\n}\n.listado input{\n    margin: auto;\n    border-radius: 9px;\n}\n.botonFin{\n    border-radius: 50px;\n    width: 30%;\n    background: #004990;\n    font-size: 70%;\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    margin: auto;\n    height: 30px;\n}\n.botonCancelar{\n    border: 2px solid #004990;\n    border-radius: 50px;\n    width: 30%;\n    background: white;\n    font-size: 70%;\n    -ms-flex-item-align: center;\n        align-self: center;\n    margin: auto;\n    height: 30px;\n}\n.opciones{\n    /*vertical-align: bottom;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    position: absolute;\n    bottom: 0;\n    margin-bottom: 5%;\n    width: 100%;\n    /*align-items: flex-start;*/\n    /*justify-content: space-around;*/\n    /*grid-template-columns: repeat(2,1fr);*/\n    font-size: 0.7em;\n}\n.tituloDiv{\n    border-bottom: 2px solid #004990;\n    height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -65588,6 +65588,48 @@ exports.push([module.i, "\n.devolucionInfo{\n    text-align: left;\n    font-siz
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -65763,7 +65805,7 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "devolucionInfo" }, [
-        _vm._m(1),
+        _c("label", { staticStyle: { text: "blue" } }, [_vm._v("Maestro:")]),
         _vm._v(_vm._s(_vm.maestro)),
         _c("br"),
         _vm._v(" "),
@@ -65843,15 +65885,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "tituloDiv" }, [
       _c("h3", { staticClass: "titulo" }, [_vm._v("objetos prestados")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticStyle: { text: "blue" } }, [
-      _vm._v("Maestro:"),
-      _c("br")
     ])
   }
 ]
