@@ -6,7 +6,8 @@
             </div>
             <div class="devolucionInfo">
                 <label style="text:blue">Maestro:</label>{{maestro}}<br>
-                <label style="text:blue">Materia:</label> {{materia}}
+                <label style="text:blue">Materia:</label> {{materia}}<br>
+                <label>Aula:</label>{{Aula}}
             </div>
             <div class="contentListado">
                 <div v-for="objetos in listado" :key="objetos['id_control']" class="listado">
@@ -60,7 +61,7 @@
         border: 2px solid grey;
 
         display: grid;
-        grid-template-rows: 10% 10% 72% 8%;
+        grid-template-rows: 10% 15% 50% 8%;
         align-content: space-evenly;
     }
     .titulo{
@@ -137,7 +138,8 @@ export default {
             objetosDevueltos:[],
             PrestamoID:this.idPrestamo,
             Maestro:this.maestro,
-            Materia:this.materia
+            Materia:this.materia,
+            Aula:this.aula
         }
     },
     props:[
@@ -146,7 +148,8 @@ export default {
         'idRegistro',
         'idPrestamo',
         'maestro',
-        'materia'
+        'materia',
+        'aula'
     ],
     methods:{
         hacerDevolucion(){
@@ -161,7 +164,7 @@ export default {
             });
         },
         cancelar(){
-            this.objetos,this.hora,this.idRegistro,this.PrestamoID=null;
+            this.objetos,this.hora,this.idRegistro,this.PrestamoID,this.Aula=null;
         }
     }
 }

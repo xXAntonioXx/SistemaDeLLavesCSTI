@@ -76,7 +76,7 @@
         </div>
       </div>
     </section>
-        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado" :maestro="maestroDevolucion" :materia="materiaDevolucion">
+        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado" :maestro="maestroDevolucion" :materia="materiaDevolucion" :aula="aulaDevolucion">
           <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
           <input type="submit" value="Cancelar" class="botonCancelar" @click="cancelarDevolucion()" />
         </modalDevolucion>
@@ -124,7 +124,8 @@ export default {
               {id:4,object:"Bocinas"}
             ],
             maestroDevolucion:'',
-            materiaDevolucion:''
+            materiaDevolucion:'',
+            aulaDevolucion:''
         }
     },
     components:{
@@ -179,6 +180,7 @@ export default {
           }else{
             this.maestroDevolucion=res.data['nombre'];
             this.materiaDevolucion=res.data['materia'];
+            this.aulaDevolucion=res.data['aula'];
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
               this.objeto=res.data;
