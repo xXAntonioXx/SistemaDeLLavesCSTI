@@ -151,7 +151,7 @@ export default {
     methods:{
         hacerDevolucion(){
             let cadenaObjetos=this.objetosDevueltos.join();
-            
+            console.log(this.idRegistro +"*"+this.hora +"*"+this.PrestamoID+"*"+cadenaObjetos);
             axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.PrestamoID,'objDevueltos':cadenaObjetos})
             .then((res)=>{
                 alert("devolucion realizada");

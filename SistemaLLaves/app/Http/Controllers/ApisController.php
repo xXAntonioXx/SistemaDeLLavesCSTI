@@ -32,17 +32,19 @@ class ApisController extends Controller
     }
 
     public function ObjetosPrestados($idPrestamo){//obtener objetos prestados para cada registros en particular
-
-        $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetchAll();
-        $obj=array();
-        return json_encode($objetosPrestados);
+        if($idPrestamo=="null"){
+            return "";
+        }else{
+            $objetosPrestados = $this->conexion->query("CALL sp_get_objetos({$idPrestamo});")->fetchAll();
+            return json_encode($objetosPrestados);
+        }
     }
 
     public function hacerDevolucion(Request $req){
         $registro = $req["idRegistro"];
         $horaDevolucion = $req["horaDevolucion"];
-        $idPrestamoObjetos = $req["idPrestamos"];
-        $objetosDevueltos = $req["objDevueltos"];
+        $idPrestamoObjetos = $req["idPrestamos"]?"null":$req["idPrestamos"];
+        $objetosDevueltos = $req["objDevueltos"]=="null"?"":$req["objDevueltos"];
 
         $UpdateRegistro="CALL sp_set_registro({$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
         $this->conexion->query($UpdateRegistro);
@@ -50,11 +52,11 @@ class ApisController extends Controller
 
     public function buscarHorario($codigo,$hora){//buscamos el horario en base al codigo de la llave y la hora
         $consulta="CALL sp_get_frmPrestamo({$codigo},'{$hora}')";
-        $horario=$this->conexion->query($consulta);
+        $horario=$this->conexion->query($consulta)->fetch();
         if($horario){//solo en caso de que exista el horario se retornara en forma de JSON
-            return $horario->fetch();    
+            return $horario;    
         }
-        return "esto si se esta ejecutando";//de lo contrario se devuelve un false
+        return null;//de lo contrario se devuelve un false
     }
 
     public function nuevoRegistro(Request $req){//ya generado un prestamo generamos un registro de de que la llave de cierto salon fue tomado a determinada hora por determinado maestro segun el horario

@@ -64,14 +64,14 @@
               <!--option v-for="objects in computedObjects" :value="objects['id']" :label="ObjetosCombo[objects['id']]" :key="objects['id']">
                 {{objects['object']}}
               </option-->
-              <option v-for="objects in computedObjects" :value="objects.id" :key="objects['id']">
+              <option v-for="objects in comboInd['ObjetosDisponibles']" :value="objects.id" :key="objects['id']">
                 {{objects['object']}}
               </option>
             </select>
           </div>
           <div class="modal-buttons">
             <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro()" onclick="window.location='#';">
-            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="comboIterates=[{id:1,estado:false,valor:'0'}];PrestamoList=''">
+            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="comboIterates=[{id:1,estado:false,valor:'0',ObjetosDisponibles:ObjetosCombo}];PrestamoList=''">
           </div>
         </div>
       </div>
@@ -99,7 +99,17 @@ export default {
             codigoKey:'',
             registroForm:[],
             estadoInput:true,
-            comboIterates:[{id:1,estado:false,valor:'0'}],
+            comboIterates:[{
+              id:1,
+              estado:false,
+              valor:'0',
+              ObjetosDisponibles:[
+                {id:1,object:"Control A/AC(Mirage)"},
+                {id:2,object:"Control A/AC(YORK)"},
+                {id:3,object:"Control Cañon"},
+                {id:4,object:"Bocinas"}
+              ]
+            }],
             PrestamoList:"",
             globalTime:'0',
             RegistrarState:true,
@@ -154,12 +164,14 @@ export default {
         let timez = moment.tz.guess();
         let FechaHora = moment.tz(timez).format("YYYY-M-D HH:mm:ss");
         let hora=moment.tz(timez).format("HH:mm:ss");
+        console.log(FechaHora);
         return caso==1?FechaHora:hora;
       },
 
       PrestamoOdevolucion(codigoLLave){
         let consulta = `api/devolucionOprestamo/${codigoLLave}`;
         axios.get(consulta).then(res=>{
+          console.log(res.data);
           let nuevo=res.data['id'];
           let resultado = res.data['id_prestamo'];
           if (nuevo == 0){
@@ -200,6 +212,7 @@ export default {
         this.globalTime=time;
         this.codigoKey=codigoLLave;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
+        console.log(busqueda);
         axios.get(busqueda)
         .then(res=>{
           console.log(res);
@@ -208,7 +221,8 @@ export default {
             this.registroForm['hora']=this.showTime(2);
             this.RegistrarState=false;
           }
-        }).catch(()=>{
+        }).catch((res)=>{
+          console.log(res);
           console.log("wtf Happened");
         });
         
@@ -218,7 +232,10 @@ export default {
       agregarCombo(identificador,objeto){//deshabilitamos el combo seleccionado y generamos un nuevo combo
         if(this.comboIterates.length<4){
           this.PrestamoList+=objeto+',';
-          this.comboIterates.push({id:identificador['id']+1,estado:false});
+          let customObj = this.ObjetosCombo.filter((item)=>{
+            return !this.PrestamoList.includes(item.id);
+          });
+          this.comboIterates.push({id:identificador['id']+1,estado:false,ObjetosDisponibles:customObj});
         }else if(this.comboIterates.length==4){
           this.PrestamoList+=objeto+',';
         }
@@ -232,7 +249,7 @@ export default {
       },
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
-        this.comboIterates=[{id:1,estado:false,valor:'1'}];
+        this.comboIterates=[{id:1,estado:false,valor:'1',ObjetosDisponibles:this.ObjetosCombo}];
         this.registroForm=[];
         this.codigoKey='';
         this.RegistrarState=true;
