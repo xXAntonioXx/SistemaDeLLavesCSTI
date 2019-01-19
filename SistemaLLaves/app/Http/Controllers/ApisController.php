@@ -43,11 +43,12 @@ class ApisController extends Controller
     public function hacerDevolucion(Request $req){
         $registro = $req["idRegistro"];
         $horaDevolucion = $req["horaDevolucion"];
-        $idPrestamoObjetos = $req["idPrestamos"]?"null":$req["idPrestamos"];
+        $idPrestamoObjetos = ($req["idPrestamos"]==null) ? "NULL" : $req["idPrestamos"];
         $objetosDevueltos = $req["objDevueltos"]=="null"?"":$req["objDevueltos"];
 
         $UpdateRegistro="CALL sp_set_registro({$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
         $this->conexion->query($UpdateRegistro);
+        return $UpdateRegistro;
     }
 
     public function buscarHorario($codigo,$hora){//buscamos el horario en base al codigo de la llave y la hora

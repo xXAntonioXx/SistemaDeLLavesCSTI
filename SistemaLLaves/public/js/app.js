@@ -65740,13 +65740,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.idRegistro + "*" + this.hora + "*" + this.PrestamoID + "*" + cadenaObjetos);
             axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.PrestamoID, 'objDevueltos': cadenaObjetos }).then(function (res) {
                 alert("devolucion realizada");
-                /*if (res.data){
-                    alert("devolucion realizada");
-                }else{
-                    console.log(res);
-                }*/
             }).catch(function () {
-                alert('sucedio un error');
+                console.error('sucedio un error');
             });
         },
         cancelar: function cancelar() {
