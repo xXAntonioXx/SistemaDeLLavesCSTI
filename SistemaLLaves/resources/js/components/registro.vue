@@ -61,9 +61,6 @@
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
-              <!--option v-for="objects in computedObjects" :value="objects['id']" :label="ObjetosCombo[objects['id']]" :key="objects['id']">
-                {{objects['object']}}
-              </option-->
               <option v-for="objects in comboInd['ObjetosDisponibles']" :value="objects.id" :key="objects['id']">
                 {{objects['object']}}
               </option>
@@ -138,15 +135,7 @@ export default {
       Paginate(){
         return this.Pages.slice(7*(this.indicePagina-1),7*this.indicePagina);
       },
-      computedObjects(){
-        let listado = this.PrestamoList;
-        return this.ObjetosCombo.filter((item)=>{
-          return !listado.includes(item.id);
-        });
-      },
-      objetoElegido(){
-        return this.ObjetosCombo[this.idObjetoSelected].object;
-      }
+      
     },
     methods:{
       fetchRegistros(){//metodo para traer todos los registros del dia
@@ -237,7 +226,7 @@ export default {
           let customObj = this.ObjetosCombo.filter((item)=>{
             return !this.PrestamoList.includes(item.id);
           });
-          this.comboIterates.push({id:identificador['id']+1,estado:false,ObjetosDisponibles:customObj});
+          this.comboIterates.push({id:identificador['id']+1,valor:'0',estado:false,ObjetosDisponibles:customObj});
         }else if(this.comboIterates.length==4){
           this.PrestamoList+=objeto+',';
         }
@@ -251,7 +240,7 @@ export default {
       },
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
-        this.comboIterates=[{id:1,estado:false,valor:'1',ObjetosDisponibles:this.ObjetosCombo}];
+        this.comboIterates=[{id:1,estado:false,valor:'0',ObjetosDisponibles:this.ObjetosCombo}];
         this.registroForm=[];
         this.codigoKey='';
         this.RegistrarState=true;

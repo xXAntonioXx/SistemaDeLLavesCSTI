@@ -84,7 +84,7 @@
             align-content: space-evenly;
         }
     }
-    @media screen and (max-height:490px) and (orientation: landscape) and (min-width: 610px){
+    @media screen and (max-height:490px) and (orientation: landscape){
         .ventanaModal{
             height: 80vh;
             width: 500px;
@@ -114,8 +114,12 @@
         height: 100%;
     }
     .contentListado{
-        height: 100%;
+        height: 93%;
+        width: 95%;
         overflow-y: scroll;
+        border: 2px solid grey;
+        margin: auto;
+        border-radius: 10px
     }
     .listado{
         display: grid;
@@ -125,6 +129,7 @@
         grid-template-columns: repeat(2,1fr);
         text-align: left;
         margin-left: 50px;
+        
     }
     .listado input{
         margin: auto;
