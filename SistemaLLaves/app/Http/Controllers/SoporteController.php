@@ -19,8 +19,14 @@ class SoporteController extends Controller
     }
 
     public function EnviarMail(Request $req){
-        $data=['mensaje'=>'this is a test exito'];
+        $req->validate([
+            'description'=>'required',
+            'asunto'=>'required'
+        ]);
+
+        $data=['mensaje'=>$req['description'],'subject'=>$req['asunto']];
         Mail::to('rocker4NT0N10@gmail.com')->send(new PruebaMail($data));
         return view('principal');
+
     }
 }

@@ -12,6 +12,7 @@ class PruebaMail extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $destinatario;
     /**
      * Create a new message instance.
      *
@@ -20,6 +21,7 @@ class PruebaMail extends Mailable
     public function __construct($data)
     {
         $this->data=$data;
+
     }
 
     /**
@@ -30,14 +32,10 @@ class PruebaMail extends Mailable
     public function build()
     {
         $address = 'jose_antony11@hotmail.com';
-        $subject = 'probando SendGrid';
         $name = 'Jose Munguia';
         return $this->view('emails.prueba')
                     ->from($address,$name)
-                    ->cc($address,$name)
-                    ->bcc($address,$name)
-                    ->replyTo($address,$name)
-                    ->subject($subject)
+                    ->subject($this->data['subject'])
                     ->with('mensaje',$this->data['mensaje']);
     }
 }
