@@ -20,8 +20,8 @@ class SoporteController extends Controller
 
     public function EnviarMail(Request $req){
         $req->validate([
-            'description'=>'required',
-            'asunto'=>'required'
+            'asunto'=>'required',
+            'description'=>'required'
         ]);
 
         $data=['mensaje'=>$req['description'],'subject'=>$req['asunto']];
