@@ -258,3 +258,11 @@ CONSTRAINT FK_tregistros_tusuarios
 FOREIGN KEY (id_usuario) REFERENCES tusuarios(id)
 );
 
+--controlHorarios
+CREATE TABLE tcontrolHorarios(
+  id_registro INT(11),
+  codigo_llave BIGINT(20),
+  id_horario  INT(11),
+  estado BOOLEAN DEFAULT 0,
+PRIMARY KEY(id_registro,codigo_llave,id_horario)
+);
