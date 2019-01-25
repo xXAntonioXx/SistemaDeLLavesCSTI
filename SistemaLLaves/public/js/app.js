@@ -64440,6 +64440,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   created: function created() {
     this.fetchRegistros();
+    console.log(this.Pages);
   },
 
   computed: {
@@ -64448,6 +64449,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    CheckRetardo: function CheckRetardo() {
+      this.Pages.forEach(function (item) {
+        console.log(item['id']);
+      });
+    },
     fetchRegistros: function fetchRegistros() {
       var _this = this;
 
