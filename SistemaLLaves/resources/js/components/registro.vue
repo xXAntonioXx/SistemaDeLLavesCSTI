@@ -130,8 +130,6 @@ export default {
     },
     created(){
       this.fetchRegistros();
-      console.log(this.Pages);
-      
     },
     computed:{
       Paginate(){
@@ -140,16 +138,12 @@ export default {
       
     },
     methods:{
-      CheckRetardo(){
-        this.Pages.forEach(function(item){
-          console.log(item['id']);
-        });
-      },
       fetchRegistros(){//metodo para traer todos los registros del dia
         axios.get('api/registros')
         .then(data=>{
           this.paginas=Math.ceil(data['data'].length/7);
           this.Pages=data['data'].reverse();
+          console.log(this.Pages);
         });
       },
 

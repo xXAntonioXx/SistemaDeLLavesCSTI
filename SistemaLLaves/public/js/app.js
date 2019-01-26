@@ -64440,7 +64440,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   created: function created() {
     this.fetchRegistros();
-    console.log(this.Pages);
   },
 
   computed: {
@@ -64449,11 +64448,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
-    CheckRetardo: function CheckRetardo() {
-      this.Pages.forEach(function (item) {
-        console.log(item['id']);
-      });
-    },
     fetchRegistros: function fetchRegistros() {
       var _this = this;
 
@@ -64461,6 +64455,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get('api/registros').then(function (data) {
         _this.paginas = Math.ceil(data['data'].length / 7);
         _this.Pages = data['data'].reverse();
+        console.log(_this.Pages);
       });
     },
     getPages: function getPages(nPage) {
