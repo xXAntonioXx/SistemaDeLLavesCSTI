@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="images/key.png">
   <link rel="stylesheet" href="css/principal.css">
 </head>
-<body>
+<body onresize="removeHamburguer()">
   <div class="container-grid">
     <i class="icon-menu burger-button" id="burger-menu"></i>
     <header class="header">
@@ -18,7 +18,7 @@
       <nav >
         <ol class="menu">
           <li>
-            <a href="index.html" class="link">Inicio</a>
+            <a href="principal.html" class="link">Inicio</a>
           </li>
           <li>
             <a href="busqueda.html" class="link">Busqueda</a>
@@ -35,25 +35,25 @@
         </ol>
       </nav>
       <i class="icon-out log-out" id="log-out"></i>
-      <div id="modal-soporte-container" class="modal-soporte-container">
-        <div class="modal-soporte-content">
-          <h2 class="modal-soporte-tittle">¿Tiene algún problema?</h3>
-          <div class="modal-soporte-description">
-            <h3>Asunto</h3>
-            <input type="text" id="modal-soporte-asunto">
-            <h3>Descripción</h3>
-            <textarea rows="7" cols="68" id="modal-descripcion"></textarea>
-          </div>
-          <div class="modal-soporte-buttons">
-            <input type="button" value="Enviar" class="modal-soporte-button-aceptar">
-            <input type="button" value="Cancelar" class="modal-soporte-button-cancelar" onclick="window.location='#';">
-          </div>
-        </div>
-      </div>
     </header>
     <div class="container-wrapper">
+    <div id="modal-soporte-container" class="modal-soporte-container">
+      <div class="modal-soporte-content">
+        <h2 class="modal-soporte-tittle">¿Tiene algún problema?</h3>
+        <div class="modal-soporte-description">
+          <h3>Asunto</h3>
+          <input type="text" id="modal-soporte-asunto">
+          <h3>Descripción</h3>
+          <textarea rows="7" cols="68" id="modal-descripcion"></textarea>
+        </div>
+        <div class="modal-soporte-buttons">
+          <input type="button" value="Enviar" class="modal-soporte-button-aceptar">
+          <input type="button" value="Cancelar" class="modal-soporte-button-cancelar" onclick="window.location='#';">
+        </div>
+      </div>
+    </div>
     <!-- Zona de prestamos -->
-      <!-- <div class="body-container">
+      <div class="body-container">
         <section class="llaves-prestadas">
           <h2 class="llaves-prestadas-tittle">Llaves prestadas</h2>
           <div class="llaves-titles">
@@ -178,7 +178,7 @@
             </div>
           </div>
         </section>
-      </div> -->
+      </div>
     <!-- Zona de busqueda -->
       <!-- <div class="search-container">
         <form action="" class="search-filters-form">
@@ -393,7 +393,7 @@
         </div>
       </div> -->
     <!-- Zona de inventarios -->
-      <div class="inventory-container">
+      <!-- <div class="inventory-container">
         <div class="inventory-title-section">
           <h2>OBJETOS PARA PRESTAMO</h2>
         </div>
@@ -533,7 +533,7 @@
           <input type="submit" value="Editar" class="inventory-button-edit">
           <input type="submit" value="Agregar" class="inventory-button-add">
         </div>
-      </div>
+      </div> -->
     </div>
     <footer class="footer">
       <h3>&copy; Derechos Reservados</h3>
@@ -575,6 +575,13 @@
               arrows[i].classList.add('rotation');
             }
           }
+        }
+      }
+      function removeHamburguer(){
+        // console.log(window.outerWidth);
+        if(window.outerWidth>767){
+          nav.classList.remove('is-active');
+          menu.classList.remove('is-active');
         }
       }
       function hideShow(){

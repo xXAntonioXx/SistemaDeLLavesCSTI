@@ -4,7 +4,7 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-rows: 23% 1fr 5%;
+  grid-template-rows: 20% 1fr 5%;
   grid-template-areas: "header"
                        "container-wrapper"
                        "footer";
@@ -13,5 +13,11 @@
   }
   @media (--tablets) {
     grid-template-rows: 60px 1fr 30px;
+  }
+  @media (--normal) {
+    grid-template-rows: 120px 1fr 30px;
+  }
+  @media (--large) {
+    grid-template-rows: 20% 1fr 30px;
   }
 }
