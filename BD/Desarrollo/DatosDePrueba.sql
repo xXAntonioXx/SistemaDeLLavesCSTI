@@ -157,14 +157,14 @@ call sp_registrar_registro('2018-11-15 07:10:00',16,1);
 /* la fecha y hora en que se registro la entrada y el id del prestamo asocialdo*/
 /*los campos del siguiente metodo se presentan de la siguiente manera*/
 /*  | id  |  nombre  |  materia  |  hora_entrada  | id_prestamo  |  */
-call sp_get_esdevolucion('codigo_llave');
+/*call sp_get_esdevolucion('codigo_llave');*/
 
 /*si es una devolucion y ademas si el "id_prestamo" es distinto de null entonces debemos ejecutar el siguiente metodo*/
-call sp_get_objetos('id_prestamo'); /*devueve una lista de objetos con los campos |id_control|id_objeto|nombre|marca|*/
+/*call sp_get_objetos('id_prestamo'); devueve una lista de objetos con los campos |id_control|id_objeto|nombre|marca|*/
 
 /*Seguimos con el caso de ser una devolucion...*/
 /*Para realizar la devolucion pertinente ejecutaremos el siguiente metodo*/
-call sp_set_registro('id_registro','hora_salida','id_prestamo','arg_id_objetos');
+/*call sp_set_registro('id_registro','hora_salida','id_prestamo','arg_id_objetos');*/
 /*NOTA: los datos del metodo son obtenidos de los dos metodos ejecutados con aterioridad.*/
 /*El ultimo parametro es un arreglo con los id de SOLO los objetos que se estan devolviendo*/
 
@@ -172,11 +172,11 @@ call sp_set_registro('id_registro','hora_salida','id_prestamo','arg_id_objetos')
 /*ejecutamos lo siguiente (lo que sigue es lo que ya tenias)*/
 
 /*al leer el codigo de la llave se busca el horario(que incluye id,maestro,aula) para llenar el formulario, con el procedimiento*/
-call sp_get_frmPrestamo('codigo_llave','fecha y hora');
+/*call sp_get_frmPrestamo('codigo_llave','fecha y hora');*/
 /*al seleccionar un objeto del combo box en la ventana modal tendremos que usar el procedimiento para un nuevo prestamo al darle click al boton "aceptar"
-call sp_registrar_prestamo(0,'Objeto1,Objeto2,ObjetoN')//si es la primera vez
-call sp_registrar_prestamo('id_de_prestamo','Objeto1,Objeto2,ObjetoN')//si NO es la primera vez
+/*call sp_registrar_prestamo(0,'Objeto1,Objeto2,ObjetoN')si es la primera vez*/
+/*call sp_registrar_prestamo('id_de_prestamo','Objeto1,Objeto2,ObjetoN')si NO es la primera vez*/
 /*finalmente para generar un nuevo registro utilizamos*/
-call sp_registrar_registro('FECHA Y HORA','id_horario','id_usuario')//id horario lo tomamos de sp_get_frmPrestamo
+/*call sp_registrar_registro('FECHA Y HORA','id_horario','id_usuario')id horario lo tomamos de sp_get_frmPrestamo*/
 
-SELECT * from tusuarios;
+/*SELECT * from tusuarios;*/

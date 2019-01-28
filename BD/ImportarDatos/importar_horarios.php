@@ -1,8 +1,8 @@
-<?php
+﻿<?php
     //Funcion para hacer la inserccion en la Base de Datos
     function registrar($argDatos,$cont){
         try {
-            $conexion = new PDO('mysql:host=localhost;dbname=sistema_llaves','root','Kgmt1709');
+            $conexion = new PDO('mysql:host=localhost;dbname=sistema_llaves','root','');
             /*$statement = $conexion->prepare('CALL sp_registrar_horario(:num_emp,":nombre_maestro",":nombre_mat",:num_aula,":programa_mat",":dias",":hora_inicio",":hora_fin",:year,:ciclo)');
             $statement->execute(array(
                 ':num_emp' => $argDatos[0],

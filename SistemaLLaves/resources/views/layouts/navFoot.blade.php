@@ -16,14 +16,14 @@
       <figure class="logo" >
         <a style="display:block; height:100%; width:100%;" href="/main"></a>
       </figure>
-      <h1>PRESTAMO DE LLAVES</h1>
+      <h1>PRÉSTAMO DE LLAVES</h1>
       <nav >
         <ol class="menu">
           <li>
             <a href="/main" class="link">Inicio</a>
           </li>
           <li>
-            <a href="/busqueda" class="link">Busqueda</a>
+            <a href="/busqueda" class="link">Búsqueda</a>
           </li>
           <li>
             <a href="/inventario" class="link">Inventario</a>
@@ -41,7 +41,7 @@
       <div id="modal-soporte-container" class="modal-soporte-container">
         <form action="/enviarObservacion" method="post" class="modal-soporte-content">
           {{csrf_field()}}
-          <h2 class="modal-soporte-tittle">Reportar un problemas</h3>
+          <h2 class="modal-soporte-tittle">Reportar problema</h3>
           <div class="modal-soporte-description">
             <h3>Asunto</h3>
             <input type="text" id="modal-soporte-asunto" name="asunto">

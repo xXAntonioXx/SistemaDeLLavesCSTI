@@ -7,7 +7,7 @@
         <h3>ID</h3>
         <h3>MAESTRO</h3>
         <h3>MATERIA</h3>
-        <h3>SALON</h3>
+        <h3>SALÓN</h3>
         <h3>HORA</h3>
       </div>
       <div class="llaves-cards">
@@ -29,7 +29,7 @@
     </section>
     <section class="formulario-prestamo">
       <div class="formulario-tittle">
-          <h2>Formulario de prestamo</h2>
+          <h2>Formulario de préstamo</h2>
           <div class="ghost-div"></div>
       </div>
       <div class="formulario-wrapper">
@@ -61,20 +61,19 @@
           <h3 class="modal-tittle">Lista de articulos</h3>
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
-              <option :value="1">Control A/AC(Mirage)</option>
-              <option :value="2">Control A/AC(YORK)</option>
-              <option :value="3">Control Cañon</option>
-              <option :value="4">Bocinas</option>
+              <option v-for="objects in comboInd['ObjetosDisponibles']" :value="objects.id" :key="objects['id']">
+                {{objects['object']}}
+              </option>
             </select>
           </div>
           <div class="modal-buttons">
             <input type="button" value="Aceptar" class="modal-button-aceptar" v-on:click="NuevoRegistro()" onclick="window.location='#';">
-            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="comboIterates=[{id:1,estado:false,valor:'0'}];PrestamoList=''">
+            <input type="button" value="Cancelar" class="modal-button-cancelar" onclick="window.location='#';" @click="comboIterates=[{id:1,estado:false,valor:'0',ObjetosDisponibles:ObjetosCombo}];PrestamoList=''">
           </div>
         </div>
       </div>
     </section>
-        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado">
+        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado" :maestro="maestroDevolucion" :materia="materiaDevolucion" :aula="aulaDevolucion">
           <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
           <input type="submit" value="Cancelar" class="botonCancelar" @click="cancelarDevolucion()" />
         </modalDevolucion>
@@ -97,14 +96,33 @@ export default {
             codigoKey:'',
             registroForm:[],
             estadoInput:true,
-            comboIterates:[{id:1,estado:false,valor:'0'}],
+            comboIterates:[{
+              id:1,
+              estado:false,
+              valor:'0',
+              ObjetosDisponibles:[
+                {id:1,object:"Control A/AC(Mirage)"},
+                {id:2,object:"Control A/AC(YORK)"},
+                {id:3,object:"Control Cañon"},
+                {id:4,object:"Bocinas"}
+              ]
+            }],
             PrestamoList:"",
             globalTime:'0',
             RegistrarState:true,
             esDevolucion:false,
             objeto:[],
             idRegistroExistente:'',
-            idPrestamoRegistrado:''
+            idPrestamoRegistrado:'',
+            ObjetosCombo:[
+              {id:1,object:"Control A/AC(Mirage)"},
+              {id:2,object:"Control A/AC(YORK)"},
+              {id:3,object:"Control Cañon"},
+              {id:4,object:"Bocinas"}
+            ],
+            maestroDevolucion:'',
+            materiaDevolucion:'',
+            aulaDevolucion:''
         }
     },
     components:{
@@ -112,13 +130,21 @@ export default {
     },
     created(){
       this.fetchRegistros();
+      console.log(this.Pages);
+      
     },
     computed:{
       Paginate(){
         return this.Pages.slice(7*(this.indicePagina-1),7*this.indicePagina);
       },
+      
     },
     methods:{
+      CheckRetardo(){
+        this.Pages.forEach(function(item){
+          console.log(item['id']);
+        });
+      },
       fetchRegistros(){//metodo para traer todos los registros del dia
         axios.get('api/registros')
         .then(data=>{
@@ -135,17 +161,22 @@ export default {
         let timez = moment.tz.guess();
         let FechaHora = moment.tz(timez).format("YYYY-M-D HH:mm:ss");
         let hora=moment.tz(timez).format("HH:mm:ss");
+        console.log(FechaHora);
         return caso==1?FechaHora:hora;
       },
 
       PrestamoOdevolucion(codigoLLave){
         let consulta = `api/devolucionOprestamo/${codigoLLave}`;
         axios.get(consulta).then(res=>{
+          console.log(res.data);
           let nuevo=res.data['id'];
           let resultado = res.data['id_prestamo'];
           if (nuevo == 0){
             this.buscarHorario(codigoLLave);
           }else{
+            this.maestroDevolucion=res.data['nombre'];
+            this.materiaDevolucion=res.data['materia'];
+            this.aulaDevolucion=res.data['aula'];
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
               this.objeto=res.data;
@@ -177,20 +208,32 @@ export default {
       buscarHorario(codigoLLave){//obtenemos id,maestro,materia,aula con el codigo de llave
         let time=this.showTime();
         this.globalTime=time;
+        this.codigoKey=codigoLLave;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
+        console.log(busqueda);
         axios.get(busqueda)
         .then(res=>{
-          this.registroForm=res.data;
-          this.registroForm['hora']=this.showTime(2);
-          this.RegistrarState=false;
+          console.log(res);
+          if(res.data){
+            this.registroForm=res.data;
+            this.registroForm['hora']=this.showTime(2);
+            this.RegistrarState=false;
+          }
+        }).catch((res)=>{
+          console.log(res);
+          console.log("wtf Happened");
         });
+        
         this.estadoInput=true;
       },
 
       agregarCombo(identificador,objeto){//deshabilitamos el combo seleccionado y generamos un nuevo combo
         if(this.comboIterates.length<4){
           this.PrestamoList+=objeto+',';
-          this.comboIterates.push({id:identificador['id']+1,estado:false});
+          let customObj = this.ObjetosCombo.filter((item)=>{
+            return !this.PrestamoList.includes(item.id);
+          });
+          this.comboIterates.push({id:identificador['id']+1,valor:'0',estado:false,ObjetosDisponibles:customObj});
         }else if(this.comboIterates.length==4){
           this.PrestamoList+=objeto+',';
         }
@@ -204,7 +247,7 @@ export default {
       },
 
       cleanObjPrestamo(){//limpiamos el formulario despues de generar un registro
-        this.comboIterates=[{id:1,estado:false,valor:'1'}];
+        this.comboIterates=[{id:1,estado:false,valor:'0',ObjetosDisponibles:this.ObjetosCombo}];
         this.registroForm=[];
         this.codigoKey='';
         this.RegistrarState=true;
@@ -212,8 +255,9 @@ export default {
       },
 
       NuevoRegistro(){//se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
-        axios.post('/api/nuevoRegistro',{'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
-        .then(()=>{
+        axios.post('/api/nuevoRegistro',{'llave':this.codigoKey,'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
+        .then((res)=>{
+          console.log(res.data);
           alert('registro realizado');
           this.fetchRegistros();
           this.cleanObjPrestamo();

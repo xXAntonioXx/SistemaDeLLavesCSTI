@@ -45,6 +45,7 @@ CREATE TABLE tllaves(
 id INT AUTO_INCREMENT,
 codigo BIGINT(20) NOT NULL UNIQUE,
 id_aula INT NOT NULL,
+ref INT NULL DEFAULT NULL,
 PRIMARY KEY (id),
 
 CONSTRAINT FK_tllaves_taulas
@@ -257,3 +258,11 @@ CONSTRAINT FK_tregistros_tusuarios
 FOREIGN KEY (id_usuario) REFERENCES tusuarios(id)
 );
 
+--controlHorarios
+CREATE TABLE tcontrolHorarios(
+  id_registro INT(11),
+  codigo_llave BIGINT(20),
+  id_horario  INT(11),
+  estado BOOLEAN DEFAULT 0,
+PRIMARY KEY(id_registro,codigo_llave,id_horario)
+);

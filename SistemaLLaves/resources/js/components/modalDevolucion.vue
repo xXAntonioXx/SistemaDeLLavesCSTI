@@ -1,7 +1,14 @@
 <template>
     <div class="capa-cebolla">
         <div class="ventanaModal">
-            <h3 class="titulo">objetos prestados</h3>
+            <div class="tituloDiv">
+                <h3 class="titulo">objetos prestados</h3>
+            </div>
+            <div class="devolucionInfo">
+                <label style="text:blue">Maestro:</label>{{maestro}}<br>
+                <label style="text:blue">Materia:</label> {{materia}}<br>
+                <label>Aula:</label>{{Aula}}
+            </div>
             <div class="contentListado">
                 <div v-for="objetos in listado" :key="objetos['id_control']" class="listado">
                     <label :for="objetos">{{objetos['nombre']}}</label>
@@ -16,6 +23,19 @@
 </template>
 
 <style>
+    .devolucionInfo{
+        text-align: left;
+        font-size: 18px;
+        display: inline-block;
+        margin: auto;
+    }
+
+    .devolucionInfo label{
+        color: #004990;
+        font-weight: bold;
+        font-family: Montserrat;
+    }
+
     .capa-cebolla{
         position: fixed;
         z-index: 1;
@@ -39,27 +59,80 @@
         text-align: center;
         flex-direction: column;
         border: 2px solid grey;
+
+        display: grid;
+        grid-template-rows: 10% 20% 60% 10%;
+        align-content: space-evenly;
+    }
+    @media screen and (max-width:600px) and (max-height:480px){
+        .ventanaModal{
+            height: 500px;
+            width: 500px;
+            margin: auto;
+            border-radius: 5px;
+            position: relative;
+            align-items: center;
+            background: white;
+            z-index: 3;
+            overflow: auto;
+            text-align: center;
+            flex-direction: column;
+            border: 2px solid grey;
+
+            display: grid;
+            grid-template-rows: 10% 30% 50% 10%;
+            align-content: space-evenly;
+        }
+    }
+    @media screen and (max-height:490px) and (orientation: landscape){
+        .ventanaModal{
+            height: 80vh;
+            width: 500px;
+            margin: auto;
+            border-radius: 5px;
+            position: relative;
+            align-items: center;
+            background: white;
+            z-index: 3;
+            overflow: auto;
+            text-align: center;
+            flex-direction: column;
+            border: 2px solid grey;
+
+            display: grid;
+            grid-template-rows: 40px 120px 200px 40px;
+            align-content: space-evenly;
+
+            overflow-y: scroll;
+        }
     }
     .titulo{
         font-family: Montserrat,sans-serif;
-        border-bottom: 2px solid #004990;
         font-weight: 500;
         font-size: 1.7rem;
-        margin: 0%;
-        padding: 5%;
+        margin: auto;
+        height: 100%;
     }
     .contentListado{
-        height: 75%;
+        height: 93%;
+        width: 95%;
+        overflow-y: scroll;
+        border: 2px solid grey;
+        margin: auto;
+        border-radius: 10px
     }
     .listado{
         display: grid;
         align-items: center;
-        font-weight: lighter;
-        font-size: 1.7rem;
+        font-weight: inherit;
+        font-size: 1.2rem;
         grid-template-columns: repeat(2,1fr);
-
+        text-align: left;
+        margin-left: 50px;
+        
     }
     .listado input{
+        margin: auto;
         border-radius: 9px;
     }
 
@@ -87,12 +160,20 @@
     }
 
     .opciones{
-        vertical-align: bottom;
+        /*vertical-align: bottom;*/
         display: flex;
-        align-items: flex-start;
-        justify-content: space-around;
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 5%;
+        width: 100%;
+        /*align-items: flex-start;*/
+        /*justify-content: space-around;*/
         /*grid-template-columns: repeat(2,1fr);*/
         font-size: 0.7em;
+    }
+    .tituloDiv{
+        border-bottom: 2px solid #004990;
+        height: 100%;
     }
 </style>
 
@@ -101,34 +182,36 @@ export default {
     data(){
         return {
             listado:this.objetos,
-            objetosDevueltos:[]
+            objetosDevueltos:[],
+            PrestamoID:this.idPrestamo,
+            Maestro:this.maestro,
+            Materia:this.materia,
+            Aula:this.aula
         }
     },
     props:[
         'objetos',
         'hora',
         'idRegistro',
-        'idPrestamo'
+        'idPrestamo',
+        'maestro',
+        'materia',
+        'aula'
     ],
     methods:{
         hacerDevolucion(){
             let cadenaObjetos=this.objetosDevueltos.join();
-            
-            axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.idPrestamo,'objDevueltos':cadenaObjetos})
+            console.log(this.idRegistro +"*"+this.hora +"*"+this.PrestamoID+"*"+cadenaObjetos);
+            axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.PrestamoID,'objDevueltos':cadenaObjetos})
             .then((res)=>{
-                alert("al menos hizo la consulta");
-                if (res.data){
-                    alert("devolucion realizada");
-                }else{
-                    console.log(res);
-                }
+                alert("devolucion realizada");
             })
             .catch(()=>{
-                alert('sucedio un error');
+                console.error('sucedio un error');
             });
         },
         cancelar(){
-            this.objetos,this.hora,this.idRegistro,this.idPrestamo=null;
+            this.objetos,this.hora,this.idRegistro,this.PrestamoID,this.Aula=null;
         }
     }
 }

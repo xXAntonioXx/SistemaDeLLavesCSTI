@@ -64402,7 +64402,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -64416,14 +64415,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       codigoKey: '',
       registroForm: [],
       estadoInput: true,
-      comboIterates: [{ id: 1, estado: false, valor: '0' }],
+      comboIterates: [{
+        id: 1,
+        estado: false,
+        valor: '0',
+        ObjetosDisponibles: [{ id: 1, object: "Control A/AC(Mirage)" }, { id: 2, object: "Control A/AC(YORK)" }, { id: 3, object: "Control Cañon" }, { id: 4, object: "Bocinas" }]
+      }],
       PrestamoList: "",
       globalTime: '0',
       RegistrarState: true,
       esDevolucion: false,
       objeto: [],
       idRegistroExistente: '',
-      idPrestamoRegistrado: ''
+      idPrestamoRegistrado: '',
+      ObjetosCombo: [{ id: 1, object: "Control A/AC(Mirage)" }, { id: 2, object: "Control A/AC(YORK)" }, { id: 3, object: "Control Cañon" }, { id: 4, object: "Bocinas" }],
+      maestroDevolucion: '',
+      materiaDevolucion: '',
+      aulaDevolucion: ''
     };
   },
 
@@ -64432,6 +64440,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   created: function created() {
     this.fetchRegistros();
+    console.log(this.Pages);
   },
 
   computed: {
@@ -64440,6 +64449,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    CheckRetardo: function CheckRetardo() {
+      this.Pages.forEach(function (item) {
+        console.log(item['id']);
+      });
+    },
     fetchRegistros: function fetchRegistros() {
       var _this = this;
 
@@ -64459,6 +64473,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var timez = __WEBPACK_IMPORTED_MODULE_0_moment_timezone___default.a.tz.guess();
       var FechaHora = __WEBPACK_IMPORTED_MODULE_0_moment_timezone___default.a.tz(timez).format("YYYY-M-D HH:mm:ss");
       var hora = __WEBPACK_IMPORTED_MODULE_0_moment_timezone___default.a.tz(timez).format("HH:mm:ss");
+      console.log(FechaHora);
       return caso == 1 ? FechaHora : hora;
     },
     PrestamoOdevolucion: function PrestamoOdevolucion(codigoLLave) {
@@ -64466,11 +64481,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var consulta = 'api/devolucionOprestamo/' + codigoLLave;
       axios.get(consulta).then(function (res) {
+        console.log(res.data);
         var nuevo = res.data['id'];
         var resultado = res.data['id_prestamo'];
         if (nuevo == 0) {
           _this2.buscarHorario(codigoLLave);
         } else {
+          _this2.maestroDevolucion = res.data['nombre'];
+          _this2.materiaDevolucion = res.data['materia'];
+          _this2.aulaDevolucion = res.data['aula'];
           var ruta = 'api/obtenerObjetos/' + resultado;
           axios.get(ruta).then(function (res) {
             _this2.objeto = res.data;
@@ -64502,19 +64521,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //obtenemos id,maestro,materia,aula con el codigo de llave
       var time = this.showTime();
       this.globalTime = time;
+      this.codigoKey = codigoLLave;
       var busqueda = 'api/buscarHorario/' + codigoLLave + '/' + time;
+      console.log(busqueda);
       axios.get(busqueda).then(function (res) {
-        _this3.registroForm = res.data;
-        _this3.registroForm['hora'] = _this3.showTime(2);
-        _this3.RegistrarState = false;
+        console.log(res);
+        if (res.data) {
+          _this3.registroForm = res.data;
+          _this3.registroForm['hora'] = _this3.showTime(2);
+          _this3.RegistrarState = false;
+        }
+      }).catch(function (res) {
+        console.log(res);
+        console.log("wtf Happened");
       });
+
       this.estadoInput = true;
     },
     agregarCombo: function agregarCombo(identificador, objeto) {
+      var _this4 = this;
+
       //deshabilitamos el combo seleccionado y generamos un nuevo combo
       if (this.comboIterates.length < 4) {
         this.PrestamoList += objeto + ',';
-        this.comboIterates.push({ id: identificador['id'] + 1, estado: false });
+        var customObj = this.ObjetosCombo.filter(function (item) {
+          return !_this4.PrestamoList.includes(item.id);
+        });
+        this.comboIterates.push({ id: identificador['id'] + 1, valor: '0', estado: false, ObjetosDisponibles: customObj });
       } else if (this.comboIterates.length == 4) {
         this.PrestamoList += objeto + ',';
       }
@@ -64528,20 +64561,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     cleanObjPrestamo: function cleanObjPrestamo() {
       //limpiamos el formulario despues de generar un registro
-      this.comboIterates = [{ id: 1, estado: false, valor: '1' }];
+      this.comboIterates = [{ id: 1, estado: false, valor: '0', ObjetosDisponibles: this.ObjetosCombo }];
       this.registroForm = [];
       this.codigoKey = '';
       this.RegistrarState = true;
       this.PrestamoList = '';
     },
     NuevoRegistro: function NuevoRegistro() {
-      var _this4 = this;
+      var _this5 = this;
 
       //se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
-      axios.post('/api/nuevoRegistro', { 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'], 'objList': this.PrestamoList.slice(0, -1) }).then(function () {
+      axios.post('/api/nuevoRegistro', { 'llave': this.codigoKey, 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'], 'objList': this.PrestamoList.slice(0, -1) }).then(function (res) {
+        console.log(res.data);
         alert('registro realizado');
-        _this4.fetchRegistros();
-        _this4.cleanObjPrestamo();
+        _this5.fetchRegistros();
+        _this5.cleanObjPrestamo();
       });
     }
   }
@@ -65537,7 +65571,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.capa-cebolla{\n    position: fixed;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n    display:-webkit-box;\n    display:-ms-flexbox;\n    display:flex;\n    top: 0;\n    bottom: 100%;\n}\n.ventanaModal{\n    height: 80vh;\n    width: 500px;\n    margin: auto;\n    border-radius: 5px;\n    position: relative;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    border: 2px solid grey;\n}\n.titulo{\n    font-family: Montserrat,sans-serif;\n    border-bottom: 2px solid #004990;\n    font-weight: 500;\n    font-size: 1.7rem;\n    margin: 0%;\n    padding: 5%;\n}\n.contentListado{\n    height: 75%;\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: lighter;\n    font-size: 1.7rem;\n    grid-template-columns: repeat(2,1fr);\n}\n.listado input{\n    border-radius: 9px;\n}\n.botonFin{\n    border-radius: 50px;\n    width: 30%;\n    background: #004990;\n    font-size: 70%;\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    margin: auto;\n    height: 30px;\n}\n.botonCancelar{\n    border: 2px solid #004990;\n    border-radius: 50px;\n    width: 30%;\n    background: white;\n    font-size: 70%;\n    -ms-flex-item-align: center;\n        align-self: center;\n    margin: auto;\n    height: 30px;\n}\n.opciones{\n    vertical-align: bottom;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    /*grid-template-columns: repeat(2,1fr);*/\n    font-size: 0.7em;\n}\n", ""]);
+exports.push([module.i, "\n.devolucionInfo{\n    text-align: left;\n    font-size: 18px;\n    display: inline-block;\n    margin: auto;\n}\n.devolucionInfo label{\n    color: #004990;\n    font-weight: bold;\n    font-family: Montserrat;\n}\n.capa-cebolla{\n    position: fixed;\n    z-index: 1;\n    background-color: rgba(0, 0, 0,.5);\n    height: 100%;\n    width: 100%;\n    display:-webkit-box;\n    display:-ms-flexbox;\n    display:flex;\n    top: 0;\n    bottom: 100%;\n}\n.ventanaModal{\n    height: 80vh;\n    width: 500px;\n    margin: auto;\n    border-radius: 5px;\n    position: relative;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    background: white;\n    z-index: 3;\n    overflow: auto;\n    text-align: center;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    border: 2px solid grey;\n\n    display: grid;\n    grid-template-rows: 10% 20% 60% 10%;\n    -ms-flex-line-pack: space-evenly;\n        align-content: space-evenly;\n}\n@media screen and (max-width:600px) and (max-height:480px){\n.ventanaModal{\n        height: 500px;\n        width: 500px;\n        margin: auto;\n        border-radius: 5px;\n        position: relative;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        background: white;\n        z-index: 3;\n        overflow: auto;\n        text-align: center;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        border: 2px solid grey;\n\n        display: grid;\n        grid-template-rows: 10% 30% 50% 10%;\n        -ms-flex-line-pack: space-evenly;\n            align-content: space-evenly;\n}\n}\n@media screen and (max-height:490px) and (orientation: landscape){\n.ventanaModal{\n        height: 80vh;\n        width: 500px;\n        margin: auto;\n        border-radius: 5px;\n        position: relative;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        background: white;\n        z-index: 3;\n        overflow: auto;\n        text-align: center;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n        border: 2px solid grey;\n\n        display: grid;\n        grid-template-rows: 40px 120px 200px 40px;\n        -ms-flex-line-pack: space-evenly;\n            align-content: space-evenly;\n\n        overflow-y: scroll;\n}\n}\n.titulo{\n    font-family: Montserrat,sans-serif;\n    font-weight: 500;\n    font-size: 1.7rem;\n    margin: auto;\n    height: 100%;\n}\n.contentListado{\n    height: 93%;\n    width: 95%;\n    overflow-y: scroll;\n    border: 2px solid grey;\n    margin: auto;\n    border-radius: 10px\n}\n.listado{\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-weight: inherit;\n    font-size: 1.2rem;\n    grid-template-columns: repeat(2,1fr);\n    text-align: left;\n    margin-left: 50px;\n}\n.listado input{\n    margin: auto;\n    border-radius: 9px;\n}\n.botonFin{\n    border-radius: 50px;\n    width: 30%;\n    background: #004990;\n    font-size: 70%;\n    color: white;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    margin: auto;\n    height: 30px;\n}\n.botonCancelar{\n    border: 2px solid #004990;\n    border-radius: 50px;\n    width: 30%;\n    background: white;\n    font-size: 70%;\n    -ms-flex-item-align: center;\n        align-self: center;\n    margin: auto;\n    height: 30px;\n}\n.opciones{\n    /*vertical-align: bottom;*/\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    position: absolute;\n    bottom: 0;\n    margin-bottom: 5%;\n    width: 100%;\n    /*align-items: flex-start;*/\n    /*justify-content: space-around;*/\n    /*grid-template-columns: repeat(2,1fr);*/\n    font-size: 0.7em;\n}\n.tituloDiv{\n    border-bottom: 2px solid #004990;\n    height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -65646,33 +65680,113 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             listado: this.objetos,
-            objetosDevueltos: []
+            objetosDevueltos: [],
+            PrestamoID: this.idPrestamo,
+            Maestro: this.maestro,
+            Materia: this.materia,
+            Aula: this.aula
         };
     },
 
-    props: ['objetos', 'hora', 'idRegistro', 'idPrestamo'],
+    props: ['objetos', 'hora', 'idRegistro', 'idPrestamo', 'maestro', 'materia', 'aula'],
     methods: {
         hacerDevolucion: function hacerDevolucion() {
             var cadenaObjetos = this.objetosDevueltos.join();
-
-            axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.idPrestamo, 'objDevueltos': cadenaObjetos }).then(function (res) {
-                alert("al menos hizo la consulta");
-                if (res.data) {
-                    alert("devolucion realizada");
-                } else {
-                    console.log(res);
-                }
+            console.log(this.idRegistro + "*" + this.hora + "*" + this.PrestamoID + "*" + cadenaObjetos);
+            axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.PrestamoID, 'objDevueltos': cadenaObjetos }).then(function (res) {
+                alert("devolucion realizada");
             }).catch(function () {
-                alert('sucedio un error');
+                console.error('sucedio un error');
             });
         },
         cancelar: function cancelar() {
-            this.objetos, this.hora, this.idRegistro, this.idPrestamo = null;
+            this.objetos, this.hora, this.idRegistro, this.PrestamoID, this.Aula = null;
         }
     }
 });
@@ -65687,7 +65801,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "capa-cebolla" }, [
     _c("div", { staticClass: "ventanaModal" }, [
-      _c("h3", { staticClass: "titulo" }, [_vm._v("objetos prestados")]),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "devolucionInfo" }, [
+        _c("label", { staticStyle: { text: "blue" } }, [_vm._v("Maestro:")]),
+        _vm._v(_vm._s(_vm.maestro)),
+        _c("br"),
+        _vm._v(" "),
+        _c("label", { staticStyle: { text: "blue" } }, [_vm._v("Materia:")]),
+        _vm._v(" " + _vm._s(_vm.materia)),
+        _c("br"),
+        _vm._v(" "),
+        _c("label", [_vm._v("Aula:")]),
+        _vm._v(_vm._s(_vm.Aula) + "\n        ")
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -65750,7 +65877,16 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "tituloDiv" }, [
+      _c("h3", { staticClass: "titulo" }, [_vm._v("objetos prestados")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -66097,23 +66233,20 @@ var render = function() {
                         ]
                       }
                     },
-                    [
-                      _c("option", { domProps: { value: 1 } }, [
-                        _vm._v("Control A/AC(Mirage)")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { domProps: { value: 2 } }, [
-                        _vm._v("Control A/AC(YORK)")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { domProps: { value: 3 } }, [
-                        _vm._v("Control Cañon")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { domProps: { value: 4 } }, [
-                        _vm._v("Bocinas")
-                      ])
-                    ]
+                    _vm._l(comboInd["ObjetosDisponibles"], function(objects) {
+                      return _c(
+                        "option",
+                        { key: objects["id"], domProps: { value: objects.id } },
+                        [
+                          _vm._v(
+                            "\r\n                " +
+                              _vm._s(objects["object"]) +
+                              "\r\n              "
+                          )
+                        ]
+                      )
+                    }),
+                    0
                   )
                 }),
                 0
@@ -66143,7 +66276,14 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.comboIterates = [{ id: 1, estado: false, valor: "0" }]
+                      _vm.comboIterates = [
+                        {
+                          id: 1,
+                          estado: false,
+                          valor: "0",
+                          ObjetosDisponibles: _vm.ObjetosCombo
+                        }
+                      ]
                       _vm.PrestamoList = ""
                     }
                   }
@@ -66163,7 +66303,10 @@ var render = function() {
                 objetos: _vm.objeto,
                 hora: _vm.showTime(1),
                 idRegistro: this.idRegistroExistente,
-                idPrestamo: this.idPrestamoRegistrado
+                idPrestamo: this.idPrestamoRegistrado,
+                maestro: _vm.maestroDevolucion,
+                materia: _vm.materiaDevolucion,
+                aula: _vm.aulaDevolucion
               }
             },
             [
@@ -66206,7 +66349,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("h3", [_vm._v("MATERIA")]),
       _vm._v(" "),
-      _c("h3", [_vm._v("SALON")]),
+      _c("h3", [_vm._v("SALÓN")]),
       _vm._v(" "),
       _c("h3", [_vm._v("HORA")])
     ])
@@ -66216,7 +66359,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "formulario-tittle" }, [
-      _c("h2", [_vm._v("Formulario de prestamo")]),
+      _c("h2", [_vm._v("Formulario de préstamo")]),
       _vm._v(" "),
       _c("div", { staticClass: "ghost-div" })
     ])
@@ -66417,7 +66560,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.idAuxiliar = idReg;
             _this.Objeto = res.data;
             _this.objetosAmostrar[idReg] = res.data;
-            _this.objetosRegistro(idReg, res.data);
           }
         });
       }
@@ -66495,7 +66637,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", [
                 _c("p", { attrs: { id: "search-results-objects" } }, [
-                  _vm._v("Prestamos")
+                  _vm._v("Préstamos")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "search-results-division" }),
