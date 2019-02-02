@@ -311,8 +311,9 @@ CREATE PROCEDURE sistema_llaves.sp_get_objetos(
 	in p_id_prestamo INT(11)
 )
 BEGIN
-	IF p_id_prestamo IS NOT NULL THEN
 	DECLARE p_mensaje VARCHAR(500) DEFAULT '';
+	IF p_id_prestamo IS NOT NULL THEN 
+
 	SET p_mensaje =CONCAT('No existe prestamo con id: ', p_id_prestamo);
 	IF NOT EXISTS (SELECT id_control FROM sistema_llaves.tprestamos WHERE id=p_id_prestamo) THEN
 		SIGNAL SQLSTATE '46009'
@@ -323,7 +324,7 @@ BEGIN
 	INNER JOIN tobjetos AS obj ON  obj.id=prs.id_objeto
 	WHERE prs.id=p_id_prestamo;
 ELSE
-	SELECT * FROM systema_llaves.tobjetos;
+	SELECT * FROM sistema_llaves.tobjetos;
 END IF;
 END
 //

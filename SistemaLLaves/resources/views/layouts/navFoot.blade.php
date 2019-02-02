@@ -80,11 +80,14 @@
       const menu = document.querySelector('.menu');
       const nav = document.querySelector('nav');
       const burgerButton = document.querySelector('#burger-menu');
-      for(var i = 0; i < arrows.length; i++){
-        loanObjects[i].setAttribute('id', 'element-'+i);
-        let id = loanObjects.item(i).getAttribute('id');
-        arrows[i].addEventListener('click', function(){ hideShowObjects(id) } );
+      function addClassToObjects() {
+        for(var i = 0; i < arrows.length; i++){
+          loanObjects[i].setAttribute('id', 'element-'+i);
+          let id = loanObjects.item(i).getAttribute('id');
+          arrows[i].addEventListener('click', function(){ hideShowObjects(id) } );
+        }
       }
+      addClassToObjects()
       ipad.addListener(validation);
       function validation(event){
         if(event.matches){
@@ -96,7 +99,7 @@
       validation(ipad);
       function hideShowObjects(id) {
         for(let i = 0; i < loanObjects.length; i++){
-          if(loanObjects[i].getAttribute('id')===id){
+          if(loanObjects[i].getAttribute('id')===id) {
             if(loanObjects[i].classList.contains('is-active')){
               loanObjects[i].classList.remove('is-active');
               arrows[i].classList.remove('rotation');
@@ -105,6 +108,13 @@
               arrows[i].classList.add('rotation');
             }
           }
+        }
+      }
+      function removeHamburguer(){
+        // console.log(window.outerWidth);
+        if(window.outerWidth>767){
+          nav.classList.remove('is-active');
+          menu.classList.remove('is-active');
         }
       }
       function hideShow(){
@@ -116,7 +126,6 @@
           menu.classList.add('is-active');
         }
       }
-      
     </script>
 </body>
 </html>

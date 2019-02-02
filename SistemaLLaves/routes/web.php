@@ -22,42 +22,47 @@ Route::get('/wc', function () {
 Route::get('/','LoginController@principal')->middleware(alreadyStartSession::class);
 Route::post('/validate','LoginController@validar');//para validar el usuario en el login
 
+Route::group(['middleware'=>'CheckSess'],function(){
 ################################################################################################################
 //rutas para la pagina principal################################################################################
 
-Route::get('/main','PrincipalController@cargarRegistro')->middleware(CheckSess::class);
-Route::get('/busqueda','BusquedaController@cargarBusqueda')->middleware(CheckSess::class);
-Route::get('/inventario','PrincipalController@cargarInventario')->middleware(CheckSess::class);
+    Route::get('/main','PrincipalController@cargarRegistro');
+    Route::get('/busqueda','BusquedaController@cargarBusqueda');
 
 ################################################################################################################
 //rutas para el area de busqueda################################################################################
 
-Route::post('/busqueda_registros','BusquedaController@CargarRegistro');
+    Route::post('/busqueda_registros','BusquedaController@CargarRegistro');
 
 ################################################################################################################
 //rutas para el area de soporte#################################################################################
 
-Route::post('/enviarObservacion','SoporteController@EnviarMail');
+    Route::post('/enviarObservacion','SoporteController@EnviarMail');
 
 ##############################################################################################################
 
-Route::get('/salir','LoginController@salir');//opcion de salir
+    Route::get('/salir','LoginController@salir');//opcion de salir
 
-Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
+    Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
+
+################################################################################################################
+//rutas para el area de inventario##############################################################################
+
+    Route::get('/inventario','InventarioController@cargarInventario');//esta ruta llama a la vista del inventario
 
 //API para consultar la base de datos###########################################################################
 
-Route::group(['middleware'=>'CheckSess'],function(){
+
     Route::post('/api/nuevoPrestamo','ApisController@nuevoPrestamo');
     Route::post('/api/nuevoRegistro','ApisController@nuevoRegistro');
     Route::post('/api/devolucion','ApisController@hacerDevolucion');
     Route::get('/api/registros','ApisController@registrosNum');
     Route::get('/api/lap','ApisController@lap');
-    //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
+    Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
     Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
     Route::get('api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
 });
-Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
+//Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 
 
