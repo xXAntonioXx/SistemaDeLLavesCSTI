@@ -40,49 +40,49 @@ BEGIN
 		SET MESSAGE_TEXT="El objeto no se encuentra en la base de datos.";
 	END IF;
 	CASE
-		WHEN p_nombre IS NOT NULL AND p_marca IS NULL AND p_descripcion IS NULL AND p_inventario IS NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NULL) AND (p_descripcion IS NULL) AND (p_inventario IS NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre WHERE id=p_id_objeto;
 		
-		WHEN p_nombre IS NULL AND p_marca IS NOT NULL AND p_descripcion IS NULL AND p_inventario IS NULL THEN
+		WHEN (p_nombre IS NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NULL) AND (p_inventario IS NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET marca=p_marca WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NULL AND p_marca IS NULL AND p_descripcion IS NOT NULL AND p_inventario IS NULL THEN
+		WHEN (p_nombre IS NULL) AND (p_marca IS NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET descripcion=p_descripcion WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NULL AND p_marca IS NULL AND p_descripcion IS NULL AND p_inventario IS NOT NULL THEN
+		WHEN (p_nombre IS NULL) AND (p_marca IS NULL) AND (p_descripcion IS NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET inventario=p_inventario WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NOT NULL AND p_marca IS NOT NULL AND p_descripcion IS NULL AND p_inventario IS NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NULL) AND (p_inventario IS NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre,marca=p_marca WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NOT NULL AND p_marca IS NULL AND p_descripcion IS NOT NULL AND p_inventario IS NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre,descripcion=p_descripcion WHERE id=p_id_objeto;
 	
-		WHEN p_nombre IS NOT NULL AND p_marca IS NULL AND p_descripcion IS NULL AND p_inventario IS NOT NULL NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NULL) AND (p_descripcion IS NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre,inventario=p_inventario WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NULL AND p_marca IS NOT NULL AND p_descripcion IS NOT NULL AND p_inventario IS NULL THEN
+		WHEN (p_nombre IS NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET marca=p_marca,descripcion=p_descripcion WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NULL AND p_marca IS NOT NULL AND p_descripcion IS NULL AND p_inventario IS NOT NULL THEN
+		WHEN (p_nombre IS NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET marca=p_marca,inventario=p_inventario WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NULL AND p_marca IS NULL AND p_descripcion IS NOT NULL AND p_inventario IS NOT NULL THEN
+		WHEN (p_nombre IS NULL) AND (p_marca IS NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET descripcion=p_descripcion,inventario=p_inventario WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NOT NULL AND p_marca IS NOT NULL AND p_descripcion IS NOT NULL AND p_inventario IS NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre,marca=p_marca,descripcion=p_descripcion WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NOT NULL AND p_marca IS NOT NULL AND p_descripcion IS NULL AND p_inventario IS NOT NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre,marca=p_marca,inventario=p_inventario WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NOT NULL AND p_marca IS NULL AND p_descripcion IS NOT NULL AND p_inventario IS NOT NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre,descripcion=p_descripcion,inventario=p_inventario WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NULL AND p_marca IS NOT NULL AND p_descripcion IS NOT NULL AND p_inventario IS NOT NULL THEN
+		WHEN (p_nombre IS NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET marca=p_marca,descripcion=p_descripcion,inventario=p_inventario WHERE id=p_id_objeto;
 
-		WHEN p_nombre IS NOT NULL AND p_marca IS NOT NULL AND p_descripcion IS NOT NULL AND p_inventario IS NOT NULL THEN
+		WHEN (p_nombre IS NOT NULL) AND (p_marca IS NOT NULL) AND (p_descripcion IS NOT NULL) AND (p_inventario IS NOT NULL) THEN
 			UPDATE sistema_llaves.tobjetos SET nombre=p_nombre,marca=p_marca,descripcion=p_descripcion,inventario=p_inventario WHERE id=p_id_objeto;
 
 	END CASE;
