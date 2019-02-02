@@ -169,7 +169,9 @@ CREATE TABLE tobjetos(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(50),
 marca  VARCHAR(50),
+descripcion VARCHAR(255),
 inventario INT,
+
 PRIMARY KEY(id)
 );
 
