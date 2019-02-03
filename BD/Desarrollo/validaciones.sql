@@ -30,7 +30,7 @@ DELIMITER //
 DROP TRIGGER IF EXISTS tg_users_rol_BI;
 
 CREATE TRIGGER tg_users_rol_BI BEFORE INSERT 
-ON tusuarios FOR EACH ROW
+ON sistema_llaves.tusuarios FOR EACH ROW
 BEGIN
 	CALL CHK_user_rol(new.rol);
 END//
@@ -39,7 +39,9 @@ DELIMITER ;
 
 /*------------------------------------------------*/
 /*Validar el campo Ciclo de la tabla thorarios
-en el cual los posibles ciclos son 1, 2 y 3*/
+en el cual los posibles ciclos son 1, 2 y 3,
+Y ademas validar si el horario no se encuentra
+registrado anterior mente para evitar redundancia*/
 /*-----------------------------------------------*/
 DELIMITER //
 DROP PROCEDURE IF EXISTS CHK_horario_ciclo;
@@ -59,10 +61,18 @@ DELIMITER ;
 DELIMITER //
 DROP TRIGGER IF EXISTS tg_horario_ciclo_BI;
 CREATE TRIGGER tg_horario_ciclo_BI BEFORE INSERT 
-ON thorarios FOR EACH ROW
+ON sistema_llaves.thorarios FOR EACH ROW
 BEGIN
 	CALL CHK_horario_ciclo(new.ciclo);
+
+	IF EXISTS(SELECT * FROM sistema_llaves.thorarios as th WHERE th.year=NEW.year AND th.ciclo=NEW.ciclo AND th.num_aula=NEW.num_aula AND th.num_emp_maestro=NEW.num_emp_maestro AND th.id_materia=NEW.id_materia AND th.id_dias_horas=NEW.id_dias_horas) THEN
+		SIGNAL SQLSTATE '46011'
+		SET MESSAGE_TEXT='Ya hay un horario con estas caracteristicas';
+	END IF;
 END//
 DELIMITER ;
 /*------------------------------------------------*/
+
+
+
 

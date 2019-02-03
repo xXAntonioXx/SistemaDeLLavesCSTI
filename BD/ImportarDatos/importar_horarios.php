@@ -51,57 +51,58 @@
                 //verificar si el numEmpleado es 0 o vacío
                 //En caso de ser vacio o 0 se le asigna un numero de empleado por defecto
                 //En caso contrario se asigna el numero de empleado del archivo.
-                if($linea[0]==0 || strlen($linea[0])==0){
+                if($linea[10]==0 || strlen($linea[10])==0){
                     $arreglo[0]=1;
                 }else{
-                	$arreglo[0]=$linea[0];
+                	$arreglo[0]=$linea[10];
                 }
 
                 //Verificar si el nombre del maestro esta vacío.
                 //En caso de estar vacío se le asigna el nombre por defecto del maestro.
                 //En caso contrario se asigna el nombre que viene en el archivo.
-                if(strlen($linea[1])==0){
+                if(strlen($linea[0])==0){
                    $arreglo[1]='SIN ASIGNAR...';
                 }else{
-                	$arreglo[1]=$linea[1];
+                	$arreglo[1]=$linea[0];
                 }
 
                 //Verificar si el nombre de la materia esta vacío.
                 //En caso de estar vacío se le asigna el nombte por defecto de la materia.
                 //En caso contrario se asigna el nombre que viene en el archivo.
-                if(strlen($linea[2])==0){
+                if(strlen($linea[1])==0){
                     $arreglo[2]='SIN ASIGNAR...';
                 }else{
-                	$arreglo[2]=$linea[2];
+                	$arreglo[2]=$linea[1];
                 }
 
                 //Asignar el numero del aula.
-                $arreglo[3]=$linea[4];
+                $arreglo[3]=$linea[3];
                 
                 //Asignar el plan de estudio de la materia.
-                $arreglo[4]=$linea[5];
+                $arreglo[4]=$linea[11];
                 $argdias= array();
+
                 //Definir los dias de la clase
-                for ($i=6; $i <12 ; $i++) {
+                for ($i=4; $i <10 ; $i++) {
                 	if (strlen($linea[$i]) !=0){
                         switch ($i) {
+                            case 4:
+                                $argdias[]= array(4,'LUNES');
+                                break;
+                            case 5:
+                                $argdias[]= array(5,'MARTES');
+                                break;
                             case 6:
-                                $argdias[]= array(6,'LUNES');
+                                $argdias[]= array(6,'MIERCOLES');
                                 break;
                             case 7:
-                                $argdias[]= array(7,'MARTES');
+                                $argdias[]= array(7,'JUEVES');
                                 break;
                             case 8:
-                                $argdias[]= array(8,'MIERCOLES');
+                                $argdias[]= array(8,'VIERNES');
                                 break;
                             case 9:
-                                $argdias[]= array(9,'JUEVES');
-                                break;
-                            case 10:
-                                $argdias[]= array(10,'VIERNES');
-                                break;
-                            case 11:
-                                $argdias[]= array(11,'SABADO');
+                                $argdias[]= array(9,'SABADO');
                                 break;
                             default:
                                 
@@ -129,6 +130,7 @@
                 //Asignar la hora entrada y hora salida
                 $arreglo[6]=substr($linea[$argdias[0][0]],0,strpos($linea[$argdias[0][0]],"-")) .":00";
                 $arreglo[7]=substr($linea[$argdias[0][0]],strpos($linea[$argdias[0][0]],"-")+1,strlen($linea[$argdias[0][0]])) . ":00";
+                
                 //Asignar año y ciclo
                 $arreglo[8] = $_POST["year"];
                 $arreglo[9] = $_POST["ciclo"];
