@@ -1,5 +1,4 @@
 
-	DECLARE codLlave BIGINT(20) DEFAULT 0;
 DELIMITER //
 DROP TRIGGER IF EXISTS tg_horaSigueinte_BI;
 CREATE TRIGGER IF NOT EXISTS tg_horaSigueinte_BI BEFORE INSERT
@@ -47,47 +46,47 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS sp_controlHorarios;
 CREATE PROCEDURE IF NOT EXISTS sp_controlHorarios()
 BEGIN
-	--declaramos variables
+	-- declaramos variables
 	DECLARE p_id_registro INT(11);
 	DECLARE p_id_horario INT(11);
 	DECLARE p_codigo_llave BIGINT(20);
 	DECLARE FINALIZADO INT DEFAULT 0;
 
-	--declaramos cursor
+	-- declaramos cursor
 	DECLARE cur_controlHorarios CURSOR FOR
 		SELECT id_registro,codigo_llave,id_horario
 		FROM sistema_llaves.tcontrolHorarios
-		WHERE estado=0;
+		WHERE estado=0
 		FOR UPDATE;
 
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET FINALIZADO =1;
-
-	--abrimos el cursor
+	
+	-- abrimos el cursor
 	OPEN cur_controlHorarios;
 		
-	--comenzamos a recorrer
+	-- comenzamos a recorrer
 	REPEAT
 
-		--emparejamos los campos con las variables
+		-- emparejamos los campos con las variables
 		FETCH cur_controlHorarios INTO p_id_registro,p_codigo_llave,p_id_horario;
 
-		--Iniciamos el proceso para registrar la hora actual y marcar la salida de la hora anterior.
+		-- Iniciamos el proceso para registrar la hora actual y marcar la salida de la hora anterior.
 		
-		--verificar si hay un prestamo relacionado
+		-- verificar si hay un prestamo relacionado
 		IF (SELECT id_prestamo from tregistros WHERE id=p_id_registro IS NULL) THEN
 			SET @idPrest=0;
 		ELSE
 			SET @idPrest := (SELECT id_prestamo from tregistros WHERE id=p_id_registro);
 		END IF;
 		
-		--concatenamos el id de los objetos en caso de estar en un prestmo
+		-- concatenamos el id de los objetos en caso de estar en un prestmo
 		IF @idPrest=0 OR @idPrest IS NULL THEN 
 			SET @argObjetos="";
 		ELSE
 			SET @argObjetos := (SELECT GROUP_CONCAT(id_objeto) FROM tprestamos WHERE id=@idPrest GROUP BY id);
 		END IF;
 
-		--marcar salida del registro anterior.
+		-- marcar salida del registro anterior.
 		CALL sp_set_registro(
 			p_codigo_llave,
 			p_id_registro,
@@ -97,7 +96,7 @@ BEGIN
 		);
 
 
-		--realizamos el nuevo registro
+		-- realizamos el nuevo registro
 		CALL sp_registrar_registro(
 			p_codigo_llave,
 			CONCAT(CURDATE(),' ',EXTRACT(HOUR FROM CURRENT_TIMESTAMP),':00:01'),
@@ -107,13 +106,10 @@ BEGIN
 			);
 
 
-		--Editamos el estado del registro de la tabla tcontrolHorarios, para que sea eliminado despues.
-		UPDATE tcontrolHorarios SET estado=1 WHERE id_registro=p_id_registro AND id_horario=p_id_horario; 
-
 	UNTIL FINALIZADO = 1 END REPEAT;
 	
-	--cerramos el cursor
-    CLOSE CUR_PERSONAL;
+	-- cerramos el cursor
+    CLOSE cur_controlHorarios;
 
 	DELETE FROM tcontrolHorarios WHERE estado=1;
 
@@ -128,13 +124,14 @@ DELIMITER //
 DROP EVENT IF EXISTS evt_controlHorarios;
 CREATE EVENT IF NOT EXISTS evt_controlHorarios
 ON SCHEDULE
+EVERY 1 HOUR
 STARTS '2019-01-01 05:15:00'
 DO
 BEGIN
 	CALL sp_controlHorarios();
 END
 //
-DELIMITER
+DELIMITER ;
 
 
 

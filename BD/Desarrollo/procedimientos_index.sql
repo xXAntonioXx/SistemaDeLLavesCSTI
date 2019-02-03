@@ -37,7 +37,7 @@ DELIMITER ;
 DELIMITER //
 DROP  PROCEDURE IF EXISTS sp_get_frmPrestamo;
 CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
-	in p_codigo_llaves BIGINT(20),	
+	in p_codigo_llave BIGINT(20),	
 	in p_hora TIMESTAMP
 )
  BEGIN
@@ -67,7 +67,7 @@ CREATE PROCEDURE sistema_llaves.sp_get_frmPrestamo(
  	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
  	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
  	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
- 	WHERE llav.codigo=p_codigo_llaves AND ho.ciclo=p_ciclo
+ 	WHERE llav.codigo=p_codigo_llave AND ho.ciclo=p_ciclo
  	AND ho.year=YEAR(p_hora) AND tho.hora_inicio=TIME(p_hora)
  	AND tdi.dias LIKE  CONCAT('%',expresion,'%');
  END
@@ -369,9 +369,9 @@ BEGIN
 			END WHILE;
 		END IF;
 	END IF;
-
 	UPDATE sistema_llaves.tregistros SET hora_entrada=(select hora_entrada where id=p_id_registro),hora_salida=p_hora_salida WHERE id=p_id_registro;
 	UPDATE sistema_llaves.tllaves SET ref=NULL where codigo=p_codigo_llave;
+	UPDATE sistema_llaves.tcontrolHorarios SET estado=1 WHERE id_registro=p_id_registro and codigo_llave=p_codigo_llave;
 END
 //
 DELIMITER ;
