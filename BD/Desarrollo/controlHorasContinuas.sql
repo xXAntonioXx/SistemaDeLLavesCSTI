@@ -1,26 +1,11 @@
 
 DELIMITER //
-DROP TRIGGER IF EXISTS tg_horaSigueinte_BI;
-CREATE TRIGGER IF NOT EXISTS tg_horaSigueinte_BI BEFORE INSERT
+DROP TRIGGER IF EXISTS tg_horaSiguiente_BI;
+CREATE TRIGGER IF NOT EXISTS tg_horaSiguiente_BI BEFORE INSERT
 ON tregistros FOR EACH ROW
 BEGIN
-	IF EXISTS(
-		SELECT *
-		FROM thorarios AS ho
-	 	INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
-	 	INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
-	 	INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
-	 	INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
-	 	INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
-	 	INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
-	 	INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
-	 	WHERE mae.num_emp=(SELECT num_emp_maestro FROM thorarios WHERE id=NEW.id_horario)
-	 	AND  tho.hora_inicio=CONCAT(SUBSTRING((NEW.hora_entrada+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
-	 	AND  aul.numero=(SELECT num_aula FROM thorarios WHERE id=NEW.id_horario)
-	 	AND tdi.dias LIKE  CONCAT('%',(ELT(WEEKDAY(NEW.hora_entrada) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),'%')
-		)THEN
-		SET @codLlave := (SELECT llav.codigo FROM tllaves AS llav INNER JOIN taulas AS aul ON llav.id_aula = aul.id WHERE llav.ref=1 AND aul.numero=(SELECT num_aula FROM thorarios WHERE id=NEW.id_horario));
-		SET @idhorario := (SELECT ho.id
+		IF EXISTS(
+			SELECT *
 			FROM thorarios AS ho
 			INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
 			INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
@@ -32,10 +17,27 @@ BEGIN
 			WHERE mae.num_emp=(SELECT num_emp_maestro FROM thorarios WHERE id=NEW.id_horario)
 			AND  tho.hora_inicio=CONCAT(SUBSTRING((NEW.hora_entrada+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
 			AND  aul.numero=(SELECT num_aula FROM thorarios WHERE id=NEW.id_horario)
-			AND tdi.dias LIKE  CONCAT('%',(ELT(WEEKDAY(NEW.hora_entrada) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),'%')	
-		);
-		INSERT INTO tcontrolHorarios VALUES(NEW.id,codLlave,@idhorario,DEFAULT);
-	END IF;
+			AND tdi.dias LIKE  CONCAT('%',(ELT(WEEKDAY(NEW.hora_entrada) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),'%')
+			)THEN
+			SET @codLlave := (SELECT codigo FROM tllaves WHERE ref=NEW.id_horario);
+			SET @idhorario := (SELECT ho.id
+				FROM thorarios AS ho
+				INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
+				INNER JOIN sistema_llaves.tllaves 	  AS llav ON llav.id_aula = aul.id 
+				INNER JOIN sistema_llaves.tmaestros   AS mae  ON mae.num_emp = ho.num_emp_maestro
+				INNER JOIN sistema_llaves.tmaterias   AS mat  ON mat.id = ho.id_materia
+				INNER JOIN sistema_llaves.tdias_horas AS tdh  ON tdh.id = ho.id_dias_horas
+				INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
+				INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
+				WHERE mae.num_emp=(SELECT num_emp_maestro FROM thorarios WHERE id=NEW.id_horario)
+				AND  tho.hora_inicio=CONCAT(SUBSTRING((NEW.hora_entrada+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
+				AND  aul.numero=(SELECT num_aula FROM thorarios WHERE id=NEW.id_horario)
+				AND tdi.dias LIKE  CONCAT('%',(ELT(WEEKDAY(NEW.hora_entrada) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),'%')	
+			);
+			SET @idregistro := (SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA="sistema_llaves" AND TABLE_NAME="tregistros");
+			INSERT INTO tcontrolHorarios VALUES(@idregistro,@codLlave,@idhorario,DEFAULT);
+		END IF;
+	
 END//
 DELIMITER ;
 
@@ -73,7 +75,7 @@ BEGIN
 		-- Iniciamos el proceso para registrar la hora actual y marcar la salida de la hora anterior.
 		
 		-- verificar si hay un prestamo relacionado
-		IF (SELECT id_prestamo from tregistros WHERE id=p_id_registro IS NULL) THEN
+		IF (SELECT id_prestamo from tregistros WHERE id=p_id_registro) IS NULL THEN
 			SET @idPrest=0;
 		ELSE
 			SET @idPrest := (SELECT id_prestamo from tregistros WHERE id=p_id_registro);
@@ -86,26 +88,27 @@ BEGIN
 			SET @argObjetos := (SELECT GROUP_CONCAT(id_objeto) FROM tprestamos WHERE id=@idPrest GROUP BY id);
 		END IF;
 
-		-- marcar salida del registro anterior.
-		CALL sp_set_registro(
-			p_codigo_llave,
-			p_id_registro,
-			CONCAT(CURDATE(),' ',EXTRACT(HOUR FROM CURRENT_TIMESTAMP),':00:00'),
-			@idPrest,
-			@argObjetos
-		);
-
-
-		-- realizamos el nuevo registro
-		CALL sp_registrar_registro(
-			p_codigo_llave,
-			CONCAT(CURDATE(),' ',EXTRACT(HOUR FROM CURRENT_TIMESTAMP),':00:01'),
-			p_id_horario,
-			(SELECT id_usuario FROM tregistros WHERE id=p_id_registro),
-			@argObjetos
+		IF NOT EXISTS(SELECT * FROM sistema_llaves.tregistros WHERE id_horario=p_id_horario AND hora_entrada=CONCAT(CURDATE()," ",EXTRACT(HOUR FROM CURRENT_TIMESTAMP),":00:00")) THEN
+			-- marcar salida del registro anterior.
+			CALL sp_set_registro(
+				p_codigo_llave,
+				p_id_registro,
+				CONCAT(CURDATE(),' ',EXTRACT(HOUR FROM CURRENT_TIMESTAMP),':00:00'),
+				@idPrest,
+				@argObjetos
 			);
 
 
+			-- realizamos el nuevo registro
+			CALL sp_registrar_registro(
+				p_codigo_llave,
+				CONCAT(CURDATE(),' ',EXTRACT(HOUR FROM CURRENT_TIMESTAMP),':00:01'),
+				p_id_horario,
+				(SELECT id_usuario FROM tregistros WHERE id=p_id_registro),
+				@argObjetos
+				);
+
+		END IF;
 	UNTIL FINALIZADO = 1 END REPEAT;
 	
 	-- cerramos el cursor

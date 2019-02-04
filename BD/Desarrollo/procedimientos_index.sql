@@ -228,31 +228,32 @@ CREATE PROCEDURE sistema_llaves.sp_registrar_registro(
  	IF p_id_objeto_arg IS NOT NULL AND LENGTH(p_id_objeto_arg)>0 THEN
  		CALL sp_registrar_prestamo(0,p_id_objeto_arg);
  	END IF;
+	 SET p_hora_entrada = DATE_FORMAT(p_hora_entrada,"%Y-%m-%d %H:%i:%s");
  	CASE
  		WHEN (p_id_horario > 0) AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NOT NULL) THEN 
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NULL) THEN 
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,null,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,null,p_id_usuario);
  		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NULL) THEN 
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
  		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NOT NULL) THEN
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,@id_prest,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,@id_prest,p_id_usuario);
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NOT NULL) THEN
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,@id_prest,p_id_usuario);
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NOT NULL) THEN
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,@id_prest,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,null,@id_prest,p_id_usuario);
  		WHEN (p_id_horario > 0)  AND (@id_excepcion IS NULL) AND (@id_prest IS NULL) THEN
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,null,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,p_id_horario,p_hora_entrada,null,null,null,p_id_usuario);
  		WHEN (p_id_horario = 0)  AND (@id_excepcion IS NOT NULL) AND (@id_prest IS NULL) THEN
- 			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
  			UPDATE tllaves SET ref=p_id_horario where codigo=p_codigo_llave;
+			INSERT INTO sistema_llaves.tregistros(id,id_horario,hora_entrada,hora_salida,id_excepcion,id_prestamo,id_usuario) VALUES (null,null,p_hora_entrada,null,@id_excepcion,null,p_id_usuario);
  	END CASE;
 
  	SET @id_excepcion=null;
