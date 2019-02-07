@@ -2,15 +2,11 @@
 -------------------------------
 ---- Autor:Murillo Mario ------
 -------------------------------
-En este archivo se encuentran todos los procedimientos almacenados 
-que hacen operaciones que solo los administradores pueden realizar.
+
 
 */
 
 
-/*--------------------------------------*/
-/*----------------EN PROCESO--------------*/
-/*-------------------------------------*/
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_get_busqueda;
 CREATE PROCEDURE sistema_llaves.sp_get_busqueda(

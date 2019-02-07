@@ -125,10 +125,10 @@ call sp_registrar_horario(100000015,'2018','3',65668,"GRAFICACION Y MULTIMEDIA",
 call sp_registrar_horario(100000016,'2018','3',65669,"INTELIGENCIA ARTIFICIAL","LUNES,MARTES,MIERCOLES,jueves",'07:00:00','08:00:00');
 
 /*Registrar Objetos*/
-call sp_registrar_objeto("Control-A/C","mirage",5);
-call sp_registrar_objeto("Control-A/C","YORK",5);
-call sp_registrar_objeto("Control-Cañon","Epson",5);
-call sp_registrar_objeto("bocinas","lanix",5);
+call sp_registrar_objeto("Control-A/C","mirage","control blanco con rojo",5);
+call sp_registrar_objeto("Control-A/C","YORK","contorl blanco con azul",5);
+call sp_registrar_objeto("Control-Cañon","Epson","control blanco con botones de colores",5);
+call sp_registrar_objeto("bocinas","lanix","color gris, con fuente de poder",5);
 
 /*Registrar prestamo*/
 call sp_registrar_prestamo(0,"1,3,2");

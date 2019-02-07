@@ -169,7 +169,9 @@ CREATE TABLE tobjetos(
 id INT AUTO_INCREMENT,
 nombre VARCHAR(50),
 marca  VARCHAR(50),
+descripcion VARCHAR(255),
 inventario INT,
+
 PRIMARY KEY(id)
 );
 
@@ -258,7 +260,31 @@ CONSTRAINT FK_tregistros_tusuarios
 FOREIGN KEY (id_usuario) REFERENCES tusuarios(id)
 );
 
---controlHorarios
+
+/*
+La siguiente tabla es la tabla donde se
+almacenaran los reportes pasados por los
+maestro sobre el equipo de computo de las
+aulas.
+*/
+CREATE TABLE treportes(
+id INT(11) AUTO_INCREMENT,
+fecha_inicio TIMESTAMP NOT NULL,
+fecha_fin TIMESTAMP NOT NULL,
+descripcion VARCHAR(255) NOT NULL,
+num_aula INT(11) NOT NULL,
+PRIMARY KEY(id),
+CONSTRAINT FK_treportes_taulas
+FOREIGN KEY(num_aula) REFERENCES taulas(numero)
+);
+
+
+/*
+La siguiente tabla es una tabla auxiliar
+que nos ayudara a controlas los horarios
+de los maestros que tienen horas seguidas
+en el mismo salón.
+*/
 CREATE TABLE tcontrolHorarios(
   id_registro INT(11),
   codigo_llave BIGINT(20),
@@ -266,3 +292,4 @@ CREATE TABLE tcontrolHorarios(
   estado BOOLEAN DEFAULT 0,
 PRIMARY KEY(id_registro,codigo_llave,id_horario)
 );
+
