@@ -1,8 +1,12 @@
 .inventory-item {
   display: flex;
   width: 100%;
-  border-block-end: 1px solid gray;
+  /* border-block-end: 1px solid gray; */
   height: 40px;
+  &:hover {
+    color: white;
+    background: var(--color_secundario);
+  }
   & h4 {
     font-size: 1rem;
     margin: 0;
