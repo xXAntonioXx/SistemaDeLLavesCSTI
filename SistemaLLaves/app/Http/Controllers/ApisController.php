@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 include 'Konect.php';
 
-class ApisController extends Controller
+class ApisController extends Controller 
 {
     public $conexion;//instanciamos la conexión a la base de datos
 
