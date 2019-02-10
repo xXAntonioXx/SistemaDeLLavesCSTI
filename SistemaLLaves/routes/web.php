@@ -61,6 +61,8 @@ Route::group(['middleware'=>'CheckSess'],function(){
     Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
     Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
     Route::get('api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
+
+    Route::get('api/ObjetosInventario','ApisController@ObjetosInventario');
 });
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################

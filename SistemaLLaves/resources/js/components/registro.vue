@@ -62,7 +62,7 @@
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
               <option v-for="objects in comboInd['ObjetosDisponibles']" :value="objects.id" :key="objects['id']">
-                {{objects['object']}}
+                {{objects['nombre']+"("+objects['marca']+")"}}
               </option>
             </select>
           </div>
@@ -130,6 +130,7 @@ export default {
     },
     created(){
       this.fetchRegistros();
+      this.ObtenerObjetosDisponiblesInventario();
     },
     computed:{
       Paginate(){
@@ -146,7 +147,12 @@ export default {
           console.log(this.Pages);
         });
       },
-
+      ObtenerObjetosDisponiblesInventario(){
+        let ruta = "api/ObjetosInventario";
+        axios.get(ruta).then(res=>{
+          this.ObjetosCombo=res;
+        });
+      },
       getPages(nPage){//obtener cantidad n de paginas
         this.indicePagina=nPage;
       },

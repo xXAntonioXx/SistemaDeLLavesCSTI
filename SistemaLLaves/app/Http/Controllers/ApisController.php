@@ -40,6 +40,12 @@ class ApisController extends Controller
         }
     }
 
+    public function ObjetosInventario(){
+        $objetosPrestados = $this->conexion->query("CALL sp_get_objetos(null);")->fetchAll();
+
+        return json_encode($objetosPrestados);
+    }
+
     public function hacerDevolucion(Request $req){
         $registro = $req["idRegistro"];
         $horaDevolucion = $req["horaDevolucion"];
