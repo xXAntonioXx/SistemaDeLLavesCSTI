@@ -51,8 +51,9 @@ class ApisController extends Controller
         $horaDevolucion = $req["horaDevolucion"];
         $idPrestamoObjetos = ($req["idPrestamos"]==null) ? "NULL" : $req["idPrestamos"];
         $objetosDevueltos = $req["objDevueltos"]=="null"?"":$req["objDevueltos"];
+        $llaveDevolver=$req["codigoLLave"];
 
-        $UpdateRegistro="CALL sp_set_registro({$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
+        $UpdateRegistro="CALL sp_set_registro({$llaveDevolver},{$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
         $this->conexion->query($UpdateRegistro);
         return $UpdateRegistro;
     }

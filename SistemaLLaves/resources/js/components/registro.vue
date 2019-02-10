@@ -122,7 +122,8 @@ export default {
             ],
             maestroDevolucion:'',
             materiaDevolucion:'',
-            aulaDevolucion:''
+            aulaDevolucion:'',
+            llaveDevolucion:''
         }
     },
     components:{
@@ -150,7 +151,7 @@ export default {
       ObtenerObjetosDisponiblesInventario(){
         let ruta = "api/ObjetosInventario";
         axios.get(ruta).then(res=>{
-          this.ObjetosCombo=res;
+          this.ObjetosCombo=res.data;
         });
       },
       getPages(nPage){//obtener cantidad n de paginas
@@ -177,6 +178,7 @@ export default {
             this.maestroDevolucion=res.data['nombre'];
             this.materiaDevolucion=res.data['materia'];
             this.aulaDevolucion=res.data['aula'];
+            this.llaveDevolucion=codigoLLave;
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
               this.objeto=res.data;

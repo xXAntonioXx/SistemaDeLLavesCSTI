@@ -64435,7 +64435,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       ObjetosCombo: [{ id: 1, object: "Control A/AC(Mirage)" }, { id: 2, object: "Control A/AC(YORK)" }, { id: 3, object: "Control Cañon" }, { id: 4, object: "Bocinas" }],
       maestroDevolucion: '',
       materiaDevolucion: '',
-      aulaDevolucion: ''
+      aulaDevolucion: '',
+      llaveDevolucion: ''
     };
   },
 
@@ -64468,7 +64469,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var ruta = "api/ObjetosInventario";
       axios.get(ruta).then(function (res) {
-        _this2.ObjetosCombo = res;
+        _this2.ObjetosCombo = res.data;
       });
     },
     getPages: function getPages(nPage) {
@@ -64498,6 +64499,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this3.maestroDevolucion = res.data['nombre'];
           _this3.materiaDevolucion = res.data['materia'];
           _this3.aulaDevolucion = res.data['aula'];
+          _this3.llaveDevolucion = codigoLLave;
           var ruta = 'api/obtenerObjetos/' + resultado;
           axios.get(ruta).then(function (res) {
             _this3.objeto = res.data;
@@ -65782,12 +65784,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: ['objetos', 'hora', 'idRegistro', 'idPrestamo', 'maestro', 'materia', 'aula'],
+    props: ['objetos', 'hora', 'idRegistro', 'idPrestamo', 'maestro', 'materia', 'aula', 'llave'],
     methods: {
         hacerDevolucion: function hacerDevolucion() {
             var cadenaObjetos = this.objetosDevueltos.join();
             console.log(this.idRegistro + "*" + this.hora + "*" + this.PrestamoID + "*" + cadenaObjetos);
-            axios.post('/api/devolucion', { 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.PrestamoID, 'objDevueltos': cadenaObjetos }).then(function (res) {
+            axios.post('/api/devolucion', { 'codigoLLave': this.llave, 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.PrestamoID, 'objDevueltos': cadenaObjetos }).then(function (res) {
                 alert("devolucion realizada");
             }).catch(function () {
                 console.error('sucedio un error');
