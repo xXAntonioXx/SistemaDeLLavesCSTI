@@ -196,13 +196,14 @@ export default {
         'idPrestamo',
         'maestro',
         'materia',
-        'aula'
+        'aula',
+        'llave'
     ],
     methods:{
         hacerDevolucion(){
             let cadenaObjetos=this.objetosDevueltos.join();
             console.log(this.idRegistro +"*"+this.hora +"*"+this.PrestamoID+"*"+cadenaObjetos);
-            axios.post('/api/devolucion',{'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.PrestamoID,'objDevueltos':cadenaObjetos})
+            axios.post('/api/devolucion',{'codigoLLave':this.llave,'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.PrestamoID,'objDevueltos':cadenaObjetos})
             .then((res)=>{
                 alert("devolucion realizada");
             })

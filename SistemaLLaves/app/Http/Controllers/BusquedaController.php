@@ -44,13 +44,13 @@ class BusquedaController extends Controller
         
         switch($ValidarSalon){
             case 6:
-                if(preg_match("/^5.*[kjgomKJGOM]{1}.*[-]{1}.*\d{3}/",$req['Aula'])){
+                if(preg_match("/^[58].*[kjgomKJGOM]{1}.*[-]{1}.*\d{3}/",$req['Aula'])){
                     $area = "'".mb_substr($req['Aula'],0,2)."'";
                     $aula = "'".mb_substr($req['Aula'],3,null)."'";
                 }
                 break;
             case 2:
-                if(preg_match("/^5.*[kjgomKJGOM]{1}/",$req['Aula'])){
+                if(preg_match("/^[58].*[kjgomKJGOM]{1}/",$req['Aula'])){
                     $area = "'".$req['Aula']."'";
                 }
                 break;

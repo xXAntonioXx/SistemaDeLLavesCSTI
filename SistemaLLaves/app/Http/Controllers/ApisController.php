@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 include 'Konect.php';
 
-class ApisController extends Controller
+class ApisController extends Controller 
 {
     public $conexion;//instanciamos la conexión a la base de datos
 
@@ -40,13 +40,20 @@ class ApisController extends Controller
         }
     }
 
+    public function ObjetosInventario(){
+        $objetosPrestados = $this->conexion->query("CALL sp_get_objetos(null);")->fetchAll();
+
+        return json_encode($objetosPrestados);
+    }
+
     public function hacerDevolucion(Request $req){
         $registro = $req["idRegistro"];
         $horaDevolucion = $req["horaDevolucion"];
         $idPrestamoObjetos = ($req["idPrestamos"]==null) ? "NULL" : $req["idPrestamos"];
         $objetosDevueltos = $req["objDevueltos"]=="null"?"":$req["objDevueltos"];
+        $llaveDevolver=$req["codigoLLave"];
 
-        $UpdateRegistro="CALL sp_set_registro({$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
+        $UpdateRegistro="CALL sp_set_registro({$llaveDevolver},{$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
         $this->conexion->query($UpdateRegistro);
         return $UpdateRegistro;
     }

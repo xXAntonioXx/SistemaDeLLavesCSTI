@@ -62,7 +62,7 @@
           <div class="modal-list">
             <select class="combo-box" name="modal-article-list" id="modal-article-list" v-for="comboInd in comboIterates" @change="agregarCombo(comboInd,comboInd['valor'])" :key="comboInd['id']" v-model="comboInd['valor']" :disabled="validate=comboInd['estado']" :value="null">
               <option v-for="objects in comboInd['ObjetosDisponibles']" :value="objects.id" :key="objects['id']">
-                {{objects['object']}}
+                {{objects['nombre']+"("+objects['marca']+")"}}
               </option>
             </select>
           </div>
@@ -96,17 +96,8 @@ export default {
             codigoKey:'',
             registroForm:[],
             estadoInput:true,
-            comboIterates:[{
-              id:1,
-              estado:false,
-              valor:'0',
-              ObjetosDisponibles:[
-                {id:1,object:"Control A/AC(Mirage)"},
-                {id:2,object:"Control A/AC(YORK)"},
-                {id:3,object:"Control Cañon"},
-                {id:4,object:"Bocinas"}
-              ]
-            }],
+            ObjetosCombo:[],
+            comboIterates:[],
             PrestamoList:"",
             globalTime:'0',
             RegistrarState:true,
@@ -114,15 +105,10 @@ export default {
             objeto:[],
             idRegistroExistente:'',
             idPrestamoRegistrado:'',
-            ObjetosCombo:[
-              {id:1,object:"Control A/AC(Mirage)"},
-              {id:2,object:"Control A/AC(YORK)"},
-              {id:3,object:"Control Cañon"},
-              {id:4,object:"Bocinas"}
-            ],
             maestroDevolucion:'',
             materiaDevolucion:'',
-            aulaDevolucion:''
+            aulaDevolucion:'',
+            llaveDevolucion:''
         }
     },
     components:{
@@ -130,6 +116,7 @@ export default {
     },
     created(){
       this.fetchRegistros();
+      this.ObtenerObjetosDisponiblesInventario();
     },
     computed:{
       Paginate(){
@@ -143,10 +130,21 @@ export default {
         .then(data=>{
           this.paginas=Math.ceil(data['data'].length/7);
           this.Pages=data['data'].reverse();
-          console.log(this.Pages);
         });
       },
-
+      ObtenerObjetosDisponiblesInventario(){
+        let ruta = "api/ObjetosInventario";
+        axios.get(ruta).then(res=>{
+          this.ObjetosCombo=res.data;
+          this.comboIterates.push({
+              id:1,
+              estado:false,
+              valor:'0',
+              ObjetosDisponibles:this.ObjetosCombo
+          });
+          console.log(JSON.stringify(this.ObjetosCombo));
+        });
+      },
       getPages(nPage){//obtener cantidad n de paginas
         this.indicePagina=nPage;
       },
@@ -155,14 +153,12 @@ export default {
         let timez = moment.tz.guess();
         let FechaHora = moment.tz(timez).format("YYYY-M-D HH:mm:ss");
         let hora=moment.tz(timez).format("HH:mm:ss");
-        console.log(FechaHora);
         return caso==1?FechaHora:hora;
       },
 
       PrestamoOdevolucion(codigoLLave){
         let consulta = `api/devolucionOprestamo/${codigoLLave}`;
         axios.get(consulta).then(res=>{
-          console.log(res.data);
           let nuevo=res.data['id'];
           let resultado = res.data['id_prestamo'];
           if (nuevo == 0){
@@ -171,6 +167,7 @@ export default {
             this.maestroDevolucion=res.data['nombre'];
             this.materiaDevolucion=res.data['materia'];
             this.aulaDevolucion=res.data['aula'];
+            this.llaveDevolucion=codigoLLave;
             let ruta = `api/obtenerObjetos/${resultado}`;
             axios.get(ruta).then(res=>{
               this.objeto=res.data;
@@ -204,10 +201,8 @@ export default {
         this.globalTime=time;
         this.codigoKey=codigoLLave;
         let busqueda = `api/buscarHorario/${codigoLLave}/${time}`;
-        console.log(busqueda);
         axios.get(busqueda)
         .then(res=>{
-          console.log(res);
           if(res.data){
             this.registroForm=res.data;
             this.registroForm['hora']=this.showTime(2);
@@ -215,7 +210,6 @@ export default {
           }
         }).catch((res)=>{
           console.log(res);
-          console.log("wtf Happened");
         });
         
         this.estadoInput=true;
@@ -251,7 +245,6 @@ export default {
       NuevoRegistro(){//se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
         axios.post('/api/nuevoRegistro',{'llave':this.codigoKey,'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
         .then((res)=>{
-          console.log(res.data);
           alert('registro realizado');
           this.fetchRegistros();
           this.cleanObjPrestamo();
