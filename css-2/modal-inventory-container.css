@@ -1,0 +1,40 @@
+.modal-inventory-add-container {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 6;
+}
+
+#modal-inventory-add-container:target {
+  display: flex;
+}
+
+.modal-inventory-add-content {
+  height: 500px;
+  width: 500px;
+  box-sizing: border-box;
+  position: relative;
+  margin: auto;
+  align-items: center;
+  background: #fff;
+  border: 2px solid gray;
+  border-radius: 5px;
+  display: grid;
+  grid-template: 100px 1fr 60px/ 1fr;
+  grid-template-areas: "inventory-add-title"
+                       "inventory-add-content"
+                       "inventory-add-buttons";
+  @media (--large) {
+    width: 700px;
+    height: 650px;
+  }
+  @media (--phones) {
+    width: 100%;
+  }
+}

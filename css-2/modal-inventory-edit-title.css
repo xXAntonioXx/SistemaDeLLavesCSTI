@@ -1,0 +1,6 @@
+.modal-inventory-edit-title {
+  font-size: 2rem;
+  grid-area: soporte-edit-title;
+  margin: 0;
+  text-align: center;
+}

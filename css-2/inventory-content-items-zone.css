@@ -2,4 +2,7 @@
   max-height: 300px;
   grid-area: inventory-items;
   overflow-y: auto;
+  @media (--tablets) {
+    max-height: 95%;
+  }
 }

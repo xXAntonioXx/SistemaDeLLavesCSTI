@@ -528,10 +528,56 @@
             </div>
           </div>
         </div>
+        <div id="modal-inventory-edit-container" class="modal-inventory-edit-container">
+          <div class="modal-inventory-edit-content">
+            <h2 class="modal-inventory-edit-title">Editar objeto</h3>
+            <div class="modal-inventory-edit-description">
+              <div>
+                <label for="id-inventory-edit-item">Id</label>
+                <input id="id-inventory-edit-item" type="text">
+                <label for="object-inventory-edit-item">Objeto</label>
+                <input id="object-inventory-edit-item" type="text">
+              </div>
+              <label for="brand-inventory-edit-item">Marca</label>
+              <input id="brand-inventory-edit-item" type="text">
+              <label for="description-inventory-edit-item">Descripcion</label>
+              <textarea name="description-inventory-edit-item" id="description-inventory-edit-item" cols="30" rows="10" disabled></textarea>
+              <label for="quantity-inventory-edit-item">Cantidad</label>
+              <input id="quantity-inventory-edit-item" type="number">
+            </div>
+            <div class="modal-inventory-edit-buttons">
+              <input type="button" value="Agregar" class="modal-inventory-edit-button-aceptar">
+              <input type="button" value="Cancelar" class="modal-inventory-edit-button-cancelar" onclick="window.location='#';">
+            </div>
+          </div>
+        </div>
+        <div id="modal-inventory-add-container" class="modal-inventory-add-container">
+          <div class="modal-inventory-add-content">
+            <h2 class="modal-inventory-add-title">Agregar nuevo objeto</h2>
+            <div class="modal-inventory-add-description">
+              <div>
+                <label for="id-inventory-add-item">Id</label>
+                <input id="id-inventory-add-item" type="text">
+                <label for="object-inventory-add-item">Objeto</label>
+                <input id="object-inventory-add-item" type="text">
+              </div>
+              <label for="brand-inventory-add-item">Marca</label>
+              <input id="brand-inventory-add-item" type="text">
+              <label for="description-inventory-add-item">Descripcion</label>
+              <textarea name="description-inventory-add-item" id="description-inventory-add-item" cols="30" rows="10"></textarea>
+              <label for="quantity-inventory-add-item">Cantidad</label>
+              <input id="quantity-inventory-add-item" type="number">
+            </div>
+            <div class="modal-inventory-add-buttons">
+              <input type="button" value="Agregar" class="modal-inventory-add-button-aceptar">
+              <input type="button" value="Cancelar" class="modal-inventory-add-button-cancelar" onclick="window.location='#';">
+            </div>
+          </div>
+        </div>
         <div class="inventory-buttons">
-          <a href="#modal-soporte-container" class="inventory-button-delete">Eliminar</a>
-          <a href="" class="inventory-button-edit">Editar</a>
-          <a href="" class="inventory-button-add">Agregar</a>
+          <a href="" class="inventory-button-delete">Eliminar</a>
+          <a href="#modal-inventory-edit-container" class="inventory-button-edit">Editar</a>
+          <a href="#modal-inventory-add-container" class="inventory-button-add">Agregar</a>
         </div>
       </div>
     </div>
@@ -541,58 +587,58 @@
     </footer>
   </div>
   <script>
-      const ipad = window.matchMedia('screen and (max-width: 767px)');
-      const arrows = document.querySelectorAll('.search-results-symbol');
-      const loanObjects = document.querySelectorAll('.search-results-loanobjects');
-      const menu = document.querySelector('.menu');
-      const nav = document.querySelector('nav');
-      const burgerButton = document.querySelector('#burger-menu');
-      function addClassToObjects() {
-        for(var i = 0; i < arrows.length; i++){
-          loanObjects[i].setAttribute('id', 'element-'+i);
-          let id = loanObjects.item(i).getAttribute('id');
-          arrows[i].addEventListener('click', function(){ hideShowObjects(id) } );
-        }
+    const ipad = window.matchMedia('screen and (max-width: 767px)');
+    const arrows = document.querySelectorAll('.search-results-symbol');
+    const loanObjects = document.querySelectorAll('.search-results-loanobjects');
+    const menu = document.querySelector('.menu');
+    const nav = document.querySelector('nav');
+    const burgerButton = document.querySelector('#burger-menu');
+    function addClassToObjects() {
+      for(var i = 0; i < arrows.length; i++){
+        loanObjects[i].setAttribute('id', 'element-'+i);
+        let id = loanObjects.item(i).getAttribute('id');
+        arrows[i].addEventListener('click', function(){ hideShowObjects(id) } );
       }
-      addClassToObjects()
-      ipad.addListener(validation);
-      function validation(event){
-        if(event.matches){
-          burgerButton.addEventListener('click', hideShow);
-        } else {
-          burgerButton.removeEventListener('click', hideShow);
-        }
+    }
+    addClassToObjects()
+    ipad.addListener(validation);
+    function validation(event){
+      if(event.matches){
+        burgerButton.addEventListener('click', hideShow);
+      } else {
+        burgerButton.removeEventListener('click', hideShow);
       }
-      validation(ipad);
-      function hideShowObjects(id) {
-        for(let i = 0; i < loanObjects.length; i++){
-          if(loanObjects[i].getAttribute('id')===id) {
-            if(loanObjects[i].classList.contains('is-active')){
-              loanObjects[i].classList.remove('is-active');
-              arrows[i].classList.remove('rotation');
-            }else {
-              loanObjects[i].classList.add('is-active');
-              arrows[i].classList.add('rotation');
-            }
+    }
+    validation(ipad);
+    function hideShowObjects(id) {
+      for(let i = 0; i < loanObjects.length; i++){
+        if(loanObjects[i].getAttribute('id')===id) {
+          if(loanObjects[i].classList.contains('is-active')){
+            loanObjects[i].classList.remove('is-active');
+            arrows[i].classList.remove('rotation');
+          }else {
+            loanObjects[i].classList.add('is-active');
+            arrows[i].classList.add('rotation');
           }
         }
       }
-      function removeHamburguer(){
-        // console.log(window.outerWidth);
-        if(window.outerWidth>767){
-          nav.classList.remove('is-active');
-          menu.classList.remove('is-active');
-        }
+    }
+    function removeHamburguer(){
+      // console.log(window.outerWidth);
+      if(window.outerWidth>767){
+        nav.classList.remove('is-active');
+        menu.classList.remove('is-active');
       }
-      function hideShow(){
-        if(menu.classList.contains('is-active')){
-          nav.classList.remove('is-active');
-          menu.classList.remove('is-active');
-        }else {
-          nav.classList.add('is-active');
-          menu.classList.add('is-active');
-        }
+    }
+    function hideShow(){
+      if(menu.classList.contains('is-active')){
+        nav.classList.remove('is-active');
+        menu.classList.remove('is-active');
+      }else {
+        nav.classList.add('is-active');
+        menu.classList.add('is-active');
       }
-    </script>
+    }
+  </script>
 </body>
 </html>
