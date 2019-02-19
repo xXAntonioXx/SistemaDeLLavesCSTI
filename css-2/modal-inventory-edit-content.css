@@ -1,0 +1,29 @@
+.modal-inventory-edit-description {
+  & input {
+    border-radius: 5px;
+    border: 1px solid gray;
+    font-size: 1rem;
+  }
+  & div{
+    display: initial;
+    & input {
+      width: 100px;
+      margin-right: 20px;
+    }
+  }
+  & textarea {
+    resize: none;
+    height: 100px;
+    border-radius: 5px;
+  }
+  display: flex;
+  justify-self: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-self: center;
+  height: 100%;
+  width: 70%;
+  grid-area: soporte-edit-content;
+  font-size: 1.2rem;
+  margin: 0;
+}

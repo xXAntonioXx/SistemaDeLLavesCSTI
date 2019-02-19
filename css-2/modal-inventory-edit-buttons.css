@@ -1,0 +1,20 @@
+.modal-inventory-edit-buttons {
+  grid-area: soporte-edit-buttons;
+  justify-self: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+}
+
+.modal-inventory-edit-button-aceptar {
+  @apply --button_principal;
+  font-size: 1rem;
+  border: 2px solid var(--color_principal);
+}
+
+.modal-inventory-edit-button-cancelar {
+  @apply --button_secundario;
+  font-size: 1rem;
+}

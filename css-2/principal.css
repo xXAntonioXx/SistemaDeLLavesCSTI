@@ -45,6 +45,16 @@
 @import './inventory-content-items-zone.css';
 @import './inventory-content-items.css';
 @import './inventory-buttons.css';
+/* Modal agregar objeto inventario */
+@import './modal-inventory-container.css';
+@import './modal-inventory-add-title.css';
+@import './modal-inventory-add-content.css';
+@import './modal-inventory-add-button.css';
+/* Modal editar objeto inventario */
+@import './modal-inventory-edit-container.css';
+@import './modal-inventory-edit-title.css';
+@import './modal-inventory-edit-content.css';
+@import './modal-inventory-edit-buttons.css';
 /* Footer */
 @import './footer.css';
 /* Menu hamburguesa */
@@ -60,3 +70,4 @@ Pantalla 2
 width: 1366
 height: 768
 */
+

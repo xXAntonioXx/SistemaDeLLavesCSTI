@@ -1,0 +1,6 @@
+.modal-inventory-add-title {
+  font-size: 2rem;
+  grid-area: inventory-add-title;
+  margin: 0;
+  text-align: center;
+}

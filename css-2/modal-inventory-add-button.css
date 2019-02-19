@@ -1,0 +1,20 @@
+.modal-inventory-add-buttons {
+  grid-area: inventory-add-buttons;
+  justify-self: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+}
+
+.modal-inventory-add-button-aceptar {
+  @apply --button_principal;
+  font-size: 1rem;
+  border: 2px solid var(--color_principal);
+}
+
+.modal-inventory-add-button-cancelar {
+  @apply --button_secundario;
+  font-size: 1rem;
+}

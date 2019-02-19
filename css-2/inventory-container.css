@@ -5,12 +5,14 @@
   display: grid;
   grid-template-rows: 55px 1fr 60px;
   grid-template-areas: "inventory-title"
-                       "inventory-items"
-                       "inventory-buttons";
+  "inventory-items"
+  "inventory-buttons";
   @media (--tablets) {
-  grid-template-rows: 45px 50px 1fr;
-  grid-template-areas: "inventory-title"
-                       "inventory-buttons"
-                       "inventory-items";
+    grid-template-rows: 45px 50px 1fr;
+    grid-template-areas: "inventory-title"
+                         "inventory-buttons"
+                         "inventory-items";
+    width: 100%;
+    justify-self: center;
   }
 }
