@@ -43,7 +43,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
     Route::get('/salir','LoginController@salir');//opcion de salir
 
-    Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
+    
 
 ################################################################################################################
 //rutas para el area de inventario##############################################################################
@@ -68,4 +68,4 @@ Route::group(['middleware'=>'CheckSess'],function(){
 ###############################################################################################################
 
 
-
+Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
