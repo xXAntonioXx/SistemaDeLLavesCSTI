@@ -142,7 +142,6 @@ export default {
               valor:'0',
               ObjetosDisponibles:this.ObjetosCombo
           });
-          console.log(JSON.stringify(this.ObjetosCombo));
         });
       },
       getPages(nPage){//obtener cantidad n de paginas
@@ -209,7 +208,6 @@ export default {
             this.RegistrarState=false;
           }
         }).catch((res)=>{
-          console.log(res);
         });
         
         this.estadoInput=true;

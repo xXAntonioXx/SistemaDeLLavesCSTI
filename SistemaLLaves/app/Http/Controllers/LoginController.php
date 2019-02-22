@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Session;
+/**
+ * En esta clase se se devulven la vista de login y se manejan las validadciones necesarias para los usuarios
+ */
+
+
 include 'Konect.php';
 
 class LoginController extends Controller

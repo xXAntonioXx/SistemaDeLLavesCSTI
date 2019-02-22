@@ -68,4 +68,4 @@ Route::group(['middleware'=>'CheckSess'],function(){
 ###############################################################################################################
 
 
-Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
+//Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
