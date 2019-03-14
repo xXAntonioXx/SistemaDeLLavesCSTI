@@ -246,6 +246,7 @@ export default {
         axios.post('/api/nuevoRegistro',{'llave':this.codigoKey,'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
         .then((res)=>{
           alert('registro realizado');
+          console.log(this.codigoKey+"  "+this.globalTime+"  "+this.registroForm['id']+"  "+this.PrestamoList.slice(0,-1));
           this.fetchRegistros();
           this.cleanObjPrestamo();
         });
