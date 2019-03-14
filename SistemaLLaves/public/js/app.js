@@ -64573,9 +64573,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this6 = this;
 
       //se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
+      console.log(this.codigoKey + "  " + this.globalTime + "  " + this.registroForm['id'] + "  " + this.PrestamoList.slice(0, -1));
       axios.post('/api/nuevoRegistro', { 'llave': this.codigoKey, 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'], 'objList': this.PrestamoList.slice(0, -1) }).then(function (res) {
         alert('registro realizado');
-        console.log(_this6.codigoKey + "  " + _this6.globalTime + "  " + _this6.registroForm['id'] + "  " + _this6.PrestamoList.slice(0, -1));
         _this6.fetchRegistros();
         _this6.cleanObjPrestamo();
       });
