@@ -1,7 +1,7 @@
 
 DELIMITER //
 DROP TRIGGER IF EXISTS tg_horaSiguiente_BI;
-CREATE TRIGGER IF NOT EXISTS tg_horaSiguiente_BI BEFORE INSERT
+CREATE TRIGGER tg_horaSiguiente_BI BEFORE INSERT
 ON tregistros FOR EACH ROW
 BEGIN
 		IF EXISTS(
@@ -46,13 +46,13 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_controlHorarios;
-CREATE PROCEDURE IF NOT EXISTS sp_controlHorarios()
+CREATE PROCEDURE sp_controlHorarios()
 BEGIN
 	-- declaramos variables
 	DECLARE p_id_registro INT(11);
 	DECLARE p_id_horario INT(11);
 	DECLARE p_codigo_llave BIGINT(20);
-	DECLARE FINALIZADO INT DEFAULT 0;
+	DECLARE done INT DEFAULT FALSE;
 
 	-- declaramos cursor
 	DECLARE cur_controlHorarios CURSOR FOR
@@ -61,17 +61,21 @@ BEGIN
 		WHERE estado=0
 		FOR UPDATE;
 
-	DECLARE CONTINUE HANDLER FOR NOT FOUND SET FINALIZADO =1;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done =TRUE;
 	
 	-- abrimos el cursor
 	OPEN cur_controlHorarios;
 		
 	-- comenzamos a recorrer
-	REPEAT
+	read_loop: LOOP
 
 		-- emparejamos los campos con las variables
 		FETCH cur_controlHorarios INTO p_id_registro,p_codigo_llave,p_id_horario;
 
+
+		IF done THEN
+			LEAVE read_loop;
+		END IF;
 		-- Iniciamos el proceso para registrar la hora actual y marcar la salida de la hora anterior.
 		
 		-- verificar si hay un prestamo relacionado
@@ -109,7 +113,7 @@ BEGIN
 				);
 
 		END IF;
-	UNTIL FINALIZADO = 1 END REPEAT;
+	END LOOP;
 	
 	-- cerramos el cursor
     CLOSE cur_controlHorarios;
