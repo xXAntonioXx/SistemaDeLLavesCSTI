@@ -66563,6 +66563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.idAuxiliar = idReg;
             _this.Objeto = res.data;
             _this.objetosAmostrar[idReg] = res.data;
+            console.log(res.data);
           }
         });
       }

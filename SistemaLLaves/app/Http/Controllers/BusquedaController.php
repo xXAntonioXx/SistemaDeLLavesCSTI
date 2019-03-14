@@ -65,8 +65,8 @@ class BusquedaController extends Controller
         $registros=$this->conexion->query($cadenaConsulta)->fetchAll();
         if($registros){
 
-            //return view('busqueda')->with('respuesta',json_encode($registros));
-            return view('busqueda')->with('respuesta',env('APP_NAME'));
+            return view('busqueda')->with('respuesta',json_encode($registros));
+            //return view('busqueda')->with('respuesta',env('APP_NAME'));
 
         }else{
 

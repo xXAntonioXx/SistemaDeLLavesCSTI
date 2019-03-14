@@ -86,6 +86,7 @@ export default {
               this.idAuxiliar=idReg;
               this.Objeto=res.data;
               this.objetosAmostrar[idReg]=res.data;
+              console.log(res.data);
             }  
           });
         }
