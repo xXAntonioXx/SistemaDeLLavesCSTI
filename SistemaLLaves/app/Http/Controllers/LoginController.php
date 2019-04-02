@@ -35,6 +35,7 @@ class LoginController extends Controller
             $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'admin','{$contraseña}','1',1)";
             
             $this->conexion->query($insert);
+            return "usuario admin con contraseña contra ingresado correctamente";
         }catch(PDOException $e){
             return "error";
         }

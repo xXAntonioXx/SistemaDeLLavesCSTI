@@ -71,11 +71,11 @@ class BusquedaController extends Controller
         $registros=$this->conexion->query($cadenaConsulta)->fetchAll();
         if($registros){//en caso de que tengamos una coincidencia en la busqueda
 
-            return view('busqueda')->with('respuesta',env('APP_NAME'));//se regresa la vista junto con los registros encontrados
+            return view('busqueda')->with('respuesta',json_encode($registros));//se regresa la vista junto con los registros encontrados
 
         }else{
 
-            return view('busqueda')->withErrors(['respuesta'=>'No se encontraron registros']);//en caso de no encontrarse coincidencias se devuelve la vista con un mensaje.
+            return view('busqueda')->withErrors(['respuesta'=>"No se encontraron registros"]);//en caso de no encontrarse coincidencias se devuelve la vista con un mensaje.
 
         }
 
