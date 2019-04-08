@@ -1,0 +1,26 @@
+.cebolla{
+    font-size: 0.4em;
+    text-align: center;
+    height: 90%;
+}
+.contenedor{
+    display: grid;
+    grid-template-rows: 30% 30% 30%;
+}
+
+.contenedor div{
+    display: flex;
+    flex-direction:column;
+    text-align: center;
+    height: 95%;
+    width: 90%;
+    margin: 0 5% 0 5%;
+    font-family: 'Hind',sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.contenedor div h2{
+    height: 40px;
+    margin:0;
+    background: #004990;
+    color: white;
+}

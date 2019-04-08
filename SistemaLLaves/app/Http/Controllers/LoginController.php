@@ -62,6 +62,7 @@ class LoginController extends Controller
                 
                 Session::put('estado',true);
                 Session::put('id',$datos['id']);
+                Session::put('rol',$datos['rol']);
                 return redirect('/main');
             
             }else{
