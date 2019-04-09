@@ -23,12 +23,12 @@ class AdminController extends Controller
     }
     public function RegistrarUsuario(Request $req){
 
-        /*$this->validate($req,[
+        $this->validate($req,[
             'NewUserName'=>'required',
             'NewUserPass'=>'required',
             'confirmPass'=>'required',
             'rol'=>'required'
-        ]);*/
+        ]);
 
         $nombre = $req['NewUserName'];
         $contraseña = $req['NewUserPass'];

@@ -2,7 +2,111 @@
     .cebolla{
         font-size: 0.5em;
     }
+    .contenedor{
+        width: 90%;
+        display: grid;
+        grid-template-columns: 30% 30% 30%;
+        column-gap: 5%;
+        margin: 0% 5% 0% 5%;
+        height: 70%;
+    }
+    .contenedor div{
+        display: flex;
+        flex-direction:column;
+        text-align: center;
+        height: 95%;
+        font-family: 'Hind',sans-serif;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+    .contenedor div:hover{
+        transition: transform.1s;
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+    
+    .contenedor div h2{
+        height: 25%;
+        margin:0;
+        background: #004990;
+        color: white;
+    }
+    
+    .contenedor div p{
+        width: 75%;
+        height: 75%;
+        margin: 12.5% 12.5% 0 12.5%;
+        font-size: 1.3em;
+    }
+    
+    .newUserForm{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.6em;
+        text-align: left;
+        margin-left: 5ch;
+        margin-top: 5ch;
+    }
+    .inp{
+        width: 300px;
+        height: 35px;
+        background: #E8E8E8;
+        border: none;
+        font-size: 1em;
+        margin-bottom: 1em;
+    }
+    .inp:focus{
+        background: lightgray;
+    }
+    
+    .twoColBody{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .dropdown{
+        background: #E8E8E8;
+        border: none;
+        width: 150px;
+        height: 30px;
+        margin-bottom: 1em;
+    }
+    .dropdown:focus{
+        background: white;
+        border: black;
+        margin-bottom: 1em;
+    }
+    .submitBtn{
+        width: 150px;
+        height: 30px;
+        background: #004990;
+        border: none;
+        color: white;
+    }
+    .submitBtn:hover{
+        cursor: pointer;
+    }
+    .lista_users{
+        list-style-type: none;
+    }
+
+    .card_user{
+        width: 90%;
+        height: 35px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        font-size: 0.6em;
+    }
+    .titulo{
+        font-size: 0.8em;
+        
+    }
+    
     @media(max-width:750px){
+        .newUserForm{
+            margin-top: 60px;
+            margin-left: 0ch;
+        }
+        .twoColBody{
+            display: grid;
+            grid-template-columns: 1fr;
+        }
         .cebolla{
             font-size: 0.4em;
             text-align: center;
@@ -29,42 +133,4 @@
             background: #004990;
             color: white;
         }
-    }
-    .contenedor{
-        width: 90%;
-        display: grid;
-        grid-template-columns: 30% 30% 30%;
-        column-gap: 5%;
-        margin: 0% 5% 0% 5%;
-        height: 70%;
-    }
-    .contenedor div{
-        display: flex;
-        flex-direction:column;
-        text-align: center;
-        height: 95%;
-        font-family: 'Hind',sans-serif;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    }
-    .contenedor div:hover{
-        transition: transform.1s;
-        transform: scale(1.1);
-    }
-
-    .contenedor div h2{
-        height: 25%;
-        margin:0;
-        background: #004990;
-        color: white;
-    }
-
-    .contenedor div p{
-        width: 75%;
-        height: 75%;
-        margin: 12.5% 12.5% 0 12.5%;
-        font-size: 1.3em;
-    }
-
-    .newUserForm{
-        text-align: center;
     }
