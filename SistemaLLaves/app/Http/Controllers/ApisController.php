@@ -85,4 +85,9 @@ class ApisController extends Controller
         return $registrar;
     }
 
+    public function getUsuarios(){
+        $query = "SELECT * FROM tusuarios";
+        $usuarios = $this->conexion->query($query)->fetchAll();
+        return $usuarios;
+    }
 }

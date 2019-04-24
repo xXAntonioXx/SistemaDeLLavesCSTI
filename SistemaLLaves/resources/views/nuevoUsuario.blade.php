@@ -5,13 +5,13 @@
         <form action="/AgregarUsuario" class="newUserForm" method="POST">
             {{csrf_field()}}
             <strong>Nombre del Usuario</strong> <br>
-            <input class="inp" id="NewUserName" name="NewUserName" type="text" placeholder="Cualquier nombre funciona">
+            <input class="inp" id="NewUserName" name="NewUserName" type="text" placeholder=" Cualquier nombre funciona">
             <br>
             <strong>Contraseña</strong><br>
-            <input class="inp" id="NewUserPass" name="NewUserPass" type="password" placeholder="Cualquier contraseña funciona">
+            <input class="inp" id="NewUserPass" name="NewUserPass" type="password" placeholder=" Cualquier contraseña funciona">
             <br>
             <strong> Confirmar Contraseña</strong><br>
-            <input class="inp" id="confirmPass" name="confirmPass" type="password" placeholder="Volver a escribir contraseña">
+            <input class="inp" id="confirmPass" name="confirmPass" type="password" placeholder=" Volver a escribir contraseña">
             <br>
             <select name="rol" id="rol" class="dropdown">
                 <option>Permisos...</option>
