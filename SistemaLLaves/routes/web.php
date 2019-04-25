@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Middleware\adminCheckSess;
 use App\Http\Middleware\CheckSess;
 use App\Http\Middleware\alreadyStartSession;
 
@@ -72,7 +73,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
     Route::get('api/ObjetosInventario','ApisController@ObjetosInventario');
 });
-    Route::get('/api/obtenerUsuarios','ApisController@getUsuarios');
+    Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 
