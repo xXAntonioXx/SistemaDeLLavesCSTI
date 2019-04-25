@@ -29,10 +29,10 @@
     </section>
 
     <section>
-        <h3 class="titulo">Usuarios:</h3>
-        <ul class="lista_users">
-            <li class="card_user">aqui cada usuario</li>
-        </ul>
+        <div id="app" style="height:100%">
+            <usuarios></usuarios>
+        </div>
     </section>
 </div>
+<script src="{{asset('js/app.js')}}"></script>
 @stop

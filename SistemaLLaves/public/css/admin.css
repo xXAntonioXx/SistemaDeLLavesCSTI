@@ -83,16 +83,39 @@
     .submitBtn:hover{
         cursor: pointer;
     }
+
     .lista_users{
+        position: relative;
         list-style-type: none;
+        margin:0;
+        height: 70%;
+        background: #F8F8F8;
+        width: 90%;;
+        padding: 0;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     }
 
     .card_user{
-        width: 90%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         height: 35px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        border-bottom: 1px solid gainsboro;
         font-size: 0.6em;
+        width: 100%;
     }
+
+    .card_user:hover{
+        background: gainsboro;
+    }
+
+    .card_user i{
+        font-style: normal;
+        font-family: 'Hind',sans-serif;
+        color: #606060;
+        width: 80%;
+        margin-left: 20%;
+    }
+
     .titulo{
         font-size: 0.8em;
         

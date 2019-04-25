@@ -86,7 +86,7 @@ class ApisController extends Controller
     }
 
     public function getUsuarios(){
-        $query = "SELECT * FROM tusuarios";
+        $query = "SELECT id,nombre,rol,estado FROM tusuarios";
         $usuarios = $this->conexion->query($query)->fetchAll();
         return $usuarios;
     }

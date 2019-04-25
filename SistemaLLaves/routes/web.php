@@ -73,7 +73,8 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
     Route::get('api/ObjetosInventario','ApisController@ObjetosInventario');
 });
-    Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
+
+Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 
