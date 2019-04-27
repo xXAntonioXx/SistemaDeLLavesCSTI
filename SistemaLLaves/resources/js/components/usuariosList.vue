@@ -5,13 +5,16 @@
             <li class="colHead">
                 <i>id</i><i>nombre</i><i>rol</i><i>estado</i>
             </li>
-            <li v-for="user in usuarios" :key="user['id']" class="card_user">
+            <li v-for="user in usuarios" :key="user['id']" class="card_user" @click="openUserEdit()">
                 <i>{{user['id']}}</i>
                 <i>{{user['nombre']}}</i> 
                 <i>{{user['rol']}}</i>
                 <i>{{user['estado']}}</i>
             </li>
         </ul>
+        <userModal v-if="openModalUser">
+
+        </userModal>
     </div>
 </template>
 <style>
@@ -40,19 +43,29 @@
 </style>
 
 <script>
+import userModal from './userModal';
+
 export default {
     data(){
         return{
-            usuarios:{}
+            usuarios:{},
+            openModalUser:false
         }
     },
     created(){
         this.fetchUsuarios();
     },
+    components:{
+        userModal
+    }
+    ,
     methods:{
         fetchUsuarios(){
             axios.get('/api/obtenerUsuarios')
             .then(data=>this.usuarios=data['data']);
+        },
+        openUserEdit(){
+            this.openModalUser=true;
         }
     }
 }
