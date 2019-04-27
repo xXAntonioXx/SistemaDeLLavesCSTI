@@ -68932,6 +68932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -68939,7 +68940,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             usuarios: {},
-            openModalUser: false
+            openModalUser: false,
+            usuarioNombreEditar: null,
+            usuarioIdEditar: null
         };
     },
     created: function created() {
@@ -68958,8 +68961,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return _this.usuarios = data['data'];
             });
         },
-        openUserEdit: function openUserEdit() {
+        openUserEdit: function openUserEdit(nombre, id) {
             this.openModalUser = true;
+            this.usuarioNombreEditar = nombre;
+            this.usuarioIdEditar = id;
+        },
+        cerrarModal: function cerrarModal() {
+            this.openModalUser = false;
+            this.usuarioNombreEditar = null;
+            this.usuarioIdEditar = null;
         }
     }
 });
@@ -69050,7 +69060,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.capa-cebolla1{\r\n    position: fixed;\r\n    z-index: 1;\r\n    background-color: rgba(0, 0, 0,.5);\r\n    height: 100%;\r\n    width: 100%;\r\n    display:-webkit-box;\r\n    display:-ms-flexbox;\r\n    display:flex;\r\n    top: 0;\r\n    left: 0;\r\n    bottom: 100%;\n}\n.ventanaModal1{\r\n        height: 80vh;\r\n        width: 500px;\r\n        margin: auto;\r\n        border-radius: 5px;\r\n        position: relative;\r\n        -webkit-box-align: center;\r\n            -ms-flex-align: center;\r\n                align-items: center;\r\n        background: white;\r\n        z-index: 3;\r\n        overflow: auto;\r\n        text-align: center;\r\n        -webkit-box-orient: vertical;\r\n        -webkit-box-direction: normal;\r\n            -ms-flex-direction: column;\r\n                flex-direction: column;\r\n        border: 2px solid grey;\r\n\r\n        display: grid;\r\n        grid-template-rows: 10% 20% 60% 10%;\r\n        -ms-flex-line-pack: space-evenly;\r\n            align-content: space-evenly;\n}\r\n", ""]);
+exports.push([module.i, "\n.capa-cebolla1{\r\n    position: fixed;\r\n    z-index: 1;\r\n    background-color: rgba(0, 0, 0,.5);\r\n    height: 100%;\r\n    width: 100%;\r\n    display:-webkit-box;\r\n    display:-ms-flexbox;\r\n    display:flex;\r\n    top: 0;\r\n    left: 0;\r\n    bottom: 100%;\n}\n.ventanaModal1{\r\n    height: 80vh;\r\n    width: 500px;\r\n    margin: auto;\r\n    border-radius: 5px;\r\n    position: relative;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    background: white;\r\n    z-index: 3;\r\n    overflow: auto;\r\n    border: 2px solid grey;\r\n    -ms-flex-line-pack: space-evenly;\r\n        align-content: space-evenly;\n}\n.formEdit{\r\n    margin-left:20px;\n}\n.formEdit label{\r\n    font-size:0.7em;\n}\n.formEdit input{\r\n    width: 300px;\r\n    height: 35px;\r\n    background: #E8E8E8;\r\n    border: none;\r\n    font-size: 1em;\r\n    margin-bottom: 0.5em;\n}\n.botonFin{\r\n    border-radius: 50px;\r\n    width: 40%;\r\n    background: #004990;\r\n    font-size: 70%;\r\n    color: white;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    margin: auto;\r\n    height: 30px;\n}\n.botonCancelar{\r\n    border: 2px solid #004990;\r\n    border-radius: 50px;\r\n    width: 40%;\r\n    background: white;\r\n    font-size: 70%;\r\n    -ms-flex-item-align: center;\r\n        align-self: center;\r\n    margin: auto;\r\n    height: 30px;\n}\n.opcionesB{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\n}\r\n", ""]);
 
 // exports
 
@@ -69099,8 +69109,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            nombre: this.nombreUsuario,
+            id: this.idUsuario
+        };
+    },
+
+    props: ['nombreUsuario', 'idUsuario']
+});
 
 /***/ }),
 /* 205 */
@@ -69110,17 +69180,59 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "capa-cebolla1" }, [
+    _c("div", { staticClass: "ventanaModal1" }, [
+      _c("h4", { staticStyle: { "margin-left": "30px" } }, [
+        _vm._v('Editar usuario "' + _vm._s(this.nombre) + '"')
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "opcionesB" }, [_vm._t("default")], 2)
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "capa-cebolla1" }, [
-      _c("div", { staticClass: "ventanaModal1" }, [
-        _c("h2", [_vm._v("Hello world")])
-      ])
+    return _c("div", { staticClass: "formEdit" }, [
+      _c("label", { attrs: { for: "nuevoNombre" } }, [
+        _vm._v("Cambiar nombre:")
+      ]),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", { attrs: { id: "nuevoNombre", type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "nuevaContra1" } }, [
+        _vm._v("Cambiar contraseña:")
+      ]),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", { attrs: { id: "nuevaContra1", type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "nuevaContra2" } }, [
+        _vm._v("Nueva contraseña:")
+      ]),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", { attrs: { id: "nuevaContra2", type: "text" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "select",
+        { staticClass: "dropdown", attrs: { name: "rol", id: "rol" } },
+        [
+          _c("option", [_vm._v("Permisos...")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "1" } }, [_vm._v("Admin")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "2" } }, [_vm._v("Secretari@")])
+        ]
+      )
     ])
   }
 ]
@@ -69161,7 +69273,7 @@ var render = function() {
                 staticClass: "card_user",
                 on: {
                   click: function($event) {
-                    return _vm.openUserEdit()
+                    return _vm.openUserEdit(user["nombre"], user["id"])
                   }
                 }
               },
@@ -69180,7 +69292,39 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _vm.openModalUser ? _c("userModal") : _vm._e()
+      _vm.openModalUser
+        ? _c(
+            "userModal",
+            {
+              attrs: {
+                nombreUsuario: this.usuarioNombreEditar,
+                idUsuario: this.usuarioIdEditar
+              }
+            },
+            [
+              _c("input", {
+                staticClass: "botonFin",
+                attrs: { type: "button", value: "Aceptar" },
+                on: {
+                  click: function($event) {
+                    _vm.devolucion()
+                    _vm.esDevolucion = false
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "botonCancelar",
+                attrs: { type: "submit", value: "Cancelar" },
+                on: {
+                  click: function($event) {
+                    return _vm.cerrarModal()
+                  }
+                }
+              })
+            ]
+          )
+        : _vm._e()
     ],
     1
   )

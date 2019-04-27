@@ -5,15 +5,16 @@
             <li class="colHead">
                 <i>id</i><i>nombre</i><i>rol</i><i>estado</i>
             </li>
-            <li v-for="user in usuarios" :key="user['id']" class="card_user" @click="openUserEdit()">
+            <li v-for="user in usuarios" :key="user['id']" class="card_user" @click="openUserEdit(user['nombre'],user['id'])">
                 <i>{{user['id']}}</i>
                 <i>{{user['nombre']}}</i> 
                 <i>{{user['rol']}}</i>
                 <i>{{user['estado']}}</i>
             </li>
         </ul>
-        <userModal v-if="openModalUser">
-
+        <userModal v-if="openModalUser" :nombreUsuario="this.usuarioNombreEditar" :idUsuario="this.usuarioIdEditar">
+            <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
+            <input type="submit" value="Cancelar" class="botonCancelar" @click="cerrarModal()" />
         </userModal>
     </div>
 </template>
@@ -49,7 +50,9 @@ export default {
     data(){
         return{
             usuarios:{},
-            openModalUser:false
+            openModalUser:false,
+            usuarioNombreEditar:null,
+            usuarioIdEditar:null
         }
     },
     created(){
@@ -64,8 +67,15 @@ export default {
             axios.get('/api/obtenerUsuarios')
             .then(data=>this.usuarios=data['data']);
         },
-        openUserEdit(){
+        openUserEdit(nombre,id){
             this.openModalUser=true;
+            this.usuarioNombreEditar=nombre;
+            this.usuarioIdEditar=id;
+        },
+        cerrarModal(){
+            this.openModalUser=false;
+            this.usuarioNombreEditar=null;
+            this.usuarioIdEditar=null;
         }
     }
 }
