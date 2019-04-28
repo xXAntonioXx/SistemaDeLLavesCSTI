@@ -66302,7 +66302,7 @@ var content = __webpack_require__(179);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("302a1c33", content, false, {});
+var update = __webpack_require__(4)("48e1629a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67622,7 +67622,7 @@ var content = __webpack_require__(188);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("7c0a3aba", content, false, {});
+var update = __webpack_require__(4)("98fec5ba", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -68515,7 +68515,7 @@ var content = __webpack_require__(194);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("44e0ac62", content, false, {});
+var update = __webpack_require__(4)("c07523bc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -68851,7 +68851,7 @@ var content = __webpack_require__(199);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("3892e2c7", content, false, {});
+var update = __webpack_require__(4)("7d482c72", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -68970,6 +68970,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.openModalUser = false;
             this.usuarioNombreEditar = null;
             this.usuarioIdEditar = null;
+        },
+        hacerCambios: function hacerCambios() {
+            this.$refs.modalUpdateUser.realizarCambios();
         }
     }
 });
@@ -69036,7 +69039,7 @@ var content = __webpack_require__(203);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("dbafee12", content, false, {});
+var update = __webpack_require__(4)("a54e5692", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -69158,18 +69161,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             nombre: this.nombreUsuario,
-            id: this.idUsuario
+            id: this.idUsuario,
+            nuevoContra: null,
+            nuevoContraRep: null,
+            nuevoRol: null
         };
     },
 
-    props: ['nombreUsuario', 'idUsuario']
+    props: ['nombreUsuario', 'idUsuario'],
+    methods: {
+        realizarCambios: function realizarCambios() {
+            console.log("me ejecuté");
+            if (this.nuevoContra == this.nuevoContraRep) {
+                this.nuevoContra = this.nuevoContra == '' && this.nuevoContra == ' ' ? null : this.nuevoContra;
+                axios.put('/api/actualizarUsuario', { 'id': this.id, 'contraseña': this.nuevoContra, 'rol': this.nuevoRol }).then(function () {
+                    return console.log('axios exitoso');
+                });
+                console.log(this.id + "contraseña: " + this.nuevoContra + " nuevoRol: " + this.nuevoRol);
+            }
+        }
+    }
 });
 
 /***/ }),
@@ -69186,56 +69202,107 @@ var render = function() {
         _vm._v('Editar usuario "' + _vm._s(this.nombre) + '"')
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "formEdit" }, [
+        _c("label", { attrs: { for: "nuevaContra1" } }, [
+          _vm._v("Cambiar contraseña:")
+        ]),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.nuevoContra,
+              expression: "nuevoContra"
+            }
+          ],
+          attrs: { id: "nuevaContra1", type: "password" },
+          domProps: { value: _vm.nuevoContra },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.nuevoContra = $event.target.value
+            }
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "nuevaContra2" } }, [
+          _vm._v("Repetir Nueva contraseña:")
+        ]),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.nuevoContraRep,
+              expression: "nuevoContraRep"
+            }
+          ],
+          attrs: { id: "nuevaContra2", type: "password" },
+          domProps: { value: _vm.nuevoContraRep },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.nuevoContraRep = $event.target.value
+            }
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.nuevoRol,
+                expression: "nuevoRol"
+              }
+            ],
+            staticClass: "dropdown",
+            attrs: { name: "rol", id: "rol" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.nuevoRol = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { domProps: { value: null } }, [
+              _vm._v("Permisos...")
+            ]),
+            _vm._v(" "),
+            _c("option", { domProps: { value: 1 } }, [_vm._v("Admin")]),
+            _vm._v(" "),
+            _c("option", { domProps: { value: 2 } }, [_vm._v("Secretari@")])
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "opcionesB" }, [_vm._t("default")], 2)
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "formEdit" }, [
-      _c("label", { attrs: { for: "nuevoNombre" } }, [
-        _vm._v("Cambiar nombre:")
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", { attrs: { id: "nuevoNombre", type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "nuevaContra1" } }, [
-        _vm._v("Cambiar contraseña:")
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", { attrs: { id: "nuevaContra1", type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "nuevaContra2" } }, [
-        _vm._v("Nueva contraseña:")
-      ]),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", { attrs: { id: "nuevaContra2", type: "text" } }),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "select",
-        { staticClass: "dropdown", attrs: { name: "rol", id: "rol" } },
-        [
-          _c("option", [_vm._v("Permisos...")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "1" } }, [_vm._v("Admin")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "2" } }, [_vm._v("Secretari@")])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -69296,6 +69363,7 @@ var render = function() {
         ? _c(
             "userModal",
             {
+              ref: "modalUpdateUser",
               attrs: {
                 nombreUsuario: this.usuarioNombreEditar,
                 idUsuario: this.usuarioIdEditar
@@ -69307,8 +69375,7 @@ var render = function() {
                 attrs: { type: "button", value: "Aceptar" },
                 on: {
                   click: function($event) {
-                    _vm.devolucion()
-                    _vm.esDevolucion = false
+                    return _vm.hacerCambios()
                   }
                 }
               }),

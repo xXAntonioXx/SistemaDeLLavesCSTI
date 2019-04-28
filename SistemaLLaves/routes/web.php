@@ -75,6 +75,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
 });
 
 Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
+Route::put('/api/actualizarUsuario','ApisController@updateUser');
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 

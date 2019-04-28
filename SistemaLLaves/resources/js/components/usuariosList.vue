@@ -12,8 +12,8 @@
                 <i>{{user['estado']}}</i>
             </li>
         </ul>
-        <userModal v-if="openModalUser" :nombreUsuario="this.usuarioNombreEditar" :idUsuario="this.usuarioIdEditar">
-            <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
+        <userModal ref="modalUpdateUser" v-if="openModalUser" :nombreUsuario="this.usuarioNombreEditar" :idUsuario="this.usuarioIdEditar">
+            <input type="button" value="Aceptar" class="botonFin" @click="hacerCambios()">
             <input type="submit" value="Cancelar" class="botonCancelar" @click="cerrarModal()" />
         </userModal>
     </div>
@@ -76,6 +76,9 @@ export default {
             this.openModalUser=false;
             this.usuarioNombreEditar=null;
             this.usuarioIdEditar=null;
+        },
+        hacerCambios(){
+            this.$refs.modalUpdateUser.realizarCambios();
         }
     }
 }

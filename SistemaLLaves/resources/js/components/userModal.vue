@@ -3,16 +3,14 @@
         <div class="ventanaModal1">
             <h4 style="margin-left:30px">Editar usuario "{{this.nombre}}"</h4>
             <div class="formEdit">
-                <label for="nuevoNombre">Cambiar nombre:</label><br>
-                <input id="nuevoNombre" type="text"><br>
                 <label for="nuevaContra1">Cambiar contraseña:</label><br>
-                <input id="nuevaContra1" type="text"><br>
-                <label for="nuevaContra2">Nueva contraseña:</label><br>
-                <input id="nuevaContra2" type="text"><br>
-                <select name="rol" id="rol" class="dropdown">
-                    <option>Permisos...</option>
-                    <option value="1">Admin</option>
-                    <option value="2">Secretari@</option>
+                <input id="nuevaContra1" type="password" v-model="nuevoContra"><br>
+                <label for="nuevaContra2">Repetir Nueva contraseña:</label><br>
+                <input id="nuevaContra2" type="password" v-model="nuevoContraRep"><br>
+                <select name="rol" id="rol" class="dropdown" v-model="nuevoRol">
+                    <option :value="null">Permisos...</option>
+                    <option :value="1">Admin</option>
+                    <option :value="2">Secretari@</option>
                 </select>
             </div>
             <div class="opcionesB">
@@ -92,13 +90,26 @@ export default {
     data(){
         return{
             nombre:this.nombreUsuario,
-            id:this.idUsuario
+            id:this.idUsuario,
+            nuevoContra:null,
+            nuevoContraRep:null,
+            nuevoRol:null
         }
     },
     props:[
         'nombreUsuario',
         'idUsuario'
-    ]
+    ],
+    methods:{
+        realizarCambios(){
+            console.log("me ejecuté");
+            if(this.nuevoContra==this.nuevoContraRep){
+                this.nuevoContra = this.nuevoContra==''&&this.nuevoContra==' '?null:this.nuevoContra;
+                axios.put('/api/actualizarUsuario',{'id':this.id,'contraseña':this.nuevoContra,'rol':this.nuevoRol}).then(()=>console.log('axios exitoso'));
+                console.log(this.id + "contraseña: "+this.nuevoContra + " nuevoRol: "+this.nuevoRol);
+            }
+        }
+    }
 }
 </script>
 

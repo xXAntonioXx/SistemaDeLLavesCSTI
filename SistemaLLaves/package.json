@@ -24,6 +24,7 @@
         "@deveodk/vue-toastr": "^1.0.4",
         "moment": "^2.24.0",
         "moment-timezone": "^0.5.25",
+        "node-php-password": "^0.1.2",
         "popper.js": "^1.15.0",
         "vue-template-compiler": "^2.5.21"
     }
