@@ -53,7 +53,7 @@ class LoginController extends Controller
         $nombreUsuario=$req['nombre'];
         $contra=$req['contra'];
 
-        $datos = $this->conexion->query("SELECT * FROM tusuarios WHERE nombre='{$nombreUsuario}'")->fetchAll();
+        $datos = $this->conexion->query("SELECT * FROM tusuarios WHERE nombre='{$nombreUsuario}'")->fetch();
         if($datos['estado']==1 && $datos){//para el caso de que el usuario exista y este habil
             
             $RESULTADO = password_verify($contra,$datos['contrasena']);//comprobamos si la contraseña esta correcta
