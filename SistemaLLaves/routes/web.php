@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Middleware\adminCheckSess;
 use App\Http\Middleware\CheckSess;
 use App\Http\Middleware\alreadyStartSession;
 
@@ -43,12 +44,20 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
     Route::get('/salir','LoginController@salir');//opcion de salir
 
-    Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random
+    
 
 ################################################################################################################
 //rutas para el area de inventario##############################################################################
 
     Route::get('/inventario','InventarioController@cargarInventario');//esta ruta llama a la vista del inventario
+
+
+################################################################################################################
+//rutas para el administrador##############################################################################
+
+    Route::get('/panel','AdminController@Cargar');
+    Route::get('/panel/nuevoUsuario','AdminController@NuevoUsuario');
+    Route::post('/AgregarUsuario','AdminController@RegistrarUsuario');
 
 //API para consultar la base de datos###########################################################################
 
@@ -64,8 +73,11 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
     Route::get('api/ObjetosInventario','ApisController@ObjetosInventario');
 });
+
+Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
+Route::put('/api/actualizarUsuario','ApisController@updateUser');
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 
 
-
+//Route::get('/insert','LoginController@insertar');//esta es una ruta de prueba para insertar datos random

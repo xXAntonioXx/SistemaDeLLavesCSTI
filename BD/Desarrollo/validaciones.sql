@@ -28,8 +28,16 @@ DELIMITER ;
 
 DELIMITER //
 DROP TRIGGER IF EXISTS tg_users_rol_BI;
-
 CREATE TRIGGER tg_users_rol_BI BEFORE INSERT 
+ON sistema_llaves.tusuarios FOR EACH ROW
+BEGIN
+	CALL CHK_user_rol(new.rol);
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP TRIGGER IF EXISTS tg_users_rol_BU;
+CREATE TRIGGER tg_users_rol_BU BEFORE UPDATE 
 ON sistema_llaves.tusuarios FOR EACH ROW
 BEGIN
 	CALL CHK_user_rol(new.rol);

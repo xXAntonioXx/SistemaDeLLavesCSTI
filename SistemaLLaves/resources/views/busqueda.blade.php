@@ -73,7 +73,7 @@
     </form>
     @isset($respuesta)
     <div id="app">
-    <busqueda :registros="{{$respuesta}}"></busqueda>
+      <busqueda :registros="{{$respuesta}}"></busqueda>
     </div>
     @endisset
     @if($errors->has('respuesta'))

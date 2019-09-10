@@ -117,9 +117,9 @@
         height: 93%;
         width: 95%;
         overflow-y: scroll;
-        border: 2px solid grey;
+        /*border: 2px solid grey;*/
         margin: auto;
-        border-radius: 10px
+        /*border-radius: 10px*/
     }
     .listado{
         display: grid;
@@ -202,9 +202,10 @@ export default {
     methods:{
         hacerDevolucion(){
             let cadenaObjetos=this.objetosDevueltos.join();
-            console.log(this.idRegistro +"*"+this.hora +"*"+this.PrestamoID+"*"+cadenaObjetos);
+            //console.log(this.idRegistro +"*"+this.hora +"*"+this.PrestamoID+"*"+cadenaObjetos);
             axios.post('/api/devolucion',{'codigoLLave':this.llave,'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.PrestamoID,'objDevueltos':cadenaObjetos})
             .then((res)=>{
+                //console.log(this.llave + "..."+this.idRegistro+"..."+this.hora+"..."+this.PrestamoID+"..."+cadenaObjetos);
                 alert("devolucion realizada");
             })
             .catch(()=>{

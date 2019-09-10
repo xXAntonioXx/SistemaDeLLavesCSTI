@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css?family=Hind');
+    .cebolla{
+        font-size: 0.5em;
+    }
+    .contenedor{
+        width: 90%;
+        display: grid;
+        grid-template-columns: 30% 30% 30%;
+        column-gap: 5%;
+        margin: 0% 5% 0% 5%;
+        height: 70%;
+    }
+    .contenedor div{
+        display: flex;
+        flex-direction:column;
+        text-align: center;
+        height: 95%;
+        font-family: 'Hind',sans-serif;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+    .contenedor div:hover{
+        transition: transform.1s;
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+    
+    .contenedor div h2{
+        height: 25%;
+        margin:0;
+        background: #004990;
+        color: white;
+    }
+    
+    .contenedor div p{
+        width: 75%;
+        height: 75%;
+        margin: 12.5% 12.5% 0 12.5%;
+        font-size: 1.3em;
+    }
+    
+    .newUserForm{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.6em;
+        text-align: left;
+        margin-left: 5ch;
+        margin-top: 5ch;
+    }
+    .inp{
+        width: 300px;
+        height: 35px;
+        background: #E8E8E8;
+        border: none;
+        font-size: 1em;
+        margin-bottom: 1em;
+    }
+    .inp:focus{
+        background: lightgray;
+    }
+    
+    .twoColBody{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .dropdown{
+        background: #E8E8E8;
+        border: none;
+        width: 150px;
+        height: 30px;
+        margin-bottom: 1em;
+    }
+    .dropdown:focus{
+        background: white;
+        border: black;
+        margin-bottom: 1em;
+    }
+    .submitBtn{
+        width: 150px;
+        height: 30px;
+        background: #004990;
+        border: none;
+        color: white;
+    }
+    .submitBtn:hover{
+        cursor: pointer;
+    }
+
+    .lista_users{
+        position: relative;
+        list-style-type: none;
+        margin:0;
+        height: 70%;
+        background: #F8F8F8;
+        width: 90%;;
+        padding: 0;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .card_user{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        height: 35px;
+        border-bottom: 1px solid gainsboro;
+        font-size: 0.6em;
+        width: 100%;
+    }
+
+    .card_user:hover{
+        background: gainsboro;
+    }
+
+    .card_user i{
+        font-style: normal;
+        font-family: 'Hind',sans-serif;
+        color: #606060;
+        width: 80%;
+        margin-left: 20%;
+    }
+
+    .titulo{
+        font-size: 0.8em;
+        
+    }
+    
+    @media(max-width:750px){
+        .newUserForm{
+            margin-top: 60px;
+            margin-left: 0ch;
+        }
+        .twoColBody{
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        .cebolla{
+            font-size: 0.4em;
+            text-align: center;
+            height: 90%;
+        }
+        .contenedor{
+            column-gap: 0;
+            grid-template-columns: auto;
+        }
+        
+        .contenedor div{
+            display: flex;
+            flex-direction:column;
+            text-align: center;
+            height: 95%;
+            width: 90%;
+            margin: 0 5% 0 5%;
+            font-family: 'Hind',sans-serif;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        }
+        .contenedor div h2{
+            height: 40px;
+            margin:0;
+            background: #004990;
+            color: white;
+        }
+    }

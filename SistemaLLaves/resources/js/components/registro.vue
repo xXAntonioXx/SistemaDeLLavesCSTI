@@ -4,7 +4,7 @@
       <h2 class="llaves-prestadas-tittle">Llaves prestadas</h2>
       <!--div class="division"></div-->
       <div class="llaves-titles">
-        <h3>ID</h3>
+        <h3>No#</h3>
         <h3>MAESTRO</h3>
         <h3>MATERIA</h3>
         <h3>SALÓN</h3>
@@ -12,7 +12,7 @@
       </div>
       <div class="llaves-cards">
         <div v-for="registro in Paginate" class="card-item" :key="registro['id']" :title="registro['salon']+'\n'+registro['maestro']+'\n'+registro['materia']">
-            <h3>{{registro['id']}}</h3>
+            <h3>{{registro['numero']}}</h3>
             <h3>{{registro['maestro']}}</h3>
             <h3>{{registro['materia']}}</h3>
             <h3>{{registro['salon']}}</h3>
@@ -73,7 +73,7 @@
         </div>
       </div>
     </section>
-        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado" :maestro="maestroDevolucion" :materia="materiaDevolucion" :aula="aulaDevolucion">
+        <modalDevolucion v-if="esDevolucion" v-bind:objetos="objeto" ref="ventanaDevolucion" :hora="showTime(1)" :idRegistro="this.idRegistroExistente" :idPrestamo="this.idPrestamoRegistrado" :maestro="maestroDevolucion" :materia="materiaDevolucion" :aula="aulaDevolucion" :llave="llaveDevolucion">
           <input type="button" value="Aceptar" class="botonFin" @click="devolucion();esDevolucion=false">
           <input type="submit" value="Cancelar" class="botonCancelar" @click="cancelarDevolucion()" />
         </modalDevolucion>
@@ -142,7 +142,6 @@ export default {
               valor:'0',
               ObjetosDisponibles:this.ObjetosCombo
           });
-          console.log(JSON.stringify(this.ObjetosCombo));
         });
       },
       getPages(nPage){//obtener cantidad n de paginas
@@ -209,7 +208,6 @@ export default {
             this.RegistrarState=false;
           }
         }).catch((res)=>{
-          console.log(res);
         });
         
         this.estadoInput=true;

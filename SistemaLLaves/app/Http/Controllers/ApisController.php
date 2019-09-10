@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-include 'Konect.php';
+//**********************************************************************************************************************************************************************
+/*      Este controlador maneja todas las consultas a la base de datos que sean requeridas por los elementos en las vistas(generalmente hechos con vuejs) que requieran
+    consultar informacion por medio de un sistema de api, a pesar de que la principal función de estos endpoints de api es la de traer la informacion tambien se encuentran
+    algunos metodos post para hacer la inserciones en la base de datos, con la intención de manejar mayor seguridad todas las consultas estan hechas con procedimientos 
+    almacenados en la base de datos.
+*/
+//********************************************************************************************************************************************************************** */
+include 'Konect.php';//traemos una instancia de la conexión a la base de datos
 
 class ApisController extends Controller 
 {
@@ -40,18 +46,18 @@ class ApisController extends Controller
         }
     }
 
-    public function ObjetosInventario(){
+    public function ObjetosInventario(){//este metodo nos trae los objetos inventariados(disponibles) en la base de datos
         $objetosPrestados = $this->conexion->query("CALL sp_get_objetos(null);")->fetchAll();
 
         return json_encode($objetosPrestados);
     }
 
-    public function hacerDevolucion(Request $req){
-        $registro = $req["idRegistro"];
-        $horaDevolucion = $req["horaDevolucion"];
-        $idPrestamoObjetos = ($req["idPrestamos"]==null) ? "NULL" : $req["idPrestamos"];
-        $objetosDevueltos = $req["objDevueltos"]=="null"?"":$req["objDevueltos"];
-        $llaveDevolver=$req["codigoLLave"];
+    public function hacerDevolucion(Request $req){//este metodo registra la devolución de una llave que se encuentre en circulación junto con los objetos que se llevo el maestro al solicitar la llave
+        $registro = $req["idRegistro"];//id del registro al cual se le asignara la devolución
+        $horaDevolucion = $req["horaDevolucion"];//la hora del navegador cliente a la que se registra la devolución
+        $idPrestamoObjetos = ($req["idPrestamos"]==null) ? "NULL" : $req["idPrestamos"];//id del prestamo de registros
+        $objetosDevueltos = $req["objDevueltos"]=="null"?"":$req["objDevueltos"];//los objetos que se devolvieron junto con la llave
+        $llaveDevolver=$req["codigoLLave"];//codigo de la llave que se devuelve
 
         $UpdateRegistro="CALL sp_set_registro({$llaveDevolver},{$registro},'{$horaDevolucion}',{$idPrestamoObjetos},'{$objetosDevueltos}')";
         $this->conexion->query($UpdateRegistro);
@@ -79,4 +85,17 @@ class ApisController extends Controller
         return $registrar;
     }
 
+    public function getUsuarios(){
+        $query = "SELECT id,nombre,rol,estado FROM tusuarios";
+        $usuarios = $this->conexion->query($query)->fetchAll();
+        return $usuarios;
+    }
+
+    public function updateUser(Request $req){
+        $id = $req['id'];
+        $contraseña = password_hash($req['contraseña'],PASSWORD_DEFAULT);
+        $rol = $req['rol'];
+        $update = "call UpdateUser({$id},'{$contraseña}',{$rol})";
+        $this->conexion->query($update);
+    }
 }

@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Session;
+/**
+ * En esta clase se se devulven la vista de login y se manejan las validadciones necesarias para los usuarios
+ */
+
+
 include 'Konect.php';
 
 class LoginController extends Controller
@@ -30,6 +35,7 @@ class LoginController extends Controller
             $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'admin','{$contraseña}','1',1)";
             
             $this->conexion->query($insert);
+            return "usuario admin con contraseña contra ingresado correctamente";
         }catch(PDOException $e){
             return "error";
         }
@@ -56,6 +62,7 @@ class LoginController extends Controller
                 
                 Session::put('estado',true);
                 Session::put('id',$datos['id']);
+                Session::put('rol',$datos['rol']);
                 return redirect('/main');
             
             }else{
@@ -81,6 +88,7 @@ class LoginController extends Controller
     public function salir(){//eliminamos la variables de cookie para matar la sesion y redirijimos al login
         Session::forget('estado');
         Session::forget('id');
+        Session::forget('rol');
         return redirect('/');
     }
 }

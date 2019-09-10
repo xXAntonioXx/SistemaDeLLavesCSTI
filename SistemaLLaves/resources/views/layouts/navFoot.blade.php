@@ -8,6 +8,7 @@
   <title>Prestamo de llaves</title>
   <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
   <link rel="stylesheet" href="{{asset('css/principal.css')}}">
+  <link rel="stylesheet" href="{{asset('css/admin.css')}}">
 </head>
 <body>
   <div class="container-grid">
@@ -19,6 +20,11 @@
       <h1>PRÉSTAMO DE LLAVES</h1>
       <nav >
         <ol class="menu">
+          @if(Session::get('rol')==1)
+          <li>
+            <a href="/panel" class="link">Panel</a>
+          </li>
+          @endif
           <li>
             <a href="/main" class="link">Inicio</a>
           </li>

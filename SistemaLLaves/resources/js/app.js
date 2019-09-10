@@ -25,6 +25,11 @@ Vue.component(
     require('./components/Busqueda.vue')
 );
 
+Vue.component(
+    'usuarios',
+    require('./components/usuariosList.vue')
+);
+
 const app = new Vue({
     el: '#app',
 });

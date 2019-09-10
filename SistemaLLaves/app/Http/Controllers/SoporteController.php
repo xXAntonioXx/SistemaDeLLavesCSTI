@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\PruebaMail;
 use Mail;
-
+/**
+ * En esta clase hacemos llegar un mensaje del usuario a la oficina de soporte por medio de un correo dirijido(temporalmente al encargado de desarrollo)
+ */
 include 'Konect.php';
 
 class SoporteController extends Controller
