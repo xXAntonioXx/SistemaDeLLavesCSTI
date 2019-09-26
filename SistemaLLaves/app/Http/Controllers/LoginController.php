@@ -26,22 +26,6 @@ class LoginController extends Controller
         return view('login');
     }
 
-    //borrar metodo de abajo
-    public function insertar(){
-        try{
-            
-            $contraseña=password_hash("contra",PASSWORD_DEFAULT);
-
-            $insert="INSERT INTO tusuarios(id,nombre,contrasena,rol,estado) values(1,'admin','{$contraseña}','1',1)";
-            
-            $this->conexion->query($insert);
-            return "usuario admin con contraseña contra ingresado correctamente";
-        }catch(PDOException $e){
-            return "error";
-        }
-        
-    }
-
     //confirmacion de credenciales
     public function validar(Request $req){//validamos si el post no viene vacio
 
