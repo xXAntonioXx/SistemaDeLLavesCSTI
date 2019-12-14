@@ -93,9 +93,10 @@ class ApisController extends Controller
 
     public function updateUser(Request $req){
         $id = $req['id'];
-        $contraseña = password_hash($req['contraseña'],PASSWORD_DEFAULT);
+        $contraseña = !$req['contraseña'] ?  null:password_hash($req['contraseña'],PASSWORD_DEFAULT);
         $rol = $req['rol'];
         $update = "call UpdateUser({$id},'{$contraseña}',{$rol})";
         $this->conexion->query($update);
+        
     }
 }
