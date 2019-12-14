@@ -67,7 +67,7 @@
     </header>
     @yield('cuerpo')
     <footer class="footer">
-      <h3>&copy; Derechos Reservados</h3>
+      <h3>&copy; Derechos Reservados 2018-2019</h3>
       <h3>&lsaquo; Acerca de Nosotros &rsaquo;</h3>
     </footer>
   </div>
