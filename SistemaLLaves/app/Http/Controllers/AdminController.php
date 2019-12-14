@@ -27,7 +27,7 @@ class AdminController extends Controller
             'NewUserName'=>'required',
             'NewUserPass'=>'required',
             'confirmPass'=>'required',
-            'rol'=>'required'
+            'rol'=>'required|integer'
         ]);
 
         $nombre = $req['NewUserName'];
