@@ -5,14 +5,14 @@
             <li class="colHead">
                 <i>id</i><i>nombre</i><i>rol</i><i>estado</i>
             </li>
-            <li v-for="user in usuarios" :key="user['id']" class="card_user" @click="openUserEdit(user['nombre'],user['id'])">
+            <li v-for="user in usuarios" :key="user['id']" class="card_user" @click="openUserEdit(user['nombre'],user['id'],user['rol'])">
                 <i>{{user['id']}}</i>
                 <i>{{user['nombre']}}</i> 
-                <i>{{user['rol']}}</i>
+                <i>{{user['rol'] ==1 ? 'Admin':'Secretari@'}}</i>
                 <i>{{user['estado']}}</i>
             </li>
         </ul>
-        <userModal ref="modalUpdateUser" v-if="openModalUser" :nombreUsuario="this.usuarioNombreEditar" :idUsuario="this.usuarioIdEditar">
+        <userModal ref="modalUpdateUser" v-if="openModalUser" :nombreUsuario="this.usuarioNombreEditar" :idUsuario="this.usuarioIdEditar" :rol="this.usuarioRolEditar">
             <input type="button" value="Aceptar" class="botonFin" @click="hacerCambios()">
             <input type="submit" value="Cancelar" class="botonCancelar" @click="cerrarModal()" />
         </userModal>
@@ -59,7 +59,8 @@ export default {
             usuarios:{},
             openModalUser:false,
             usuarioNombreEditar:null,
-            usuarioIdEditar:null
+            usuarioIdEditar:null,
+            usuarioRolEditar:null
         }
     },
     created(){
@@ -74,18 +75,24 @@ export default {
             axios.get('/api/obtenerUsuarios')
             .then(data=>this.usuarios=data['data']);
         },
-        openUserEdit(nombre,id){
+        openUserEdit(nombre,id,rol){
             this.openModalUser=true;
             this.usuarioNombreEditar=nombre;
             this.usuarioIdEditar=id;
+            this.usuarioRolEditar=rol;
         },
         cerrarModal(){
             this.openModalUser=false;
             this.usuarioNombreEditar=null;
             this.usuarioIdEditar=null;
+            this.usuarioRolEditar=null;
         },
         hacerCambios(){
-            this.$refs.modalUpdateUser.realizarCambios();
+            this.$refs.modalUpdateUser.realizarCambios(()=>{
+                console.log('registro exitoso');
+                this.cerrarModal();
+                this.fetchUsuarios();
+            });
         }
     }
 }

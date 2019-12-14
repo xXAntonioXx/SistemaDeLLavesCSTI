@@ -69017,7 +69017,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             usuarios: {},
             openModalUser: false,
             usuarioNombreEditar: null,
-            usuarioIdEditar: null
+            usuarioIdEditar: null,
+            usuarioRolEditar: null
         };
     },
     created: function created() {
@@ -69036,18 +69037,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return _this.usuarios = data['data'];
             });
         },
-        openUserEdit: function openUserEdit(nombre, id) {
+        openUserEdit: function openUserEdit(nombre, id, rol) {
             this.openModalUser = true;
             this.usuarioNombreEditar = nombre;
             this.usuarioIdEditar = id;
+            this.usuarioRolEditar = rol;
         },
         cerrarModal: function cerrarModal() {
             this.openModalUser = false;
             this.usuarioNombreEditar = null;
             this.usuarioIdEditar = null;
+            this.usuarioRolEditar = null;
         },
         hacerCambios: function hacerCambios() {
-            this.$refs.modalUpdateUser.realizarCambios();
+            var _this2 = this;
+
+            this.$refs.modalUpdateUser.realizarCambios(function () {
+                console.log('registro exitoso');
+                _this2.cerrarModal();
+                _this2.fetchUsuarios();
+            });
         }
     }
 });
@@ -69138,7 +69147,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.capa-cebolla1{\r\n    position: fixed;\r\n    z-index: 1;\r\n    background-color: rgba(0, 0, 0,.5);\r\n    height: 100%;\r\n    width: 100%;\r\n    display:-webkit-box;\r\n    display:-ms-flexbox;\r\n    display:flex;\r\n    top: 0;\r\n    left: 0;\r\n    bottom: 100%;\n}\n.ventanaModal1{\r\n    height: 80vh;\r\n    width: 500px;\r\n    margin: auto;\r\n    border-radius: 5px;\r\n    position: relative;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    background: white;\r\n    z-index: 3;\r\n    overflow: auto;\r\n    border: 2px solid grey;\r\n    -ms-flex-line-pack: space-evenly;\r\n        align-content: space-evenly;\n}\n.formEdit{\r\n    margin-left:20px;\n}\n.formEdit label{\r\n    font-size:0.7em;\n}\n.formEdit input{\r\n    width: 300px;\r\n    height: 35px;\r\n    background: #E8E8E8;\r\n    border: none;\r\n    font-size: 1em;\r\n    margin-bottom: 0.5em;\n}\n.botonFin{\r\n    border-radius: 50px;\r\n    width: 40%;\r\n    background: #004990;\r\n    font-size: 70%;\r\n    color: white;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    margin: auto;\r\n    height: 30px;\n}\n.botonCancelar{\r\n    border: 2px solid #004990;\r\n    border-radius: 50px;\r\n    width: 40%;\r\n    background: white;\r\n    font-size: 70%;\r\n    -ms-flex-item-align: center;\r\n        align-self: center;\r\n    margin: auto;\r\n    height: 30px;\n}\n.opcionesB{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\n}\r\n", ""]);
+exports.push([module.i, "\n.capa-cebolla1{\r\n    position: fixed;\r\n    z-index: 1;\r\n    background-color: rgba(0, 0, 0,.5);\r\n    height: 100%;\r\n    width: 100%;\r\n    display:-webkit-box;\r\n    display:-ms-flexbox;\r\n    display:flex;\r\n    top: 0;\r\n    left: 0;\r\n    bottom: 100%;\n}\n.ventanaModal1{\r\n    height: 80vh;\r\n    width: 500px;\r\n    margin: auto;\r\n    border-radius: 5px;\r\n    position: relative;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    background: white;\r\n    z-index: 3;\r\n    overflow: auto;\r\n    border: 2px solid grey;\r\n    -ms-flex-line-pack: space-evenly;\r\n        align-content: space-evenly;\n}\n.formEdit{\r\n    /* margin-left:20px;  */\n}\n.formEdit label{\r\n    font-size:0.7em;\n}\n.formEdit input{\r\n    width: 300px;\r\n    height: 35px;\r\n    background: #E8E8E8;\r\n    border-radius: 20px;\r\n    padding-left: 15px;\r\n    border: none;\r\n    font-size: 1em;\r\n    margin-bottom: 0.5em;\n}\n.formEdit input:focus{\r\n    outline-style: none;\n}\n.botonFin{\r\n    border-radius: 50px;\r\n    width: 45%;\r\n    background: #004990;\r\n    font-size: 70%;\r\n    color: white;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    margin: auto;\r\n    height: 30px;\n}\n.botonCancelar{\r\n    border: 2px solid #004990;\r\n    border-radius: 50px;\r\n    width: 45%;\r\n    background: white;\r\n    font-size: 70%;\r\n    -ms-flex-item-align: center;\r\n        align-self: center;\r\n    margin: auto;\r\n    height: 30px;\n}\n.opcionesB{\r\n    width: 90%;\r\n    display: grid;\r\n    margin: 0 auto;\r\n    grid-template-columns: 1fr 1fr;\n}\r\n", ""]);
 
 // exports
 
@@ -69236,6 +69245,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -69244,19 +69260,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             id: this.idUsuario,
             nuevoContra: null,
             nuevoContraRep: null,
-            nuevoRol: null
+            nuevoRol: this.rol
         };
     },
 
-    props: ['nombreUsuario', 'idUsuario'],
+    props: ['nombreUsuario', 'idUsuario', 'rol'],
     methods: {
-        realizarCambios: function realizarCambios() {
+        realizarCambios: function realizarCambios(cb) {
             console.log("me ejecuté");
             if (this.nuevoContra == this.nuevoContraRep) {
                 this.nuevoContra = this.nuevoContra == '' && this.nuevoContra == ' ' ? null : this.nuevoContra;
-                axios.put('/api/actualizarUsuario', { 'id': this.id, 'contraseña': this.nuevoContra, 'rol': this.nuevoRol }).then(function () {
-                    return console.log('axios exitoso');
-                });
+                axios.put('/api/actualizarUsuario', { 'id': this.id, 'contraseña': this.nuevoContra, 'rol': this.nuevoRol }).then(cb);
                 console.log(this.id + "contraseña: " + this.nuevoContra + " nuevoRol: " + this.nuevoRol);
             }
         }
@@ -69273,9 +69287,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "capa-cebolla1" }, [
     _c("div", { staticClass: "ventanaModal1" }, [
-      _c("h4", { staticStyle: { "margin-left": "30px" } }, [
-        _vm._v('Editar usuario "' + _vm._s(this.nombre) + '"')
-      ]),
+      _c("h4", [_vm._v('Editar usuario "' + _vm._s(this.nombre) + '"')]),
       _vm._v(" "),
       _c("div", { staticClass: "formEdit" }, [
         _c("label", { attrs: { for: "nuevaContra1" } }, [
@@ -69362,10 +69374,6 @@ var render = function() {
             }
           },
           [
-            _c("option", { domProps: { value: null } }, [
-              _vm._v("Permisos...")
-            ]),
-            _vm._v(" "),
             _c("option", { domProps: { value: 1 } }, [_vm._v("Admin")]),
             _vm._v(" "),
             _c("option", { domProps: { value: 2 } }, [_vm._v("Secretari@")])
@@ -69415,7 +69423,11 @@ var render = function() {
                 staticClass: "card_user",
                 on: {
                   click: function($event) {
-                    return _vm.openUserEdit(user["nombre"], user["id"])
+                    return _vm.openUserEdit(
+                      user["nombre"],
+                      user["id"],
+                      user["rol"]
+                    )
                   }
                 }
               },
@@ -69424,7 +69436,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("i", [_vm._v(_vm._s(user["nombre"]))]),
                 _vm._v(" "),
-                _c("i", [_vm._v(_vm._s(user["rol"]))]),
+                _c("i", [
+                  _vm._v(_vm._s(user["rol"] == 1 ? "Admin" : "Secretari@"))
+                ]),
                 _vm._v(" "),
                 _c("i", [_vm._v(_vm._s(user["estado"]))])
               ]
@@ -69441,7 +69455,8 @@ var render = function() {
               ref: "modalUpdateUser",
               attrs: {
                 nombreUsuario: this.usuarioNombreEditar,
-                idUsuario: this.usuarioIdEditar
+                idUsuario: this.usuarioIdEditar,
+                rol: this.usuarioRolEditar
               }
             },
             [

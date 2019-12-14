@@ -1,14 +1,13 @@
 <template>
     <div class="capa-cebolla1">
         <div class="ventanaModal1">
-            <h4 style="margin-left:30px">Editar usuario "{{this.nombre}}"</h4>
+            <h4>Editar usuario "{{this.nombre}}"</h4>
             <div class="formEdit">
                 <label for="nuevaContra1">Cambiar contraseña:</label><br>
                 <input id="nuevaContra1" type="password" v-model="nuevoContra"><br>
                 <label for="nuevaContra2">Repetir Nueva contraseña:</label><br>
                 <input id="nuevaContra2" type="password" v-model="nuevoContraRep"><br>
                 <select name="rol" id="rol" class="dropdown" v-model="nuevoRol">
-                    <option :value="null">Permisos...</option>
                     <option :value="1">Admin</option>
                     <option :value="2">Secretari@</option>
                 </select>
@@ -45,7 +44,7 @@
     align-content: space-evenly;
 }
 .formEdit{
-    margin-left:20px; 
+    /* margin-left:20px;  */
 }
 .formEdit label{
     font-size:0.7em; 
@@ -54,13 +53,19 @@
     width: 300px;
     height: 35px;
     background: #E8E8E8;
+    border-radius: 20px;
+    padding-left: 15px;
     border: none;
     font-size: 1em;
     margin-bottom: 0.5em;
 }
+
+.formEdit input:focus{
+    outline-style: none;
+}
 .botonFin{
     border-radius: 50px;
-    width: 40%;
+    width: 45%;
     background: #004990;
     font-size: 70%;
     color: white;
@@ -73,7 +78,7 @@
 .botonCancelar{
     border: 2px solid #004990;
     border-radius: 50px;
-    width: 40%;
+    width: 45%;
     background: white;
     font-size: 70%;
     align-self: center;
@@ -81,7 +86,9 @@
     height: 30px;
 }
 .opcionesB{
+    width: 90%;
     display: grid;
+    margin: 0 auto;
     grid-template-columns: 1fr 1fr;
 }
 </style>
@@ -93,19 +100,21 @@ export default {
             id:this.idUsuario,
             nuevoContra:null,
             nuevoContraRep:null,
-            nuevoRol:null
+            nuevoRol:this.rol
         }
     },
     props:[
         'nombreUsuario',
-        'idUsuario'
+        'idUsuario',
+        'rol'
     ],
     methods:{
-        realizarCambios(){
+        realizarCambios(cb){
             console.log("me ejecuté");
             if(this.nuevoContra==this.nuevoContraRep){
                 this.nuevoContra = this.nuevoContra==''&&this.nuevoContra==' '?null:this.nuevoContra;
-                axios.put('/api/actualizarUsuario',{'id':this.id,'contraseña':this.nuevoContra,'rol':this.nuevoRol}).then(()=>console.log('axios exitoso'));
+                axios.put('/api/actualizarUsuario',{'id':this.id,'contraseña':this.nuevoContra,'rol':this.nuevoRol})
+                    .then(cb);
                 console.log(this.id + "contraseña: "+this.nuevoContra + " nuevoRol: "+this.nuevoRol);
             }
         }
