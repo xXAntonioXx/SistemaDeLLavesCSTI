@@ -1,7 +1,7 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
 <div class="twoColBody">
-    <section style="text-align:center;">
+    <section class="left-content">
         <form action="/AgregarUsuario" class="newUserForm" method="POST">
             {{csrf_field()}}
             <strong>Nombre del Usuario</strong> <br>
@@ -11,7 +11,7 @@
             <input class="inp" id="NewUserPass" name="NewUserPass" type="password" placeholder=" Cualquier contraseña funciona">
             <br>
             <strong> Confirmar Contraseña</strong><br>
-            <input class="inp" id="confirmPass" name="confirmPass" type="password" placeholder=" Volver a escribir contraseña">
+            <input class="inp" id="confirmPass" name="confirmPass" type="password" placeholder=" Repite la contraseña">
             <br>
             <select name="rol" id="rol" class="dropdown">
                 <option>Permisos...</option>
@@ -23,13 +23,13 @@
         </form>
         @if($errors->has('NewUserName') || $errors->has('NewUserPass') || $errors->has('confirmPass'))
             <div class="tooltip-container">
-              <span class="tooltip-text">Faltan datos</span>
+                <span class="tooltip-text">Faltan datos</span>
             </div>
-          @endif
+        @endif
     </section>
 
-    <section>
-        <div id="app" style="height:100%">
+    <section class="right-content">
+        <div id="app">
             <usuarios></usuarios>
         </div>
     </section>

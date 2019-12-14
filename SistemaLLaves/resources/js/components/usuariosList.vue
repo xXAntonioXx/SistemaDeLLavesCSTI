@@ -20,7 +20,12 @@
 </template>
 <style>
     .divContenedor{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         height: 100%;
+        width: 90%;
     }
     .colHead{
         display: grid;
@@ -28,6 +33,7 @@
         height: 35px;
         background: #004990;
         color: white;
+        border-radius: 5px 5px 0 0;
         font-size: 0.6em;
         width: 100%;
     }
@@ -37,9 +43,10 @@
         font-style: normal;
     }
     .userTitle{
-        width: 100%;
+        width: 90%;
         text-align: center;
         font-size: 0.7em;
+        margin: 0;
     }
 </style>
 
