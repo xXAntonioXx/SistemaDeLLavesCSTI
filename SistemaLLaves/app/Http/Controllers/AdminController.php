@@ -21,6 +21,11 @@ class AdminController extends Controller
     public function NuevoUsuario(){
         return view('nuevoUsuario');
     }
+
+    public function CargarHorarios(){
+        return view('cargarHorarios');
+    }
+
     public function RegistrarUsuario(Request $req){
 
         $this->validate($req,[

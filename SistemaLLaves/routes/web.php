@@ -57,6 +57,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
     Route::get('/panel','AdminController@Cargar');
     Route::get('/panel/nuevoUsuario','AdminController@NuevoUsuario');
+    Route::get('/panel/cargarHorarios','AdminController@CargarHorarios');
     Route::post('/AgregarUsuario','AdminController@RegistrarUsuario');
 
 //API para consultar la base de datos###########################################################################

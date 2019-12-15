@@ -14,7 +14,7 @@
                     <p>Agregar nuevos Usuarios o gestionar los que ya existen</p>
                 </div>
             </div>
-            <div class="tarjeta">
+            <div class="tarjeta" onclick="location.href='/panel/cargarHorarios';">
                 <div  class="encabezado-tarjeta">
                     <h2>Cargar un Nuevo Horario</h2>
                 </div>
