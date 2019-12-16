@@ -26,6 +26,10 @@ class AdminController extends Controller
         return view('cargarHorarios');
     }
 
+    public function CargarLlaves() {
+        return view('CargarLlaves');
+    }
+
     public function RegistrarUsuario(Request $req){
 
         $this->validate($req,[
@@ -45,6 +49,10 @@ class AdminController extends Controller
             $this->conexion->query($consulta);
         }
         return view('nuevoUsuario');
+    }
+
+    public function AgregarLlavescsv(Request $req) {
+        return response()->json(['message'=>'valor por defecto'],200);
     }
 
     public function AgregarHorario(Request $req) {

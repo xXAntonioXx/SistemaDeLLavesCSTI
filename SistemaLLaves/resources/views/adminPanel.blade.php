@@ -22,7 +22,7 @@
                     <p>Cambiar el horario de las clases en la base de datos a partir de un archivo CSV</p>
                 </div>
             </div>
-            <div class="tarjeta">
+            <div class="tarjeta" onclick="location.href='/panel/cargarLlaves';">
                 <div class="encabezado-tarjeta">
                     <h2>Cargar llaves de las Aulas</h2>
                 </div>
