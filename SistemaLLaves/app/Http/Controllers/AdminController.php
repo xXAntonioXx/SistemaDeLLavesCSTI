@@ -51,13 +51,55 @@ class AdminController extends Controller
         return view('nuevoUsuario');
     }
 
+    /**
+     * Función para agregar llaves a la base de datos por medio de un archivo csv
+     * 
+     * @param Request $req Solicitud por parte del cliente, la cual debe contener un archivo con extensión csv.
+     * @return Response $json Devuelve un json con el código resultante de la acción, devuelve 200-OK si todo salío bien.
+     */
     public function AgregarLlavescsv(Request $req) {
-        return response()->json(['message'=>'valor por defecto'],200);
+        if($req->hasFile('archivo_fls')) {
+            $file = $req->file('archivo_fls');
+            $fileName =  $file->getClientOriginalName();
+            if (preg_match("/.csv$/",$fileName)) {
+                $fileName = 'll' . time() . '.csv';
+                $file->move('../storage/app/public',$fileName);
+                if (($archivo=fopen('../storage/app/public/'.$fileName,'r')) !==FALSE) {
+                    //leer archivo linea por linea
+                    while (($linea = fgetcsv($archivo,10000,",")) !== FALSE) {
+
+                        // Registro de la primer llave del aula.
+                        $stmt1 = $this->conexion->query('CALL sp_registrar_llave('.$linea[0].','.$linea[2].',\''.$linea[3].'\',\''.$linea[4].'\')')->fetchAll();
+                        if (!$stmt1) {
+                            fclose($archivo);
+                            return response()->json(['errorInfo'=> $this->conexion->errorInfo()],400);
+                        }
+
+                        //Registro de la segunda llave del aula.
+                        $stmt2 = $this->conexion->query('CALL sp_registrar_llave('.$linea[1].','.$linea[2].',\''.$linea[3].'\',\''.$linea[4].'\')')->fetchAll();
+                        if (!$stmt2) {
+                            fclose($archivo);
+                            return response()->json(['errorInfo'=> $this->conexion->errorInfo()],400);
+                        }
+
+                    }
+                    fclose($archivo);
+                    return response()->json(['message'=>'Las llaves fueron registradas con éxito'],200);;
+                }
+                return response()->json(['message'=>'El archivo no se sguardó correctamente!'],500);
+            }
+        }
+        return response()->json(['message'=>'Solo se permiten arcivos con extensión csv'],400);;
     }
 
+    /**
+     * Función para registrar los horarios de un ciclo escolar por medio de un archivo csv.
+     * 
+     * @param Rquest $req Solicitud por parte del cliente, la cual debe contener un archivo con extensión csv.
+     * @return Response $json Devuelve un json con el mensaje correspondiente a la acción y un código de estado, devuelve 200-OK si tidi salío bien.
+     */
     public function AgregarHorario(Request $req) {
 
-        $status=false;
         //$req->file('archivo_fls')->store('public');
         if($req->hasFile('archivo_fls')) {
             $file = $req->file('archivo_fls');
@@ -182,6 +224,7 @@ class AdminController extends Controller
                             }
                             $contador1++;
                         }
+                        return response()->json(['message'=>'Los horarios fueron registrados con éxito'],200);;
                     }else{
                         return response()->json(['message'=>$error],400);
                     }
@@ -189,7 +232,6 @@ class AdminController extends Controller
                     return response()->json(['message'=>'El archivo no se sguardó correctamente!'],500);
                 }
             }
-            return response()->json(['message'=>'Los horarios fueron registrados con éxito'],200);;
         }
         return response()->json(['message'=>'Solo se permiten arcivos con extensión csv'],400);;
     }
