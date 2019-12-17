@@ -10,6 +10,19 @@
         width: 100%;
     }
 
+    .section-title>h2{
+        font-size: 1.2em;
+    }
+
+    .csv-expicacion{
+        width: 90%;
+        text-align: justify;
+        font-size: 14px;
+    }
+
+    #cargar_llaves_titulo{
+        margin-bottom: 0;
+    }
     .center-content {
         display: flex;
         justify-content: center;
@@ -153,14 +166,19 @@
         list-style-type: none;
         margin:0;
         height: 70%;
-        background: #F8F8F8;
-        width: 90%;;
+        max-height: 60vh;
+        width: 90%;
         padding: 0;
         border-radius: 5px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     }
 
-    .card_user{
+    .colContent{
+        overflow-y: auto;
+        max-height: 90%;
+    }
+
+    .card_user, .card_llaves{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         height: 35px;
@@ -169,7 +187,18 @@
         width: 100%;
     }
 
-    .card_user:hover{
+    .card_llaves {
+        grid-template-columns: 0.5fr 1fr 1fr 1.5fr;
+    }
+
+    .card_llaves i {
+        font-style: normal;
+        font-family: 'Hind',sans-serif;
+        color: #606060;
+        width: 80%;
+        margin-left: 20%;
+    }
+    .card_user:hover, .card_llaves:hover{
         background: gainsboro;
     }
 
@@ -180,6 +209,7 @@
         width: 80%;
         margin-left: 20%;
     }
+
 
     .titulo{
         font-size: 0.8em;
