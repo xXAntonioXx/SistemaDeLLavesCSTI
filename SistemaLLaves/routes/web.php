@@ -61,7 +61,6 @@ Route::group(['middleware'=>'CheckSess'],function(){
     Route::get('/panel/cargarLlaves','AdminController@CargarLlaves');
     Route::post('/AgregarUsuario','AdminController@RegistrarUsuario');
     Route::post('/AgregarHorario','AdminController@AgregarHorario');
-    Route::post('/AgregarLlavescsv','AdminController@AgregarLlavescsv');
 
 
 //API para consultar la base de datos###########################################################################
@@ -80,6 +79,8 @@ Route::group(['middleware'=>'CheckSess'],function(){
 });
 
 Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerLlaves','ApisController@getLlaves')->middleware(adminCheckSess::class);
+Route::post('/api/AgregarLlavescsv','ApisController@AgregarLlavescsv')->middleware(adminCheckSess::class);
 Route::put('/api/actualizarUsuario','ApisController@updateUser');
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
