@@ -26,6 +26,7 @@
         "moment-timezone": "^0.5.27",
         "node-php-password": "^0.1.2",
         "popper.js": "^1.15.0",
+        "sweetalert2": "^9.5.3",
         "vue-template-compiler": "^2.6.11"
     }
 }
