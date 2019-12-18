@@ -88,10 +88,15 @@ export default {
             this.usuarioRolEditar=null;
         },
         hacerCambios(){
-            this.$refs.modalUpdateUser.realizarCambios(()=>{
-                console.log('registro exitoso');
-                this.cerrarModal();
-                this.fetchUsuarios();
+            this.$refs.modalUpdateUser.realizarCambios((response)=>{
+                toast.fire({
+                    icon: (response.status==200)? 'success':'error',
+                    title: response.data.message
+                })
+                if(response.status==200){
+                    this.cerrarModal();
+                    this.fetchUsuarios();
+                }
             });
         }
     }

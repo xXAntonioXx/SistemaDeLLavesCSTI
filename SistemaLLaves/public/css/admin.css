@@ -28,7 +28,7 @@
         justify-content: center;
     }
 
-    .center-content .newUserForm {
+    .center-content .newUserForm>div {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -51,6 +51,10 @@
         font-family: 'Hind',sans-serif;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         border-radius: 4px;
+    }
+
+    h4{
+        text-align: center;
     }
 
     .contenedor .tarjeta:hover {
@@ -127,6 +131,7 @@
     .twoColBody{
         display: grid;
         grid-template-columns: 1fr 1fr;
+        height: 100%;
     }
     .dropdown{
         font-family: Hind,sans-serif;

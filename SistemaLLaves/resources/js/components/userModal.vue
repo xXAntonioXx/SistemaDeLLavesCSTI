@@ -44,7 +44,7 @@
     align-content: space-evenly;
 }
 .formEdit{
-    /* margin-left:20px;  */
+    text-align: center;
 }
 .formEdit label{
     font-size:0.7em; 
@@ -65,7 +65,7 @@
 }
 .botonFin{
     border-radius: 50px;
-    width: 45%;
+    width: 80%;
     background: #004990;
     font-size: 70%;
     color: white;
@@ -78,7 +78,7 @@
 .botonCancelar{
     border: 2px solid #004990;
     border-radius: 50px;
-    width: 45%;
+    width: 80%;
     background: white;
     font-size: 70%;
     align-self: center;
@@ -110,12 +110,16 @@ export default {
     ],
     methods:{
         realizarCambios(cb){
-            console.log("me ejecuté");
             if(this.nuevoContra==this.nuevoContraRep){
                 this.nuevoContra = this.nuevoContra==''&&this.nuevoContra==' '?null:this.nuevoContra;
                 axios.put('/api/actualizarUsuario',{'id':this.id,'contraseña':this.nuevoContra,'rol':this.nuevoRol})
-                    .then(cb);
-                console.log(this.id + "contraseña: "+this.nuevoContra + " nuevoRol: "+this.nuevoRol);
+                    .then(cb)
+                    .catch(err=>cb(err.response));
+            }else{
+                toast.fire({
+                    icon: 'error',
+                    title: 'Las contraseñas no coinciden.'
+                })
             }
         }
     }
