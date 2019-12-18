@@ -3,7 +3,7 @@
         <div class="ventanaModal1">
             <h4 id="cargar_llaves_titulo">Cargar llaves</h4>
             <section class="center-content">
-            <form class="newUserForm" enctype="multipart/form-data">
+            <form class="newUserForm specialClass" enctype="multipart/form-data">
               <div class="csv-expicacion">
                 <p>Debe selecionar un archivo con extensión CSV, el cual deberá contener los siguientes campos:</p>
                 <ol>
@@ -74,7 +74,7 @@
 }
 .botonFin{
     border-radius: 50px;
-    width: 45%;
+    width: 75%;
     background: #004990;
     font-size: 70%;
     color: white;
@@ -87,12 +87,18 @@
 .botonCancelar{
     border: 2px solid #004990;
     border-radius: 50px;
-    width: 45%;
+    width: 75%;
     background: white;
     font-size: 70%;
     align-self: center;
     margin: auto;
     height: 30px;
+}
+
+.specialClass{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .opcionesB{
     width: 90%;

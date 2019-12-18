@@ -82,6 +82,7 @@ Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(admi
 Route::get('/api/obtenerLlaves','ApisController@getLlaves')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarLlavescsv','ApisController@AgregarLlavescsv')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarUsuario','ApisController@RegistrarUsuario')->middleware(adminCheckSess::class);
+Route::post('/api/AgregarLlave','ApisController@AgregarLlave')->middleware(adminCheckSess::class);
 Route::put('/api/actualizarUsuario','ApisController@updateUser');
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################

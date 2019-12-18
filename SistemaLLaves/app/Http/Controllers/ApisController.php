@@ -130,6 +130,25 @@ class ApisController extends Controller
         return response()->json(['message'=>'Datos actualizados con éxito.'],200);
     }
 
+    public function AgregarLlave(Request $req){
+        $this->validate($req,[
+            'codigo'=>'required',
+            'num'=>'required',
+            'area'=>'required',
+            'aula'=>'required'
+        ]);
+
+        $codigo = $req['codigo'];
+        $numaula = $req['num'];
+        $area = $req['area'];
+        $aula = $req['aula'];
+        $stmt = $this->conexion->query('CALL sp_registrar_llave('.$codigo.','.$numaula.',\''.$area.'\',\''.$aula.'\')')->fetchAll();
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'La llave se registró con éxito.']);
+    }
+
     /**
      * Función para agregar llaves a la base de datos por medio de un archivo csv
      * 

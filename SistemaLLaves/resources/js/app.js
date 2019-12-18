@@ -53,6 +53,12 @@ Vue.component(
 );
 
 Vue.component(
+    'registrollaves',
+    require('./components/registrarLlaves.vue')
+
+);
+
+Vue.component(
     'llaves',
     require('./components/llavesList.vue')
 )
