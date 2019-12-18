@@ -85,6 +85,27 @@ class ApisController extends Controller
         return $registrar;
     }
 
+    public function RegistrarUsuario(Request $req){
+
+        $this->validate($req,[
+            'NewUserName'=>'required',
+            'userPass'=>'required',
+            'rol'=>'required|integer'
+        ]);
+
+        $nombre = $req['NewUserName'];
+        $contraseña = $req['userPass'];
+        $rol = $req['rol'];
+        $PASS=password_hash($contraseña,PASSWORD_DEFAULT);
+        $consulta = "INSERT INTO tusuarios(nombre,contrasena,rol) VALUES('{$nombre}','{$PASS}',{$rol})";
+        $stmt=$this->conexion->query($consulta);
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'El usuario se registro con éxito.'],200);
+        
+    }
+
     public function getUsuarios(){
         $query = "SELECT id,nombre,rol,estado FROM tusuarios";
         $usuarios = $this->conexion->query($query)->fetchAll();
@@ -102,8 +123,11 @@ class ApisController extends Controller
         $contraseña = !$req['contraseña'] ?  null:password_hash($req['contraseña'],PASSWORD_DEFAULT);
         $rol = $req['rol'];
         $update = "call UpdateUser({$id},'{$contraseña}',{$rol})";
-        $this->conexion->query($update);
-        
+        $stmt=$this->conexion->query($update);
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=>'Datos actualizados con éxito.'],200);
     }
 
     /**

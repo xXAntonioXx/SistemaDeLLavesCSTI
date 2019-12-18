@@ -30,27 +30,6 @@ class AdminController extends Controller
         return view('CargarLlaves');
     }
 
-    public function RegistrarUsuario(Request $req){
-
-        $this->validate($req,[
-            'NewUserName'=>'required',
-            'NewUserPass'=>'required',
-            'confirmPass'=>'required',
-            'rol'=>'required|integer'
-        ]);
-
-        $nombre = $req['NewUserName'];
-        $contraseña = $req['NewUserPass'];
-        $confirmContraseña = $req['confirmPass'];
-        $rol = $req['rol'];
-        if($contraseña == $confirmContraseña){
-            $PASS=password_hash($contraseña,PASSWORD_DEFAULT);
-            $consulta = "INSERT INTO tusuarios(nombre,contrasena,rol) VALUES('{$nombre}','{$PASS}',{$rol})";
-            $this->conexion->query($consulta);
-        }
-        return view('nuevoUsuario');
-    }
-
    
     /**
      * Función para registrar los horarios de un ciclo escolar por medio de un archivo csv.
