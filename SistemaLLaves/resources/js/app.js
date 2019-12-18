@@ -48,6 +48,11 @@ Vue.component(
 );
 
 Vue.component(
+    'registrousuario',
+    require('./components/registrarUsuario.vue')
+);
+
+Vue.component(
     'llaves',
     require('./components/llavesList.vue')
 )
