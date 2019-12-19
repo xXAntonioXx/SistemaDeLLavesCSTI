@@ -244,7 +244,10 @@ export default {
         console.log(this.codigoKey+"  "+this.globalTime+"  "+this.registroForm['id']+"  "+this.PrestamoList.slice(0,-1));
         axios.post('/api/nuevoRegistro',{'llave':this.codigoKey,'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
         .then((res)=>{
-          alert('registro realizado');
+          toast.fire({
+            icon:'success',
+            title: 'Prestamo registrado.'
+          });
           this.fetchRegistros();
           this.cleanObjPrestamo();
         });
