@@ -70,7 +70,7 @@ class AdminController extends Controller
                         if(strlen($linea[0])==0){
                             $arreglo[1]='SIN ASIGNAR...';
                         }else{
-                            $arreglo[1]=$linea[0];
+                            $arreglo[1]=utf8_encode($linea[0]);
                         }
         
                         //Verificar si el nombre de la materia esta vacío.
@@ -79,14 +79,14 @@ class AdminController extends Controller
                         if(strlen($linea[1])==0){
                             $arreglo[2]='SIN ASIGNAR...';
                         }else{
-                            $arreglo[2]=$linea[1];
+                            $arreglo[2]=utf8_encode($linea[1]);
                         }
         
                         //Asignar el número del aula.
                         $arreglo[3]=$linea[3];
                         
                         //Asignar el plan de estudio de la materia.
-                        $arreglo[4]=$linea[11];
+                        $arreglo[4]=utf8_encode($linea[11]);
                         $argdias= array();
 
                         //Definir los días de la clase
@@ -157,13 +157,13 @@ class AdminController extends Controller
                         foreach ($insercciones as $key => $value) {
                             $query='CALL sp_registrar_horario(' . $insercciones[$key][0]. ',\''. $insercciones[$key][1] . '\',\'' . $insercciones[$key][2] . '\','. $insercciones[$key][3] . ',\'' . $insercciones[$key][4] . '\',\'' . $insercciones[$key][5] . '\',\''. $insercciones[$key][6] . '\',\'' . $insercciones[$key][7] . '\',' . $insercciones[$key][8] . ',' . $insercciones[$key][9] . ')';
                             $stmt = $this->conexion->query($query);
-
                             if (!$stmt) {
                                 return response()->json(['errorInfo'=> $this->conexion->errorInfo()],400);
                             }
+                            $stmt->closeCursor();
                             $contador1++;
                         }
-                        return response()->json(['message'=>'Los horarios fueron registrados con éxito'],200);;
+                        return view('adminPanel');
                     }else{
                         return response()->json(['message'=>$error],400);
                     }

@@ -6,7 +6,7 @@
     <h2>Registrar Horarios</h2>
   </div>
   <section class="center-content">
-    <form class="newUserForm" method="POST" action="/AgregarHorario" enctype="multipart/form-data">
+    <form class="newUserForm" method="POST" action="/AgregarHorario" accept-charset="utf-8" enctype="multipart/form-data">
           {{csrf_field()}}
           <div>
           <strong>Año:</strong> <br>
