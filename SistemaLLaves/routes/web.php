@@ -80,6 +80,8 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
 Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
 Route::get('/api/obtenerLlaves','ApisController@getLlaves')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerObjetos','ApisController@getObjetos')->middleware(adminCheckSess::class);
+Route::post('/api/agregarObjeto','ApisController@addObject')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarLlavescsv','ApisController@AgregarLlavescsv')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarUsuario','ApisController@RegistrarUsuario')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarLlave','ApisController@AgregarLlave')->middleware(adminCheckSess::class);

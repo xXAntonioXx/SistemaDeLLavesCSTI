@@ -118,6 +118,12 @@ class ApisController extends Controller
         return $llaves;
     }
 
+    public function getObjetos() {
+        $query = "SELECT * FROM tobjetos";
+        $objetos = $this->conexion->query($query)->fetchAll();
+        return $objetos;
+    }
+
     public function updateUser(Request $req){
         $id = $req['id'];
         $contraseña = !$req['contraseña'] ?  null:password_hash($req['contraseña'],PASSWORD_DEFAULT);
@@ -129,6 +135,27 @@ class ApisController extends Controller
         }
         return response()->json(['message'=>'Datos actualizados con éxito.'],200);
     }
+
+    public function addObject(Request $req) {
+        $this->validate($req,[
+            'nombre'=>'required',
+            'marca'=>'required',
+            'descripcion'=>'required',
+            'cantidad'=>'required'
+        ]);
+
+        $nombre = $req['nombre'];
+        $marca = $req['marca'];
+        $descripcion = $req['descripcion'];
+        $cantidad = $req['cantidad'];
+        $query= 'CALL sp_registrar_objeto(\''.$nombre.'\',\''.$marca.'\',\''.$descripcion.'\','.$cantidad.')';
+        $stmt = $this->conexion->query($query)->fetchAll();
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'El objeto se registró con éxito.']);
+    }
+
 
     public function AgregarLlave(Request $req){
         $this->validate($req,[

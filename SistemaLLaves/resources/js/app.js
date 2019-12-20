@@ -61,7 +61,13 @@ Vue.component(
 Vue.component(
     'llaves',
     require('./components/llavesList.vue')
-)
+);
+
+Vue.component(
+    'objetoslist',
+    require('./components/ObjetosList.vue')
+);
+
 
 const app = new Vue({
     el: '#app',
