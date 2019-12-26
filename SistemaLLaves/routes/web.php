@@ -56,8 +56,12 @@ Route::group(['middleware'=>'CheckSess'],function(){
 //rutas para el administrador##############################################################################
 
     Route::get('/panel','AdminController@Cargar');
+
     Route::get('/panel/nuevoUsuario','AdminController@NuevoUsuario');
     Route::post('/AgregarUsuario','AdminController@RegistrarUsuario');
+
+    Route::get('/panel/actualizarHorarios','AdminController@actualizarHorarios');
+    Route::post('/panel/procesarArchivoHorarios','AdminController@procesarArchivoHorarios');
 
 //API para consultar la base de datos###########################################################################
 
@@ -69,7 +73,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
     Route::get('/api/lap','ApisController@lap');
     Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
     Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
-    Route::get('api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
+    Route::get('/api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
 
     Route::get('api/ObjetosInventario','ApisController@ObjetosInventario');
 });

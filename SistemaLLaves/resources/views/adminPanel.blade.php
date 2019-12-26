@@ -10,7 +10,7 @@
                 <h2>Administrar Usuarios</h2>
                 <p>Agregar nuevos Usuarios o gestionar los que ya existen</p>
            </div>
-            <div>
+            <div onclick="location.href='/panel/actualizarHorarios';">
                 <h2>Cargar un Nuevo Horario</h2>
                 <p>Cambiar el horario de las clases en la base de datos a partir de un archivo CSV</p>
             </div>
