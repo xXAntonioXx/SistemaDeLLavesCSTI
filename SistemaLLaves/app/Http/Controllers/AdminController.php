@@ -85,10 +85,17 @@ class AdminController extends Controller
             $lineas++;  
 
             $consulta = "CALL sp_registrar_horario({$numEmp},'{$nombreMaestro}','{$nombreMateria}',{$llave},'{$programa}','{$dias}','{$hora[0]}','{$hora[1]}','{$year}','{$ciclo}')";
-            //return $consulta;
             $this->conexion->query($consulta);
         }
         
-        return $lineas;
+        return view('actualizarHorarios');
+    }
+
+    public function descargarEjemplo(){
+        $headers = array(
+            'Content-Type: text/csv',
+          );
+        $ejemplo = public_path()."/archivos/HorariosEjemplo.csv";
+        return response()->download($ejemplo,"HorariosEjemplo.csv",$headers);
     }
 }

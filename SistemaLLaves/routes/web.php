@@ -62,6 +62,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
     Route::get('/panel/actualizarHorarios','AdminController@actualizarHorarios');
     Route::post('/panel/procesarArchivoHorarios','AdminController@procesarArchivoHorarios');
+    
 
 //API para consultar la base de datos###########################################################################
 
@@ -80,6 +81,7 @@ Route::group(['middleware'=>'CheckSess'],function(){
 
 Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
 Route::put('/api/actualizarUsuario','ApisController@updateUser');
+Route::get('/panel/descargarEjemplo','AdminController@descargarEjemplo');
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 
