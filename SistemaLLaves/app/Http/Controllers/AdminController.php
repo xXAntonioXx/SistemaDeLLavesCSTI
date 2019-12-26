@@ -85,7 +85,7 @@ class AdminController extends Controller
             $lineas++;  
 
             $consulta = "CALL sp_registrar_horario({$numEmp},'{$nombreMaestro}','{$nombreMateria}',{$llave},'{$programa}','{$dias}','{$hora[0]}','{$hora[1]}','{$year}','{$ciclo}')";
-            return $consulta;
+            //return $consulta;
             $this->conexion->query($consulta);
         }
         

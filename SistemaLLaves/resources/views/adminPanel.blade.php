@@ -22,14 +22,14 @@
                     <p>Cambiar el horario de las clases en la base de datos a partir de un archivo CSV</p>
                 </div>
             </div>
-            <div class="tarjeta">
+            <!-- <div class="tarjeta">
                 <div class="encabezado-tarjeta">
                     <h2>Cargar llaves de las Aulas</h2>
                 </div>
                 <div class="cuerpo-tarjeta">
                     <p>Apartir de un archivo de csv se pueden cargar las llaves de las aulas</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 @stop
