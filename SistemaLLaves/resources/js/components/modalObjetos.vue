@@ -1,7 +1,7 @@
 <template>
     <div class="capa-cebolla1">
         <div class="ventanaModal1">
-            <h4>{{this.accion}} objeto{{this.nombre}}</h4>
+            <h4>{{this.accion}} objeto</h4>
             <div class="formEdit">
                 <label for="nombre">Nombre:</label>
                 <input id="nombre" type="text" v-model="nombre" placeholder="Nombre del objeto"><br>
@@ -113,10 +113,10 @@ export default {
     data(){
         return{
             accion:this.propAccionRealizar,
-            nombre:(this.propNombre) ? this.propNombre:'' ,
-            id:(this.propIdObjeto) ? this.propIdObjeto:0,
-            marca:(this.propMarca) ? this.propMarca:'',
-            descripcion:(this.propDescripcion) ? this.propDescripcion:'',
+            nombre:(this.propNombre) ? this.propNombre.toLowerCase():'' ,
+            id:(this.propIdObjeto) ? this.propIdObjeto.toLowerCase():0,
+            marca:(this.propMarca) ? this.propMarca.toLowerCase():'',
+            descripcion:(this.propDescripcion) ? this.propDescripcion.toLowerCase():'',
             cantidad:(this.propCantidad) ? this.propCantidad:'1'
         }
     },
@@ -126,18 +126,20 @@ export default {
         'propIdObjeto',
         'propMarca',
         'propDescripcion',
-        'propCantidad'
+        'propInventario'
     ],
     methods:{
         saveChanges(cb){
 
           if(this.nombre!='' || this.marca!='' || this.descripcion!='' || this.cantidad>1) {
             if(this.accion=='Agregar'){
-              axios.post('/api/agregarObjeto',{'nombre':this.nombre,'marca':this.marca,'descripcion':this.descripcion,'cantidad':this.cantidad})
-                .then(cb)
-                .catch(err=>cb(err.response));
+                axios.post('/api/agregarObjeto',{'nombre':this.nombre,'marca':this.marca,'descripcion':this.descripcion,'cantidad':this.cantidad})
+                    .then(cb)
+                    .catch(err=>cb(err.response));
             }else if(this.accion=='Modificar'){
-              
+                axios.put('/api/modificarObjeto',{'id':this.id,'nombre':this.nombre,'marca':this.marca,'descripcion':this.descripcion,'cantidad':this.cantidad})
+                    .then(cb)
+                    .catch(err=>cb(err.response))
             }
           }else{
             toast.fire({
@@ -145,17 +147,6 @@ export default {
               title: 'Alguno de los campos se encuentra vacío.'
             })
           }
-            // if(this.nuevoContra==this.nuevoContraRep){
-            //     this.nuevoContra = this.nuevoContra==''&&this.nuevoContra==' '?null:this.nuevoContra;
-            //     axios.put('/api/actualizarUsuario',{'id':this.id,'contraseña':this.nuevoContra,'rol':this.nuevoRol})
-            //         .then(cb)
-            //         .catch(err=>cb(err.response));
-            // }else{
-            //     toast.fire({
-            //         icon: 'error',
-            //         title: 'Las contraseñas no coinciden.'
-            //     })
-            // }
         }
     }
 }

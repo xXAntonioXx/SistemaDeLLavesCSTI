@@ -124,6 +124,22 @@ class ApisController extends Controller
         return $objetos;
     }
 
+    public function EliminarObjetos(Request $req){
+        $arrayObjecs = preg_split('~,~',$req['objects']);
+        $this->conexion->beginTransaction();
+        foreach($arrayObjecs as &$valor) {
+            $stmt=$this->conexion->exec("CALL sp_eliminar_objeto($valor)");
+            if (!$stmt) {
+                $this->conexion->rollBack();
+                return response()->json(['message'=>'Ocurrio un error al eliminar los objetos','err'=>$this->conexion->errorInfo()],500);
+                break;
+            }
+        }
+        unset($valor);
+        $this->conexion->commit();
+        return response()->json(['message'=>'Los objetos se eliminaron con exito'],200);
+    }
+
     public function updateUser(Request $req){
         $id = $req['id'];
         $contraseña = !$req['contraseña'] ?  null:password_hash($req['contraseña'],PASSWORD_DEFAULT);
@@ -154,6 +170,27 @@ class ApisController extends Controller
             return response()->json(['message'=> $this->conexion->errorInfo()],400);
         }
         return response()->json(['message'=> 'El objeto se registró con éxito.']);
+    }
+
+    public function modificarObjeto(Request $req) {
+        $this->validate($req,[
+            'id'=>'required',
+            'nombre'=>'required',
+            'marca'=>'required',
+            'descripcion'=>'required',
+            'cantidad'=>'required'
+        ]);
+        $id=$req['id'];
+        $nombre = $req['nombre'];
+        $marca = $req['marca'];
+        $descripcion = $req['descripcion'];
+        $cantidad = $req['cantidad'];
+        $query= 'CALL sp_editar_objeto('.$id.',\''.$nombre.'\',\''.$marca.'\',\''.$descripcion.'\','.$cantidad.')';
+        $stmt = $this->conexion->query($query);
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'El objeto se actualizó con éxito.']);
     }
 
 
