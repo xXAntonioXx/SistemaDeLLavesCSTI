@@ -113,13 +113,13 @@ class ApisController extends Controller
     }
 
     public function getLlaves() {
-        $query = "SELECT tllaves.id,codigo,numero,CONCAT(area,'-',aula) as aula FROM tllaves INNER JOIN taulas ON tllaves.id_aula=taulas.id";
+        $query = "CALL sp_get_llaves(null)";
         $llaves = $this->conexion->query($query)->fetchAll();
         return $llaves;
     }
 
     public function getObjetos() {
-        $query = "SELECT * FROM tobjetos";
+        $query = "CALL sp_get_objetos(null)";
         $objetos = $this->conexion->query($query)->fetchAll();
         return $objetos;
     }
