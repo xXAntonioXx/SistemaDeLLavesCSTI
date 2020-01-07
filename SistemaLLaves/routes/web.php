@@ -38,7 +38,8 @@ Route::group(['middleware'=>'CheckSess'],function(){
 ################################################################################################################
 //rutas para el area de soporte#################################################################################
 
-    Route::post('/enviarObservacion','SoporteController@EnviarMail');
+    // Route::post('/enviarObservacion','SoporteController@EnviarMail');
+    Route::get('/soporte','SoporteController@home');
 
 ##############################################################################################################
 
