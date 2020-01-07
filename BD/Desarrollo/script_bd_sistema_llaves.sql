@@ -269,8 +269,9 @@ aulas.
 */
 CREATE TABLE treportes(
 id INT(11) AUTO_INCREMENT,
-fecha_inicio TIMESTAMP NOT NULL,
-fecha_fin TIMESTAMP NOT NULL,
+fecha_registro TIMESTAMP NOT NULL,
+fecha_inicio TIMESTAMP NULL,
+fecha_fin TIMESTAMP NULL,
 descripcion VARCHAR(255) NOT NULL,
 num_aula INT(11) NOT NULL,
 PRIMARY KEY(id),
@@ -283,7 +284,7 @@ FOREIGN KEY(num_aula) REFERENCES taulas(numero)
 La siguiente tabla es una tabla auxiliar
 que nos ayudara a controlas los horarios
 de los maestros que tienen horas seguidas
-en el mismo salón.
+en el mismo salï¿½n.
 */
 CREATE TABLE tcontrolHorarios(
   id_registro INT(11),
