@@ -165,7 +165,7 @@ class ApisController extends Controller
         $descripcion = $req['descripcion'];
         $cantidad = $req['cantidad'];
         $query= 'CALL sp_registrar_objeto(\''.$nombre.'\',\''.$marca.'\',\''.$descripcion.'\','.$cantidad.')';
-        $stmt = $this->conexion->query($query)->fetchAll();
+        $stmt = $this->conexion->query($query);
         if (!$stmt) {
             return response()->json(['message'=> $this->conexion->errorInfo()],400);
         }
