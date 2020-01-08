@@ -7,6 +7,19 @@ de soporte, con la finalidad de tener un mejor control de todos los procedimient
 */
 
 /*-----------------------------------------------------*/
+/*------- OBTENER REPORTES-----*/
+/*---------------------------------------------------*/
+DROP PROCEDURE IF EXISTS sp_obtener_reportes_para_soporte;
+DELIMITER //
+CREATE PROCEDURE sistema_llaves.sp_obtener_reportes_para_soporte(
+)
+BEGIN
+    SELECT tr.id,tr.fecha_registro as fecha,CONCAT(ta.area,'-',ta.aula) as aula, tr.descripcion,if(fecha_inicio IS NULL,'Pendiente','En progreso') as estatus FROM treportes as tr INNER JOIN taulas as ta ON tr.num_aula=ta.numero WHERE tr.fecha_fin IS NULL;
+END
+//
+DELIMITER ;
+
+/*-----------------------------------------------------*/
 /*------- REGISTRAR REPORTE-----*/
 /*---------------------------------------------------*/
 /*Con este procedimiento se podra hacer un registro de
@@ -17,8 +30,7 @@ DROP PROCEDURE IF EXISTS sp_registrar_reporte;
 DELIMITER //
 CREATE PROCEDURE sistema_llaves.sp_registrar_reporte(
   in p_descripcion VARCHAR(255),
-  in p_edificio varchar(3),
-  in p_salon int(11)
+  in p_numAula INT(11)
 )
 BEGIN
   IF(p_descripcion IS NULL OR LENGTH(TRIM(p_descripcion))<1)THEN
@@ -26,19 +38,15 @@ BEGIN
 		SET MESSAGE_TEXT='No se especifico una descripción.';
   END IF;
 
-  IF(p_edificio IS NULL OR LENGTH(TRIM(p_edificio))<1)THEN
-    SIGNAL SQLSTATE '46003'
-		SET MESSAGE_TEXT='No se especifico un edificio.';
-  END IF;
 
-  IF(p_salon IS NULL OR LENGTH(TRIM(p_salon))<1)THEN
+  IF(p_numAula IS NULL OR p_numAula<1)THEN
     SIGNAL SQLSTATE '46003'
 		SET MESSAGE_TEXT='No se especifico el número de aula';
   END IF;
 
-  SELECT numero INTO @numAula from taulas where area=UPPER(p_edificio) and aula=p_salon;
-  IF (@numAula IS NOT NULL AND @numAula>0)THEN
-    INSERT INTO treportes(fecha_registro,fecha_inicio,fecha_fin,descripcion,num_aula) VALUES(NOW(),null,null,LOWER(p_descripcion),@numAula);
+  
+  IF EXISTS(SELECT numero from taulas where numero=p_numAula)THEN
+    INSERT INTO treportes(fecha_registro,fecha_inicio,fecha_fin,descripcion,num_aula) VALUES(NOW(),null,null,CONCAT(UPPER(LEFT(p_descripcion,1)),LOWER(SUBSTR(p_descripcion,2))),p_numAula);
   ELSE
     SIGNAL SQLSTATE '46003'
 		SET MESSAGE_TEXT='No se encontro registro con el aula o edificio especificado. Comuniquese con el administrador.';
