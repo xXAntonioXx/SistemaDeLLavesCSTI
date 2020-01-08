@@ -17,7 +17,7 @@
           <h4 id="inventory-item-id" :key="'inventory-item-id-'+objeto['id']" @click="openObjectEdit(objeto['id'],objeto['nombre'],objeto['marca'],objeto['descripcion'],objeto['inventario'])">{{objeto['id']}}</h4>
           <h4 id="inventory-item-object" :key="'inventory-item-object-'+objeto['id']" @click="openObjectEdit(objeto['id'],objeto['nombre'],objeto['marca'],objeto['descripcion'],objeto['inventario'])">{{objeto['nombre']}}</h4>
           <h4 id="inventory-item-brand" :key="'inventory-item-brand-'+objeto['id']" @click="openObjectEdit(objeto['id'],objeto['nombre'],objeto['marca'],objeto['descripcion'],objeto['inventario'])">{{objeto['marca']}}</h4>
-          <h4 id="inventory-item-description" :key="'inventory-item-description-'+objeto['id']" @click="openObjectEdit(objeto['id'],objeto['nombre'],objeto['marca'],objeto['descripcion'],objeto['inventario'])">{{objeto['descripcion']}}</h4>
+          <h4 id="inventory-item-description" :key="'inventory-item-description-'+objeto['id']" @click="openObjectEdit(objeto['id'],objeto['nombre'],objeto['marca'],objeto['descripcion'],objeto['inventario'])">{{(objeto['descripcion'].length <35) ? objeto['descripcion'] : (objeto['descripcion'].substring(0,35)+'...')}}</h4>
           <h4 id="inventory-item-quantity" :key="'inventory-item-quantity-'+objeto['id']" @click="openObjectEdit(objeto['id'],objeto['nombre'],objeto['marca'],objeto['descripcion'],objeto['inventario'])">{{objeto['inventario']}}</h4>
         </div>
       </div>
