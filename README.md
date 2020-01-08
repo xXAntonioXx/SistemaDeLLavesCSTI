@@ -10,6 +10,11 @@ Una vez ya bajado el repositorio entrar a la carpeta de la aplicacion y usar los
 - php artisan key:generate
 - php artisan serve
 
+**Realizar cambios en componentes**
+Cuando usted realice cambios en los componentes VUE es necesario reconstruir el archivo principal javascript para poder ver reflejados dichos cambios, por lo cual es necesario ejecutar el siguiente comando utilizando el manejador de paquetes npm.
+
+    npm run dev
+
 
 ## Usando Docker:
 ### Instalar dependencias javascript usando docker:
@@ -22,6 +27,11 @@ Una vez ubicados en la carpeta mencionada es necesario ejecutar el siguiente com
     docker-compose -f docker-compose.builder.yml run --rm add-dep
 
 Si node le arroja algún error en las dependencias, usted tendrá que instalar manualmente las dependencias. Para instalar manualmente las dependencias podemos abrir el archivo *docker-compose.builder.yml* y en el bloque que tiene la instrucción `npm install` debemos colocar individualmente cada dependencia y después ejecutar el comando mencionado anteriormente.
+
+### Construir el app js con los componentes vue usando docker:
+Cuando usted realice cambios en los componentes es necesario que los reconstruya por lo cual es necesario ejecutar el comando siguiente:
+
+    docker-compose -f docker-compose.builder.yml run --rm install
 
 ### Ejecutar el proyecto para demostración utilizando docker:
 > El proyecto solo puede ser ejecutado con docker para demostración ya que actualmente los archivos creados, no se encuentran optimizados para poder usar docker para un ambiente productivo.
