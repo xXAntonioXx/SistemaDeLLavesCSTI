@@ -68,6 +68,11 @@ Vue.component(
     require('./components/ObjetosList.vue')
 );
 
+Vue.component(
+    'soporte',
+    require('./components/soporteList.vue')
+);
+
 
 const app = new Vue({
     el: '#app',
