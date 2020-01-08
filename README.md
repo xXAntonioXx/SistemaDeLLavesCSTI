@@ -11,7 +11,8 @@ Una vez ya bajado el repositorio entrar a la carpeta de la aplicacion y usar los
 - php artisan serve
 
 **Realizar cambios en componentes**
-Cuando usted realice cambios en los componentes VUE es necesario reconstruir el archivo principal javascript para poder ver reflejados dichos cambios, por lo cual es necesario ejecutar el siguiente comando utilizando el manejador de paquetes npm.
+
+Cuando usted realice cambios en los componentes VUE, es necesario reconstruir el archivo principal javascript para poder ver reflejados dichos cambios, por lo cual es necesario ejecutar el siguiente comando utilizando el manejador de paquetes npm.
 
     npm run dev
 
