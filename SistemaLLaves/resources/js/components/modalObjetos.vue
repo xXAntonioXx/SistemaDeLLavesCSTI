@@ -8,7 +8,7 @@
                 <label for="marca">Marca:</label>
                 <input id="marca" type="text" v-model="marca" placeholder="Marca del objeto"><br>
                 <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" placeholder="Caracteristicas y/o detalles" v-model="descripcion"></textarea><br>
+                <textarea id="descripcion" placeholder="Características y/o detalles" v-model="descripcion"></textarea><br>
                 <label for="cantidad">Cantidad:</label>
                 <input type="number" id="cantidad" v-model="cantidad">
             </div>
@@ -131,7 +131,7 @@ export default {
     methods:{
         saveChanges(cb){
 
-          if(this.nombre!='' || this.marca!='' || this.descripcion!='' || this.cantidad>1) {
+          if(this.nombre!='' && this.marca!='' && this.descripcion!='' && this.cantidad>0) {
             if(this.accion=='Agregar'){
                 axios.post('/api/agregarObjeto',{'nombre':this.nombre,'marca':this.marca,'descripcion':this.descripcion,'cantidad':this.cantidad})
                     .then(cb)
