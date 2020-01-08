@@ -39,7 +39,7 @@
           <h3 class="materia">Materia</h3>
           <h3 class="aula">Aula</h3>
           <h3 class="hora">Hora</h3>
-          <select class="combo-box inputs" @change="formularioParaExcepcion()">
+          <select class="combo-box inputs" @change="formularioParaExcepcion()" disabled>
             <option value="Rivera Samudio">Rivera Samudio</option>
             <option value="Lab-IQ">Lab-IQ</option>
             <option value="Lab-Mecatronica">Lab-Mecatronica</option>
