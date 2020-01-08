@@ -75038,9 +75038,10 @@ var render = function() {
                   [
                     _vm._v(
                       _vm._s(
-                        objeto["descripcion"].length < 35
-                          ? objeto["descripcion"]
-                          : objeto["descripcion"].substring(0, 35) + "..."
+                        objeto["descripcion"] &&
+                          objeto["descripcion"].length > 35
+                          ? objeto["descripcion"].substring(0, 35) + "..."
+                          : objeto["descripcion"]
                       )
                     )
                   ]
@@ -75784,9 +75785,10 @@ var render = function() {
                   [
                     _vm._v(
                       _vm._s(
-                        objeto["descripcion"].length < 35
-                          ? objeto["descripcion"]
-                          : objeto["descripcion"].substring(0, 35) + "..."
+                        objeto["descripcion"] &&
+                          objeto["descripcion"].length > 35
+                          ? objeto["descripcion"].substring(0, 35) + "..."
+                          : objeto["descripcion"]
                       )
                     )
                   ]

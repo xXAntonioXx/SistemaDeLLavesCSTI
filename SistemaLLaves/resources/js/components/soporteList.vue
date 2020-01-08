@@ -17,7 +17,7 @@
           <h4 id="inventory-item-id" :key="'inventory-item-id-'+objeto['id']">{{objeto['id']}}</h4>
           <h4 id="inventory-item-object" :key="'inventory-item-object-'+objeto['id']">{{objeto['fecha']}}</h4>
           <h4 id="inventory-item-brand" :key="'inventory-item-brand-'+objeto['id']">{{objeto['aula']}}</h4>
-          <h4 id="inventory-item-description" :key="'inventory-item-description-'+objeto['id']">{{ (objeto['descripcion'].length <35) ? objeto['descripcion'] : (objeto['descripcion'].substring(0,35)+'...')}}</h4>
+          <h4 id="inventory-item-description" :key="'inventory-item-description-'+objeto['id']">{{ (objeto['descripcion'] && objeto['descripcion'].length >35) ? (objeto['descripcion'].substring(0,35)+'...') :objeto['descripcion'] }}</h4>
           <h4 id="inventory-item-quantity" :key="'inventory-item-quantity-'+objeto['id']">{{objeto['estatus']}}</h4>
         </div>
       </div>
