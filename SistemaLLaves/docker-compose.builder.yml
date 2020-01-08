@@ -14,7 +14,7 @@ services:
   add-dep:
     extends:
       service: base
-    command: npm install sweetalert2
+    command: npm install
   # initial:
   #   extends:
   #     service: base
