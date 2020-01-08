@@ -88,7 +88,12 @@ Route::post('/api/AgregarUsuario','ApisController@RegistrarUsuario')->middleware
 Route::post('/api/AgregarLlave','ApisController@AgregarLlave')->middleware(adminCheckSess::class);
 Route::post('/api/EliminarObjetos','ApisController@EliminarObjetos')->middleware(adminCheckSess::class);
 Route::put('/api/modificarObjeto','ApisController@modificarObjeto')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerAulas','SoporteController@getAulas')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerReportes','SoporteController@getReportes')->middleware(adminCheckSess::class);
+Route::post('/api/agregarReporte','SoporteController@registrarReporte')->middleware(adminCheckSess::class);
+
 Route::put('/api/actualizarUsuario','ApisController@updateUser');
+
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 
