@@ -9,7 +9,9 @@ que hacen operaciones que solo los administradores pueden realizar.
 
 
 /**/
-
+/*-----------------------------------------------------*/
+/*----- OBTENER LLAVES PARA EL REGISTRO DE LLAVES ----*/
+/*---------------------------------------------------*/
 DELIMITER //
 DROP PROCEDURE IF EXISTS sp_get_llaves;
 CREATE PROCEDURE sistema_llaves.sp_get_llaves(
