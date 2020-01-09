@@ -320,7 +320,7 @@ BEGIN
 		SIGNAL SQLSTATE '46009'
 		SET MESSAGE_TEXT=p_mensaje;
 	END IF;
-	SELECT prs.id_control AS id_control,prs.id_objeto as id_objeto,obj.nombre,obj.marca
+	SELECT prs.id_control AS id_control,prs.id_objeto as id_objeto,obj.nombre,obj.marca,prs.estado
 	FROM tprestamos AS prs
 	INNER JOIN tobjetos AS obj ON  obj.id=prs.id_objeto
 	WHERE prs.id=p_id_prestamo;
@@ -355,13 +355,13 @@ BEGIN
 		SET @num =(LENGTH(p_arreglo) - LENGTH(REPLACE(p_arreglo, ',', '')))+1;
 
 		IF @num = 1 THEN
-			UPDATE sistema_llaves.tprestamos SET estado=1 WHERE id=p_id_prestamo and id_control=p_arreglo;
+			UPDATE sistema_llaves.tprestamos SET estado=1 WHERE id=p_id_prestamo and id_objeto=p_arreglo;
 		ELSEIF @num>1 THEN
 			SET p_arreglo= CONCAT(p_arreglo,",");
 			WHILE @num > 0 DO
 				SET @argTemp=SUBSTRING(p_arreglo,1,LOCATE(",",p_arreglo)-1);
 
-				UPDATE sistema_llaves.tprestamos SET estado=1 WHERE id=p_id_prestamo and id_control=CAST(@argTemp AS SIGNED INTEGER);
+				UPDATE sistema_llaves.tprestamos SET estado=1 WHERE id=p_id_prestamo and id_objeto=CAST(@argTemp AS SIGNED INTEGER);
 
 				SET @num = @num - 1;
 				IF (@num >0) THEN
