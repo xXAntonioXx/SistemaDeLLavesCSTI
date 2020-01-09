@@ -2,6 +2,39 @@
     .cebolla{
         font-size: 0.5em;
     }
+
+
+    .section-title {
+        font-size: 0.8em;
+        text-align: center;
+        width: 100%;
+    }
+
+    .section-title>h2{
+        font-size: 1.2em;
+    }
+
+    .csv-expicacion{
+        width: 90%;
+        text-align: justify;
+        font-size: 14px;
+    }
+
+    #cargar_llaves_titulo{
+        margin-bottom: 0;
+    }
+    .center-content {
+        display: flex;
+        justify-content: center;
+    }
+
+    .center-content .newUserForm>div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
     .contenedor{
         width: 90%;
         display: grid;
@@ -18,6 +51,10 @@
         font-family: 'Hind',sans-serif;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         border-radius: 4px;
+    }
+
+    h4{
+        text-align: center;
     }
 
     .contenedor .tarjeta:hover {
@@ -48,6 +85,22 @@
         flex-wrap: wrap;
     }
 
+    .twoColBody .left-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        text-align:center;
+    }
+
+    .right-content #app {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        height:100%
+    }
+
     .contenedor .tarjeta .cuerpo-tarjeta p {
         font-size: 1.3em;
     }
@@ -56,31 +109,41 @@
         font-family: Arial, Helvetica, sans-serif;
         font-size: 0.6em;
         text-align: left;
-        margin-left: 5ch;
-        margin-top: 5ch;
+        /* margin-left: 5ch;
+        margin-top: 5ch; */
     }
     .inp{
+        font-family: Hind,sans-serif;
         width: 300px;
         height: 35px;
         background: #E8E8E8;
-        border: none;
-        font-size: 1em;
+        border: 1px solid #585858;
+        font-size: 1rem;
         margin-bottom: 1em;
+        border-radius: 20px;
+        padding-left: 15px;
     }
     .inp:focus{
         background: lightgray;
+        outline-style: none;
     }
     
     .twoColBody{
         display: grid;
         grid-template-columns: 1fr 1fr;
+        height: 100%;
     }
     .dropdown{
+        font-family: Hind,sans-serif;
+        font-size: 1rem;
         background: #E8E8E8;
-        border: none;
-        width: 150px;
-        height: 30px;
+        border: 1px solid #585858;
+        width: 315px;
+        height: 35px;
+        margin-top: 5px;
         margin-bottom: 1em;
+        border-radius: 20px;
+        padding-left: 15px;
     }
     .dropdown:focus{
         background: white;
@@ -92,10 +155,15 @@
         height: 30px;
         background: #004990;
         border: none;
+        border-radius: 20px;
         color: white;
     }
     .submitBtn:hover{
         cursor: pointer;
+    }
+
+    .newUserForm strong{
+        padding-left: 10px;
     }
 
     .lista_users{
@@ -103,13 +171,19 @@
         list-style-type: none;
         margin:0;
         height: 70%;
-        background: #F8F8F8;
-        width: 90%;;
+        max-height: 60vh;
+        width: 90%;
         padding: 0;
+        border-radius: 5px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     }
 
-    .card_user{
+    .colContent{
+        overflow-y: auto;
+        max-height: 90%;
+    }
+
+    .card_user, .card_llaves{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         height: 35px;
@@ -118,7 +192,18 @@
         width: 100%;
     }
 
-    .card_user:hover{
+    .card_llaves {
+        grid-template-columns: 0.5fr 1fr 1fr 1.5fr;
+    }
+
+    .card_llaves i {
+        font-style: normal;
+        font-family: 'Hind',sans-serif;
+        color: #606060;
+        width: 80%;
+        margin-left: 20%;
+    }
+    .card_user:hover, .card_llaves:hover{
         background: gainsboro;
     }
 
@@ -129,6 +214,7 @@
         width: 80%;
         margin-left: 20%;
     }
+
 
     .titulo{
         font-size: 0.8em;

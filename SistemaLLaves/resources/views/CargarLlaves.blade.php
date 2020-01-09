@@ -1,7 +1,7 @@
 @extends('layouts.navFoot')
 @section('cuerpo')
-<div id="app" style="display:flex; justify-content: center;">
-  <objetoslist></objetoslist>
+<div id="app">
+    <registrollaves></registrollaves>
 </div>
 <script src="{{asset('js/app.js')}}"></script>
 @stop

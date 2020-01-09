@@ -38,7 +38,8 @@ Route::group(['middleware'=>'CheckSess'],function(){
 ################################################################################################################
 //rutas para el area de soporte#################################################################################
 
-    Route::post('/enviarObservacion','SoporteController@EnviarMail');
+    // Route::post('/enviarObservacion','SoporteController@EnviarMail');
+    Route::get('/soporte','SoporteController@home');
 
 ##############################################################################################################
 
@@ -58,7 +59,10 @@ Route::group(['middleware'=>'CheckSess'],function(){
     Route::get('/panel','AdminController@Cargar');
 
     Route::get('/panel/nuevoUsuario','AdminController@NuevoUsuario');
-    Route::post('/AgregarUsuario','AdminController@RegistrarUsuario');
+    Route::get('/panel/cargarHorarios','AdminController@CargarHorarios');
+    Route::get('/panel/cargarLlaves','AdminController@CargarLlaves');
+    Route::post('/AgregarHorario','AdminController@AgregarHorario');
+
 
     Route::get('/panel/actualizarHorarios','AdminController@actualizarHorarios');
     Route::post('/panel/procesarArchivoHorarios','AdminController@procesarArchivoHorarios');
@@ -76,12 +80,26 @@ Route::group(['middleware'=>'CheckSess'],function(){
     Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
     Route::get('/api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
 
+
     Route::get('api/ObjetosInventario','ApisController@ObjetosInventario');
 });
 
 Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerLlaves','ApisController@getLlaves')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerObjetos','ApisController@getObjetos')->middleware(adminCheckSess::class);
+Route::post('/api/agregarObjeto','ApisController@addObject')->middleware(adminCheckSess::class);
+Route::post('/api/AgregarLlavescsv','ApisController@AgregarLlavescsv')->middleware(adminCheckSess::class);
+Route::post('/api/AgregarUsuario','ApisController@RegistrarUsuario')->middleware(adminCheckSess::class);
+Route::post('/api/AgregarLlave','ApisController@AgregarLlave')->middleware(adminCheckSess::class);
+Route::post('/api/EliminarObjetos','ApisController@EliminarObjetos')->middleware(adminCheckSess::class);
+Route::put('/api/modificarObjeto','ApisController@modificarObjeto')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerAulas','SoporteController@getAulas')->middleware(adminCheckSess::class);
+Route::get('/api/obtenerReportes','SoporteController@getReportes')->middleware(adminCheckSess::class);
+Route::post('/api/agregarReporte','SoporteController@registrarReporte')->middleware(adminCheckSess::class);
+
 Route::put('/api/actualizarUsuario','ApisController@updateUser');
 Route::get('/panel/descargarEjemplo','AdminController@descargarEjemplo');
+
 //Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
 ###############################################################################################################
 

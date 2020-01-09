@@ -9,6 +9,23 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
+import swal from 'sweetalert2';
+window.swal = swal;
+
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', swal.stopTimer)
+        toast.addEventListener('mouseleave', swal.resumeTimer)
+    }
+})
+
+window.toast = toast;
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -29,6 +46,33 @@ Vue.component(
     'usuarios',
     require('./components/usuariosList.vue')
 );
+
+Vue.component(
+    'registrousuario',
+    require('./components/registrarUsuario.vue')
+);
+
+Vue.component(
+    'registrollaves',
+    require('./components/registrarLlaves.vue')
+
+);
+
+Vue.component(
+    'llaves',
+    require('./components/llavesList.vue')
+);
+
+Vue.component(
+    'objetoslist',
+    require('./components/ObjetosList.vue')
+);
+
+Vue.component(
+    'soporte',
+    require('./components/soporteList.vue')
+);
+
 
 const app = new Vue({
     el: '#app',

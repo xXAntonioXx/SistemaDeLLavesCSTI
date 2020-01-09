@@ -39,7 +39,7 @@
           <h3 class="materia">Materia</h3>
           <h3 class="aula">Aula</h3>
           <h3 class="hora">Hora</h3>
-          <select class="combo-box inputs" @change="formularioParaExcepcion()">
+          <select class="combo-box inputs" @change="formularioParaExcepcion()" disabled>
             <option value="Rivera Samudio">Rivera Samudio</option>
             <option value="Lab-IQ">Lab-IQ</option>
             <option value="Lab-Mecatronica">Lab-Mecatronica</option>
@@ -244,7 +244,10 @@ export default {
         console.log(this.codigoKey+"  "+this.globalTime+"  "+this.registroForm['id']+"  "+this.PrestamoList.slice(0,-1));
         axios.post('/api/nuevoRegistro',{'llave':this.codigoKey,'fechaHora':this.globalTime,'idHorario':this.registroForm['id'],'objList':this.PrestamoList.slice(0,-1)})
         .then((res)=>{
-          alert('registro realizado');
+          toast.fire({
+            icon:'success',
+            title: 'Prestamo registrado.'
+          });
           this.fetchRegistros();
           this.cleanObjPrestamo();
         });

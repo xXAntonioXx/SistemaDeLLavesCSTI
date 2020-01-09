@@ -10,7 +10,7 @@ function conectar(){
     
     // $username = "KeySystem";
     // $password = "KeySystem";
-    // $dataBase = "sistema_llaves2";
+    // $dataBase = "sistema_llaves";
     // $host = "localhost";
 
     $cs = "mysql:host={$host};dbname={$dataBase};charset=utf8";

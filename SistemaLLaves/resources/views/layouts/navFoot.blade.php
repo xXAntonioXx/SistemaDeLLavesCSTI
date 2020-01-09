@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta name="csrf-token" content="{{csrf_token()}}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Prestamo de llaves</title>
+  <title>Préstamo de llaves</title>
   <link rel="icon" type="image/png" href="{{asset('/images/key.ico')}}">
   <link rel="stylesheet" href="{{asset('css/principal.css')}}">
   <link rel="stylesheet" href="{{asset('css/admin.css')}}">
@@ -35,7 +35,7 @@
             <a href="/inventario" class="link">Inventario</a>
           </li>
           <li>
-            <a href="#modal-soporte-container" class="link">Soporte</a>
+            <a href="/soporte" class="link">Soporte</a>
           </li>
           <li>
            <a href="/salir" ><i class="icon-salir salir"></i></a>
@@ -44,30 +44,10 @@
         </ol>
       </nav>
       <i class="icon-out log-out" id="log-out"></i>
-      <div id="modal-soporte-container" class="modal-soporte-container">
-        <form action="/enviarObservacion" method="post" class="modal-soporte-content">
-          {{csrf_field()}}
-          <h2 class="modal-soporte-tittle">Reportar problema</h3>
-          <div class="modal-soporte-description">
-            <h3>Asunto</h3>
-            <input type="text" id="modal-soporte-asunto" name="asunto">
-            <h3>Descripción</h3>
-            <textarea rows="7" cols="68" id="modal-descripcion" name="description"></textarea>
-          </div>
-          <div class="modal-soporte-buttons">
-            <input type="submit" value="Enviar" class="modal-soporte-button-aceptar">
-            <input type="button" value="Cancelar" class="modal-soporte-button-cancelar" onclick="window.location='#';">
-          </div>
-        </form>
-      </div>
-          
-        </ol>
-      </nav>
-      <i class="icon-out log-out" id="log-out"></i>
     </header>
     @yield('cuerpo')
     <footer class="footer">
-      <h3>&copy; Derechos Reservados</h3>
+      <h3>&copy; Derechos Reservados 2018-2019</h3>
       <h3>&lsaquo; Acerca de Nosotros &rsaquo;</h3>
     </footer>
   </div>

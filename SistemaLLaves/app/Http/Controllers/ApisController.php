@@ -85,17 +85,175 @@ class ApisController extends Controller
         return $registrar;
     }
 
+    public function RegistrarUsuario(Request $req){
+
+        $this->validate($req,[
+            'NewUserName'=>'required',
+            'userPass'=>'required',
+            'rol'=>'required|integer'
+        ]);
+
+        $nombre = $req['NewUserName'];
+        $contraseña = $req['userPass'];
+        $rol = $req['rol'];
+        $PASS=password_hash($contraseña,PASSWORD_DEFAULT);
+        $consulta = "INSERT INTO tusuarios(nombre,contrasena,rol) VALUES('{$nombre}','{$PASS}',{$rol})";
+        $stmt=$this->conexion->query($consulta);
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'El usuario se registro con éxito.'],200);
+        
+    }
+
     public function getUsuarios(){
         $query = "SELECT id,nombre,rol,estado FROM tusuarios";
         $usuarios = $this->conexion->query($query)->fetchAll();
         return $usuarios;
     }
 
+    public function getLlaves() {
+        $query = "CALL sp_get_llaves(null)";
+        $llaves = $this->conexion->query($query)->fetchAll();
+        return $llaves;
+    }
+
+    public function getObjetos() {
+        $query = "CALL sp_get_objetos(null)";
+        $objetos = $this->conexion->query($query)->fetchAll();
+        return $objetos;
+    }
+
+    public function EliminarObjetos(Request $req){
+        $arrayObjecs = preg_split('~,~',$req['objects']);
+        $this->conexion->beginTransaction();
+        foreach($arrayObjecs as &$valor) {
+            $stmt=$this->conexion->exec("CALL sp_eliminar_objeto($valor)");
+            if (!$stmt) {
+                $this->conexion->rollBack();
+                return response()->json(['message'=>'Ocurrio un error al eliminar los objetos','err'=>$this->conexion->errorInfo()],500);
+                break;
+            }
+        }
+        unset($valor);
+        $this->conexion->commit();
+        return response()->json(['message'=>'Los objetos se eliminaron con exito'],200);
+    }
+
     public function updateUser(Request $req){
         $id = $req['id'];
-        $contraseña = password_hash($req['contraseña'],PASSWORD_DEFAULT);
+        $contraseña = !$req['contraseña'] ?  null:password_hash($req['contraseña'],PASSWORD_DEFAULT);
         $rol = $req['rol'];
         $update = "call UpdateUser({$id},'{$contraseña}',{$rol})";
-        $this->conexion->query($update);
+        $stmt=$this->conexion->query($update);
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=>'Datos actualizados con éxito.'],200);
     }
+
+    public function addObject(Request $req) {
+        $this->validate($req,[
+            'nombre'=>'required',
+            'marca'=>'required',
+            'descripcion'=>'required',
+            'cantidad'=>'required'
+        ]);
+
+        $nombre = $req['nombre'];
+        $marca = $req['marca'];
+        $descripcion = $req['descripcion'];
+        $cantidad = $req['cantidad'];
+        $query= 'CALL sp_registrar_objeto(\''.$nombre.'\',\''.$marca.'\',\''.$descripcion.'\','.$cantidad.')';
+        $stmt = $this->conexion->query($query);
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'El objeto se registró con éxito.']);
+    }
+
+    public function modificarObjeto(Request $req) {
+        $this->validate($req,[
+            'id'=>'required',
+            'nombre'=>'required',
+            'marca'=>'required',
+            'descripcion'=>'required',
+            'cantidad'=>'required'
+        ]);
+        $id=$req['id'];
+        $nombre = $req['nombre'];
+        $marca = $req['marca'];
+        $descripcion = $req['descripcion'];
+        $cantidad = $req['cantidad'];
+        $query= 'CALL sp_editar_objeto('.$id.',\''.$nombre.'\',\''.$marca.'\',\''.$descripcion.'\','.$cantidad.')';
+        $stmt = $this->conexion->query($query);
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'El objeto se actualizó con éxito.']);
+    }
+
+
+    public function AgregarLlave(Request $req){
+        $this->validate($req,[
+            'codigo'=>'required',
+            'num'=>'required',
+            'area'=>'required',
+            'aula'=>'required'
+        ]);
+
+        $codigo = $req['codigo'];
+        $numaula = $req['num'];
+        $area = $req['area'];
+        $aula = $req['aula'];
+        $stmt = $this->conexion->query('CALL sp_registrar_llave('.$codigo.','.$numaula.',\''.$area.'\',\''.$aula.'\')')->fetchAll();
+        if (!$stmt) {
+            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+        }
+        return response()->json(['message'=> 'La llave se registró con éxito.']);
+    }
+
+    /**
+     * Función para agregar llaves a la base de datos por medio de un archivo csv
+     * 
+     * @param Request $req Solicitud por parte del cliente, la cual debe contener un archivo con extensión csv.
+     * @return Response $json Devuelve un json con el código resultante de la acción, devuelve 200-OK si todo salío bien.
+     */
+    public function AgregarLlavescsv(Request $req) {
+        if($req->hasFile('archivo_fls')) {
+            $file = $req->file('archivo_fls');
+            $fileName =  $file->getClientOriginalName();
+            if (preg_match("/.csv$/",$fileName)) {
+                $fileName = 'll' . time() . '.csv';
+                $file->move('../storage/app/public',$fileName);
+                if (($archivo=fopen('../storage/app/public/'.$fileName,'r')) !==FALSE) {
+                    //leer archivo linea por linea
+                    while (($linea = fgetcsv($archivo,10000,",")) !== FALSE) {
+
+                        // Registro de la primer llave del aula.
+                        $stmt1 = $this->conexion->query('CALL sp_registrar_llave('.$linea[0].','.$linea[2].',\''.$linea[3].'\',\''.$linea[4].'\')')->fetchAll();
+                        if (!$stmt1) {
+                            fclose($archivo);
+                            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+                        }
+
+                        //Registro de la segunda llave del aula.
+                        $stmt2 = $this->conexion->query('CALL sp_registrar_llave('.$linea[1].','.$linea[2].',\''.$linea[3].'\',\''.$linea[4].'\')')->fetchAll();
+                        if (!$stmt2) {
+                            fclose($archivo);
+                            return response()->json(['message'=> $this->conexion->errorInfo()],400);
+                        }
+
+                    }
+                    fclose($archivo);
+                    return response()->json(['message'=>'Las llaves fueron registradas con éxito'],200);;
+                }
+                return response()->json(['message'=>'El archivo no se sguardó correctamente!'],500);
+            }
+        }else{
+            return response()->json(['message'=>'Solo se permiten arcivos con extensiónnn csv'],400);;
+        }
+        return response()->json(['message'=>'Solo se permiten arcivos con extensión csv'],400);;
+    }
+
 }

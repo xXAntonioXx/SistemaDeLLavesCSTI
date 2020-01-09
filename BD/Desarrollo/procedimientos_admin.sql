@@ -8,6 +8,23 @@ que hacen operaciones que solo los administradores pueden realizar.
 */
 
 
+/**/
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS sp_get_llaves;
+CREATE PROCEDURE sistema_llaves.sp_get_llaves(
+	in p_codigo BIGINT(20)
+)
+BEGIN
+	IF(p_codigo IS NULL or p_codigo=0)THEN
+		SELECT tllaves.id,codigo,numero,CONCAT(area,'-',aula) as aula FROM tllaves INNER JOIN taulas ON tllaves.id_aula=taulas.id;
+	ELSE
+		SELECT tllaves.id,codigo,numero,CONCAT(area,'-',aula) as aula FROM tllaves INNER JOIN taulas ON tllaves.id_aula=taulas.id WHERE tllaves.codigo=p_codigo;
+	END IF;
+END
+//
+DELIMITER ;
+
 /*-----------------------------------------------------*/
 /*------------ REGISTRO DE LLAVES Y SALON ------------*/
 /*---------------------------------------------------*/
