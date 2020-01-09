@@ -54,3 +54,18 @@ BEGIN
 END
 //
 DELIMITER ;
+
+
+/*-----------------------------------------------------*/
+/*------- OBTIENE LAS LLAVES PARA LA MODAL DE REGISTRO DE REPORTES-----*/
+/*---------------------------------------------------*/
+
+DROP PROCEDURE IF EXISTS sp_obtener_llaves_para_reportes;
+DELIMITER //
+CREATE PROCEDURE IF EXISTS sistema_llaves.sp_obtener_llaves_para_reportes(
+)
+BEGIN
+  SELECT numero,CONCAT(area,'-',aula) as aula FROM taulas order by aula asc;
+END
+//
+DELIMITER ;
