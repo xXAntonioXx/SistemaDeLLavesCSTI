@@ -38,7 +38,7 @@ class SoporteController extends Controller
 
 
     public function getAulas(){
-        $query="SELECT numero,CONCAT(area,'-',aula) as aula FROM taulas order by aula asc";
+        $query="CALL sp_obtener_llaves_para_reportes()";
         $aulas= $this->conexion->query($query)->fetchAll();
         return $aulas;
     }
