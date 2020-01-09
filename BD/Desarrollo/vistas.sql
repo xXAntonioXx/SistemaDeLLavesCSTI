@@ -7,10 +7,10 @@ ayudar a visualizar la cierta información.
 
 */
 
-DROP VIEW IF EXISTS wv_horarios;
+DROP VIEW IF EXISTS vw_horarios;
 CREATE DEFINER=CURRENT_USER
 SQL SECURITY INVOKER
-VIEW wv_horarios AS
+VIEW vw_horarios AS
 SELECT DISTINCT(ho.id) AS id, mae.nombre AS maestro, mat.nombre AS materia, CONCAT(aul.area,'-',aul.aula) AS aula, tdi.dias AS dias, CONCAT(tho.hora_inicio,'-',tho.hora_fin) as hora
 FROM thorarios AS ho
 INNER JOIN sistema_llaves.taulas  	  AS aul  ON aul.numero = ho.num_aula
