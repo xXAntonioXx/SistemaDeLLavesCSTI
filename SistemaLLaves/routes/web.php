@@ -79,23 +79,23 @@ Route::group(['middleware'=>'CheckSess'],function(){
     Route::get('/api/buscarHorario/{codigo}/{hora}','ApisController@buscarHorario');
     Route::get('/api/devolucionOprestamo/{codigo}','ApisController@Devolucion_O_Prestamo');
     Route::get('/api/obtenerObjetos/{idPrestamo}','ApisController@ObjetosPrestados');
-
+    Route::get('/api/obtenerObjetos','ApisController@getObjetos');
+    Route::post('/api/agregarObjeto','ApisController@addObject');
+    Route::post('/api/EliminarObjetos','ApisController@EliminarObjetos');
+    Route::put('/api/modificarObjeto','ApisController@modificarObjeto');
+    Route::get('/api/obtenerAulas','SoporteController@getAulas');
+    Route::get('/api/obtenerReportes','SoporteController@getReportes');
+    Route::post('/api/agregarReporte','SoporteController@registrarReporte');
 
     Route::get('api/ObjetosInventario','ApisController@ObjetosInventario');
 });
 
 Route::get('/api/obtenerUsuarios','ApisController@getUsuarios')->middleware(adminCheckSess::class);
 Route::get('/api/obtenerLlaves','ApisController@getLlaves')->middleware(adminCheckSess::class);
-Route::get('/api/obtenerObjetos','ApisController@getObjetos')->middleware(adminCheckSess::class);
-Route::post('/api/agregarObjeto','ApisController@addObject')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarLlavescsv','ApisController@AgregarLlavescsv')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarUsuario','ApisController@RegistrarUsuario')->middleware(adminCheckSess::class);
 Route::post('/api/AgregarLlave','ApisController@AgregarLlave')->middleware(adminCheckSess::class);
-Route::post('/api/EliminarObjetos','ApisController@EliminarObjetos')->middleware(adminCheckSess::class);
-Route::put('/api/modificarObjeto','ApisController@modificarObjeto')->middleware(adminCheckSess::class);
-Route::get('/api/obtenerAulas','SoporteController@getAulas')->middleware(adminCheckSess::class);
-Route::get('/api/obtenerReportes','SoporteController@getReportes')->middleware(adminCheckSess::class);
-Route::post('/api/agregarReporte','SoporteController@registrarReporte')->middleware(adminCheckSess::class);
+
 
 Route::put('/api/actualizarUsuario','ApisController@updateUser');
 Route::get('/panel/descargarEjemplo','AdminController@descargarEjemplo');
