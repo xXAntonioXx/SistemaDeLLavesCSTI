@@ -13,7 +13,7 @@
   <div class="container">
     <form action="/validate" method ="post" class="inicio-sesion">
       {{csrf_field()}}
-      <h1>Iniciar Sesion</h1>
+      <h1>Iniciar Sesión</h1>
       <h2>Usuario</h2>
       <input type="text" placeholder="Ingresa tu suario" name="nombre">
       <h2>Contraseña</h2>
@@ -32,7 +32,7 @@
       <a href="">¿Olvidó su contraseña?</a>
       <input type="submit" class="ingresar" style="display:none;">
       <input type="submit" value="Ingresar" class="ingresar"/>
-      <img src="{{asset('/images/logo-76aniversario.png')}}" width="80px" alt="Logo Aniversario Unison">
+      <img src="{{asset('/images/logo-77aniversario.png')}}" width="80px" alt="Logo Aniversario Unison">
     </form>
     
 
