@@ -246,7 +246,7 @@ export default {
         .then((res)=>{
           toast.fire({
             icon:'success',
-            title: 'Prestamo registrado.'
+            title: 'Préstamo registrado.'
           });
           this.fetchRegistros();
           this.cleanObjPrestamo();

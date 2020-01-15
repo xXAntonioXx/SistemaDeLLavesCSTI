@@ -69735,7 +69735,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.post('/api/nuevoRegistro', { 'llave': this.codigoKey, 'fechaHora': this.globalTime, 'idHorario': this.registroForm['id'], 'objList': this.PrestamoList.slice(0, -1) }).then(function (res) {
         toast.fire({
           icon: 'success',
-          title: 'Prestamo registrado.'
+          title: 'Préstamo registrado.'
         });
         _this6.fetchRegistros();
         _this6.cleanObjPrestamo();
