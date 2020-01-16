@@ -200,19 +200,12 @@ export default {
         'llave'
     ],
     methods:{
-        hacerDevolucion(){
+        hacerDevolucion(cb){
             let cadenaObjetos=this.objetosDevueltos.join();
             //console.log(this.idRegistro +"*"+this.hora +"*"+this.PrestamoID+"*"+cadenaObjetos);
             axios.post('/api/devolucion',{'codigoLLave':this.llave,'idRegistro':this.idRegistro,'horaDevolucion':this.hora,'idPrestamos':this.PrestamoID,'objDevueltos':cadenaObjetos})
-            .then((res)=>{
-                toast.fire({
-                    icon:'success',
-                    title: 'Devolución registrada'
-                })
-            })
-            .catch(()=>{
-                console.error('sucedio un error');
-            });
+            .then(cb)
+            .catch(err=>cb(err.response));
         },
         cancelar(){
             this.objetos,this.hora,this.idRegistro,this.PrestamoID,this.Aula=null;

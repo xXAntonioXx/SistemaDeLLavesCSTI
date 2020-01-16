@@ -69671,9 +69671,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     devolucion: function devolucion() {
-      this.$refs.ventanaDevolucion.hacerDevolucion();
-      this.fetchRegistros();
-      this.codigoKey = '';
+      var _this4 = this;
+
+      this.$refs.ventanaDevolucion.hacerDevolucion(function (response) {
+
+        if (response.status == 200) {
+          toast.fire({
+            icon: 'success',
+            title: 'Devolución registrada'
+          });
+          _this4.fetchRegistros();
+          _this4.codigoKey = '';
+        } else {
+          toast.fire({
+            icon: 'error',
+            title: 'Ups! Ocurrio un error.'
+          });
+        }
+      });
     },
     cancelarDevolucion: function cancelarDevolucion() {
       this.$refs.ventanaDevolucion.cancelar();
@@ -69681,7 +69696,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.codigoKey = '';
     },
     buscarHorario: function buscarHorario(codigoLLave) {
-      var _this4 = this;
+      var _this5 = this;
 
       //obtenemos id,maestro,materia,aula con el codigo de llave
       var time = this.showTime();
@@ -69690,22 +69705,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var busqueda = 'api/buscarHorario/' + codigoLLave + '/' + time;
       axios.get(busqueda).then(function (res) {
         if (res.data) {
-          _this4.registroForm = res.data;
-          _this4.registroForm['hora'] = _this4.showTime(2);
-          _this4.RegistrarState = false;
+          _this5.registroForm = res.data;
+          _this5.registroForm['hora'] = _this5.showTime(2);
+          _this5.RegistrarState = false;
         }
       }).catch(function (res) {});
 
       this.estadoInput = true;
     },
     agregarCombo: function agregarCombo(identificador, objeto) {
-      var _this5 = this;
+      var _this6 = this;
 
       //deshabilitamos el combo seleccionado y generamos un nuevo combo
       if (this.comboIterates.length < 4) {
         this.PrestamoList += objeto + ',';
         var customObj = this.ObjetosCombo.filter(function (item) {
-          return !_this5.PrestamoList.includes(item.id);
+          return !_this6.PrestamoList.includes(item.id);
         });
         this.comboIterates.push({ id: identificador['id'] + 1, valor: '0', estado: false, ObjetosDisponibles: customObj });
       } else if (this.comboIterates.length == 4) {
@@ -69728,7 +69743,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.PrestamoList = '';
     },
     NuevoRegistro: function NuevoRegistro() {
-      var _this6 = this;
+      var _this7 = this;
 
       //se genera un nuevo registro y recarga todos los registros en el area derecha y limpia el formulario
       console.log(this.codigoKey + "  " + this.globalTime + "  " + this.registroForm['id'] + "  " + this.PrestamoList.slice(0, -1));
@@ -69737,8 +69752,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           icon: 'success',
           title: 'Préstamo registrado.'
         });
-        _this6.fetchRegistros();
-        _this6.cleanObjPrestamo();
+        _this7.fetchRegistros();
+        _this7.cleanObjPrestamo();
       });
     }
   }
@@ -70961,16 +70976,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: ['objetos', 'hora', 'idRegistro', 'idPrestamo', 'maestro', 'materia', 'aula', 'llave'],
     methods: {
-        hacerDevolucion: function hacerDevolucion() {
+        hacerDevolucion: function hacerDevolucion(cb) {
             var cadenaObjetos = this.objetosDevueltos.join();
             //console.log(this.idRegistro +"*"+this.hora +"*"+this.PrestamoID+"*"+cadenaObjetos);
-            axios.post('/api/devolucion', { 'codigoLLave': this.llave, 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.PrestamoID, 'objDevueltos': cadenaObjetos }).then(function (res) {
-                toast.fire({
-                    icon: 'success',
-                    title: 'Devolución registrada'
-                });
-            }).catch(function () {
-                console.error('sucedio un error');
+            axios.post('/api/devolucion', { 'codigoLLave': this.llave, 'idRegistro': this.idRegistro, 'horaDevolucion': this.hora, 'idPrestamos': this.PrestamoID, 'objDevueltos': cadenaObjetos }).then(cb).catch(function (err) {
+                return cb(err.response);
             });
         },
         cancelar: function cancelar() {

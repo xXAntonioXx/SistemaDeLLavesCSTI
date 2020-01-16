@@ -185,9 +185,22 @@ export default {
       },
 
       devolucion(){
-        this.$refs.ventanaDevolucion.hacerDevolucion();
-        this.fetchRegistros();
-        this.codigoKey='';
+        this.$refs.ventanaDevolucion.hacerDevolucion((response)=>{
+          
+          if(response.status==200){
+            toast.fire({
+              icon: 'success',
+              title: 'Devolución registrada'
+            });
+            this.fetchRegistros();
+            this.codigoKey='';
+          } else {
+            toast.fire({
+              icon: 'error',
+              title: 'Ups! Ocurrio un error.'
+            });
+          }
+        });
       },
       cancelarDevolucion(){
         this.$refs.ventanaDevolucion.cancelar();
