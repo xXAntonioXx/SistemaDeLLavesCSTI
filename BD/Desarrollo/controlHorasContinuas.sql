@@ -4,6 +4,15 @@ DROP TRIGGER IF EXISTS tg_horaSiguiente_BI;
 CREATE TRIGGER tg_horaSiguiente_BI BEFORE INSERT
 ON tregistros FOR EACH ROW
 BEGIN
+	DECLARE p_hora TIMESTAMP DEFAULT NOW();
+	SET p_hora = NEW.hora_entrada;
+	IF CONVERT(MINUTE(p_hora),UNSIGNED) > 39 THEN
+ 		SET p_hora = p_hora + INTERVAL (60 - CONVERT(MINUTE(p_hora),UNSIGNED)) MINUTE;
+ 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
+ 	ELSE 
+ 		SET p_hora = p_hora - INTERVAL CONVERT(MINUTE(p_hora),UNSIGNED) MINUTE;
+ 		SET P_hora = p_hora - INTERVAL (SECOND(p_hora)) SECOND;
+ 	END IF;
 		IF EXISTS(
 			SELECT *
 			FROM thorarios AS ho
@@ -15,7 +24,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
 			INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
 			WHERE mae.num_emp=(SELECT num_emp_maestro FROM thorarios WHERE id=NEW.id_horario)
-			AND  tho.hora_inicio=CONCAT(SUBSTRING((NEW.hora_entrada+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
+			AND  tho.hora_inicio=CONCAT(SUBSTRING((p_hora+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
 			AND  aul.numero=(SELECT num_aula FROM thorarios WHERE id=NEW.id_horario)
 			AND tdi.dias LIKE  CONCAT('%',(ELT(WEEKDAY(NEW.hora_entrada) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),'%')
 			)THEN
@@ -30,7 +39,7 @@ BEGIN
 				INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
 				INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
 				WHERE mae.num_emp=(SELECT num_emp_maestro FROM thorarios WHERE id=NEW.id_horario)
-				AND  tho.hora_inicio=CONCAT(SUBSTRING((NEW.hora_entrada+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
+				AND  tho.hora_inicio=CONCAT(SUBSTRING((p_hora+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
 				AND  aul.numero=(SELECT num_aula FROM thorarios WHERE id=NEW.id_horario)
 				AND tdi.dias LIKE  CONCAT('%',(ELT(WEEKDAY(NEW.hora_entrada) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),'%')	
 			);
