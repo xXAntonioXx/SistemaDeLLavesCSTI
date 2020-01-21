@@ -64,11 +64,11 @@ BEGIN
 	DECLARE p_codigo_llave BIGINT(20);
 	DECLARE done INT DEFAULT FALSE;
 
-
+SELECT id_registro,codigo_llave,id_horario,thr.hora_inicio FROM tcontrolHorarios as tch INNER JOIN thorarios as th ON tch.id_horario=th.id INNER JOIN tdias_horas as tdh ON th.id_dias_horas=tdh.id INNER JOIN thoras as thr ON thr.id=tdh.idHoras WHERE estado=0 AND thr.hora_inicio<NOW()
 
 	-- declaramos cursor
 	DECLARE cur_controlHorarios CURSOR FOR
-		SELECT id_registro,codigo_llave,id_horario,thr.hora_inicio 
+		SELECT id_registro,codigo_llave,id_horario 
 		FROM tcontrolHorarios as tch 
 		INNER JOIN thorarios as th ON tch.id_horario=th.id 
 		INNER JOIN tdias_horas as tdh ON th.id_dias_horas=tdh.id 
