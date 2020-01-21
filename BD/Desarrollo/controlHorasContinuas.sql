@@ -73,7 +73,7 @@ BEGIN
 		INNER JOIN thorarios as th ON tch.id_horario=th.id 
 		INNER JOIN tdias_horas as tdh ON th.id_dias_horas=tdh.id 
 		INNER JOIN thoras as thr ON thr.id=tdh.idHoras 
-		WHERE estado=0 AND thr.hora_inicio<NOW();
+		WHERE estado=0 AND thr.hora_inicio<NOW()
 		FOR UPDATE;
 
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done =TRUE;
