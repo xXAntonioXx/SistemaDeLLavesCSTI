@@ -24,6 +24,7 @@ BEGIN
 			INNER JOIN sistema_llaves.tdias 	  AS tdi  ON tdi.id = tdh.idDias
 			INNER JOIN sistema_llaves.thoras 	  AS tho  ON tho.id = tdh.idHoras
 			WHERE mae.num_emp=(SELECT num_emp_maestro FROM thorarios WHERE id=NEW.id_horario)
+			AND mae.num_emp!=1
 			AND  tho.hora_inicio=CONCAT(SUBSTRING((p_hora+INTERVAL 1 HOUR),12,2),":00:00") AND llav.ref=NEW.id_horario
 			AND  aul.numero=(SELECT num_aula FROM thorarios WHERE id=NEW.id_horario)
 			AND tdi.dias LIKE  CONCAT('%',(ELT(WEEKDAY(NEW.hora_entrada) + 1, 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO')),'%')
